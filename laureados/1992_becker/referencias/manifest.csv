@@ -1,0 +1,10 @@
+id,titulo,doi,url,estado_descarga,licencia
+nobel1992_press,The Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel 1992: Gary S. Becker,,https://www.nobelprize.org/prizes/economic-sciences/1992/press-release/,solo_enlace,Dominio publico institucional
+nobel1992_advanced,Gary S. Becker's Contributions to Economics,,https://www.nobelprize.org/prizes/economic-sciences/1992/advanced-information/,solo_enlace,Dominio publico institucional
+becker1957discrimination,The Economics of Discrimination,,https://press.uchicago.edu/ucp/books/book/chicago/E/bo24419047.html,solo_enlace,Copyright comercial
+becker1964human_capital,Human Capital: A Theoretical and Empirical Analysis with Special Reference to Education,,https://www.nber.org/books-and-chapters/human-capital-theoretical-and-empirical-analysis-special-reference-education-first-edition,solo_enlace,Acceso abierto NBER
+becker1965time,A Theory of the Allocation of Time,10.2307/2228949,https://doi.org/10.2307/2228949,solo_enlace,Copyright Royal Economic Society
+becker1968crime,Crime and Punishment: An Economic Approach,10.1086/259394,https://doi.org/10.1086/259394,solo_enlace,Copyright University of Chicago Press
+becker1974altruism,A Theory of Social Interactions,10.1086/260265,https://doi.org/10.1086/260265,solo_enlace,Copyright University of Chicago Press
+becker1981family,A Treatise on the Family,,https://www.hup.harvard.edu/books/9780674906990,solo_enlace,Copyright comercial
+becker1993nobel_lecture,Nobel Lecture: The Economic Way of Looking at Behavior,10.1086/261880,https://doi.org/10.1086/261880,solo_enlace,Copyright American Economic Association / UCP

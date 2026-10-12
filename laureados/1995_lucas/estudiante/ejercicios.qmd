@@ -1,0 +1,141 @@
+---
+title: "Guía de Ejercicios Prácticos: Expectativas Racionales, Extracción de Señal y la Crítica de Lucas"
+subtitle: "Premio Nobel de Economía 1995: Robert E. Lucas Jr."
+author: "Nobel_economics Docencia"
+date: "2026-10-12"
+format:
+  html:
+    toc: true
+    number-sections: true
+    theme: cosmo
+---
+
+# Introducción
+
+El Premio Nobel de Economía de 1995 concedido a **Robert E. Lucas Jr.** reconoció el impacto revolucionario de la hipótesis de **expectativas racionales** en la macroeconomía moderna. Lucas transformó la teoría del ciclo económico, la evaluación de políticas públicas y la teoría del crecimiento mediante tres contribuciones canónicas:
+
+1. **El Modelo de las Islas de Lucas (1972, 1973):** El problema de extracción de señal bajo información imperfecta, demostrando que solo las sorpresas no anticipadas tienen efectos reales transitorios.
+2. **La Crítica de Lucas (1976):** La no invarianza de los parámetros de forma reducida ante modificaciones en las reglas de política económica sistemáticas.
+3. **El Modelo de Crecimiento con Capital Humano (1988) y la Paradoja de Lucas (1990):** El rol del conocimiento como motor endógeno del desarrollo y el enigma de la ausencia de flujos masivos de capital hacia los países en desarrollo.
+
+Esta guía presenta ejercicios estructurados en tres niveles (básico, intermedio y avanzado/reto) para poner a prueba tu comprensión matemática, econométrica e intuitiva de estos modelos.
+
+---
+
+# Ejercicio 1: Extracción de Señal y la Hipótesis de Varianza de Lucas (Nivel Básico)
+
+Considera una economía compuesta por múltiples mercados o islas competitivas (Lucas, 1972, 1973). En el periodo $t$, el productor de la isla $i$ observa únicamente el precio nominal de su propio bien $p_{it}$ (en logaritmos), definido por:
+
+$$p_{it} = p_t + z_{it}$$
+
+donde:
+- $p_t \sim \mathcal{N}(\bar{p}, \sigma_p^2)$ es el nivel general de precios de la economía (shock nominal agregado).
+- $z_{it} \sim \mathcal{N}(0, \sigma_z^2)$ es una perturbación real idiosincrásica de demanda relativa en la isla $i$.
+- $p_t$ y $z_{it}$ son independientes ($\text{Cov}(p_t, z_{it}) = 0$).
+
+El productor decide su oferta $y_{it}$ en función del precio relativo esperado de su producto frente al nivel general:
+
+$$y_{it} = y_n + \gamma (p_{it} - \mathbb{E}[p_t \mid p_{it}]), \quad \gamma > 0$$
+
+## Preguntas
+
+1. **Derivación de la Proyección Lineal:**
+   - Demuestra formalmente, utilizando las propiedades de la distribución normal bivariada, que la expectativa condicional del nivel general de precios dado el precio local observado es:
+     $$\mathbb{E}[p_t \mid p_{it}] = \bar{p} + \frac{\sigma_p^2}{\sigma_p^2 + \sigma_z^2} (p_{it} - \bar{p})$$
+   - Deduce la expresión del precio relativo percibido $r_{it}^{percebido} = p_{it} - \mathbb{E}[p_t \mid p_{it}]$ y encuentra el parámetro de extracción de señal $\theta \equiv \frac{\sigma_z^2}{\sigma_z^2 + \sigma_p^2}$.
+
+2. **Oferta Agregada y Pendiente de la Curva de Phillips:**
+   - Agregando la producción sobre todas las islas (sabiendo que $\int z_{it} di = 0$ y por ende el promedio de $p_{it}$ es $p_t$), demuestra que la oferta agregada de la economía viene dada por:
+     $$y_t = y_n + \alpha (\sigma_p) (p_t - \bar{p})$$
+     donde $\alpha(\sigma_p) = \gamma \theta$.
+
+3. **Calibración Numérica e Interpretación:**
+   - Supón que la varianza de choques reales relativos es fija en $\sigma_z^2 = 4.0$ y la elasticidad estructural es $\gamma = 1.0$.
+   - Calcula numéricamente el valor de $\theta$ y la pendiente $\alpha$ para tres países con distintos regímenes de estabilidad de precios:
+     - **País A (EE.UU. años 60):** $\sigma_p = 0.5$ ($\sigma_p^2 = 0.25$).
+     - **País B (Italia años 70):** $\sigma_p = 2.0$ ($\sigma_p^2 = 4.0$).
+     - **País C (Argentina años 80):** $\sigma_p = 6.0$ ($\sigma_p^2 = 36.0$).
+   - Explica intuitivamente por qué un productor en Argentina reacciona de forma radicalmente distinta ante una subida del $10\%$ en el precio de su producto frente a un productor en Alemania o Estados Unidos.
+
+---
+
+# Ejercicio 2: La Crítica de Lucas y la Inestabilidad Econométrica (Nivel Intermedio)
+
+Supón que el producto real de una economía responde a sorpresas inflacionarias de acuerdo con la función estructural:
+
+$$y_t = y_n + \beta (\pi_t - \mathbb{E}_{t-1}[\pi_t]) + \varepsilon_t$$
+
+donde $y_n = 100$, $\beta = 1.5$, y $\varepsilon_t \sim \text{iid}\mathcal{N}(0, \sigma_\varepsilon^2)$ con $\sigma_\varepsilon = 0.5$ es un choque real de oferta.
+
+El banco central determina la inflación mediante una regla de política monetaria autorregresiva:
+
+$$\pi_t = \mu + \rho \pi_{t-1} + v_t, \quad v_t \sim \text{iid}\mathcal{N}(0, \sigma_v^2), \quad |\rho| < 1$$
+
+con $\sigma_v = 1.0$.
+
+## Preguntas
+
+1. **Formación de Expectativas Racionales:**
+   - Calcula analíticamente la expectativa condicional $\mathbb{E}_{t-1}[\pi_t]$ bajo la hipótesis de expectativas racionales.
+   - Determina la sorpresa inflacionaria $\pi_t - \mathbb{E}_{t-1}[\pi_t]$ y escribe la expresión final del producto $y_t$ en términos de los choques estructurales exógenos.
+   - Demuestra que el producto esperado incondicional $\mathbb{E}[y_t]$ es independiente de los parámetros de la política monetaria $\mu$ y $\rho$.
+
+2. **La Ilusión Econométrica Tradicional:**
+   - Un macroeconometrista de la vieja escuela ajusta por Mínimos Cuadrados Ordinarios la regresión reducida:
+     $$y_t = a + b \pi_t + u_t$$
+   - Demuestra que el valor poblacional del coeficiente $b = \frac{\text{Cov}(y_t, \pi_t)}{\text{Var}(\pi_t)}$ es:
+     $$b(\rho) = \beta (1 - \rho^2)$$
+   - ¿Qué conclusión errónea extrae este econometrista respecto a la existencia de un trade-off explotable entre inflación y actividad económica?
+
+3. **Simulación del Cambio de Régimen (La Falacia de Política):**
+   - Durante el **Régimen 1** (política histórica de baja inercia), los parámetros fueron $\mu_1 = 2.0$ y $\rho_1 = 0.25$. Calcula el valor teórico de $b_1$ y la inflación media de largo plazo $\bar{\pi}_1 = \frac{\mu_1}{1 - \rho_1}$.
+   - Un nuevo gobierno asume el poder y decide aplicar una política fuertemente expansiva para elevar el PIB: fija $\mu_2 = 12.0$ y $\rho_2 = 0.85$ (**Régimen 2**).
+   - Utilizando el coeficiente $b_1$ estimado en el Régimen 1, ¿cuál es el aumento de producto $\Delta y$ que el gobierno pronostica falsamente que obtendrá?
+   - Bajo expectativas racionales, ¿cuál es el valor real de $\mathbb{E}[y]$ tras el cambio de régimen? ¿A qué valor converge el nuevo coeficiente de regresión $b_2$?
+   - Explica con tus propias palabras la esencia de la **Crítica de Lucas**.
+
+---
+
+# Ejercicio 3: Reto Avanzado: Crecimiento Endógeno (Lucas 1988) y la Paradoja de Lucas (1990)
+
+## Parte A: El Modelo de Crecimiento con Capital Humano (Lucas, 1988)
+
+Considera una economía representativa donde la función de producción agregada es:
+
+$$Y_t = A K_t^\alpha (u_t h_t L_t)^{1-\alpha} h_{a,t}^\gamma$$
+
+donde $K_t$ es el stock de capital físico, $h_t$ es el nivel de capital humano por trabajador, $u_t \in (0, 1)$ es la fracción de tiempo laboral dedicada a la producción corriente, y $(1 - u_t)$ es la fracción dedicada a la educación y acumulación de cualificaciones. $h_{a,t}$ representa el nivel promedio de capital humano de la sociedad (externalidad social spillover), y en equilibrio competitivo $h_{a,t} = h_t$.
+
+La tecnología de acumulación de capital humano sigue la formulación de Uzawa-Lucas:
+
+$$\dot{h}_t = \delta (1 - u_t) h_t$$
+
+con $\delta > 0$.
+
+1. Demuestra que, en una senda de crecimiento balanceado (BGP) donde $u_t = u^*$ permanece constante, la tasa de crecimiento del capital humano es:
+   $$g_h = \frac{\dot{h}_t}{h_t} = \delta (1 - u^*)$$
+2. En la senda de crecimiento balanceado, el capital físico $K_t$ y el producto $Y_t$ crecen a la misma tasa constante $g_y$. Demuestra que, en presencia de la externalidad ($\gamma > 0$), la tasa de crecimiento de la economía es:
+   $$g_y = \frac{1 - \alpha + \gamma}{1 - \alpha} g_h$$
+3. ¿Por qué este modelo genera crecimiento autosostenido sin necesidad de asumir progreso tecnológico exógeno a la Solow? ¿Cuál es la implicación para las políticas públicas de subsidio a la educación?
+
+---
+
+## Parte B: La Paradoja de Lucas (1990)
+
+En su célebre artículo de 1990, Lucas analizó por qué el capital internacional no se desplaza en masa desde los países desarrollados hacia los países emergentes.
+
+Supón que la función de producción intensiva per cápita es puramente Cobb-Douglas neoclásica:
+
+$$y = k^\alpha, \quad \alpha = 0.4$$
+
+donde $y$ es el producto por trabajador y $k$ es el capital físico por trabajador.
+
+1. **Diferencial Neoclásico de Retornos al Capital:**
+   - Calcula analíticamente el Producto Marginal del Capital ($\text{PMK} = \frac{\partial y}{\partial k}$) como función de $y$.
+   - Si el PIB por trabajador de Estados Unidos es 15 veces el de la India ($y_{US} / y_{IN} = 15$), calcula el cociente teórico del retorno del capital:
+     $$\frac{\text{PMK}_{IN}}{\text{PMK}_{US}}$$
+   - ¿Qué predice la teoría neoclásica del comercio internacional sobre los flujos de capital entre EE.UU. e India?
+
+2. **Resolución de la Paradoja por Capital Humano y Factores Institucionales:**
+   - Supón ahora que el trabajo efectivo incorpora capital humano: $y = k^\alpha (E h)^{1-\alpha}$. Si un trabajador estadounidense posee un capital humano efectivo $h_{US}$ 5 veces superior al de un trabajador indio ($h_{US} / h_{IN} = 5$), recalcula la relación real de capital por unidad de trabajo efectivo y el diferencial ajustado de $\text{PMK}$.
+   - Además de las diferencias en capital humano, ¿qué otros factores institucionales (derechos de propiedad, riesgo de expropiación, costos de información, riesgo soberano) identificó la literatura posterior (Alfaro et al., 2008) para explicar por qué el capital no fluye hacia el mundo en desarrollo?

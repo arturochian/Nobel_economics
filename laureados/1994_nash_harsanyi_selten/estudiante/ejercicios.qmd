@@ -1,0 +1,118 @@
+---
+title: "Guía de Ejercicios Prácticos: Teoría de Juegos No Cooperativos y Refinamientos de Equilibrio"
+subtitle: "Premio Nobel de Economía 1994: John F. Nash Jr., Reinhard Selten y John C. Harsanyi"
+author: "Nobel_economics Docencia"
+date: "1994-10-11"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta guía pedagógica aplicarás directamente los conceptos fundamentales desarrollados por los laureados de 1994:
+1. **El Teorema de Nash y las Estrategias Mixtas:** Cómo resolver juegos donde no existe un equilibrio en estrategias puras calculando las probabilidades que hacen al adversario indiferente entre sus opciones.
+2. **El Refinamiento Dinámico de Selten (SPE):** Cómo distinguir entre una amenaza puramente retórica y un compromiso creíble en interacciones secuenciales de mercado.
+3. **La Transformación Bayesiana de Harsanyi:** Cómo formular la función de puja óptima en un entorno de información asimétrica (subasta de primer precio con valores privados).
+
+---
+
+# Ejercicio 1: Inspección Fiscal y Evasión Tributaria (Nivel Básico)
+
+Considera la interacción estratégica entre la Administración Tributaria (Jugador 1, Filas) y un Contribuyente empresarial (Jugador 2, Columnas).
+
+- **Estrategias del Contribuyente:** Declarar ingresos con veracidad ($D$) o Evadir impuestos ($E$).
+- **Estrategias de la Administración:** Auditar e inspeccionar ($A$) o No auditar ($NA$).
+
+Los parámetros del juego son:
+- Impuesto legal debido: $T = \$10$.
+- Coste operativo de realizar una auditoría para el fisco: $c = \$4$.
+- Multa sancionadora adicional si el contribuyente es descubierto evadiendo: $F = \$8$ (paga en total $T + F = \$18$).
+- Si no se audita y el contribuyente evade, el fisco recauda $\$0$ y el contribuyente conserva todo su ingreso evadido. Si declara honestamente, el fisco recauda $T = \$10$ sin importar si audita o no.
+
+La matriz de pagos netos (Fisco, Contribuyente) es:
+
+| Fisco \ Contribuyente | Declarar ($D$) | Evadir ($E$) |
+| :--- | :---: | :---: |
+| **Auditar ($A$)** | $(10 - c, -T) = (6, -10)$ | $(T + F - c, -(T + F)) = (14, -18)$ |
+| **No Auditar ($NA$)** | $(10, -T) = (10, -10)$ | $(0, 0)$ |
+
+## Preguntas:
+
+1. **Inexistencia de Equilibrio en Estrategias Puras:**
+   - Para cada una de las 4 celdas, determina si algún jugador tiene incentivos unilaterales para desviarse.
+   - Demuestra formalmente por qué no existe ningún equilibrio de Nash en estrategias puras en este juego.
+2. **Condición de Indiferencia y Estrategia Mixta de Nash:**
+   - Sea $p = \Pr(\text{Fisco audita})$ y sea $q = \Pr(\text{Contribuyente declara verazmente})$.
+   - Formula la utilidad esperada del Contribuyente al declarar verazmente ($EU_C(D)$) y al evadir ($EU_C(E)$) en función de $p$.
+   - Halla el valor de $p^*$ que hace al contribuyente exactamente indiferente entre declarar y evadir.
+   - Formula la utilidad esperada del Fisco al auditar ($EU_F(A)$) y al no auditar ($EU_F(NA)$) en función de $q$.
+   - Halla el valor de $q^*$ que hace al fisco indiferente entre auditar y no auditar.
+3. **Paradoja de las Políticas Públicas e Interpretación Económica:**
+   - ¿Qué ocurre con la tasa de auditoría de equilibrio $p^*$ si el gobierno endurece la multa sancionadora $F$? ¿Aumenta, disminuye o se mantiene constante? Explica la intuición del resultado de Harsanyi y Nash sobre por qué una mayor sanción reduce la necesidad de auditorías policiales de equilibrio.
+
+---
+
+# Ejercicio 2: Disuasión de Entrada y Compromiso Creíble de Selten (Nivel Intermedio)
+
+Considera el mercado de telecomunicaciones de una región. Una empresa Entrante ($E$) evalúa incursionar en el mercado donde opera una empresa Incumbente monopólica ($I$).
+
+### Escenario A: Juego Sin Capacidad Previa de Compromiso
+- Etapa 1: $E$ elige entre **Entrar** ($IN$) o **Quedarse Fuera** ($OUT$).
+- Si $E$ elige $OUT$, el juego concluye con pagos $(E: 0, I: 9)$.
+- Si $E$ elige $IN$, la firma $I$ decide entre **Acomodar** ($A$, duopolio compartido) o **Pelear** ($F$, guerra de precios destructiva).
+- Pagos si entran: si $I$ acomoda, $(E: 3, I: 4)$; si $I$ pelea, $(E: -2, I: -1)$.
+
+### Escenario B: Inversión Previa Irreversible ("Quemar las Naves")
+Antes de que $E$ tome su decisión, el Incumbente $I$ tiene la opción en una Etapa 0 de invertir un monto irreversible de capital $K = 6$ en una planta de alta capacidad automatizada. 
+- La inversión de capital reduce drásticamente el coste marginal de producción del incumbente durante una guerra de precios.
+- Si $I$ invirtió $K=6$:
+  - Si $E$ queda fuera: pago de $I$ es $9 - 6 = 3$.
+  - Si $E$ entra y se desata la guerra de precios ($F$): el coste de producir a gran escala se reduce tanto que los pagos son $(E: -2, I: 2 - 6 = -4)$ si no pelea, pero si pelea agressivamente con su nueva capacidad, sus pagos son $(E: -2, I: 0)$ frente a acomodar que le da $(E: 3, I: 4 - 6 = -2)$.
+
+## Preguntas:
+
+1. **Resolución del Escenario A:**
+   - Dibuja el árbol de juego en forma extensiva.
+   - Encuentra todos los equilibrios de Nash en la forma normal estática.
+   - Aplica el algoritmo de inducción hacia atrás de Reinhard Selten y determina el único **Equilibrio Perfecto en Subjuegos** (SPE).
+   - Explica con claridad por qué la promesa o amenaza pública del incumbente *"Si entras, bajaremos los precios a pérdida"* no es creíble.
+2. **Resolución del Escenario B:**
+   - Resuelve el subjuego resultante si el incumbente invierte $K$.
+   - ¿Cómo cambia la mejor respuesta del incumbente ante la entrada tras la inversión en capacidad instalada?
+   - Demuestra si al incumbente le resulta rentable invertir en capacidad para disuadir la entrada en el SPE completo del juego de tres etapas.
+
+---
+
+# Ejercicio 3: Subasta de Primer Precio con Valores Privados (Harsanyi - Nivel Reto)
+
+Dos empresas constructoras ($i \in \{1, 2\}$) compiten en una subasta a sobre cerrado de primer precio para adjudicarse una concesión de infraestructura.
+- La valoración privada de cada postor $v_i$ es una variable aleatoria continua distribuida de forma independiente y uniforme en el intervalo $[0, 1]$: $v_i \sim U[0, 1]$.
+- Cada postor conoce con certeza su propia valoración $v_i$, pero solo conoce la distribución a priori $U[0, 1]$ respecto a la valoración de su competidor $v_j$ (**Doctrina de Harsanyi**).
+- Ambos postores presentan simultáneamente una puja $b_i \ge 0$.
+- El postor con la puja más alta gana la concesión y paga su propia puja; si hay empate, una moneda al aire decide el ganador. El perdedor no paga nada.
+- La función de utilidad del postor $i$ es:
+  $$u_i(b_i, b_j; v_i) = \begin{cases} v_i - b_i & \text{si } b_i > b_j \\ \frac{1}{2}(v_i - b_i) & \text{si } b_i = b_j \\ 0 & \text{si } b_i < b_j \end{cases}$$
+
+## Preguntas:
+
+1. **Planteamiento Bayesiano:**
+   - Asume una conjetura de equilibrio simétrico en estrategias monótonas crecientes y lineales: $b_j(v_j) = k \cdot v_j$, con $k \in (0, 1)$.
+   - Dado que $v_j \sim U[0, 1]$, determina la probabilidad acumulada de que el postor $i$ gane la subasta al realizar una puja $b_i \in [0, k]$:
+     $$\Pr(\text{Ganar}) = \Pr(b_j \le b_i) = \Pr(k \cdot v_j \le b_i)$$
+2. **Optimización de la Puja y Equilibrio de Nash Bayesiano (BNE):**
+   - Escribe la función de beneficio esperado $\mathbb{E}[u_i(b_i; v_i)]$ como producto de la probabilidad de ganar por el margen de ganancia $(v_i - b_i)$.
+   - Deriva la condición de primer orden respecto a $b_i$ y calcula la puja óptima $b_i^*(v_i)$.
+   - Comprueba que la conjetura inicial se cumple e identifica el valor constante del coeficiente $k^*$.
+3. **Interpretación Económica del Sombreado de Puja (*Bid Shading*):**
+   - ¿Por qué en el equilibrio bayesiano de Nash cada postor puja exactamente la mitad de su valoración real ($b^*(v_i) = \frac{1}{2} v_i$)?
+   - ¿Cómo se compara este resultado con el principio de revelación de Vickrey en subastas de segundo precio?
+
+---
+
+# Preguntas de Discusión y Debate
+
+1. **Nash vs. Pareto:** En el Dilema del Prisionero, el equilibrio de Nash conduce a un resultado ineficiente en sentido de Pareto. ¿Indica esto un fallo en la racionalidad individual o en la arquitectura institucional de la interacción?
+2. **La Mano Temblorosa de Selten:** ¿Por qué un modelo de racionalidad perfecta requiere suponer que los jugadores pueden cometer errores infinitesimales (*trembling hand*) para refinar los equilibrios en subjuegos extensivos?
+3. **La Hipótesis del Prior Común de Harsanyi:** ¿Es realista en la economía contemporánea suponer que todos los agentes económicos comparten la misma distribución de probabilidad a priori sobre los estados de la naturaleza antes de recibir información privada?

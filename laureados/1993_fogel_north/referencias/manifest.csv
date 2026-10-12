@@ -1,0 +1,11 @@
+id,titulo,doi,url,estado_descarga,licencia
+nobel1993_press,The Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel 1993: Robert W. Fogel and Douglass C. North,,https://www.nobelprize.org/prizes/economic-sciences/1993/press-release/,solo_enlace,Dominio publico institucional
+nobel1993_advanced,Robert W. Fogel and Douglass C. North's Contributions to Economic History,,https://www.nobelprize.org/prizes/economic-sciences/1993/advanced-information/,solo_enlace,Dominio publico institucional
+fogel1962quantitative,A Quantitative Approach to the Study of Railroads in American Economic Growth,10.1017/S0022050700102608,https://doi.org/10.1017/S0022050700102608,solo_enlace,Copyright Cambridge University Press
+fogel1964railroads,Railroads and American Economic Growth: Essays in Econometric History,,https://jhupbooks.press.jhu.edu/,solo_enlace,Copyright Johns Hopkins Press
+fogel1974time,Time on the Cross: The Economics of American Negro Slavery,,https://wwnorton.com/,solo_enlace,Copyright comercial
+fogel1994lecture,Economic Growth Population Theory and Physiology,10.2307/2118058,https://www.jstor.org/stable/2118058,solo_enlace,Copyright American Economic Association
+north1973western,The Rise of the Western World: A New Economic History,10.1017/CBO9780511819438,https://doi.org/10.1017/CBO9780511819438,solo_enlace,Copyright Cambridge University Press
+north1989constitutions,Constitutions and Commitment: The Evolution of Institutions Governing Public Debt in Seventeenth-Century England,10.1017/S0022050700009451,https://doi.org/10.1017/S0022050700009451,solo_enlace,Copyright Cambridge University Press
+north1990institutions,Institutions Institutional Change and Economic Performance,10.1017/CBO9780511808678,https://doi.org/10.1017/CBO9780511808678,solo_enlace,Copyright Cambridge University Press
+north1994lecture,Economic Performance Through Time,10.2307/2118057,https://www.jstor.org/stable/2118057,solo_enlace,Copyright American Economic Association

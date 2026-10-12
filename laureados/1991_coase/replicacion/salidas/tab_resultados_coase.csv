@@ -1,0 +1,12 @@
+concepto,valor_numerico,unidad,interpretacion_coaseana
+Externalidad: Óptimo Social Q*,60,Unidades de actividad,Asignación que maximiza el excedente social neto igualando beneficio y daño marginal.
+Externalidad: Emisión sin Negociación (Derecho Emisor),100,Unidades de actividad,El emisor satura la actividad hasta que MB=0; genera sobreproducción social e ineficiencia.
+Externalidad: Emisión sin Negociación (Derecho Receptor),0,Unidades de actividad,Cese total de actividad; genera subproducción social si no hay negociación.
+Excedente Máximo W*,3600,Dólares ($),Bienestar total alcanzable con negociación coaseana perfecta libre de fricciones (T=0).
+Excedente Status Quo (Derecho Emisor),2000,Dólares ($),Excedente social residual cuando la fábrica emite sin compensar ni cooperar.
+Pérdida de Bienestar DWL (Derecho Emisor sin Negociar),1600,Dólares ($),Costo social de la inacción o de costos de transacción prohibitivos que impiden el pacto.
+Ganancia Potencial de Negociación Delta_W (Derecho Emisor),1600,Dólares ($),Umbral máximo de fricción de transacción T tolerable para alcanzar el pacto desde el régimen A.
+Ganancia Potencial de Negociación Delta_W (Derecho Receptor),3600,Dólares ($),Umbral máximo de fricción de transacción T tolerable para alcanzar el pacto desde el régimen B.
+Frontera Óptima Empresa N* (Economía Base),71.43,Transacciones internas,Frontera donde el costo marginal interno iguala el costo marginal del mercado abierto.
+Frontera Óptima Empresa N* (Plataformas Digitales),20,Transacciones internas,Reducción de costos de búsqueda/contratación provoca desintegración y auge de outsourcing.
+Frontera Óptima Empresa N* (IA y Software de Gestión),183.33,Transacciones internas,Mejora en software de control y monitoreo administrativo permite ampliar la jerarquía.

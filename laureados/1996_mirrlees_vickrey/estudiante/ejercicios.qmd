@@ -1,0 +1,112 @@
+---
+title: "Guía de Ejercicios Prácticos: Incentivos, Subastas y Tributación Óptima"
+subtitle: "Premio Nobel de Economía 1996: James A. Mirrlees y William Vickrey"
+author: "Nobel_economics Docencia"
+date: "1996-10-15"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta guía pedagógica aplicarás los modelos analíticos fundamentales desarrollados por **William Vickrey** y **James A. Mirrlees**:
+1. Cómo opera una **Subasta de Segundo Precio (Subasta de Vickrey)** en comparación con una Subasta de Primer Precio, verificando algebraicamente por qué la revelación veraz ($b_i = v_i$) es una estrategia débilmente dominante y calculando el excedente de las partes.
+2. Cómo resolver el **modelo de screening y tributación óptima de Mirrlees (1971)** con dos tipos de productividad, deduciendo paso a paso el célebre **Teorema de la Tasa Marginal Cero en el Tope** (*Zero Top Marginal Rate*) y cuantificando la distorsión sobre los trabajadores de baja productividad.
+3. Cómo modelar la **Tarificación por Congestión de Vickrey (1969)** mediante el modelo de cuello de botella (*bottleneck model*), demostrando cómo un peaje variable en tiempo real elimina por completo las pérdidas de tiempo en colas viales transformándolas en recaudación pública eficiente.
+
+---
+
+# Ejercicio 1: Subasta de Segundo Precio vs. Primer Precio (Nivel Básico)
+
+Una agencia estatal subasta una licencia de espectro radioeléctrico regional. Participan tres empresas de telecomunicaciones ($N = 3$) neutrales al riesgo. Cada empresa tiene una valoración privada intrínseca sobre la licencia:
+- Empresa 1: $v_1 = 90$ millones de euros.
+- Empresa 2: $v_2 = 75$ millones de euros.
+- Empresa 3: $v_3 = 50$ millones de euros.
+
+### Preguntas:
+
+1. **Subasta de Segundo Precio en Sobre Cerrado (Vickrey):**
+   - Suponiendo que las tres empresas reportan con veracidad su verdadera valoración ($b_i = v_i$):
+     a) ¿Qué empresa gana la subasta?
+     b) ¿Cuánto paga exactamente la empresa ganadora?
+     c) Calcula el excedente neto de la empresa ganadora ($u_1 = v_1 - p$) y el ingreso total recaudado por el Estado.
+   
+2. **Prueba Intuitiva de Estrategia Dominante:**
+   - Supón que la Empresa 1 decide actuar estratégicamente y oferta $b_1 = 70$ (creyendo que puede pagar menos). ¿Qué ocurre con el resultado de la subasta y con la utilidad de la Empresa 1?
+   - Supón que la Empresa 2 intenta ganar a toda costa y oferta $b_2 = 95$ en lugar de 75. ¿Quién gana ahora? ¿Cuánto paga la Empresa 2? ¿Cuál es su beneficio neto resultante? ¿Fue una decisión rentable?
+
+3. **Comparación con Subasta de Primer Precio en Sobre Cerrado:**
+   - Supón que las valoraciones provienen de una distribución uniforme común $v_i \sim \mathcal{U}[0, 100]$.
+   - Recuerda que la estrategia de puja de equilibrio simétrica en primer precio con $N$ postores es:
+     $$b^{FPSB}(v) = \frac{N - 1}{N} v$$
+   - Calcula las pujas que enviaría cada una de las tres empresas bajo este formato.
+   - Determina qué empresa gana, cuánto paga y cuál es el ingreso recaudado por el Estado.
+   - Compara la recaudación del Estado entre el formato de Vickrey y el formato de Primer Precio. ¿Qué teorema formulado por Vickrey se ilustra en este escenario?
+
+---
+
+# Ejercicio 2: El Modelo de Tributación Óptima de Mirrlees en Dos Tipos (Nivel Intermedio)
+
+Una economía está conformada por dos grupos de trabajadores de igual tamaño ($p_L = p_H = 0.5$):
+- Trabajadores de baja productividad ($L$): salario horario $w_L = 10$.
+- Trabajadores de alta productividad ($H$): salario horario $w_H = 20$.
+
+Las preferencias individuales vienen dadas por la función de utilidad cuasilineal:
+$$u(c, y; w) = c - \frac{1}{2}\left(\frac{y}{w}\right)^2$$
+donde $c$ es el consumo neto y $y$ es el ingreso laboral bruto ($y = w \cdot l$, con $l = y/w$ como horas trabajadas).
+
+El Estado no puede observar la productividad innata $w$, pero puede observar y gravar el ingreso bruto $y$ a través de un menú de asignaciones $(y_L, c_L)$ e $(y_H, c_H)$. El Estado busca maximizar el bienestar del grupo menos favorecido (enfoque de bienestar redistributivo de Rawls):
+$$W = u(c_L, y_L; w_L)$$
+sujeto a un presupuesto público equilibrado:
+$$0.5 (y_L - c_L) + 0.5 (y_H - c_H) \ge 0 \iff y_L + y_H = c_L + c_H$$
+
+### Preguntas:
+
+1. **Primer Mejor (Información Simétrica):**
+   - Si el Estado pudiera observar $w$, no necesitaría preocuparse por incentivos de imitación. La condición de eficiencia en horas de trabajo para cada tipo es $MRS_i = 1$, donde $MRS_i = \frac{y_i}{w_i^2}$.
+   - Calcula los niveles de producción eficiente $y_L^{FB}$ e $y_H^{FB}$.
+   - Si el gobierno desea redistribuir ingresos imponiendo $c_L^{FB} = c_H^{FB} = \frac{y_L^{FB} + y_H^{FB}}{2}$, calcula la utilidad que obtendría el tipo alto diciendo la verdad frente a la utilidad que obtendría fingiendo ser de tipo bajo ($y = y_L^{FB}$). ¿Por qué este esquema de primer mejor colapsa bajo información asimétrica?
+
+2. **Segundo Mejor (Mirrlees con Restricción de Compatibilidad de Incentivos):**
+   - Escribe formalmente la **Restricción de Compatibilidad de Incentivos del Tipo Alto (IC-H)** que evita que el tipo $H$ imite al tipo $L$.
+   - En el óptimo de segundo mejor, la restricción IC-H se activa con igualdad. Sustituye la restricción presupuestaria $c_H = y_L + y_H - c_L$ en la IC-H para despejar $c_L$ en función de $y_L$ e $y_H$.
+   - Maximiza la función de bienestar con respecto a $y_H$. Demuestra analíticamente que:
+     $$y_H^* = w_H^2 = 400 \implies MRS_H^* = 1 \implies \tau'(y_H) = 0$$
+     ¿Qué nombre recibe este resultado fundamental en la teoría de la tributación óptima?
+   - Maximiza con respecto a $y_L$. Demuestra que:
+     $$y_L^* = \frac{w_L^2}{1 + \left(\frac{w_H^2 - w_L^2}{w_H^2}\right)} < w_L^2$$
+     Calcula el valor numérico exacto de $y_L^*$ y determina la tasa impositiva marginal efectiva $\tau'(y_L) = 1 - \frac{y_L^*}{w_L^2}$.
+   - Explica con claridad la intuición económica: ¿por qué el gobierno distorsiona a la baja el trabajo de las personas menos productivas mientras deja sin distorsión marginal a las más productivas?
+
+---
+
+# Ejercicio 3: El Modelo de Cuello de Botella de Vickrey para Tráfico Urbano (Nivel Avanzado / Reto)
+
+William Vickrey (1969) propuso una solución económica revolucionaria al problema del tráfico urbano mediante la tarificación dinámica en tiempo real (*congestion pricing*).
+
+Consideremos $N = 6,000$ conductores que viajan diariamente desde los suburbios hacia el centro financiero. Todos deben atravesar un único puente cuya capacidad máxima de flujo es de $s = 3,000$ vehículos por hora. Por tanto, el puente tarda $N/s = 2$ horas en procesar a todos los usuarios.
+
+Todos los trabajadores desean llegar a su oficina exactamente a las 9:00 AM ($t^* = 9.0$). Llegar antes o después genera una penalización en su bienestar:
+- Costo de llegar temprano: $\beta = 6$ euros por hora de adelanto.
+- Costo de llegar tarde: $\gamma = 18$ euros por hora de retraso.
+- Costo del tiempo perdido esperando en el embotellamiento del puente: $\alpha = 12$ euros por hora de cola.
+
+### Preguntas:
+
+1. **Equilibrio de Nash sin Peaje (La Cola Física):**
+   - En equilibrio sin peaje, ningún conductor puede reducir su costo total cambiando su hora de salida. Por ende, el costo total del viaje debe ser idéntico para todos los conductores.
+   - El primer conductor en salir llega temprano sin esperar en la cola; el último conductor llega tarde sin esperar en la cola. Demuestra que la hora del primer viaje es $t_0 = t^* - \frac{\gamma}{\beta + \gamma}\frac{N}{s}$ y la del último es $t_1 = t^* + \frac{\beta}{\beta + \gamma}\frac{N}{s}$.
+   - Calcula numéricamente $t_0$ y $t_1$.
+   - Demuestra que el costo total de equilibrio para cada conductor es:
+     $$C^* = \frac{\beta \gamma}{\beta + \gamma} \frac{N}{s}$$
+   - Calcula el costo total individual $C^*$ y el costo agregado de la congestión para los 6,000 usuarios. ¿Cuánto de este costo representa tiempo muerto disipado en la cola?
+
+2. **El Peaje Óptimo de Vickrey:**
+   - Vickrey propuso cobrar un peaje dependiente del tiempo $\tau(t)$ que iguale exactamente el costo del retraso en la cola física, eliminando por completo la fila vehicular.
+   - Si la fila se elimina por completo, el puente opera a flujo libre continuo entre $t_0$ y $t_1$.
+   - ¿Cuál es el peaje que paga el primer conductor en $t_0$ y el último en $t_1$?
+   - ¿A qué hora alcanza su valor máximo el peaje $\tau_{max}$ y cuánto vale numéricamente?
+   - Demuestra que el costo total de los usuarios (peaje + penalización horaria) sigue siendo $C^*$, pero calcula qué fracción del costo social se convirtió en ingresos públicos en lugar de combustible y tiempo desperdiciado.
+   - ¿Cómo se aplica esta lógica hoy en ciudades como Singapur, Londres o Estocolmo?

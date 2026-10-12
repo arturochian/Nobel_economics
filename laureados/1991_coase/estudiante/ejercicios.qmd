@@ -1,0 +1,115 @@
+---
+title: "Guía de Ejercicios Prácticos: Teorema de Coase, Costos de Transacción y la Frontera de la Empresa"
+subtitle: "Premio Nobel de Economía 1991: Ronald H. Coase"
+author: "Nobel_economics Docencia"
+date: "1991-10-15"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta guía aplicarás el instrumental desarrollado por **Ronald H. Coase** para analizar problemas de asignación institucional, externalidades y organización industrial:
+1. Analizarás la **naturaleza recíproca de las externalidades** y calcularás el equilibrio de negociación privada bajo el Teorema de Coase con costos de transacción nulos.
+2. Identificarás cómo la presencia de **costos de transacción positivos ($T > 0$)** bloquea acuerdos mutuamente ventajosos y exige que las normas legales asignen eficientemente las responsabilidades.
+3. Evaluarás el impacto de la multiplicidad de partes y el comportamiento del polizón (*free rider*) en la viabilidad de la solución coaseana.
+4. Modelarás la decisión de la firma entre **"Hacer o Comprar" (*Make or Buy*)**, determinando analíticamente su frontera óptima frente a innovaciones tecnológicas contemporáneas.
+
+---
+
+# Ejercicio 1: El Conflicto del Médico y el Confitero (Nivel Básico)
+
+Imagina una adaptación cuantitativa del célebre caso judicial inglés *Sturges v. Bridgman* (1879) analizado por Coase (1960). Un confitero opera una maquinaria ruidosa para triturar granos de cacao, la cual genera vibraciones que penetran en el consultorio de un médico vecino, impidiéndole auscultar a sus pacientes.
+
+Sea $Q$ el número de horas diarias que el confitero opera su maquinaria ruidosa ($Q \ge 0$).
+- El beneficio monetario privado del confitero es:
+  $$B(Q) = 80 Q - 2 Q^2$$
+  por lo que su beneficio marginal privado es $MB(Q) = 80 - 4 Q$.
+- El daño económico que sufre el médico (pérdida de ingresos por citas canceladas) es:
+  $$D(Q) = 2 Q^2$$
+  por lo que el daño marginal externo es $MD(Q) = 4 Q$.
+
+### Preguntas:
+
+1. **El Óptimo Social (Primer Mejor):**
+   - Escribe la función de excedente social neto $W(Q) = B(Q) - D(Q)$.
+   - Calcula el nivel de horas de operación socialmente óptimo ($Q^*$) igualando el beneficio marginal al daño marginal ($MB = MD$).
+   - Determina el valor monetario del beneficio del confitero $B(Q^*)$, el daño del médico $D(Q^*)$ y el excedente social neto $W(Q^*)$.
+
+2. **Régimen Legal 1: El Confitero tiene derecho legal a hacer ruido libremente:**
+   - Si no existe posibilidad de negociación, ¿cuántas horas $Q_{priv}$ operará el confitero? (Pista: maximiza su beneficio privado individual hasta que $MB = 0$).
+   - Calcula $B(Q_{priv})$, $D(Q_{priv})$ y el excedente social neto $W(Q_{priv})$.
+   - Demuestra que este resultado es ineficiente y calcula la pérdida irrecuperable de eficiencia social ($DWL$).
+
+3. **Negociación Coaseana bajo el Régimen 1 ($T = 0$):**
+   - Si las partes pueden reunirse y redactar un acuerdo vinculante sin ningún costo de transacción, demuestra que el médico puede ofrecer una compensación monetaria total $P$ al confitero a cambio de que este reduzca sus horas de $Q_{priv}$ a $Q^*$.
+   - Determina el rango de compensaciones monetarias mutuamente ventajosas $[P_{\min}, P_{\max}]$ que ambos aceptarían.
+   - Verifica que el excedente social neto resultante tras el acuerdo es idéntico a $W(Q^*)$.
+
+4. **Régimen Legal 2: El Médico tiene derecho legal a exigir silencio absoluto:**
+   - Si la ley concede al médico una orden de cese total (*injunction*) y no negocian, ¿cuál es el nivel de horas $Q$ y el excedente social?
+   - Si las partes negocian sin fricciones ($T = 0$), demuestra que el confitero comprará el permiso para operar $Q^*$ horas. Determina el rango de pago $[R_{\min}, R_{\max}]$ que el confitero ofrecerá al médico.
+   - Concluye: ¿Depende la cantidad real de horas de ruido ($Q^*$) de a quién le pertenecía inicialmente el derecho legal? ¿Qué es lo único que cambia entre ambos regímenes?
+
+---
+
+# Ejercicio 2: Costos de Transacción, Fricciones y Reglas de Responsabilidad (Nivel Intermedio)
+
+En el mundo real, negociar requiere tiempo, honorarios de abogados, peritajes técnicos y costes de comunicación. Considera el mismo modelo del Ejercicio 1 ($Q^* = 10$, $W(Q^*) = \$400$), pero asume ahora que negociar un contrato vinculante exige incurrir en un costo de transacción total $T > 0$.
+
+### Preguntas:
+
+1. **Ganancias Brutas de la Negociación:**
+   - Calcula la ganancia bruta agregada de pactar la reducción de horas desde el status quo del Régimen 1 (confitero con derechos): $\Delta W_1 = W(Q^*) - W(Q_{priv})$.
+   - Calcula la ganancia bruta agregada de pactar la apertura de horas desde el status quo del Régimen 2 (médico con derechos): $\Delta W_2 = W(Q^*) - W(0)$.
+
+2. **Umbrales Críticos de Fricción ($T$):**
+   - Determina el costo máximo de transacción $T_1^*$ por encima del cual colapsa la negociación bajo el Régimen 1.
+   - Determina el costo máximo de transacción $T_2^*$ por encima del cual colapsa la negociación bajo el Régimen 2.
+   - Si los costos legales y de peritaje ascienden a $T = \$250$:
+     - ¿Qué ocurre bajo el Régimen 1? ¿Cuál es el nivel final de ruido y el excedente social neto?
+     - ¿Qué ocurre bajo el Régimen 2? ¿Cuál es el nivel final de ruido y el excedente social neto?
+     - ¿Sigue cumpliéndose la invarianza del Teorema de Coase cuando $T = \$250$? Justifica económicamente.
+
+3. **El Problema del Polizón (*Free Rider*) y la Multiplicidad de Víctimas:**
+   - Supón ahora que en lugar de un único médico, la fábrica confitera colinda con un vecindario compuesto por $M = 100$ familias residentes, cada una de las cuales sufre un daño equivalente a $d_i(Q) = 0.02 Q^2$ (de modo que el daño colectivo agregado sigue siendo $D(Q) = \sum_{i=1}^{100} d_i(Q) = 2 Q^2$).
+   - Si el confitero posee el derecho legal a emitir ruido, explica por qué la negociación privada coaseana fracasará casi con certeza, incluso si cada familia individualmente se beneficiaría de reducir las horas de la fábrica.
+   - Explica la diferencia teórica formulada por Calabresi y Melamed (1972) entre **reglas de propiedad** (*property rules*) y **reglas de responsabilidad objetiva** (*liability rules* / indemnización de daños fijada judicialmente) para resolver este escenario.
+
+---
+
+# Ejercicio 3: La Frontera de la Empresa: Make or Buy en la Era Digital (Nivel Avanzado / Reto en R)
+
+En "The Nature of the Firm" (1937), Ronald Coase postuló que las empresas no se expanden indefinidamente debido a los costos crecientes de coordinación interna y administración jerárquica. La empresa determina su grado de integración vertical igualando en el margen el costo de realizar una tarea internamente con el costo de transarla en el mercado.
+
+Considera una empresa manufacturera que debe decidir cuántas etapas productivas o transacciones intermedias ($N \in [0, 100]$) coordina dentro de su propia organización jerárquica versus cuántas subcontrata en el mercado abierto:
+- **Costo marginal de realizar una transacción mediante el mercado:**
+  $$MC_m(N) = m_0 + m_1 N$$
+  donde $m_0$ representa los costos de búsqueda de proveedores, redacción de cláusulas y fiscalización de contratos, y $m_1 > 0$ refleja la complejidad contractual creciente.
+- **Costo marginal de organizar la transacción internamente en la empresa:**
+  $$MC_f(N) = g_0 + g_1 N$$
+  donde $g_0$ es el costo fijo administrativo base y $g_1 > m_1 > 0$ representa las deseconomías gerenciales crecientes (congestión burocrática, pérdida de control de información y costos de agencia).
+
+### Parámetros Iniciales (Economía Tradicional):
+$$m_0 = 80, \quad m_1 = 0.25, \quad g_0 = 20, \quad g_1 = 1.00$$
+
+### Tareas a Resolver:
+
+1. **Derivación Analítica:**
+   - Encuentra la expresión algebraica general para el tamaño óptimo de la empresa $N^*$ en función de $(m_0, m_1, g_0, g_1)$.
+   - Calcula el valor numérico de $N^*_{base}$ con los parámetros tradicionales.
+   - ¿Qué regla de decisión sigue la empresa para cualquier tarea $N < N^*$ y para $N > N^*$?
+
+2. **Impacto de las Plataformas Digitales y el Outsourcing:**
+   - Con la irrupción de internet, plataformas de comercio electrónico y contratación flexible (APIs, plataformas B2B), los costos de búsqueda y transacción en el mercado caen drásticamente a:
+     $$m_0' = 40, \quad m_1' = 0.20$$
+   - Manteniendo inalterada la tecnología de gestión interna ($g_0 = 20, g_1 = 1.00$), calcula la nueva frontera óptima $N^*_{digital}$.
+   - Interpreta el resultado: ¿Por qué la digitalización del mercado conduce a la desintegración vertical y a organizaciones más reducidas (*lean enterprise*)?
+
+3. **Simulación en R:**
+   - Escribe un script en R que:
+     a) Genere un vector de transacciones $N \in [1, 80]$.
+     b) Calcule las tres curvas: $MC_f(N)$, $MC_{m, base}(N)$ y $MC_{m, digital}(N)$.
+     c) Grafique ambas situaciones en una única figura de `ggplot2`, sombreando el área de ahorro de costos de coordinación interna e indicando los dos puntos de corte de la frontera de la firma ($N^*_{base}$ y $N^*_{digital}$).

@@ -1,0 +1,110 @@
+---
+title: "Guía de Ejercicios Prácticos: Bienestar, Pobreza Axiomática y Hambrunas"
+subtitle: "Premio Nobel de Economía 1998: Amartya Sen"
+author: "Nobel_economics Docencia"
+date: "1998-10-12"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta guía aplicarás las herramientas analíticas, éticas y econométricas pioneras de **Amartya Sen** para examinar la medición rigurosa de la pobreza, los dilemas lógicos de la teoría de la elección social y los mecanismos distributivos del colapso de titularidades en crisis humanitarias.
+
+---
+
+# Ejercicio 1: Descomposición Analítica del Índice de Sen (Nivel Básico)
+
+El Índice de Pobreza de Sen (1976) se expresa como:
+
+$$P_S = H \left[ I + (1 - I) G_p \right]$$
+
+donde:
+- $H = q / N$ es la tasa de recuento (*headcount ratio*).
+- $I = 1 - (\mu_p / z)$ es la razón de brecha de ingresos (*income gap ratio*).
+- $G_p$ es el coeficiente de Gini entre la población pobre.
+- $z$ es la línea oficial de pobreza.
+
+Una economía en desarrollo cuenta con una población total de $N = 100$ habitantes y una línea de pobreza fijada en $z = \$10$ diarios. El censo socioeconómico identifica a $q = 20$ personas en situación de pobreza.
+
+### Preguntas:
+
+1. **Caso homogéneo:** Supón inicialmente que los 20 individuos pobres perciben un ingreso idéntico de $y_i = \$6$ al día.
+   - Calcula la tasa de recuento ($H$), la brecha proporcional de ingresos ($I$) y el coeficiente de Gini entre los pobres ($G_p$).
+   - Obtén el valor numérico del Índice de Sen ($P_S$).
+2. **Transferencia regresiva interna:** Supongamos que, debido a un shock de precios locales, los 10 pobres más desfavorecidos sufren una pérdida de ingreso que se transfiere a los 10 pobres de mejores ingresos, pasando a ganar:
+   - Grupo A (10 individuos): $y_A = \$4$
+   - Grupo B (10 individuos): $y_B = \$8$
+   *(Nótese que el ingreso promedio de los pobres se mantiene inalterado en $\mu_p = \$6$).*
+   - Demuestra formalmente que la tasa de recuento $H$ y la brecha agregada $I$ no cambian en absoluto.
+   - Calcula el nuevo coeficiente de Gini entre los pobres ($G_p$) utilizando la fórmula para dos grupos de igual tamaño:
+     $$G_p = \frac{|y_B - y_A|}{4 \mu_p}$$
+   - Calcula el nuevo Índice de Sen ($P_S$) e interpreta por qué este resultado valida el **Axioma de Transferencia**.
+3. **El sesgo de focalización gubernamental:** Supón que un ministro de finanzas dispone de un presupuesto limitado y desea maximizar la reducción reportada de la pobreza antes de las elecciones.
+   - Si su indicador de éxito es exclusivamente la tasa $H$, ¿a qué grupo beneficiará ($y = \$8$ o $y = \$4$)?
+   - ¿Por qué el enfoque de Sen demuestra que esta política tradicional genera incentivos perversos contra los más vulnerables?
+
+---
+
+# Ejercicio 2: La Paradoja del Liberal Paretiano (Nivel Intermedio)
+
+En su célebre artículo *"The Impossibility of a Paretian Liberal"* (Journal of Political Economy, 1970), Sen demostró la incompatibilidad matemática entre la soberanía individual y la eficiencia de Pareto.
+
+Considera dos individuos:
+- **Individuo 1 (Prude - El puritano):** Moralmente conservador.
+- **Individuo 2 (Lewd - El libertino):** Amante de la transgresión.
+
+Existe una única copia del libro controvertido *El amante de Lady Chatterley*. Los estados sociales posibles son:
+- $x$: Prude lee el libro.
+- $y$: Lewd lee el libro.
+- $z$: Nadie lee el libro.
+
+Los ordenamientos individuales de preferencias estrictas (de mayor a menor deseabilidad) son:
+
+$$\text{Prude (1): } z \succ_1 x \succ_1 y$$
+*(Prude prefiere que nadie lo lea; pero si alguien debe leerlo, prefiere leerlo él mismo para evitar que Lewd se corrompa).*
+
+$$\text{Lewd (2): } x \succ_2 y \succ_2 z$$
+*(Lewd prefiere ante todo que Prude lea el libro para que sufra un shock moral; en segundo término prefiere leerlo él mismo; y por último prefiere que nadie lo lea).*
+
+### Preguntas:
+
+1. **Condición de Liberalismo Mínimo ($L^*$):** Sen postula que cada individuo debe ser decisivo sobre al menos un par de alternativas que pertenezcan estrictamente a su esfera personal.
+   - ¿Qué par de alternativas compete legítimamente a la esfera privada de Prude (leerlo él mismo vs. que nadie lo lea)?
+   - ¿Qué par de alternativas compete a la esfera privada de Lewd (leerlo él mismo vs. que nadie lo lea)?
+2. **Decisiones liberales descentralizadas:**
+   - Según el derecho privado de Prude sobre el par $\{x, z\}$, ¿qué opción prefiere la sociedad?
+   - Según el derecho privado de Lewd sobre el par $\{y, z\}$, ¿qué opción prefiere la sociedad?
+3. **Eficiencia en el sentido de Pareto:**
+   - Considera el par restante $\{x, y\}$. ¿Cuál es la preferencia unánime de ambos individuos entre que lo lea Prude ($x$) o que lo lea Lewd ($y$)?
+   - Demuestra que combinar la elección unánime paretiana con los derechos liberales individuales genera un ciclo de preferencias sociales intransitivo ($x \succ y \succ z \succ x$).
+4. **Implicancia filosófica:** ¿Por qué este teorema desafía la premisa de la economía de bienestar convencional de que la optimalidad paretiana es un criterio neutral y universalmente deseable?
+
+---
+
+# Ejercicio 3: Reto de Simulación de Hambrunas y Titularidades en R (Nivel Avanzado)
+
+En *Poverty and Famines* (1981), Sen formaliza que el conjunto de titularidades de una familia depende de su vector de dotación $\mathbf{x}$ y del mapeo de intercambio $E$.
+
+Un país rural experimenta una crisis de guerra que genera inflación aguda en el grano básico. Considera dos tipos de familias en el sector rural:
+1. **Jornaleros sin tierra:** Dotación de trabajo $L = 25$ días/mes; salario nominal $w_t$.
+2. **Productores campesinos:** Dotación de tierra y arroz; cosechan $Q = 80$ kg de arroz/mes de los cuales consumen para su subsistencia y venden el excedente en el mercado al precio $P_t$.
+
+La necesidad de subsistencia calórica individual por hogar es de $F_{\text{min}} = 30$ kg de arroz/mes.
+
+### Instrucciones de programación en R:
+
+1. Crea un script en R que defina una función `simular_hambruna(w0, P0, shock_inflacion, meses)` con los siguientes supuestos:
+   - En el mes $t=1$, el precio del arroz es $P_0 = 10$ y el jornal es $w_0 = 16$.
+   - A partir del mes $t=2$ hasta $t=6$, ocurre un shock inflacionario donde el precio del arroz escala según: $P_t = P_0 \times (1 + \lambda)^t$, con $\lambda = 0.25$.
+   - Los salarios de los jornaleros son rígidos y solo se indexan parcialmente: $w_t = w_0 \times (1 + 0.05)^t$.
+   - La cosecha nacional total de arroz se mantiene completamente fija e invariable ($Q_{\text{nacional}} = 1000$ toneladas).
+2. Calcula mes a mes la titularidad real de arroz para el jornalero:
+   $$F_t = \frac{w_t \cdot L}{P_t}$$
+3. Determina el mes exacto en el que el jornalero entra en inanición ($F_t < F_{\text{min}}$).
+4. **Evaluación de intervención de política:** Contrasta mediante una gráfica en `ggplot2`:
+   - Escenario 1 (Sin intervención).
+   - Escenario 2 (Entrega física de raciones alimentarias en bodegas distantes con costos de transporte).
+   - Escenario 3 (Programa de empleo de emergencia garantizado de Sen: *Employment Guarantee Scheme* / *Cash for work* que eleva $w_t \cdot L \ge P_t \times F_{\text{min}}$).

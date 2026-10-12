@@ -1,0 +1,110 @@
+---
+title: "Guía de Ejercicios Prácticos: Modelo Mundell-Fleming, Trilema Macroeconómico y Áreas Monetarias Óptimas"
+subtitle: "Premio Nobel de Economía 1999: Robert A. Mundell"
+author: "Nobel_economics Docencia"
+date: "1999-10-13"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta actividad práctica dominarás las herramientas analíticas de la macroeconomía de economías abiertas desarrolladas por **Robert A. Mundell**:
+1. Cómo resolver analíticamente y comparar la efectividad de las **políticas fiscal y monetaria** bajo tipos de cambio fijos versus flexibles con perfecta movilidad de capitales (Modelo Mundell-Fleming).
+2. Cómo opera la **Trinidad Imposible o Trilema Macroeconómico** ante shocks de tasa de interés externa o presiones especulativas cambiarias.
+3. Cómo diagnosticar los costos y beneficios de una unión monetaria utilizando los criterios de la **Teoría de las Áreas Monetarias Óptimas (OCA)** de Mundell (1961) frente a perturbaciones asimétricas.
+
+---
+
+# Ejercicio 1: Estática Comparativa en el Modelo Mundell-Fleming (Nivel Básico)
+
+Considera una economía abierta pequeña con perfecta movilidad de capitales descrita por las siguientes ecuaciones lineales:
+
+- **Consumo privado:** $C = 50 + 0.80(Y - T)$
+- **Impuestos:** $T = 0.25 Y$
+- **Inversión privada:** $I = 120 - 10 i$
+- **Gasto público:** $G = 130$
+- **Exportaciones netas:** $NX = 40 - 0.10 Y + 20 e$
+- **Demanda real de dinero:** $L(Y, i) = 0.40 Y - 8 i$
+- **Nivel de precios doméstico e internacional:** $P = P^* = 1.0$
+- **Tasa de interés internacional exógena:** $i^* = 6\%$ (es decir, $i^* = 6$)
+- **Tipo de cambio inicial:** $e_0 = 1.0$ (donde un incremento de $e$ es una depreciación)
+
+## Preguntas
+
+1. **Equilibrio Inicial:**
+   - Plantea la ecuación de equilibrio de la curva IS y calcula el valor del producto de equilibrio inicial $Y_0$ sabiendo que $i = i^* = 6\%$.
+   - Determina la oferta monetaria nominal en equilibrio $M_0$ para que el mercado monetario vacíe en $(Y_0, i^*)$.
+   - Calcula el saldo de las exportaciones netas $NX_0$ en dicho equilibrio.
+
+2. **Escenario A: Expansión Fiscal con Tipo de Cambio Fijo:**
+   - Supón que el gobierno incrementa el gasto público en $\Delta G = 25$ ($G' = 155$) y el Banco Central se compromete a mantener fijo el tipo de cambio en $e = 1.0$.
+   - Calcula el nuevo nivel de producto $Y_A$, la nueva oferta monetaria $M_A$ requerida y el cambio en las reservas internacionales del Banco Central ($\Delta M$).
+   - ¿Qué porcentaje del impulso fiscal se pierde por desplazamiento (*crowding-out*) de la tasa de interés?
+
+3. **Escenario B: Expansión Fiscal con Tipo de Cambio Flexible:**
+   - Si el gasto público se incrementa en la misma magnitud ($\Delta G = 25$) pero el tipo de cambio flota libremente y la oferta de dinero se mantiene en $M_0$:
+   - Determina el nuevo producto de equilibrio $Y_B$.
+   - Calcula el nuevo tipo de cambio nominal de equilibrio $e_B$. ¿Se aprecia o se deprecia la moneda nacional?
+   - Calcula las nuevas exportaciones netas $NX_B$ y verifica si ocurre un desplazamiento externo total.
+
+---
+
+# Ejercicio 2: El Trilema Macroeconómico y Ataques Especulativos (Nivel Intermedio)
+
+Una economía emergente opera con libre movilidad de capitales y defiende una paridad cambiaria fija fija de su moneda frente al dólar estadounidense: $\bar{e} = 4.00$ pesos por dólar. La tasa de interés de la Reserva Federal de Estados Unidos es inicialmente $i^* = 4\%$.
+
+La condición de paridad descubierta de tasas de interés (UIP) establece:
+$$i_t = i_t^* + \frac{E_t[e_{t+1}] - e_t}{e_t} + \rho_t$$
+donde $\rho_t$ es la prima de riesgo país sobre los activos domésticos. Inicialmente, $\rho = 1\%$ y el mercado confía plenamente en la paridad ($E_t[e_{t+1}] = \bar{e} = 4.00$).
+
+1. **Tasa de Política Inicial:**
+   - ¿Cuál debe ser la tasa de interés doméstica $i_t$ que el banco central fija para mantener el equilibrio en el mercado cambiario sin perder reservas?
+
+2. **Shock Externo y Pérdida de Confianza:**
+   - Repentinamente, la Reserva Federal incrementa su tasa de política a $i^{*\prime} = 6\%$ y el riesgo país se eleva a $\rho' = 3\%$.
+   - Además, surge el rumor creíble de que el peso se devaluará un $15\%$ en el próximo periodo, por lo que los inversionistas fijan $E_t[e_{t+1}] = 4.60$.
+   - ¿A qué nivel debería elevar el Banco Central su tasa de interés interna para defender exitosamente la paridad cambiaria $\bar{e} = 4.00$?
+   - Explica el dilema de política económica: si la economía doméstica ya se encontraba al borde de una recesión con alto desempleo y alto endeudamiento hipotecario a tasa variable, ¿por qué defender el tipo de cambio fijo resulta insostenible?
+
+3. **Vértices del Trilema:**
+   - Identifica las dos opciones alternativas que ofrece la Trinidad Imposible de Mundell para salvar la economía doméstica de esta asfixia monetaria, y menciona un ejemplo histórico de país que haya adoptado cada una de ellas.
+
+---
+
+# Ejercicio 3: Evaluación de un Área Monetaria Óptima frente a Perturbaciones Asimétricas (Nivel Avanzado / Reto)
+
+Dos países vecinos, **Norte** y **Sur**, deciden abolir sus monedas nacionales (la corona norteña y el peso sureño) y adoptar una moneda compartida, el **Euro**.
+
+- Ambas economías tienen curvas de Phillips de corto plazo idénticas:
+  $$\pi_t^j = \pi_t^{e, j} + \gamma (y_t^j - \bar{y}) + \epsilon_t^j \quad (j \in \{Norte, Sur\})$$
+  donde $\gamma = 0.5$, el producto potencial es $\bar{y} = 100$ en ambos países y las expectativas de inflación están ancladas en $\pi^e = 2\%$.
+- La demanda agregada en cada país responde a la tasa de interés real fijada por el Banco Central Común ($r = i - \pi^e$):
+  $$y_t^j = 100 - \alpha (i - \pi^e) + u_t^j$$
+  con $\alpha = 2.0$.
+- Inicialmente, el sistema está en pleno empleo ($y^N = y^S = 100$) con tasa común $i = 4\%$ ($r = 2\%$) y perturbaciones $u^N = u^S = 4$.
+
+## El Shock Asimétrico
+
+Ocurre una perturbación permanente en las preferencias del mercado mundial: los consumidores abandonan los productos manufacturados de **Sur** en favor de los productos de **Norte**.
+- La demanda en Norte experimenta un shock positivo: $u^N = +10$ (boom).
+- La demanda en Sur experimenta un shock negativo: $u^S = -6$ (recesión).
+
+El Banco Central Común fija la tasa de interés única para estabilizar el producto promedio de la unión: $\bar{y} = \frac{y^N + y^S}{2} = 100$.
+
+## Preguntas
+
+1. **La Tasa de Interés Única:**
+   - Demuestra qué tasa nominal $i$ fijará el Banco Central Común para mantener el promedio $\bar{y} = 100$.
+   - Con esa tasa común, calcula los niveles de producto resultantes en Norte ($y^N$) y en Sur ($y^S$).
+   - ¿Qué problema enfrenta el Banco Central Común al aplicar una "talla única" (*one size fits all*) de política monetaria?
+
+2. **Mecanismos de Ajuste de Mundell:**
+   - Supón que los países **no comparten moneda** y mantienen tipos de cambio flexibles entre la corona y el peso. ¿Cómo reaccionaría el tipo de cambio bilateral entre Norte y Sur para restaurar el pleno empleo en ambos países simultáneamente sin intervención de las tasas de interés?
+   - Dentro de la **unión monetaria**, describe los tres mecanismos alternativos postulados por Mundell (1961) y la literatura de OCA para que Sur no quede atrapado en una recesión permanente:
+     1. Movilidad laboral.
+     2. Flexibilidad de precios y salarios reales (devaluación interna).
+     3. Mecanismo de transferencias fiscales federales.
+   - En base a la experiencia de la crisis europea de 2010–2012, discute críticamente cuál de estos tres mecanismos falló con mayor severidad en la Eurozona y por qué.

@@ -1,0 +1,8 @@
+modulo,regimen,parametro_teorico,valor_teorico,estimado_simulado,error_estandar,interpretacion_economica
+Extracción de Señal (Lucas 1973),Baja Volatilidad Nominal (ej. EE.UU. / Alemania),theta (sigma_p = 0.5),0.9412,0.96,0.0355,Trade-off producto-inflacion: Fuerte (nominal percibido como real)
+Extracción de Señal (Lucas 1973),Volatilidad Moderada (ej. Reino Unido / Italia),theta (sigma_p = 2),0.5,0.503,0.0094,Trade-off producto-inflacion: Intermedio
+Extracción de Señal (Lucas 1973),Alta Volatilidad Nominal (ej. Argentina / Brasil),theta (sigma_p = 6),0.1,0.1013,0.0032,Trade-off producto-inflacion: Colapsado (curva de Phillips vertical)
+Crítica de Lucas (1976),Régimen 1 (Histórico),Pendiente b_1 = beta*(1-rho_1^2),1.4062,1.3906,0.0432,Trade-off aparente detectado por el econometrista tradicional
+Crítica de Lucas (1976),Régimen 2 (Nueva Regla),Pendiente b_2 = beta*(1-rho_2^2),0.4163,0.0277,0.011,Colapso del parámetro reducido debido al ajuste de expectativas
+Crítica de Lucas (1976),Evaluación de Política,Delta Producto Real (E[y_2] - E[y_1]),0,0.0919,0.052,El estímulo predecible genera solo inflación sin aumento de producto
+Crítica de Lucas (1976),Error de Pronóstico,Predicción Ingenua vs Real,205.12,100.02,NA,Sobreestimación colosal del producto por asumir parámetros invariantes

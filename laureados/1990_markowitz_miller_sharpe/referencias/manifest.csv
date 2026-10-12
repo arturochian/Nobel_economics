@@ -1,0 +1,10 @@
+id,titulo,doi,url,estado_descarga,licencia
+markowitz1952portfolio,"Portfolio Selection",10.1111/j.1540-6261.1952.tb01525.x,https://doi.org/10.1111/j.1540-6261.1952.tb01525.x,solo_enlace,copyright_editorial
+markowitz1959portfolio,"Portfolio Selection: Efficient Diversification of Investments",NA,https://cowles.yale.edu/publications/monographs/portfolio-selection,solo_enlace,open_access_cowles
+sharpe1964capital,"Capital Asset Prices: A Theory of Market Equilibrium under Conditions of Risk",10.1111/j.1540-6261.1964.tb02865.x,https://doi.org/10.1111/j.1540-6261.1964.tb02865.x,solo_enlace,copyright_editorial
+sharpe1966mutual,"Mutual Fund Performance",10.1086/294846,https://doi.org/10.1086/294846,solo_enlace,copyright_editorial
+modigliani1958cost,"The Cost of Capital, Corporation Finance and the Theory of Investment",NA,https://www.jstor.org/stable/1809766,solo_enlace,copyright_editorial
+miller1961dividend,"Dividend Policy, Growth, and the Valuation of Shares",10.1086/294442,https://doi.org/10.1086/294442,solo_enlace,copyright_editorial
+miller1977debt,"Debt and Taxes",10.1111/j.1540-6261.1977.tb03267.x,https://doi.org/10.1111/j.1540-6261.1977.tb03267.x,solo_enlace,copyright_editorial
+nobel1990press,"The Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel 1990: Press Release",NA,https://www.nobelprize.org/prizes/economic-sciences/1990/press-release/,solo_enlace,public_domain_nobel
+nobel1990scientific,"Scientific Background on the Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel 1990",NA,https://www.nobelprize.org/prizes/economic-sciences/1990/advanced-information/,solo_enlace,public_domain_nobel

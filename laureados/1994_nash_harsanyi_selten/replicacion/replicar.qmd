@@ -1,0 +1,351 @@
+---
+title: "Replicación Cuantitativa: Teoría de Juegos No Cooperativos y Refinamientos de Equilibrio"
+subtitle: "Premio Nobel de Economía 1994: John F. Nash Jr., Reinhard Selten y John C. Harsanyi"
+author: "Nobel_economics Project"
+date: "1994-10-11"
+format:
+  html:
+    toc: true
+    number-sections: true
+    embed-resources: true
+    theme: cosmo
+    code-fold: show
+    code-tools: true
+---
+
+# Introducción y Objetivo
+
+En 1994, la Real Academia Sueca de Ciencias concedió el Premio de Ciencias Económicas del Banco de Suecia en Memoria de Alfred Nobel a **John C. Harsanyi**, **John F. Nash Jr.** y **Reinhard Selten**:
+
+> *"for their pioneering analysis of equilibria in the theory of non-cooperative games"* (Por su análisis pionero de los equilibrios en la teoría de juegos no cooperativos).
+
+Antes de las contribuciones de John Nash, la teoría de juegos —inaugurada formalmente por John von Neumann y Oskar Morgenstern en su monumental obra *Theory of Games and Economic Behavior* (1944)— se centraba casi exclusivamente en juegos de suma cero para dos personas y en enfoques cooperativos basados en coaliciones vinculantes. El mundo económico real, no obstante, está gobernado por situaciones de suma no nula, conflicto parcial e interacciones descentralizadas donde los agentes no pueden firmar contratos vinculantes a priori.
+
+El Premio Nobel de 1994 reconoció la construcción de la columna vertebral del análisis estratégico moderno a través de tres avances sucesivos e integrados:
+
+1. **John F. Nash Jr. (1950, 1951):** Formuló el concepto general de **Equilibrio de Nash** para juegos no cooperativos con cualquier número finito de jugadores y demostró la existencia universal de al menos un punto de equilibrio en estrategias mixtas mediante teoremas de punto fijo (Kakutani y Brouwer). Asimismo, formuló la solución axiomática al problema de negociación (*Nash bargaining solution*, 1950).
+2. **Reinhard Selten (1965, 1975):** Descubrió que los equilibrios de Nash en juegos dinámicos pueden sostenerse en "amenazas no creíbles" (*non-credible threats*). Introdujo la inducción hacia atrás y el concepto de **Equilibrio Perfecto en Subjuegos** (*Subgame Perfect Equilibrium*, SPE), exigiendo racionalidad secuencial en cada etapa. Posteriormente profundizó con el equilibrio perfecto en la mano temblorosa (*trembling hand perfection*, 1975).
+3. **John C. Harsanyi (1967–1968):** Resolvió el enigma de cómo modelar interacciones estratégicas donde los jugadores desconocen las preferencias, información o costes de sus rivales. Introdujo la **transformación harsanyiana** a **Juegos Bayesianos**, donde la incertidumbre se modela mediante tipos de jugadores y una creencia a priori común (*common prior*), definiendo el **Equilibrio de Nash Bayesiano** (*Bayesian Nash Equilibrium*, BNE).
+
+## ¿Qué vas a aprender?
+
+1. **La Fundamentación del Equilibrio de Nash:** Cómo definir rigurosamente un juego no cooperativo en forma normal, formular las correspondencias de mejor respuesta y comprender el papel del teorema de punto fijo de Kakutani en la existencia del equilibrio.
+2. **Estrategias Mixtas e Indiferencia:** Cómo calcular analítica y gráficamente el equilibrio mixto en juegos con equilibrios múltiples (como la Batalla de los Sexos) y entender la condición de indiferencia matemática.
+3. **El Refinamiento Dinámico de Selten:** Cómo identificar amenazas no creíbles en árboles de decisión en forma extensiva y aplicar la inducción hacia atrás para hallar el Equilibrio Perfecto en Subjuegos (SPE).
+4. **La Transformación Bayesiana de Harsanyi:** Cómo convertir un juego de información incompleta en un juego de información imperfecta tratable, deduciendo el umbral crítico de probabilidad que disuade la entrada a un mercado.
+5. **Implementación Computacional en R:** Cómo modelar funciones de mejor respuesta, simular equilibrios y generar visualizaciones profesionales de correspondencias estratégicas con `ggplot2`.
+
+## Nivel de Replicación
+
+- **Nivel:** **Completa e Ilustrativa Rigurosa**
+- **Alcance:** Implementación exacta de las condiciones analíticas de Nash, Selten y Harsanyi. Dado que se trata de aportes seminales en microeconomía teórica pura (sin bases de datos observacionales asociadas en los papers originales), la replicación resuelve de manera analítica y computacional los modelos fundamentales (juegos estáticos 2x2, juego dinámico de entrada a un mercado con inducción hacia atrás, y análisis bayesiano con tipos privados). Todos los scripts, salidas gráficas y tablas son 100% reproducibles en R.
+
+---
+
+# Marco Teórico y Fundamentos Matemáticos
+
+## 1. John F. Nash Jr.: El Equilibrio en Juegos No Cooperativos
+
+### Definición Formal del Juego en Forma Normal
+
+Un juego finito no cooperativo en forma estratégica o normal se define por la tupla:
+
+$$G = \langle N, (S_i)_{i \in N}, (u_i)_{i \in N} \rangle$$
+
+donde:
+- $N = \{1, 2, \dots, n\}$ es el conjunto finito de jugadores.
+- $S_i = \{s_{i1}, s_{i2}, \dots, s_{im_i}\}$ es el conjunto finito de estrategias puras del jugador $i$. El espacio conjunto de estrategias puras es $S = \prod_{i=1}^n S_i$.
+- $u_i: S \to \mathbb{R}$ es la función de utilidad o pago von Neumann-Morgenstern del jugador $i$.
+
+### Estrategias Mixtas y Espacio Simplex
+
+Una estrategia mixta para el jugador $i$ es una distribución de probabilidad $\sigma_i$ sobre $S_i$:
+
+$$\Delta(S_i) = \left\{ \sigma_i \in \mathbb{R}^{m_i} \;\middle|\; \sum_{k=1}^{m_i} \sigma_{ik} = 1, \; \sigma_{ik} \ge 0 \; \forall k \right\}$$
+
+El espacio de perfiles de estrategias mixtas es el producto cartesiano de los símplices:
+
+$$\Sigma = \prod_{i=1}^n \Delta(S_i)$$
+
+Dado un perfil mixto $\sigma = (\sigma_1, \dots, \sigma_n) \in \Sigma$, la utilidad esperada del jugador $i$ es:
+
+$$u_i(\sigma) = \sum_{s \in S} \left( \prod_{j=1}^n \sigma_j(s_j) \right) u_i(s)$$
+
+### Definición del Equilibrio de Nash
+
+Un perfil de estrategias $\sigma^* = (\sigma_1^*, \dots, \sigma_n^*) \in \Sigma$ es un **Equilibrio de Nash** si ninguna desviación unilateral resulta rentable:
+
+$$u_i(\sigma_i^*, \sigma_{-i}^*) \ge u_i(\sigma_i, \sigma_{-i}^*) \quad \forall \sigma_i \in \Delta(S_i), \quad \forall i \in N$$
+
+donde $\sigma_{-i}^*$ denota las estrategias conjuntas de todos los jugadores distintos de $i$.
+
+Equivalentemente, definiendo la correspondencia de mejor respuesta (*Best Response*) del jugador $i$:
+
+$$BR_i(\sigma_{-i}) = \arg\max_{\sigma_i \in \Delta(S_i)} u_i(\sigma_i, \sigma_{-i})$$
+
+Un perfil $\sigma^*$ es un equilibrio de Nash si y solo si es un **punto fijo** de la correspondencia conjunta de mejor respuesta:
+
+$$\sigma^* \in BR(\sigma^*) \equiv \prod_{i=1}^n BR_i(\sigma_{-i}^*)$$
+
+### Teorema de Existencia de Nash (1950, 1951)
+
+> **Teorema (Nash):** Todo juego finito no cooperativo con un número finito de jugadores y conjuntos finitos de estrategias puras posee al menos un punto de equilibrio en estrategias mixtas.
+
+**Idea de la Demostración:**
+1. Cada símplex $\Delta(S_i)$ es un subconjunto compacto y convexo de $\mathbb{R}^{m_i}$, por lo que $\Sigma = \prod_{i=1}^n \Delta(S_i)$ es no vacío, compacto y convexo.
+2. Como $u_i(\sigma_i, \sigma_{-i})$ es lineal (y por ende cuasicóncava) en $\sigma_i$, el conjunto $BR_i(\sigma_{-i})$ es cerrado, no vacío y convexo para todo $\sigma_{-i}$.
+3. Por el Teorema del Máximo de Berge, la correspondencia $BR(\cdot): \Sigma \rightrightarrows \Sigma$ tiene gráfica cerrada y es hemicontinua superior.
+4. Por el **Teorema de Punto Fijo de Kakutani** (o el de Brouwer en la demostración alternativa de Nash de 1951), existe al menos un $\sigma^* \in \Sigma$ tal que $\sigma^* \in BR(\sigma^*)$.
+
+---
+
+## 2. Reinhard Selten: Refinamiento de Equilibrio y Juegos Dinámicos
+
+### La Limitación del Equilibrio de Nash en Juegos Dinámicos
+
+En un juego secuencial (representado en forma extensiva mediante un árbol de juego de Kuhn), los jugadores eligen acciones en nodos de decisión sucesivos a lo largo del tiempo. Al traducir un juego dinámico a su forma normal estática, surgen múltiples equilibrios de Nash. Sin embargo, muchos de estos equilibrios dependen críticamente de **amenazas no creíbles**: un jugador amenaza con ejecutar una acción punitiva muy costosa si el rival entra a un mercado, pero si el rival efectivamente entra, ejecutar la amenaza sería irracional para el propio amenazante.
+
+### Equilibrio Perfecto en Subjuegos (SPE / EPES, Selten 1965)
+
+Un **subjuego propio** (*proper subgame*) $G_h$ de un juego en forma extensiva $\Gamma$ es una parte del árbol que:
+1. Comienza en un nodo de decisión único $h$ que constituye un conjunto de información singleton.
+2. Contiene a todos los nodos sucesores de $h$.
+3. No divide ningún conjunto de información del juego original.
+
+> **Definición (Equilibrio Perfecto en Subjuegos - Selten 1965):** Un perfil de estrategias conductuales $\sigma^*$ es un Equilibrio Perfecto en Subjuegos (*Subgame Perfect Equilibrium*, SPE) de $\Gamma$ si induce un equilibrio de Nash en cada subjuego de $\Gamma$ (incluido el juego completo).
+
+En juegos con información perfecta y horizonte finito, el SPE se computa mediante el algoritmo de **inducción hacia atrás** (*backward induction*):
+1. Comenzar en los nodos de decisión inmediatamente anteriores a los pagos terminales.
+2. Asignar a cada jugador la acción que maximiza su pago en dicho nodo.
+3. Sustituir el nodo por el vector de pagos resultante y retroceder sucesivamente hacia la raíz del árbol.
+
+---
+
+## 3. John C. Harsanyi: Juegos con Información Incompleta y Juegos Bayesianos
+
+### El Desafío de la Información Incompleta
+
+Antes de 1967, la teoría de juegos requería el supuesto estricto de **información completa**: cada jugador debía conocer con certeza las funciones de pago y los espacios de estrategias de todos los demás participantes. En la práctica económica (subastas, negociaciones salariales, licitaciones públicas), los agentes desconocen las valoraciones o estructuras de costos de sus rivales.
+
+### La Transformación Harsanyiana y la Doctrina de Creencia Común
+
+Harsanyi (1967–1968) propuso una solución conceptual genial: modelar la información privada de cada jugador mediante un **tipo** $\theta_i \in \Theta_i$. La interacción se reformula introduciendo un movimiento ficticio inicial de la **Naturaleza** (Jugador 0):
+
+1. La Naturaleza selecciona el perfil de tipos $\theta = (\theta_1, \dots, \theta_n) \in \Theta = \prod_{i=1}^n \Theta_i$ de acuerdo con una distribución de probabilidad conjunta a priori $P(\theta)$ (**Doctrina de Harsanyi** o *Common Prior Assumption*).
+2. Cada jugador $i$ observa privadamente su propio tipo $\theta_i$, pero no los tipos ajenos $\theta_{-i}$.
+3. Cada jugador actualiza sus creencias sobre los rivales mediante la regla de Bayes:
+   $$P(\theta_{-i} \mid \theta_i) = \frac{P(\theta_i, \theta_{-i})}{\sum_{\theta_{-i}'} P(\theta_i, \theta_{-i}')}$$
+
+### Equilibrio de Nash Bayesiano (BNE)
+
+Una estrategia pura para el jugador $i$ es un plan de acción contingente $s_i: \Theta_i \to A_i$. Un perfil de estrategias $s^* = (s_1^*, \dots, s_n^*)$ es un **Equilibrio de Nash Bayesiano** si para cada jugador $i$ y para cada tipo posible $\theta_i \in \Theta_i$:
+
+$$s_i^*(\theta_i) \in \arg\max_{a_i \in A_i} \sum_{\theta_{-i} \in \Theta_{-i}} P(\theta_{-i} \mid \theta_i) \, u_i\left(a_i, s_{-i}^*(\theta_{-i}), \theta_i, \theta_{-i}\right)$$
+
+La transformación de Harsanyi convirtió un problema epistemológicamente intratable (información incompleta) en un juego estándar con información imperfecta, cimentando las bases de la economía de la información contemporánea.
+
+---
+
+# Implementación en R y Replicación Cuantitativa
+
+A continuación ejecutamos el análisis computacional integral que replica los aportes de Nash, Selten y Harsanyi.
+
+```{r setup, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(tibble)
+
+# Semilla para reproducibilidad estricta
+set.seed(19941011)
+```
+
+## 1. Simulación y Visualización del Equilibrio de Nash (Batalla de los Sexos)
+
+Analizamos el juego 2x2 clásico de coordinación con conflicto:
+
+- Jugador 1 (Ella): Ópera ($O_1$), Fútbol ($F_1$)
+- Jugador 2 (Él): Ópera ($O_2$), Fútbol ($F_2$)
+
+Matriz de pagos:
+- $(O_1, O_2) \to (3, 2)$
+- $(O_1, F_2) \to (0, 0)$
+- $(F_1, O_2) \to (0, 0)$
+- $(F_1, F_2) \to (2, 3)$
+
+Sean $p = \Pr(O_1)$ y $q = \Pr(O_2)$.
+
+Las condiciones de indiferencia son:
+- Para el Jugador 2: $EU_2(O_2) = 2p = 3(1-p) = EU_2(F_2) \implies p^* = \frac{3}{5} = 0.60$.
+- Para el Jugador 1: $EU_1(O_1) = 3q = 2(1-q) = EU_1(F_1) \implies q^* = \frac{2}{5} = 0.40$.
+
+```{r nash_calculo}
+q_star <- 2 / 5
+p_star <- 3 / 5
+eps <- 1e-4
+
+# Correspondencia de mejor respuesta Jugador 1: p*(q)
+br1_df <- data.frame(
+  q = c(0, q_star - eps, q_star, q_star, q_star + eps, 1),
+  p = c(0, 0,             0,      1,      1,            1),
+  jugador = "Jugador 1: BR1(q)"
+)
+
+# Correspondencia de mejor respuesta Jugador 2: q*(p)
+br2_df <- data.frame(
+  p = c(0, p_star - eps, p_star, p_star, p_star + eps, 1),
+  q = c(0, 0,             0,      1,      1,            1),
+  jugador = "Jugador 2: BR2(p)"
+)
+
+eq_puntos <- data.frame(
+  p = c(0, 1, p_star),
+  q = c(0, 1, q_star),
+  tipo = c("Puro", "Puro", "Mixto"),
+  etiqueta = c("Eq. Puro (F, F)", "Eq. Puro (O, O)", "Eq. Mixto (p*=0.6, q*=0.4)")
+)
+
+print(eq_puntos)
+```
+
+Graficamos las funciones de mejor respuesta y los puntos de equilibrio:
+
+```{r nash_grafico, fig.width=8, fig.height=6.5}
+p_nash <- ggplot() +
+  geom_line(data = br1_df, aes(x = p, y = q, color = "BR1(q): Jugador 1 (Ella)"), linewidth = 1.3) +
+  geom_line(data = br2_df, aes(x = p, y = q, color = "BR2(p): Jugador 2 (Él)"), linewidth = 1.3, linetype = "dashed") +
+  geom_vline(xintercept = p_star, linetype = "dotted", color = "gray50", alpha = 0.7) +
+  geom_hline(yintercept = q_star, linetype = "dotted", color = "gray50", alpha = 0.7) +
+  geom_point(data = eq_puntos, aes(x = p, y = q, fill = tipo), size = 5, shape = 21, stroke = 1.5, color = "black") +
+  annotate("text", x = 0.12, y = 0.08, label = "NE Puro:\n(Fútbol, Fútbol)", fontface = "bold", size = 3.6, color = "#1b4332") +
+  annotate("text", x = 0.88, y = 0.92, label = "NE Puro:\n(Ópera, Ópera)", fontface = "bold", size = 3.6, color = "#1b4332") +
+  annotate("text", x = 0.62, y = 0.32, label = "NE Mixto:\np*=0.60, q*=0.40", fontface = "bold", size = 3.6, color = "#8b0000") +
+  scale_color_manual(
+    name = "Correspondencia de Mejor Respuesta",
+    values = c("BR1(q): Jugador 1 (Ella)" = "#0072B2", "BR2(p): Jugador 2 (Él)" = "#D55E00")
+  ) +
+  scale_fill_manual(
+    name = "Tipo de Equilibrio de Nash",
+    values = c("Puro" = "#2a9d8f", "Mixto" = "#e76f51")
+  ) +
+  scale_x_continuous(breaks = seq(0, 1, 0.2), limits = c(-0.02, 1.02)) +
+  scale_y_continuous(breaks = seq(0, 1, 0.2), limits = c(-0.02, 1.02)) +
+  labs(
+    title = "Equilibrios de Nash en Estrategias Puras y Mixtas (Batalla de los Sexos)",
+    subtitle = "Intersección de correspondencias de mejor respuesta en [0,1] × [0,1]",
+    x = "p = Probabilidad de que Jugador 1 elija Ópera",
+    y = "q = Probabilidad de que Jugador 2 elija Ópera",
+    caption = "Fuente: Nobel_economics (Nash 1950, 1951)."
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", size = 13, hjust = 0),
+    legend.position = "bottom"
+  )
+
+p_nash
+```
+
+## 2. Refinamiento de Selten y Extensión Bayesiana de Harsanyi
+
+Modelamos la decisión dinámica de entrada al mercado:
+- Entrante $E$: $\{$Entrar ($E$), Fuera ($O$)$\}$.
+- Incumbente $I$: $\{$Acomodar ($A$), Pelear ($F$)$\}$.
+
+En forma estática normal existen 2 equilibrios de Nash:
+1. $(E, A)$ con pagos $(1, 1)$.
+2. $(O, F)$ con pagos $(0, 2)$, sostenido por la amenaza de iniciar una guerra de precios.
+
+Por inducción hacia atrás (Selten 1965), en el subjuego post-entrada, el incumbente obtiene $1$ al acomodar y $-1$ al pelear; por ende, pelear es estrictamente dominado. El único **SPE** es $(E, A)$.
+
+Bajo el marco de Harsanyi (1967), supongamos que el incumbente es de tipo *Agresivo* con probabilidad a priori $\mu = P(\text{Agresivo})$. El tipo agresivo obtiene $0$ peleando y $-1$ acomodando (costo marginal ultra bajo). El tipo racional obtiene $1$ acomodando y $-1$ peleando.
+El retorno esperado del entrante es:
+$$EU_E(\text{Entrar}; \mu) = \mu(-1) + (1-\mu)(1) = 1 - 2\mu$$
+La entrada es rentable si y solo si $\mu < 0.50$.
+
+```{r harsanyi_simulacion, fig.width=9, fig.height=6}
+mu_seq <- seq(0, 1, length.out = 300)
+eu_entrar <- 1 - 2 * mu_seq
+eu_fuera <- rep(0, length(mu_seq))
+
+df_bayes <- data.frame(
+  mu = mu_seq,
+  eu_entrar = eu_entrar,
+  eu_fuera = eu_fuera
+)
+
+p_bayes <- ggplot(df_bayes, aes(x = mu)) +
+  geom_ribbon(aes(ymin = pmin(eu_entrar, 0), ymax = pmax(eu_entrar, 0), fill = eu_entrar > 0), alpha = 0.25) +
+  geom_line(aes(y = eu_entrar, color = "EU(Entrar) = 1 - 2*mu"), linewidth = 1.3) +
+  geom_line(aes(y = eu_fuera, color = "EU(Quedarse Fuera) = 0"), linewidth = 1.1, linetype = "dashed") +
+  geom_vline(xintercept = 0.50, linetype = "dotted", color = "#8b0000", linewidth = 1) +
+  annotate("point", x = 0.50, y = 0, color = "#8b0000", size = 4) +
+  annotate("text", x = 0.22, y = 0.45, label = "Zona de Entrada Racional\n(EU_Entrar > 0)", color = "#1b4332", fontface = "bold", size = 3.8) +
+  annotate("text", x = 0.78, y = -0.45, label = "Zona de Disuasión Efectiva\n(EU_Entrar < 0)", color = "#8b0000", fontface = "bold", size = 3.8) +
+  annotate("text", x = 0.50, y = 0.15, label = "Umbral Crítico de Harsanyi\nmu* = 0.50", color = "#8b0000", fontface = "italic", size = 3.4) +
+  scale_fill_manual(
+    name = "Decisión Óptima del Entrante",
+    values = c("TRUE" = "#2a9d8f", "FALSE" = "#e76f51"),
+    labels = c("TRUE" = "Entrar al mercado", "FALSE" = "Permanecer fuera")
+  ) +
+  scale_color_manual(
+    name = "Utilidad Esperada",
+    values = c("EU(Entrar) = 1 - 2*mu" = "#0072B2", "EU(Quedarse Fuera) = 0" = "#495057")
+  ) +
+  scale_x_continuous(breaks = seq(0, 1, 0.1), limits = c(0, 1)) +
+  scale_y_continuous(breaks = seq(-1, 1, 0.5), limits = c(-1.05, 1.05)) +
+  labs(
+    title = "Refinamiento Dinámico de Selten y Extensión Bayesiana de Harsanyi",
+    subtitle = "Incertidumbre sobre el tipo del rival y credibilidad estratégica de la disuasión",
+    x = expression(paste("Creencia a Priori sobre Tipo Agresivo (", mu, " = Pr(Agresivo))")),
+    y = "Utilidad Esperada del Entrante (EU)",
+    caption = "Fuente: Nobel_economics (Selten 1965, Harsanyi 1967)."
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", size = 13, hjust = 0),
+    legend.position = "bottom"
+  )
+
+p_bayes
+```
+
+## 3. Tabla Comparativa de Resultados
+
+Cargamos la tabla maestra generada por el script modular:
+
+```{r tabla_salidas}
+tab_res <- read.csv("salidas/tab_resultados_juegos_1994.csv", encoding = "UTF-8")
+knitr::kable(tab_res, caption = "Tabla 1: Comparación de conceptos de equilibrio en teoría de juegos no cooperativos (1994).")
+```
+
+---
+
+# Discusión de Resultados y Comparación con la Literatura
+
+1. **La Dualidad Pura/Mixta de Nash:**
+   En juegos como la Batalla de los Sexos, existen dos equilibrios puros simétricos con pagos $(3, 2)$ y $(2, 3)$, y un equilibrio mixto donde cada jugador aleatoriza para mantener al rival indiferente. En el equilibrio mixto, la probabilidad de desfasarse es de $1 - (0.6 \times 0.4 + 0.4 \times 0.6) = 0.52$, generando un pago esperado de $1.2$ para ambos, estrictamente inferior a cualquiera de los dos equilibrios puros. Esto demuestra que la aleatorización puede implicar un costo de coordinación sustancial.
+
+2. **La Eliminación de Amenazas No Creíbles de Selten:**
+   El concepto de equilibrio de Nash es necesario pero no suficiente en contextos dinámicos. En la forma normal estática, $(O, F)$ parece ser un equilibrio porque si el rival no entra, la acción del incumbente nunca se prueba en la práctica. La exigencia de Selten de que cada subjuego posea un equilibrio de Nash obliga a que las estrategias sean racionales incluso en nodos que no se alcanzan a lo largo de la trayectoria de juego (*off-equilibrium path*).
+
+3. **La Purificación y Credibilidad Bayesiana de Harsanyi:**
+   Harsanyi mostró que la aparente falta de credibilidad de una amenaza puede revertirse si existe una sospecha mínima de irracionalidad o agresividad en el rival ($\mu > 0.5$). La teoría bayesiana reconcilia la teoría de juegos con el comportamiento en mercados del mundo real, originando los modelos seminales de reputación de Kreps y Wilson (1982) y Milgrom y Roberts (1982).
+
+---
+
+# Limitaciones y Desarrollos Posteriores
+
+1. **Equilibrios Múltiples y Selección:** El teorema de Nash garantiza existencia pero no unicidad. Juegos con equilibrios múltiples requieren criterios de selección refinados (criterio intuitivo de Cho-Kreps, dominancia de riesgo de Harsanyi-Selten).
+2. **Subjuegos vs. Información Asimétrica Dinámica:** El Equilibrio Perfecto en Subjuegos de Selten solo es aplicable cuando los conjuntos de información son singletons. En juegos con información asimétrica dinámica (señalización), se requiere el **Equilibrio Bayesiano Perfecto** (*Perfect Bayesian Equilibrium*, PBE) o el **Equilibrio Secuencial** de Kreps y Wilson (1982).
+3. **Economía del Comportamiento:** En experimentos de laboratorio pioneros encabezados por el propio Reinhard Selten y posteriormente por Vernon Smith y Colin Camerer, los sujetos humanos reales violan con frecuencia la inducción hacia atrás pura debido a reciprocidad, aversión a la desigualdad y racionalidad acotada (*bounded rationality*).
+
+---
+
+# Ejercicios para el Estudiante
+
+1. **Ejercicio Básico:** Considere el juego del Dilema de la Seguridad o Halcón-Paloma. Construya la matriz de pagos $2 \times 2$, deduzca analíticamente el equilibrio de Nash en estrategias mixtas y verifique la condición de indiferencia.
+2. **Ejercicio Intermedio:** Modifique el juego dinámico de entrada permitiendo que el incumbente realice una inversión previa irreversible en capacidad instalada (compromiso de Thomas Schelling / Dixit 1980). Demuestre cómo el compromiso transforma la amenaza de pelear en una acción creíble en el SPE.
+3. **Ejercicio Reto:** En un juego bayesiano de subasta de primer precio con dos postores cuyas valoraciones son independientes y uniformemente distribuidas $v_i \sim U[0, 1]$, plantee el problema de optimización bayesiano del postor y demuestre que la estrategia simétrica en el Equilibrio de Nash Bayesiano es $b(v_i) = \frac{1}{2} v_i$.
+
+*(Las soluciones analíticas completas y orientaciones docentes se encuentran disponibles en `docente/soluciones.md`).*

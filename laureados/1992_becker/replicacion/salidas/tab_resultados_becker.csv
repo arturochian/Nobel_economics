@@ -1,0 +1,5 @@
+"politica","p","f","delitos_O","costo_social_L"
+"Baja probabilidad / Alta pena",0.1,90,595.9,13431.3
+"Probabilidad media / Pena media",0.3,50,323.6,6208.4
+"Alta probabilidad / Baja pena",0.6,20,297.2,6734
+"Óptimo de costo social (Becker)",0.494,100,144.7,3858.5

@@ -1,0 +1,108 @@
+---
+title: "Guía de Ejercicios Prácticos: Cliometría, Ahorro Social e Instituciones"
+subtitle: "Premio Nobel de Economía 1993: Robert W. Fogel y Douglass C. North"
+author: "Nobel_economics Docencia"
+date: "1993-10-12"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta guía aplicarás las herramientas analíticas, econométricas e institucionales pioneras de **Robert W. Fogel** y **Douglass C. North** para:
+1. Diseñar y calcular una medición contrafáctica del **ahorro social** (*social saving*) y evaluar críticamente el "axioma de indispensabilidad" tecnológica.
+2. Modelar el problema de **inconsistencia dinámica y compromiso creíble** (*credible commitment*) del soberano y cuantificar el colapso de las tasas de interés derivado de reformas constitucionales.
+3. Simular en R cómo los **costos de transacción** y la seguridad jurídica determinan la transición desde economías de intercambio personal hacia mercados impersonales a escala global.
+
+---
+
+# Ejercicio 1: Cálculo del Ahorro Social de Fogel y Evaluación de la Indispensabilidad Tecnológica (Nivel Básico)
+
+En *Railroads and American Economic Growth* (1964), Robert Fogel definió el ahorro social ($SS$) como la diferencia de costos agregados entre transportar el volumen real de carga observado en un año determinado a través de la infraestructura ferroviaria frente a transportarlo mediante la mejor red contrafáctica alternativa disponible (canales, ríos, navegación de cabotaje y carretas).
+
+Supongamos una economía en desarrollo en el siglo XIX con las siguientes características para el año $T = 1890$:
+- **Volumen observado de carga:** $Q = 16,000$ millones de toneladas-milla.
+- **Costo unitario del ferrocarril:** $c_r = \$0.010$ por tonelada-milla.
+- **Costo unitario del sistema alternativo contrafáctico (vías fluviales + carretas):** $c_\alpha = \$0.025$ por tonelada-milla (este costo incluye fletes acuáticos, transbordos y el costo financiero de almacenamiento por congelamiento invernal de vías navegables).
+- **Producto Nacional Bruto (PNB) en el año $T$:** $PNB = \$10,000$ millones de dólares.
+- **Tasa promedio de crecimiento anual del PNB de largo plazo:** $g = 2.5\%$ anual.
+
+### Preguntas:
+
+1. **Ahorro Social bajo demanda inelástica ($\eta = 0$):**
+   - Calcula el costo total real de transporte ferroviario ($C_{\text{real}}$) y el costo total contrafáctico ($C_{\text{contrafáctico}}$).
+   - Determina el ahorro social absoluto ($SS = C_{\text{contrafáctico}} - C_{\text{real}}$) en millones de dólares.
+   - Calcula el ahorro social como porcentaje del PNB ($SS / PNB$).
+
+2. **Equivalencia temporal del retraso:**
+   - Asumiendo que la economía crecía a una tasa compuesta continua del $g = 2.5\%$ anual ($Y_t = Y_0 e^{g \cdot t}$), ¿a cuántos años de crecimiento económico equivale la pérdida de bienestar del ahorro social calculado?
+   - Discute: si el ferrocarril nunca se hubiera inventado y el país hubiera tenido que basar su transporte en vías fluviales mejoradas, ¿durante cuánto tiempo se habría retrasado el nivel de desarrollo de 1890? ¿Justifica esta cifra calificar al ferrocarril como una innovación "indispensable"?
+
+3. **Ajuste por elasticidad de demanda de transporte ($\eta < 0$):**
+   - En el mundo real, los agentes económicos reaccionan a tarifas más elevadas reduciendo el tonelaje transportado o relocalizando actividades más cerca de los puertos.
+   - Si la elasticidad precio de la demanda de transporte es $\eta = -0.50$, calcula el ahorro social ajustado por pérdida de excedente del consumidor mediante la aproximación:
+     $$SS_{\text{ajustado}} = SS_0 \left[ 1 + \frac{1}{2} \eta \left( \frac{\Delta P}{P_0} \right) \right]$$
+     donde $P_0 = c_r$ y $\Delta P = c_\alpha - c_r$.
+   - ¿Por qué el supuesto original de Fogel de demanda inelástica constituía un límite superior (*upper bound*) que favorecía deliberadamente a los defensores de la hipótesis de indispensabilidad?
+
+---
+
+# Ejercicio 2: El Modelo de Compromiso Creíble de North y Weingast (Nivel Intermedio)
+
+En *"Constitutions and Commitment"* (1989), Douglass North y Barry Weingast explicaron cómo las restricciones institucionales impuestas a la Corona inglesa tras la Revolución Gloriosa de 1688 transformaron el crédito público y desataron la revolución financiera británica.
+
+Considera el siguiente modelo simplificado del mercado de bonos soberanos:
+- Un Estado emite deuda pública para financiar defensa nacional e infraestructura.
+- Los prestamistas privados e inversores institucionales son neutrales al riesgo y tienen como alternativa invertir en activos seguros a una tasa libre de riesgo $r^* = 3.5\%$ anual ($0.035$).
+- Existe una probabilidad anual $p$ de que el soberano incurra en repudio, confiscación o mora unilateral forzosa. En caso de impago, los prestamistas pierden la totalidad de su inversión (tasa de recuperación cero).
+- Si el soberano cumple su promesa (con probabilidad $1 - p$), el inversor recibe el capital más una tasa de interés contractual $R$.
+
+### Preguntas:
+
+1. **Condición de equilibrio de no arbitraje:**
+   - Escribe la ecuación de rendimiento esperado para el prestamista neutral al riesgo y despeja analíticamente la tasa de interés de equilibrio $R$ en función de $r^*$ y $p$.
+   - Demuestra que cuando la probabilidad de impago $p$ aumenta, la prima de riesgo soberana ($R - r^*$) crece a una tasa creciente (convexa).
+
+2. **Comparación histórica cuantitativa:**
+   - **Régimen 1: Monarquía Absoluta (Estuardos, pre-1688):** El rey puede disolver el parlamento, imponer tributos ilegales y suspender pagos arbitrariamente. Los mercados perciben un riesgo anual de confiscación de $p_{\text{abs}} = 0.085$ (8.5%). Calcula la tasa de interés contractual $R_{\text{abs}}$.
+   - **Régimen 2: Monarquía Constitucional (Post-1688):** El Parlamento aprueba los presupuestos por ley, los jueces son inamovibles y el Banco de Inglaterra (1694) supervisa el servicio de la deuda. La probabilidad de impago cae a $p_{\text{parl}} = 0.005$ (0.5%). Calcula la nueva tasa de interés contractual $R_{\text{parl}}$.
+
+3. **Impacto sobre la capacidad fiscal y el ahorro del Estado:**
+   - Si la Corona requiere mantener un stock de deuda pública de $D = £25$ millones de libras esterlinas, calcula el ahorro fiscal anual exclusivo en pago de intereses gracias a la transición institucional.
+   - Explica la paradoja del soberano de North: ¿Por qué un rey con facultades absolutas para expropiar a sus ciudadanos termina teniendo un Estado débil e insolvente, mientras que un gobierno con límites y contrapesos constitucionales logra endeudarse masivamente y a bajísimo costo?
+
+---
+
+# Ejercicio 3: Reto de Simulación en R (Nivel Avanzado)
+
+En *Institutions, Institutional Change and Economic Performance* (1990), North argumentó que las instituciones formales e informales reducen los costos de transacción ($\tau$), permitiendo a los individuos abandonar el comercio personal comunal de baja productividad para integrarse en mercados impersonales globales de alta productividad.
+
+### Especificación del Modelo:
+- Una economía cuenta con $N = 1,000$ emprendedores.
+- Cada emprendedor $i$ tiene una productividad potencial en el mercado impersonal de $y_i \sim \text{Log-Normal}(\mu = 3.0, \sigma = 0.5)$.
+- Si el agente decide quedarse en la economía local comunal (comercio personal seguro), obtiene un ingreso de subsistencia fijo $y_{\text{local}} = 15$.
+- Si decide comerciar en el mercado impersonal moderno, enfrenta costos de transacción y riesgo de incumplimiento contractual:
+  $$y_{\text{impersonal}, i} = y_i \cdot (1 - \tau(I)) - C_{\text{legal}}$$
+  donde:
+  - $I \in [0, 1]$ es el índice de calidad de las instituciones judiciales y respeto a los derechos de propiedad.
+  - $\tau(I) = \tau_{\max} \cdot \exp(-\lambda \cdot I)$ es la tasa de costos de transacción variables (con $\tau_{\max} = 0.50$ y $\lambda = 3.0$).
+  - $C_{\text{legal}} = 8 \cdot (1 - I)$ es el costo fijo de litigar o hacer cumplir contratos ante tribunales lentos o corruptos.
+- El agente elige entrar al mercado impersonal si y solo si $y_{\text{impersonal}, i} > y_{\text{local}}$.
+
+### Tareas a Implementar en R:
+1. Escribe una función en R llamada `simular_mercado_north(I, N = 1000, seed = 1993)` que simule la decisión de los 1,000 agentes para un valor dado de calidad institucional $I$.
+2. Evalúa la función para una grilla de $I \in [0.05, 0.95]$ con incrementos de $0.05$.
+3. Genera un gráfico con dos paneles utilizando `ggplot2`:
+   - **Panel A:** Porcentaje de agentes que participan en el mercado impersonal moderno como función de la calidad institucional $I$.
+   - **Panel B:** Ingreso agregado de la economía ($Y_{\text{total}} = \sum \max(y_{\text{impersonal}, i}, y_{\text{local}})$) como función de $I$.
+4. Identifica si existe un "punto crítico de inflexión institucional" (*tipping point*) por debajo del cual la economía queda atrapada en el comercio comunal de subsistencia (*path dependence*).
+
+---
+
+# Preguntas de Debate Historiográfico
+
+1. **Límites de los contrafácticos históricos:** ¿Hasta qué punto es legítimo concebir un siglo XIX estadounidense "sin ferrocarriles"? ¿Pudo el contrafáctico de Fogel ignorar externalidades dinámicas no capturadas por el excedente del consumidor de 1890 (como la creación de las corporaciones gerenciales modernas descritas por Alfred Chandler)?
+2. **La economía de la esclavitud y la controversia de *Time on the Cross* (1974):** Fogel y Engerman demostraron que la esclavitud en el Sur era económicamente rentable y eficiente en términos estrictamente productivos antes de la Guerra de Secesión, desmintiendo la visión tradicional de que era un sistema arcaico al borde de la quiebra. ¿Por qué esta conclusión provocó un terremoto ético y cómo abordó Fogel la diferencia entre viabilidad de mercado y justicia moral en su obra posterior *Without Consent or Contract* (1989)?
+3. **El legado institucional:** ¿Cómo se conecta la distinción de North entre *instituciones formales* e *informales* con las trampas de desarrollo contemporáneas observadas en América Latina y África subsahariana?

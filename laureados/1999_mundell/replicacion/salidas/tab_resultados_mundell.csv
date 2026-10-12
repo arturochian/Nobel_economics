@@ -1,0 +1,5 @@
+regimen_cambiario,politica,shock_nominal,efecto_producto,efecto_tasa_interes,efecto_tipo_cambio,mecanismo_ajuste,eficacia_relativa
+Tipo de Cambio Fijo,Fiscal Expansiva (+G),+22.0 (G),+40.0,0.0 (anclada a i*),0.0 (fijo),Entrada de capitales fuerza expansión monetaria endógena (ΔM = +10.0),Máxima
+Tipo de Cambio Fijo,Monetaria Expansiva (+M),+11.0 (M),0.0,0.0 (anclada a i*),0.0 (fijo),Fuga de capitales drena reservas internacionales hasta revertir la oferta de dinero,Nula
+Tipo de Cambio Flexible,Fiscal Expansiva (+G),+22.0 (G),0.0,0.0 (anclada a i*),-1.833 (apreciación),"Entrada de capitales aprecia la moneda, destruyendo exportaciones netas (crowding-out externo)",Nula
+Tipo de Cambio Flexible,Monetaria Expansiva (+M),+11.0 (M),+44.0,0.0 (anclada a i*),+2.017 (depreciación),"Salida de capitales deprecia la moneda, estimulando exportaciones netas y producción",Máxima

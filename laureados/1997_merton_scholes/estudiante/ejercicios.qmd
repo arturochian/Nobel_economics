@@ -1,0 +1,98 @@
+---
+title: "Guía de Ejercicios Prácticos: Valoración de Derivados y Modelo Black-Scholes-Merton"
+subtitle: "Premio Nobel de Economía 1997: Robert C. Merton y Myron S. Scholes (con Fischer Black in memoriam)"
+author: "Nobel_economics Docencia"
+date: "1997-10-14"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta actividad práctica trabajarás directamente con los fundamentos cuantitativos del Premio Nobel de Economía 1997:
+1. **Cálculo de Precios y Paridad Put-Call:** Cómo aplicar la fórmula de Black-Scholes-Merton, comprender los términos $d_1$ y $d_2$, y validar la condición de no arbitraje.
+2. **Cobertura Dinámica y Griegas (Delta y Gamma Hedging):** Cómo los creadores de mercado (*market makers*) neutralizan el riesgo de precios y cómo la curvatura (Gamma) afecta la frecuencia de rebalanceo de la cartera de réplica.
+3. **El Modelo Estructural de Crédito de Merton (1974):** Cómo interpretar las acciones y los bonos de una corporación como opciones financieras sobre sus activos subyacentes, deduciendo el diferencial crediticio (*credit spread*) y la probabilidad de quiebra.
+
+---
+
+# Ejercicio 1: Valoración Manual y Paridad Put-Call (Nivel Básico)
+
+Considera un contrato de opción europea sobre una acción que no paga dividendos ($q = 0$), con los siguientes parámetros:
+- Precio actual de la acción (Spot): $S_0 = \$100$
+- Precio de ejercicio (Strike): $K = \$100$ (en el dinero / At-The-Money)
+- Tasa de interés libre de riesgo anualizada (capitalización continua): $r = 5\%$ ($0.05$)
+- Volatilidad anualizada del rendimiento: $\sigma = 20\%$ ($0.20$)
+- Tiempo hasta la expiración: $T = 0.5$ años (6 meses)
+
+## Preguntas:
+1. **Cálculo de los parámetros estandarizados:**
+   - Calcula $d_1 = \frac{\ln(S_0 / K) + (r + \frac{1}{2}\sigma^2)T}{\sigma \sqrt{T}}$.
+   - Calcula $d_2 = d_1 - \sigma \sqrt{T}$.
+   - Busca o calcula los valores de la distribución acumulada normal estándar: $\mathcal{N}(d_1)$ y $\mathcal{N}(d_2)$.
+2. **Precio de la Opción de Compra (Call):**
+   - Aplica la fórmula analítica de Black-Scholes para determinar el precio teórico del Call:
+     $$C = S_0 \mathcal{N}(d_1) - K e^{-r T} \mathcal{N}(d_2)$$
+3. **Paridad Put-Call y Precio de la Opción de Venta (Put):**
+   - Utilizando el principio de no arbitraje, la paridad Put-Call establece que:
+     $$C - P = S_0 - K e^{-r T}$$
+   - Despeja y calcula el precio teórico del Put europeo ($P$).
+   - Comprueba que obtienes el mismo resultado empleando la fórmula directa:
+     $$P = K e^{-r T} \mathcal{N}(-d_2) - S_0 \mathcal{N}(-d_1)$$
+4. **Intuición Financiera:**
+   - ¿Por qué el precio del Call ($C$) es estrictamente mayor que el precio del Put ($P$) a pesar de que la opción está exactamente "at-the-money" ($S_0 = K = \$100$)? ¿Qué papel juega la tasa de interés libre de riesgo $r > 0$?
+
+---
+
+# Ejercicio 2: Cobertura Dinámica (Delta-Hedging) y Riesgo de Curvatura (Nivel Intermedio)
+
+Un banco de inversión ha vendido a un cliente corporativo 10,000 contratos de opciones Call europeas (cada contrato representa 100 acciones, para un total de 1,000,000 de acciones subyacentes).
+Los parámetros son los mismos del Ejercicio 1 ($S_0 = 100, K = 100, r = 0.05, \sigma = 0.20, T = 0.5$).
+
+## Preguntas:
+1. **Ratio de Cobertura Delta:**
+   - ¿Cuál es el Delta ($\Delta = \mathcal{N}(d_1)$) de un Call unitario?
+   - Dado que el banco tiene una posición corta en 1,000,000 de opciones, ¿cuál es el Delta total de su cartera?
+   - ¿Cuántas acciones del activo subyacente debe comprar o vender inmediatamente el operador de la mesa de derivados para que la cartera combinada esté perfectamente delta-neutral ($\Delta_{\text{cartera}} = 0$)?
+2. **Rebalanceo ante Movimientos de Mercado:**
+   - Supón que al día siguiente el precio de la acción sube repentinamente de $\$100$ a $\$105$.
+   - ¿Qué le sucede al nuevo valor de $d_1$ y al Delta de la opción?
+   - Para mantener la neutralidad de Delta, ¿debe el operador comprar más acciones o vender acciones? ¿Por qué esta dinámica se conoce como *"comprar caro y vender barato"* generada por un Gamma negativo en posiciones cortas?
+3. **El Papel de Vega:**
+   - Si la volatilidad implícita del mercado aumenta abruptamente de $20\%$ a $25\%$ debido a un incremento en la incertidumbre macroeconómica, ¿cómo afecta esto al valor de la posición corta del banco antes de cualquier rebalanceo?
+
+---
+
+# Ejercicio 3: El Modelo Estructural de Deuda Corporativa de Merton (Nivel Reto)
+
+La compañía de infraestructura *Vías y Puentes S.A.* tiene un valor total de mercado de sus activos estimado en $V_0 = \$500$ millones, con una volatilidad anualizada del valor de sus activos de $\sigma_V = 30\%$.
+La empresa financió sus proyectos emitiendo un bono cupón cero con valor nominal de $D = \$400$ millones que vence en $T = 3$ años.
+La tasa de interés libre de riesgo de la economía para un plazo de 3 años es $r = 4\%$ ($0.04$) anual compuesto continuo.
+
+Bajo el modelo de Merton (1974):
+- Los accionistas poseen una opción Call sobre los activos con precio de ejercicio $D$: $E_0 = \text{Call}(V_0, D, r, \sigma_V, T)$.
+- Los acreedores tienen derecho a los activos, pero han otorgado implícitamente una opción Put a los accionistas: el valor de la deuda riesgosa es $B_0 = V_0 - E_0 = D e^{-r T} - \text{Put}(V_0, D, r, \sigma_V, T)$.
+
+## Preguntas:
+1. **Valoración del Patrimonio Accionario ($E_0$):**
+   - Calcula $d_1$ y $d_2$ utilizando $V_0, D, r, \sigma_V, T$.
+   - Determina el valor de mercado actual del capital propio de los accionistas ($E_0$).
+2. **Valoración de la Deuda Riesgosa ($B_0$) y Spread de Crédito:**
+   - Determina el valor de mercado actual de la deuda de la compañía ($B_0$).
+   - ¿Cuánto valdría esta misma deuda si no tuviera riesgo alguno de impago ($D e^{-r T}$)?
+   - Calcula el rendimiento implícito al vencimiento de la deuda:
+     $$y = -\frac{1}{T} \ln\left( \frac{B_0}{D} \right)$$
+   - Calcula el **spread crediticio** en puntos básicos ($\text{bps} = (y - r) \times 10,000$).
+3. **Probabilidad de Quiebra e Incentivos de Riesgo Moral:**
+   - Calcula la probabilidad neutral al riesgo de quiebra al vencimiento: $\mathbb{Q}(\text{Default}) = \mathcal{N}(-d_2)$.
+   - Supón que la gerencia decide emprender un megaproyecto de alto riesgo que no altera el valor total de los activos ($V_0 = \$500$ millones) pero eleva la volatilidad de la firma a $\sigma_V = 45\%$.
+   - Explica cualitativamente qué le ocurre al valor de las acciones ($E_0$) y qué le ocurre al valor de los bonos ($B_0$). ¿Por qué este fenómeno ilustra el problema de transferencia de riqueza de acreedores a accionistas (*asset substitution / risk shifting*)?
+
+---
+
+# Preguntas de Discusión Conceptual
+
+1. **La paradoja de la no dependencia del retorno esperado:** ¿Por qué un inversor que cree con certeza que una acción va a subir un $50\%$ este año debería usar la misma fórmula de Black-Scholes que un inversor que cree que la acción va a caer un $20\%$?
+2. **Lecciones de la Crisis de LTCM (1998):** Robert Merton y Myron Scholes formaron parte del fondo de cobertura *Long-Term Capital Management*, que casi colapsa el sistema financiero mundial en 1998. ¿Qué supuestos del modelo teórico fallaron catastróficamente en la práctica (liquidez, horizontes de apalancamiento, correlaciones en crisis)?

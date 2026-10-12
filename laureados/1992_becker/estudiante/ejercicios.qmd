@@ -1,0 +1,100 @@
+---
+title: "Guía de Ejercicios Prácticos: Crimen, Capital Humano y Microeconomía de la Conducta Social"
+subtitle: "Premio Nobel de Economía 1992: Gary S. Becker"
+author: "Nobel_economics Docencia"
+date: "1992-10-13"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta guía aplicarás el instrumental neoclásico desarrollado por **Gary S. Becker** para analizar rigurosamente decisiones individuales que tradicionalmente se consideraban ajenas a la economía:
+1. El cálculo probabilístico y racional de infringir la ley bajo distintas actitudes hacia el riesgo.
+2. La determinación microeconómica de las inversiones en capital humano y la divergencia salarial en el ciclo de vida laboral.
+3. La interacción no lineal entre cantidad y calidad de los hijos en la economía de la familia y su impacto en la transición demográfica.
+
+---
+
+# Ejercicio 1: El Modelo de Crimen y Disuasión Penal (Nivel Básico)
+
+Considera un individuo racional que evalúa cometer un delito económico (por ejemplo, fraude fiscal o evasión de peaje).
+- Su ingreso honesto en el mercado formal es $w_h = \$40,000$ anuales.
+- El botín neto derivado de la infracción es $Y = \$70,000$.
+- La probabilidad de ser detectado y condenado por la autoridad es $p \in [0, 1]$.
+- En caso de captura, debe pagar una sanción monetaria equivalente a $f = \$45,000$ (de modo que su riqueza neta retenida si es capturado es $Y - f = \$25,000$).
+
+### Preguntas:
+
+1. **Neutralidad al riesgo:**
+   - Supón que la función de utilidad del individuo es lineal en el ingreso: $U(w) = w$.
+   - Escribe la expresión analítica de su utilidad esperada al delinquir, $EU(p)$.
+   - Encuentra la **probabilidad crítica de arresto ($p^*$)** que hace que el individuo esté en indiferencia entre delinquir o mantenerse en la legalidad ($EU(p^*) = U(w_h)$).
+   - ¿Qué decisión toma si la policía mantiene una tasa de efectividad de captura de $p = 0.60$? ¿Y si $p = 0.70$?
+
+2. **Aversión y preferencia por el riesgo:**
+   - Supón ahora que el agente es amante del riesgo con función de utilidad cuadrática convexa: $U(w) = w^2$.
+   - Calcula $U(w_h)$, $U(Y)$ y $U(Y - f)$.
+   - Determina la nueva probabilidad umbral $p^{**}$ bajo preferencia por el riesgo. Compárala con $p^*$ del caso neutral. ¿Por qué un delincuente amante del riesgo requiere una probabilidad de detección más elevada para ser disuadido?
+
+3. **Elasticidad de la disuasión (El Teorema de Becker):**
+   - Becker (1968) probó que cuando los delincuentes son amantes del riesgo en el margen ($U'' > 0$), la elasticidad de la oferta de crímenes con respecto a la probabilidad de captura ($\varepsilon_p$) es estrictamente mayor que la elasticidad con respecto a la severidad de la condena ($\varepsilon_f$).
+   - Explica intuitivamente por qué una política pública que duplica el patrullaje policial disuade el delito más eficazmente que una ley que duplica los años de condena carcelaria manteniendo impune la mayoría de los crímenes.
+
+---
+
+# Ejercicio 2: Capital Humano General vs. Específico (Nivel Intermedio)
+
+En un mercado laboral competitivo de dos períodos ($t = 1, 2$), un trabajador recién graduado de la escuela secundaria decide si adquiere capacitación laboral o trabaja inmediatamente como peón no calificado.
+- La productividad marginal sin capacitación en ambos períodos es $MP_1 = MP_2 = \$20,000$.
+- La tasa de descuento intertemporal del mercado es $r = 0.10$ ($10\%$).
+
+### Escenario A: Formación General Pura
+- El costo directo y de tiempo del entrenamiento en el período 1 es $C = \$8,000$.
+- Al ser formación general, eleva la productividad marginal en el período 2 a $MP_2^* = \$32,000$ en cualquier empresa de la economía.
+
+1. **Salarios de equilibrio y financiamiento:**
+   - ¿Por qué ninguna empresa competitiva estaría dispuesta a pagar el costo $C = \$8,000$ de la formación general en el período 1 si el trabajador recibe el salario completo de mercado?
+   - ¿Cuál será el salario neto pagado por la empresa al aprendiz en el período 1 ($w_1$) si el trabajador asume el costo de su propia formación?
+   - Calcula el Valor Presente Neto ($VPN$) de la decisión del trabajador de adquirir formación general respecto a no capacitarse:
+     $$VPN = (w_1 - MP_1) + \frac{w_2 - MP_2}{1 + r}$$
+   - ¿Le resulta rentable al trabajador invertir en esta formación?
+
+### Escenario B: Formación Específica de la Empresa
+- Supongamos ahora que los conocimientos adquiridos solo son útiles dentro de la empresa "TechLocal". En otras firmas, el trabajador sigue produciendo únicamente $\$20,000$ en $t = 2$.
+- Dentro de TechLocal, su productividad en $t = 2$ asciende a $MP_2^{esp} = \$32,000$.
+
+2. **Rentas compartidas y reducción de rotación:**
+   - Si la empresa y el trabajador acuerdan compartir equitativamente al 50% los costos en $t = 1$ y las rentas adicionales en $t = 2$, ¿cuál será el salario $w_1^{esp}$ y $w_2^{esp}$?
+   - Si otra firma competidora intenta contratar a este trabajador en el período 2 ofreciéndole su productividad marginal externa ($\$20,000$), ¿por qué el trabajador rechazará la oferta?
+   - Si sobreviene una crisis macroeconómica que reduce temporalmente el valor de mercado de los bienes, ¿por qué los trabajadores con alta formación específica tienen menor probabilidad de ser despedidos que los trabajadores no calificados?
+
+---
+
+# Ejercicio 3: La Economía de la Familia y la Paradoja Demográfica (Nivel Avanzado / Reto en R)
+
+En el modelo de Becker y Lewis (1973) y *A Treatise on the Family* (Becker, 1981), los padres derivan utilidad del número de hijos ($n$) y de la inversión promedio en capital humano o gasto de crianza por hijo ($q$):
+
+$$U(n, q) = n^\alpha \cdot q^\beta, \quad \text{con } \alpha = 0.5, \; \beta = 0.5$$
+
+Los costos monetarios directos son $p_n = \$5,000$ por cada hijo y $p_q = \$4,000$ por unidad de calidad, pero existe un costo de interacción clave $\pi = \$2,000$ que refleja que elevar la calidad de la educación o el cuidado exige incurrir en ese costo para *cada uno* de los hijos tenidos.
+
+La restricción presupuestaria familiar viene dada por:
+
+$$p_n \cdot n + p_q \cdot q + \pi \cdot n \cdot q = I$$
+
+### Tareas:
+
+1. **Precios sombra dependientes de las decisiones:**
+   - Calcula los precios sombra marginales de un hijo adicional ($\pi_n = \partial \text{Gasto} / \partial n$) y de una unidad de calidad adicional ($\pi_q = \partial \text{Gasto} / \partial q$).
+   - Explica por qué el costo marginal de tener un hijo aumenta conforme los padres aspiran a una mayor calidad educativa para sus hijos.
+
+2. **Simulación numérica en R:**
+   - Escribe un script en R que resuelva la elección óptima $(n^*, q^*)$ maximizando $U(n, q)$ sujeto a la restricción presupuestaria para tres niveles de ingreso familiar:
+     - Ingreso bajo: $I_1 = \$50,000$
+     - Ingreso medio: $I_2 = \$120,000$
+     - Ingreso alto: $I_3 = \$250,000$
+   - Grafica la evolución de $n^*$ (cantidad) y $q^*$ (calidad) en función del ingreso $I$.
+   - Interpreta económicamente el resultado: ¿por qué los países desarrollados experimentan tasas de fecundidad descendentes a pesar de que los hijos son bienes deseables?

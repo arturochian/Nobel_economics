@@ -1,0 +1,5 @@
+"Escenario","N","q","H","I","P_G","G_p","P_Sen"
+"1. Distribución Base",1000,528,0.528,0.3808,0.2011,0.1983,0.2659
+"2. Transferencia Regresiva (Axioma T)",1000,528,0.528,0.3831,0.2023,0.2441,0.2818
+"3. Caída de Ingreso en Pobres (Axioma M)",1000,528,0.528,0.4737,0.2501,0.1983,0.3052
+"4. Rescate Superficial (Frontera z)",1000,467,0.467,0.4243,0.1982,0.1866,0.2483

@@ -1,0 +1,9 @@
+id,titulo,doi,url,estado_descarga,licencia
+black1973pricing,"The Pricing of Options and Corporate Liabilities",10.1086/260062,https://doi.org/10.1086/260062,solo_enlace,copyright_editorial
+merton1973rational,"Theory of Rational Option Pricing",10.2307/3003143,https://doi.org/10.2307/3003143,solo_enlace,copyright_editorial
+merton1974debt,"On the Pricing of Corporate Debt: The Risk Structure of Interest Rates",10.1111/j.1540-6261.1974.tb03058.x,https://doi.org/10.1111/j.1540-6261.1974.tb03058.x,solo_enlace,copyright_editorial
+cox1979option,"Option Pricing: A Simplified Approach",10.1016/0304-405X(79)90015-1,https://doi.org/10.1016/0304-405X(79)90015-1,solo_enlace,copyright_editorial
+black1976commodity,"The Pricing of Commodity Contracts",10.1016/0304-405X(76)90024-6,https://doi.org/10.1016/0304-405X(76)90024-6,solo_enlace,copyright_editorial
+merton1990continuous,"Continuous-Time Finance",NA,https://www.wiley.com/en-us/Continuous+Time+Finance-p-9780631185086,solo_enlace,copyright_editorial
+nobel1997press,"The Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel 1997: Press Release",NA,https://www.nobelprize.org/prizes/economic-sciences/1997/press-release/,solo_enlace,public_domain_nobel
+nobel1997scientific,"Scientific Background on the Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel 1997: A New Method to Determine the Value of Derivatives",NA,https://www.nobelprize.org/prizes/economic-sciences/1997/advanced-information/,solo_enlace,public_domain_nobel

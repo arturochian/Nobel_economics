@@ -1,0 +1,9 @@
+"Elemento","Categoria","Retorno_Esperado_Pct","Volatilidad_Pct","Beta_CAPM","Ratio_Sharpe","Peso_GMVP_Pct","Peso_Tangencia_Pct"
+"Acciones Grandes EE.UU.","Activo Individual",10.5,16,1.797,0.469,9.03,28.19
+"Acciones Pequenas EE.UU.","Activo Individual",12.5,22,2.276,0.432,3.61,13.24
+"Renta Variable Internacional","Activo Individual",9,18,1.438,0.333,3,1.55
+"Bonos Corporativos","Activo Individual",5.5,8,0.599,0.312,-3.13,9.23
+"Bonos del Tesoro (Largo Plazo)","Activo Individual",4,6,0.24,0.167,87.49,47.79
+"Portafolio Minima Varianza (GMVP)","Optimo Markowitz",5,5.37,0.478,0.372,100,NA
+"Portafolio de Tangencia (Mercado)","Optimo Sharpe (CAPM)",7.17,7.77,1,0.537,NA,100
+"Tasa Libre de Riesgo","Referencia Libre de Riesgo",3,0,0,NA,NA,NA

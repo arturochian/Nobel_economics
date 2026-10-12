@@ -1,0 +1,9 @@
+id,titulo,doi,url,estado_descarga,licencia
+nobel1991_press,The Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel 1991: Ronald H. Coase,,https://www.nobelprize.org/prizes/economic-sciences/1991/press-release/,solo_enlace,Dominio publico institucional
+nobel1991_advanced,Ronald H. Coase's Contributions to Economics: Advanced Information,,https://www.nobelprize.org/prizes/economic-sciences/1991/advanced-information/,solo_enlace,Dominio publico institucional
+coase1937nature,The Nature of the Firm,10.1111/j.1468-0335.1937.tb00002.x,https://doi.org/10.1111/j.1468-0335.1937.tb00002.x,solo_enlace,Copyright Wiley / LSE
+coase1959fcc,The Federal Communications Commission,10.1086/466549,https://doi.org/10.1086/466549,solo_enlace,Copyright University of Chicago Press
+coase1960social_cost,The Problem of Social Cost,10.1086/466560,https://doi.org/10.1086/466560,solo_enlace,Copyright University of Chicago Press
+coase1974lighthouse,The Lighthouse in Economics,10.1086/466796,https://doi.org/10.1086/466796,solo_enlace,Copyright University of Chicago Press
+coase1988firm_market_law,The Firm the Market and the Law,,https://press.uchicago.edu/ucp/books/book/chicago/F/bo3644089.html,solo_enlace,Copyright comercial
+coase1992nobel_lecture,The Institutional Structure of Production: Nobel Lecture,10.2307/2117340,https://www.jstor.org/stable/2117340,solo_enlace,Copyright American Economic Association

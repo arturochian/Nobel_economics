@@ -1,0 +1,100 @@
+---
+title: "Guía de Ejercicios Prácticos: Selección de Cartera, CAPM y Teorema Modigliani-Miller"
+subtitle: "Premio Nobel de Economía 1990: Harry M. Markowitz, Merton H. Miller y William F. Sharpe"
+author: "Nobel_economics Docencia"
+date: "1990-10-16"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta actividad práctica trabajarás directamente con los fundamentos teóricos y cuantitativos del Premio Nobel de Economía 1990:
+1. **La Magia de la Diversificación de Markowitz:** Cómo combinar activos imperfectamente correlacionados para reducir la volatilidad global de la cartera sin sacrificar el retorno esperado.
+2. **Equilibrio de Mercado y CAPM de Sharpe:** Cómo calcular el coeficiente Beta de un activo, posicionarlo sobre la Línea de Mercado de Valores (SML) y evaluar el Alfa de Jensen de carteras activas.
+3. **Estructura de Capital de Modigliani-Miller:** Cómo el arbitraje de apalancamiento casero (*homemade leverage*) garantiza la irrelevancia de la deuda en mercados perfectos y cómo se transforman los retornos bajo impuestos corporativos.
+
+---
+
+# Ejercicio 1: Diversificación de Markowitz en una Cartera de Dos Activos (Nivel Básico)
+
+Considera dos activos riesgosos disponibles en el mercado financiero:
+- **Activo A (Renta Variable):** Retorno esperado $\mathbb{E}[R_A] = 12\%$, Desviación estándar $\sigma_A = 20\%$ ($0.20$).
+- **Activo B (Renta Fija Corporativa):** Retorno esperado $\mathbb{E}[R_B] = 6\%$, Desviación estándar $\sigma_B = 10\%$ ($0.10$).
+
+Sea $w$ la proporción invertida en el Activo A y $(1 - w)$ la proporción invertida en el Activo B.
+
+## Preguntas:
+1. **Fórmula general de retorno y varianza:**
+   - Escribe las expresiones analíticas del retorno esperado de la cartera $\mathbb{E}[R_p]$ y de la varianza $\sigma_p^2$ en función de $w$ y el coeficiente de correlación $\rho_{AB}$.
+2. **Impacto de la correlación en el riesgo:**
+   - Supón una ponderación equiponderada ($w = 0.5$). Calcula la desviación estándar de la cartera $\sigma_p$ para los tres casos hipotéticos:
+     - $\rho_{AB} = +1.0$ (correlación lineal positiva perfecta).
+     - $\rho_{AB} = 0.0$ (activos incorrelacionados).
+     - $\rho_{AB} = -1.0$ (correlación lineal negativa perfecta).
+   - Explica intuitivamente por qué $\sigma_p$ disminuye drásticamente a medida que cae la correlación.
+3. **Cartera de Mínima Varianza:**
+   - Si la correlación estimada es $\rho_{AB} = 0.20$, deduce la condición de primer orden $\frac{d\sigma_p^2}{dw} = 0$ y calcula la ponderación óptima $w^*$ que minimiza el riesgo de la cartera.
+   - ¿Cuáles son el retorno esperado y la volatilidad de esta cartera de mínima varianza? ¿Es la volatilidad de esta combinación menor que la del Activo B por separado?
+
+---
+
+# Ejercicio 2: El CAPM, la Línea SML y el Alfa de Jensen (Nivel Intermedio)
+
+Supón que la tasa de interés de los Bonos del Tesoro a corto plazo libre de riesgo es $r_f = 4\%$ anual. La cartera de mercado ($M$) tiene un retorno esperado de $\mathbb{E}[R_M] = 10\%$ y una desviación estándar de $\sigma_M = 15\%$.
+
+Un analista financiero está evaluando tres carteras de inversión gestionadas activamente:
+
+| Fondo de Inversión | Retorno Anualizado Realizado ($\bar{R}_i$) | Desviación Estándar ($\sigma_i$) | Beta respecto al Mercado ($\beta_i$) |
+| :--- | :---: | :---: | :---: |
+| **Fondo Titán (Agresivo)** | $13.5\%$ | $24\%$ | $1.40$ |
+| **Fondo Centinela (Defensivo)** | $7.8\%$ | $11\%$ | $0.60$ |
+| **Fondo Horizonte (Mixto)** | $9.5\%$ | $16\%$ | $1.00$ |
+
+## Preguntas:
+1. **Línea de Mercado de Valores (SML):**
+   - Escribe la ecuación de la SML para este mercado según el modelo CAPM de Sharpe:
+     $$\mathbb{E}[R_i] = r_f + \beta_i \left( \mathbb{E}[R_M] - r_f \right)$$
+   - ¿Cuál es la prima por riesgo de mercado esperada ($\mathbb{E}[R_M] - r_f$)?
+2. **Retorno Requerido por el CAPM:**
+   - Calcula el retorno de equilibrio exigido por el modelo CAPM para cada uno de los tres fondos en función de su respectivo Beta.
+3. **Cálculo del Alfa de Jensen y Evaluación del Desempeño:**
+   - El Alfa de Jensen se define como:
+     $$\alpha_i = \bar{R}_i - \left[ r_f + \beta_i (\mathbb{E}[R_M] - r_f) \right]$$
+   - Calcula el Alfa de Jensen de cada fondo.
+   - ¿Qué fondo ha generado verdadero valor económico por encima del riesgo sistemático asumido? ¿Cuál está cobrando comisiones excesivas sin compensar el riesgo?
+4. **Ratio de Sharpe vs. Ratio de Treynor:**
+   - Calcula el **Ratio de Sharpe** ($SR_i = \frac{\bar{R}_i - r_f}{\sigma_i}$) y el **Ratio de Treynor** ($TR_i = \frac{\bar{R}_i - r_f}{\beta_i}$) para cada fondo.
+   - Si un inversor va a colocar **todo su patrimonio** en un solo fondo, ¿qué métrica debe utilizar y por qué? Si va a añadir el fondo a una cartera global ya ampliamente diversificada, ¿cuál es la métrica adecuada?
+
+---
+
+# Ejercicio 3: Teorema de Modigliani-Miller y Apalancamiento Casero (Nivel Reto)
+
+La compañía manufacturera *Alfa Corp.* opera en un entorno sin costos de quiebra ni fricciones de transacción. Actualmente está financiada al 100% con capital propio (sin deuda, empresa no apalancada $U$).
+- Genera un beneficio operativo neto antes de intereses e impuestos (EBIT) perpetuo y esperado de $\$12{,}000{,}000$ anuales.
+- El costo de capital exigido por los accionistas para sus activos es $r_0 = 12\%$ anual.
+- La empresa tiene emitidas $1{,}000{,}000$ de acciones en circulación.
+
+La junta directiva debate una reestructuración financiera radical: emitir $\$40{,}000{,}000$ en bonos de deuda perpetua al $6\%$ anual de interés ($r_D = 0.06$) para recomprar y amortizar acciones en el mercado abierto.
+
+## Preguntas:
+1. **Proposición I de Modigliani-Miller (Sin Impuestos):**
+   - Calcula el valor total de la firma no apalancada ($V_U$) y el precio de cada acción antes de la reestructuración.
+   - Según la Proposición I de MM, ¿cuál será el valor total de la empresa apalancada ($V_L$)? ¿Cambia la riqueza total de los accionistas?
+   - ¿Cuántas acciones se recomprarán con los $\$40{,}000{,}000$ de deuda emitida? ¿Cuántas acciones quedarán en circulación y a qué precio cotizarán?
+2. **Proposición II de Modigliani-Miller:**
+   - Tras la reestructuración, ¿cuál es el nuevo ratio Deuda/Capital Propio ($D/E$)?
+   - Utilizando la Proposición II de MM:
+     $$r_E = r_0 + (r_0 - r_D)\frac{D}{E}$$
+     calcula el nuevo costo de rendimiento exigido por los accionistas ($r_E$).
+   - Demuestra matemáticamente que el Costo Promedio Ponderado de Capital (WACC) sigue siendo idéntico a $r_0 = 12\%$.
+3. **Mecanismo de Arbitraje: Apalancamiento Casero (*Homemade Leverage*):**
+   - Supón que un inversor individual prefería la estructura apalancada, pero la empresa decide **no** endeudarse. Demuestra numéricamente cómo este inversor puede endeudarse por su cuenta a nivel personal al $6\%$ para replicar exactamente el flujo de caja y la rentabilidad de las acciones apalancadas. ¿Qué lección fundamental sobre el valor corporativo se desprende de este resultado?
+4. **Extensión con Impuestos Corporativos (Modigliani-Miller 1963):**
+   - Si el gobierno introduce una tasa de impuesto corporativo sobre los beneficios del $30\%$ ($t_c = 0.30$), y los intereses de la deuda son deducibles fiscalmente:
+     - ¿Cuál es el valor presente del escudo fiscal de la deuda?
+     - ¿Cuál es el nuevo valor total de la firma apalancada ($V_L = V_U + t_c D$)?
+     - ¿A cuánto asciende ahora el precio por acción tras la recompra?
