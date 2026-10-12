@@ -1,0 +1,9 @@
+id,titulo,doi,url,estado_descarga,licencia
+card1994minimum,"Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania",NA,https://www.jstor.org/stable/2118030,descargado,open_access_nber_w4509
+imbens1994identification,"Identification and Estimation of Local Average Treatment Effects",10.2307/2951620,https://doi.org/10.2307/2951620,descargado,open_access_nber_t0118
+angrist1990lifetime,"Lifetime Earnings and the Vietnam Era Draft Lottery: Evidence from Social Security Administrative Records",NA,https://www.jstor.org/stable/2006669,descargado,open_access_nber_w3014
+card1990mariel,"The Impact of the Mariel Boatlift on the Miami Labor Market",10.1177/001979399004300205,https://doi.org/10.1177/001979399004300205,solo_enlace,copyright_editorial
+angrist1991does,"Does Compulsory School Attendance Affect Schooling and Earnings?",10.2307/2937954,https://doi.org/10.2307/2937954,solo_enlace,copyright_editorial
+angrist2009mostly,"Mostly Harmless Econometrics: An Empiricist's Companion",10.1515/9781400829828,https://press.princeton.edu/books/paperback/9780691120355/mostly-harmless-econometrics,solo_enlace,copyright_editorial
+nobel2021scientific,"Scientific Background on the Sveriges Riksbank Prize in Economic Sciences 2021: Natural Experiments and the Causal Revolution",NA,https://www.nobelprize.org/uploads/2021/10/advanced-economicsciencesprize2021.pdf,descargado,public_domain_nobel
+nobel2021popular,"Popular Science Background: Natural Experiments Help Answer Important Questions",NA,https://www.nobelprize.org/uploads/2021/10/popular-economicsciencesprize2021-3.pdf,descargado,public_domain_nobel

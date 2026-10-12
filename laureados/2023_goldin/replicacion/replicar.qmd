@@ -1,0 +1,122 @@
+---
+title: "Replicación: La Curva en U del Trabajo Femenino y la Penalización por Maternidad"
+subtitle: "Premio Nobel de Economía 2023: Claudia Goldin"
+author: "Proyecto Nobel_economics"
+date: "2023-10-09"
+format:
+  html:
+    toc: true
+    number-sections: true
+    embed-resources: true
+---
+
+# Introducción y Objetivo
+
+Este documento presenta la replicación empírica e ilustrativa de las contribuciones científicas centrales por las cuales **Claudia Goldin** fue galardonada con el Premio del Banco de Suecia en Ciencias Económicas en Memoria de Alfred Nobel en 2023: *"for having advanced our understanding of women's labour market outcomes"* (por haber avanzado nuestra comprensión de los resultados de las mujeres en el mercado laboral).
+
+El análisis aborda los dos grandes pilares analíticos de la obra de Goldin:
+1. **La curva histórica en forma de U de participación laboral femenina** a lo largo de más de dos siglos de desarrollo económico (Goldin 1990, 1995).
+2. **La persistencia contemporánea de la brecha salarial de género**, explicada no ya por diferencias de capital humano formal sino por la estructura de incentivos de los "empleos codiciosos" (*greedy jobs*) y la penalización por maternidad (*child penalty*) (Goldin 2014, 2021).
+
+## Nivel de Replicación
+- **Nivel:** **Parcial e ilustrativa**.
+- Se utilizan las series históricas reconstruidas y calibradas de los censos de Estados Unidos (1800–2020) con la corrección de subregistro censal documentada por Goldin (1990), junto con una parametrización de estudio de eventos que sintetiza las trayectorias empíricas de ingresos antes y después del nacimiento del primer hijo reportadas en Goldin (2014) y Bertrand, Goldin & Katz (2010).
+
+---
+
+# ¿Qué vas a aprender?
+
+1. Cómo la transición estructural desde una economía agraria a una industrial y posteriormente terciaria afecta la oferta laboral femenina a través de la tensión entre el **efecto ingreso** y el **efecto sustitución**.
+2. Por qué las estadísticas censales del siglo XIX ocultaron el trabajo femenino productivo y cómo la investigación en historia económica de Goldin corrigió este sesgo histórico.
+3. El rol catalizador de la píldora anticonceptiva (*the Pill*) en alterar el horizonte de expectativas, retrasar la edad del matrimonio e incentivar carreras profesionales extensas.
+4. Por qué el cierre casi total de las brechas en educación universitaria no eliminó la brecha de ingresos, y cómo los costos de la flexibilidad temporal en empleos no lineales generan penalizaciones desproporcionadas para las madres trabajadoras.
+
+---
+
+# Marco Teórico
+
+## 1. La Curva en Forma de U de Participación Laboral Femenina
+
+Antes de las investigaciones de Goldin (1990, 1995), prevalecía en la literatura la idea convencional de que el desarrollo económico conllevaba un aumento monótono continuo de la participación laboral femenina. Goldin demostró que la relación a largo plazo tiene forma de U:
+
+$$\text{FLFP}_t = f(Y_t) = \beta_0 - \beta_1 \ln(Y_t) + \beta_2 [\ln(Y_t)]^2, \quad \beta_1 > 0, \; \beta_2 > 0$$
+
+donde $Y_t$ representa el PIB per cápita real. La lógica económica descansa en dos fuerzas contrapuestas:
+
+- **Tramo Descendente (Fase Agraria a Industrialización Inicial):** En las sociedades preindustriales (principios del siglo XIX), la producción agrícola y artesanal se realizaba en el hogar (*cottage industry*). El trabajo de las mujeres casadas formaba parte integral de la empresa familiar. Al trasladarse la manufactura a factorías mecanizadas distantes del hogar, trabajar fuera conllevaba un fuerte estigma social para el marido (indicador de incapacidad de proveer). El **efecto ingreso** derivado del incremento en los salarios masculinos predominó fuertemente sobre el efecto sustitución, reduciendo drásticamente la tasa de participación registrada de mujeres casadas a mínimos históricos (cerca del 10%–13% hacia 1890–1910). Asimismo, rigideces normativas formales como las *marriage bars* (prohibición de emplear a mujeres casadas en la docencia y oficinas públicas) deprimieron la oferta.
+- **Tramo Ascendente (Economía de Servicios y Modernización):** A lo largo del siglo XX, la expansión del sector servicios, la alfabetización secundaria, la difusión de tecnologías domésticas y el auge del empleo administrativo crearon ocupaciones limpias y respetables. El salario de mercado femenino aumentó significativamente, haciendo que el **efecto sustitución** dominara al efecto ingreso e impulsara la participación femenina hacia cotas superiores al 60%–70%.
+
+## 2. Empleos Codiciosos (*Greedy Jobs*) y la Brecha Salarial Residual
+
+Goldin (2014) demostró que en el siglo XXI la mayor parte de la brecha salarial no proviene de discriminación dentro del mismo puesto ni de diferencias en credenciales educativas o experiencia previa, sino de la **falta de linealidad en la compensación horaria**:
+
+$$\ln(W) = \alpha + \gamma \cdot H + \delta \cdot \mathbf{1}_{\{\text{Greedy}\}} \cdot (H - 40) + \mathbf{X}'\beta$$
+
+- Un empleo es "codicioso" (*greedy*) si duplicar las horas de trabajo más que duplica la remuneración por hora, o si exige disponibilidad presencial o remota en horarios impredecibles (fines de semana, noches, llamadas imprevistas de clientes).
+- Cuando una pareja tiene hijos, la necesidad de atender emergencias infantiles induce una división del trabajo intrahogar: uno de los miembros (estadísticamente la mujer) asume el rol de "disponible en el hogar" y migra a ocupaciones o trayectorias con alta flexibilidad temporal, mientras el otro asume el "empleo codicioso" altamente remunerado.
+- En sectores donde los profesionales son sustitutos cercanos entre sí gracias a la tecnología de la información (el caso canónico de la farmacia analizado por Goldin y Katz), la remuneración es lineal con respecto a las horas y la brecha salarial por maternidad es mínima.
+
+---
+
+# Replicación del Código en R
+
+A continuación, se ejecuta el script estructurado que modela ambos fenómenos.
+
+```{r setup, message=FALSE, warning=FALSE}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+source("R/curva_u_y_brecha_genero.R")
+```
+
+## Gráfico 1: Replicación de la Curva en Forma de U
+
+```{r grafico_u, echo=TRUE, fig.width=8.5, fig.height=5.2}
+print(p1)
+```
+
+**Interpretación:** La figura ilustra con claridad cómo la corrección histórica efectuada por Goldin (puntos verdes y rojos) rescata la alta productividad no remunerada de las mujeres casadas a principios del siglo XIX (alrededor del 40%), desmiente la noción de pasividad femenina previa y ubica el valle histórico de participación durante la fase álgida de la industrialización fabril a finales del siglo XIX.
+
+---
+
+## Gráfico 2: Estudio de Eventos sobre la Penalización por Maternidad
+
+```{r grafico_maternidad, echo=TRUE, fig.width=9.0, fig.height=5.5}
+print(p2)
+```
+
+**Interpretación:** En el panel izquierdo (*Empleos Codiciosos*), la trayectoria de hombres y mujeres es prácticamente indistinguible antes de la concepción ($t < 0$). Sin embargo, la llegada del primer hijo ($t = 0$) genera una divergencia estructural que no solo no se cierra, sino que se ensancha tras una década (40% de brecha salarial). En contraste, en el panel derecho (*Empleos Flexibles*), la penalización inmediata es reducida (menos del 10%) y converge rápidamente hacia la paridad relativa (brecha menor al 6%).
+
+---
+
+# Tabla Comparativa de Resultados Simulados
+
+```{r tabla_brecha, echo=TRUE}
+knitr::kable(
+  tabla_brecha,
+  col.names = c("Sector / Estructura Laboral", "Años respecto al 1.er hijo (t)",
+                "Ingreso Hombres", "Ingreso Mujeres", "Ratio M/H", "Brecha (%)"),
+  caption = "Evolución comparada de la brecha salarial antes y después de la maternidad."
+)
+```
+
+---
+
+# Comparación con los Resultados Originales de Goldin
+
+| Dimensión | Hallazgo Original de Goldin | Resultado en esta Replicación | Coherencia Metodológica |
+|---|---|---|---|
+| **Forma de la Curva Histórica** | U convexa a lo largo de 200 años en EE. UU. (Goldin, 1990, 1995). | Curva U cuadrática ajustada con $R^2 > 0.95$ sobre hitos censales corregidos. | Consistente con el modelo empírico de desarrollo. |
+| **Piso de la Curva de Participación** | Valle de 10%–15% de participación entre 1890 y 1910. | Valle simulado en 13.5% en torno a 1910 para mujeres casadas. | Idéntico a los censos revisados. |
+| **Brecha Salarial Previa a la Maternidad** | Brecha mínima o nula (2%–5%) en graduados de élite (Bertrand et al., 2010). | Brecha simulada de 3.2% en $t = -3$. | Coherente con paridad de capital humano inicial. |
+| **Penalización por Maternidad en Empleos Codiciosos** | Caída persistente de 30%–40% a los 10–15 años del nacimiento (Goldin, 2014). | Brecha del 40.0% a los 10 años ($t = 10$). | Replica con fidelidad el patrón del AER 2014. |
+| **Efecto de la Flexibilidad Horaria** | Brecha cercana a cero en farmacia y salud organizada (Goldin & Katz, 2016). | Brecha contenida de 5.8% a los 10 años. | Consistente con el canal de sustituibilidad. |
+
+---
+
+# Limitaciones del Ejercicio
+
+1. **Datos Agregados vs. Microdatos Censales:** La replicación emplea las estimaciones históricas agregadas corregidas por Goldin en sus monografías de 1990 y 1995 en lugar de procesar los microdatos brutos del Censo de EE. UU. (IPUMS-USA), debido a restricciones de peso y tiempo de cómputo en integración continua.
+2. **Homogeneidad de Preferencias Intrahogar:** La dinámica de asignación del tiempo en el hogar se modela de forma estilizada sin microfundamentar explícitamente el modelo de negociación no cooperativa intrafamiliar ni considerar variaciones según el nivel de ingresos de la pareja.
+3. **Interseccionalidad y Heterogeneidad Étnico-Racial:** La curva en U se formuló históricamente para mujeres casadas blancas en EE. UU.; como la propia Goldin reconoció, las mujeres afroamericanas registraron históricamente tasas de participación laboral sustancialmente más altas y trayectorias distintas que no siguieron el mismo valle.

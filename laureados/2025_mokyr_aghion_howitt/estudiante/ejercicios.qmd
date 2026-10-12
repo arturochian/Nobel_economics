@@ -1,0 +1,58 @@
+---
+title: "Guía de Ejercicios Prácticos: Crecimiento Schumpeteriano y Destrucción Creativa"
+subtitle: "Premio Nobel de Economía 2025: Joel Mokyr, Philippe Aghion y Peter Howitt"
+author: "Nobel_economics Docencia"
+date: "2025-10-13"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta actividad práctica utilizarás el script de simulación en R (`replicacion/R/modelo_crecimiento_schumpeteriano.R`) y los conceptos teóricos de Joel Mokyr, Philippe Aghion y Peter Howitt para analizar cuantitativamente cómo la innovación endógena, la competencia de mercado y la destrucción creativa determinan la riqueza y el dinamismo económico de las naciones.
+
+---
+
+# Ejercicio 1: Tasa de Innovación y Obsolescencia Tecnológica (Nivel Básico)
+
+En el modelo de Aghion y Howitt (1992), la tasa a la que llegan nuevas tecnologías de frontera es $\mu = \lambda n^*$, y cada nueva innovación incrementa la productividad en un factor $\gamma > 1$, volviendo obsoleto al monopolista anterior.
+
+1. Abre y examina los resultados del script en `replicacion/salidas/tab_simulacion_crecimiento.csv`.
+2. Observa el **Escenario Base** ($\gamma = 1.30, \lambda = 0.25, r = 0.04$) y compáralo con el **Escenario 2 (Salto Tecnológico Radical)** ($\gamma = 1.55$).
+3. **Preguntas conceptuales y numéricas:**
+   - ¿Por qué un mayor salto de productividad $\gamma$ aumenta tanto el empleo en investigación $n^*$ como la tasa de obsolescencia de las empresas incumbentes?
+   - Si la tasa de obsolescencia anual pasa del $9.46\%$ al $10.74\%$, ¿cuál es la vida media esperada ($T_{media} = 1/\mu$) de una empresa dominante antes de ser desplazada por un competidor disruptivo?
+   - ¿Qué papel juega el concepto de *"business-stealing"* (robo de negocio) en las decisiones de entrada de los nuevos innovadores?
+
+---
+
+# Ejercicio 2: La U-Invertida de Competencia e Innovación (Nivel Intermedio)
+
+Examina el gráfico `replicacion/salidas/fig_u_invertida_competencia.png` y la formulación de Aghion, Bloom, Blundell, Griffith y Howitt (2005).
+
+1. Identifica los dos extremos de la curva de competencia (eje horizontal: $1 - \text{Margen de Lerner}$):
+   - Nivel bajo de competencia ($c = 0.15$): Monopolios altamente concentrados con fuertes barreras.
+   - Nivel alto de competencia ($c = 0.90$): Mercados hiper-competitivos con márgenes de ganancia cercanos a cero.
+2. Compara el comportamiento de las industrias *"a la par"* (*neck-and-neck*) frente a las industrias *"asimétricas"* (*unlevel*).
+3. **Preguntas analíticas:**
+   - ¿Por qué una política de desregulación antimonopolio que eleva la competencia desde $0.15$ hasta $0.46$ estimula fuertemente la innovación agregada? Explica el efecto de *"escapar de la competencia"* (*escape-competition effect*).
+   - ¿Por qué empujar la competencia a un extremo desmedido ($c = 0.90$) desincentiva la inversión en I+D de los seguidores rezagados? Explica el *"efecto schumpeteriano de desaliento"*.
+   - ¿Cuál es la implicancia regulatoria de este hallazgo para las autoridades de defensa de la libre competencia (como la FTC de EE.UU. o la DG COMP de la Comisión Europea)?
+
+---
+
+# Ejercicio 3: Reto en R — Subsidio a I+D vs. Extensión de Patentes (Nivel Avanzado)
+
+Abre el archivo `replicacion/R/modelo_crecimiento_schumpeteriano.R` y sitúate en la función `resolver_equilibrio_ah()`.
+
+Imagina que el gobierno evalúa dos políticas alternativas para elevar el crecimiento de largo plazo:
+- **Política A (Subsidio fiscal a la investigación):** El gobierno financia el costo de los científicos, elevando la rentabilidad neta de la I+D de modo equivalente a reducir la tasa de descuento percibida por los laboratorios de $r = 0.04$ a $r' = 0.02$.
+- **Política B (Ampliación artificial de barreras de patentes):** El gobierno extiende la duración legal de las patentes y bloquea la entrada de competidores extranjeros, lo cual reduce el grado de competencia en el mercado de bienes de $c = 0.46$ a $c = 0.20$.
+
+**Instrucciones para el reto:**
+1. Modifica o evalúa en R el impacto de la Política A sobre el empleo en I+D ($n^*$) y la tasa de crecimiento anual del PIB ($g$).
+2. Evalúa el impacto de la Política B utilizando el multiplicador de la U-invertida de competencia.
+3. **Pregunta de política económica:**
+   - Utilizando la distinción histórica de Joel Mokyr entre "generación de conocimiento útil" y "captura de rentas monopólicas", ¿cuál de las dos políticas genera un crecimiento sustentable a largo plazo y cuál corre el riesgo de generar estancamiento tecnológico?

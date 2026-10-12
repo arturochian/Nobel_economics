@@ -1,0 +1,91 @@
+---
+title: "Guía de Ejercicios Prácticos: Teoría de Subastas y Diseño de Mecanismos"
+subtitle: "Premio Nobel de Economía 2020: Paul R. Milgrom y Robert B. Wilson"
+author: "Nobel_economics Docencia"
+date: "2020-10-12"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta actividad práctica aplicarás los conceptos fundamentales desarrollados por **Robert Wilson** y **Paul Milgrom**:
+1. Cómo calcular analíticamente el sesgo de selección adverso derivado de la **maldición del ganador** y derivar la estrategia óptima de sombreado de puja en subastas de valor común.
+2. Cómo el **problema de exposición** perjudica la eficiencia en subastas secuenciales tradicionales cuando existen bienes complementarios, y cómo el formato SMRA resuelve dicha ineficiencia.
+3. Cómo diagnosticar y diseñar salvaguardas regulatorias contra la **colusión tácita** en subastas electrónicas de espectro radioeléctrico.
+
+---
+
+# Ejercicio 1: Cálculo de la Maldición del Ganador y Condicionamiento Bayesiano (Nivel Básico)
+
+Imagina una subasta a sobre cerrado de primer precio para adjudicar los derechos de explotación de un yacimiento petrolífero submarino. El valor del petróleo en el subsuelo es puramente común: $V$ millones de dólares. 
+
+Existen $N$ empresas petroleras compitiendo. Cada empresa $i \in \{1, \dots, N\}$ realiza un estudio geológico independiente que produce una estimación o señal ruidosa $X_i$:
+$$X_i = V + \varepsilon_i, \quad \text{donde } \varepsilon_i \sim \mathcal{U}[-15, 15] \text{ millones de USD}$$
+
+1. **Sesgo del Estimador No Condicionado:**
+   - Supongamos que la empresa A recibe una estimación $X_A = 100$ millones de USD.
+   - De forma ingenua, el director financiero de la empresa A razona: *"Mi estimación es insesgada ($E[X_A \mid V] = V$), por lo que el valor esperado del pozo es 100 millones. Si pujo 95 millones, ganaré 5 millones de beneficio esperado"*.
+   - Explica por qué este razonamiento contiene una falacia econométrica crítica cuando la empresa A resulta ser la ganadora de la subasta entre $N$ competidores.
+
+2. **Cálculo Analítico del Sesgo de Selección:**
+   - La teoría de orden estadístico establece que para variables uniformes independientes, el valor esperado de la mayor de $N$ observaciones extraídas de $[-15, 15]$ es:
+     $$E\left[\max_{j=1,\dots,N} \varepsilon_j\right] = 15 \cdot \frac{N - 1}{N + 1}$$
+   - Calcula el valor esperado de la señal máxima condicional al verdadero valor $V$ para $N = 2$, $N = 5$, y $N = 29$.
+   - Si el verdadero valor del pozo petrolero es $V = 85$ millones de USD y $N = 29$, ¿cuál es el valor esperado de la señal del ganador? ¿Qué le ocurrirá al postor ingenuo que puja su señal menos un margen modesto de 2 millones?
+
+3. **La Solución de Wilson:**
+   - Explica en palabras cómo formula su postura un postor racional bayesiano para inmunizarse contra la maldición del ganador. ¿Por qué un postor racional reduce más su postura cuando ingresan más competidores a la subasta?
+
+---
+
+# Ejercicio 2: Complementariedad y el Problema de Exposición (Nivel Intermedio)
+
+Considera un mercado de telecomunicaciones móviles donde el regulador subasta dos licencias de espectro adyacentes: Licencia Centro ($C$) y Licencia Sur ($S$).
+
+Existen dos tipos de postores:
+- **Operador Nacional (Postor 1):** Requiere presencia continua en ambas regiones para ofrecer un servicio 5G eficiente. Su valoración es:
+  - $v_1(C) = 40$ millones.
+  - $v_1(S) = 40$ millones.
+  - $v_1(\{C, S\}) = 120$ millones (exhibe una sinergia de red superaditiva de $+40$ millones si obtiene ambas).
+- **Operadores Regionales Especializados:**
+  - **Operador Centro (Postor 2):** Valora $v_2(C) = 55$ millones y $v_2(S) = 0$.
+  - **Operador Sur (Postor 3):** Valora $v_3(S) = 55$ millones y $v_3(C) = 0$.
+
+1. **Eficiencia Social Teórica:**
+   - ¿Cuál es la asignación eficiente que maximiza el valor social total: otorgar ambas licencias al Operador Nacional ($120$ millones) o dividirlas entre los dos operadores regionales ($55 + 55 = 110$ millones)?
+
+2. **Falla en Subastas Secuenciales Independientes:**
+   - Supongamos que el regulador subasta primero la Licencia $C$ mediante una subasta inglesa ascendente estándar, y una vez finalizada, subasta la Licencia $S$.
+   - Analiza el dilema estratégico que enfrenta el Operador Nacional al pujar por la Licencia $C$:
+     - ¿A qué precio máximo puede llegar a pujar por $C$ si anticipa que podría ganar $S$ después?
+     - Si puja hasta 65 millones por $C$ creyendo que ganará $S$, pero en la segunda subasta el Operador Sur puja de forma agresiva hasta 55 millones por $S$, ¿qué ocurre con el beneficio neto del Operador Nacional?
+     - Define formalmente qué es el **problema de exposición** (*exposure problem*).
+
+3. **La Solución SMRA de Milgrom y Wilson:**
+   - Explica paso a paso cómo la combinación de (a) rondas simultáneas, (b) cierre simultáneo unificado y (c) reglas de actividad de Milgrom-Wilson permite resolver el problema de exposición y conducir a una asignación eficiente.
+
+---
+
+# Ejercicio 3: Reto en R — Detección y Mitigación de Colusión en Subastas de Espectro (Nivel Avanzado)
+
+Durante las primeras subastas de espectro organizadas por la FCC en Estados Unidos (Subasta DEF de banda ancha PCS, 1996-1997), varios postores utilizaron estrategias de **señalización táctica mediante dígitos terminales** (*trailing digits bidding*) para dividirse los mercados sin competir:
+
+En lugar de pujar múltiplos limpios del incremento mínimo (por ejemplo, \$10,000,000), una empresa pujaba \$10,000,378 en el mercado de Dallas, donde el sufijo `378` era el número de mercado asignado a Rochester. El mensaje para el rival era: *"Si dejas de pujar por Dallas, yo dejaré de pujar por tu mercado base en Rochester; si continúas, castigaré tu mercado local subiendo los precios"*.
+
+1. **Diseño Institucional contra la Colusión:**
+   - Revisa la literatura de Milgrom (2004) y el informe del Comité Nobel (2020).
+   - Identifica y explica tres mecanismos de diseño de subasta introducidos por los economistas de mercado para neutralizar estas prácticas colusorias:
+     1. Regla de incrementos fijos basados en fórmulas cerradas (eliminación de dígitos libres).
+     2. Revelación anónima de postores durante las rondas (*anonymous bidding*).
+     3. Sanciones regulatorias automáticas por represalias cruzadas.
+
+2. **Simulación en R:**
+   - Abre el script `replicacion/R/simulacion_subastas.R`.
+   - Modifica los parámetros de la subasta SMRA para simular un escenario donde dos empresas coluden dividiéndose los mercados vs. el escenario competitivo.
+   - Evalúa el impacto sobre:
+     - El precio final recaudado por el regulador estatal.
+     - El número de rondas requeridas para que converja la subasta.
+     - La pérdida de excedente público.

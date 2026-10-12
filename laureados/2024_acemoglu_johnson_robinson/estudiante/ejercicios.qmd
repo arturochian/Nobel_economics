@@ -1,0 +1,60 @@
+---
+title: "Guía de Ejercicios Prácticos: Instituciones, Mortalidad Colonial y Desarrollo"
+subtitle: "Premio Nobel de Economía 2024: Daron Acemoglu, Simon Johnson y James A. Robinson"
+author: "Nobel_economics Docencia"
+date: "2024-10-14"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta actividad práctica trabajarás directamente con los datos empíricos de **Acemoglu, Johnson y Robinson (2001, AER)** para comprender los desafíos de la inferencia causal en econometría aplicada al desarrollo económico:
+1. Por qué una correlación entre instituciones y prosperidad no demuestra causalidad.
+2. Cómo evaluar conceptualmente la validez del supuesto de exclusión de una variable instrumental.
+3. Cómo diagnosticar instrumentos débiles y verificar la robustez de los estimadores frente a factores geográficos y climáticos.
+
+---
+
+# Ejercicio 1: Correlación MCO vs. Causalidad (Nivel Básico)
+
+1. Abre y examina la regresión de Mínimos Cuadrados Ordinarios (MCO) en `replicacion/R/estimacion_ajr_2001.R`:
+   $$\ln(\text{PIB pc 1995}_i) = \alpha + \beta \text{Instituciones}_i + u_i$$
+2. Observa el coeficiente estimado $\hat{\beta}_{\text{MCO}} = 0.522$ ($p < 0.001$).
+3. **Preguntas conceptuales:**
+   - (a) Si un país incrementa su índice de protección contra la expropiación en 1 punto (en escala de 0 a 10), ¿podemos garantizar a partir de MCO que su PIB per cápita aumentará en aproximadamente un 52%? Explica detalladamente dos fuentes de sesgo endógeno (causalidad reversa y variables omitidas).
+   - (b) Tras estimar el modelo por Variables Instrumentales (2SLS), el coeficiente salta a $\hat{\beta}_{\text{IV}} = 0.944$. Normalmente, esperaríamos que la causalidad reversa infle el coeficiente de MCO hacia arriba (los países ricos compran mejores instituciones). ¿Por qué entonces la estimación causal resulta **mayor** que la estimación MCO? Considera el efecto del sesgo por atenuación derivado de la medición imperfecta de las instituciones.
+
+---
+
+# Ejercicio 2: El Supuesto de Exclusión y Canales Alternativos (Nivel Intermedio)
+
+Para que el logaritmo de la mortalidad de colonos europeos ($\ln M_i$) sea un instrumento válido para las instituciones contemporáneas ($R_i$), debe satisfacer dos condiciones:
+- **Relevancia:** $\text{Cov}(\ln M_i, R_i) \ne 0$.
+- **Exclusión:** $\text{Cov}(\ln M_i, \varepsilon_i) = 0$, donde $\varepsilon_i$ es el error estructural que determina el PIB contemporáneo.
+
+1. Analiza el gráfico de primera etapa (`replicacion/salidas/fig_ajr_primera_etapa.png`). ¿Por qué la mortalidad de los soldados y exploradores europeos hace tres siglos determina las instituciones vigentes hoy?
+2. **Preguntas analíticas sobre el supuesto de exclusión:**
+   - (a) Jeffrey Sachs (2003) argumentó que la prevalencia histórica de enfermedades (malaria y fiebre amarilla) persistió en las poblaciones nativas locales hasta el presente, reduciendo directamente la productividad y salud de los trabajadores hoy. Si esto fuera cierto, ¿cómo afectaría la validez del supuesto de exclusión de Acemoglu, Johnson y Robinson?
+   - (b) Si la mortalidad de colonos afectó directamente la inversión en salud pública moderna o la acumulación de capital humano durante la era colonial, ¿constituye esto una violación del supuesto de exclusión o un mecanismo institucional indirecto compatible con la hipótesis de AJR? Justifica tu respuesta.
+
+---
+
+# Ejercicio 3: Reto Econométrico en R — Instrumentos Débiles y Robustez Geográfica (Nivel Avanzado)
+
+Abre el script `replicacion/R/estimacion_ajr_2001.R` en RStudio o tu entorno de R preferido.
+
+1. **Diagnóstico de Relevancia (Regla de Stock y Yogo):**
+   - Ejecuta la regresión de primera etapa y calcula el estadístico $F$ de exclusión del instrumento.
+   - ¿Supera el umbral clásico de $F > 10$? ¿Qué consecuencias econométricas tendría sobre el estimador 2SLS si $F$ fuera menor a 10?
+2. **Prueba de Robustez Geográfica:**
+   - Añade el control de distancia absoluta al ecuador (`lat_abst`):
+     ```r
+     mod_iv_lat <- AER::ivreg(logpgp95 ~ avexpr + lat_abst | logem4 + lat_abst, data = df_base)
+     summary(mod_iv_lat)
+     ```
+   - Compara el coeficiente de `avexpr` con y sin control por latitud.
+   - Observa qué sucede con el estadístico $F$ de la primera etapa al condicionar por latitud.
+   - **Pregunta:** ¿Sigue siendo estadísticamente significativo el efecto causal de las instituciones una vez que se aísla el efecto de la latitud/clima tropical? ¿Qué lección metodológica extraes respecto al debate "Instituciones versus Geografía"?

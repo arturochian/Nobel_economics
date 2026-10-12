@@ -1,0 +1,8 @@
+"fraccion_retiro_f","pago_esperado_t1","pago_esperado_t2","pago_con_seguro_t2","incentivo_agente_t2","estado_banco"
+0.1,1.2,1.467,1.4,"Retiro por debajo del óptimo","Solvente y Plenamente Líquido"
+0.25,1.2,1.4,1.4,"Equilibrio Bueno (sin pánico)","Solvente y Plenamente Líquido"
+0.35,1.2,1.338,1.4,"Zona Estable (esperar es óptimo)","Solvente (estrés moderado de liquidez)"
+0.5,1.2,1.2,1.4,"Zona Estable (esperar es óptimo)","Solvente (estrés moderado de liquidez)"
+0.65,1.2,0.943,1.4,"Pánico Bancario (retirar es óptimo)","Vulnerable a corrida sistémica"
+0.833,1.2,0.004,1.4,"Pánico Bancario (retirar es óptimo)","Vulnerable a corrida sistémica"
+0.95,1.053,0,1.4,"Colapso Total y Quiebra Bancaria","Liquidación forzosa / Insolvencia"

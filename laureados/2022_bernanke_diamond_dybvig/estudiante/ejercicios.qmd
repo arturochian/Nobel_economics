@@ -1,0 +1,60 @@
+---
+title: "Guía de Ejercicios Prácticos: Fragilidad Bancaria y Crisis Financieras"
+subtitle: "Premio Nobel de Economía 2022: Ben S. Bernanke, Douglas W. Diamond y Philip H. Dybvig"
+author: "Nobel_economics Docencia"
+date: "2026-10-12"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# Introducción
+
+El Premio Nobel de Economía 2022 reconoció a Ben S. Bernanke, Douglas W. Diamond y Philip H. Dybvig por explicar por qué existen los bancos, por qué su función social central (transformar activos ilíquidos a largo plazo en pasivos líquidos a la vista) los hace inherentemente vulnerables a corridas de pánico, y cómo el colapso del crédito amplifica dramáticamente las recesiones económicas.
+
+A través de estos ejercicios analizarás la lógica matemática y estratégica de los equilibrios múltiples, el diseño del seguro de depósitos y las nuevas formas de pánico financiero en la era digital.
+
+---
+
+# Ejercicio 1: Equilibrios Múltiples y el Umbral Crítico de Pánico (Nivel Básico)
+
+Considera una economía regida por el modelo de Diamond y Dybvig (1983) con los siguientes parámetros:
+- Rendimiento a largo plazo de la inversión en $T=2$: $R = 1.60$.
+- Proporción de depositantes impacientes (Tipo 1): $t = 0.20$.
+- Contrato bancario que promete $r_1 = 1.25$ por cada unidad depositada en $T=1$.
+- Valor de liquidación anticipada en $T=1$: $L = 1.0$.
+
+1. **Retorno en el equilibrio óptimo sin pánico ($f = t$):**
+   Calcula analíticamente el pago prometido $r_2$ para los depositantes pacientes que esperan hasta $T=2$. Demuestra por qué esperar es una mejor respuesta para los agentes pacientes cuando nadie entra en pánico ($r_2 > r_1$).
+2. **Cálculo del umbral crítico de indiferencia ($f^*$):**
+   Determina la proporción mínima de retiros en $T=1$, denotada como $f^*$, que iguala el pago esperado de retirar en $T=1$ con el de esperar a $T=2$ ($V_1(f^*) = V_2(f^*)$).
+3. **Estrategia dominante y pánico autoverificable:**
+   Si por un rumor infundado una proporción $f = 0.55$ de depositantes decide retirar en $T=1$, ¿cuál es la mejor respuesta de un depositante paciente individual? Explica por qué este comportamiento confirma la quiebra bancaria aunque la tecnología subyacente sea completamente productiva.
+
+---
+
+# Ejercicio 2: Seguro de Depósitos vs. Riesgo Moral (Nivel Intermedio)
+
+Diamond y Dybvig demostraron que un seguro estatal de depósitos financiado mediante la capacidad impositiva del gobierno previene las corridas bancarias de forma completamente libre de costo presupuestario en equilibrio.
+
+1. **Mecanismo de prevención sin costo:**
+   Explica detalladamente por qué, en el marco formal de Diamond-Dybvig, el Estado nunca necesita desembolsar dinero para rescatar al banco cuando el seguro de depósitos es plenamente creíble.
+2. **El dilema del riesgo moral (*Moral Hazard*):**
+   Supón ahora que el banco puede elegir entre dos proyectos de inversión en $T=0$:
+   - **Proyecto Seguro:** Rendimiento $R = 1.50$ con certeza.
+   - **Proyecto Especulativo:** Rendimiento $R_{alto} = 2.50$ con probabilidad $p = 0.6$, y rendimiento $R_{bajo} = 0.0$ con probabilidad $1 - p = 0.4$.
+   Si los depositantes saben que el gobierno garantizará el 100% de su dinero ante cualquier resultado, ¿qué incentivos enfrenta la administración del banco? ¿Por qué la existencia del seguro de depósitos exige obligatoriamente una estricta regulación de capital y supervisión bancaria delegada?
+
+---
+
+# Ejercicio 3: Corridas Digitales y Banca en la Sombra en el Siglo XXI (Nivel Avanzado / Reto)
+
+En marzo de 2023, Silicon Valley Bank (SVB) experimentó el retiro de 42.000 millones de dólares en solo 10 horas mediante aplicaciones móviles y redes sociales, precipitando su intervención por parte de la FDIC y la Reserva Federal.
+
+1. **Descalce de plazos moderno y valor de mercado:**
+   A diferencia del modelo clásico de Diamond-Dybvig donde los retiros forzaban la liquidación física anticipada de proyectos reales, SVB mantenía activos seguros (bonos del Tesoro de EE.UU. a largo plazo). ¿Cómo se relaciona el shock de tasas de interés de la Fed en 2022–2023 con el mecanismo de descalce de plazos y las pérdidas no realizadas (*unrealized losses*)?
+2. **Depósitos no asegurados y coordinación estratégica:**
+   Aproximadamente el 94% de los depósitos de SVB superaban el límite asegurado por la FDIC (250.000 dólares). Analiza mediante teoría de juegos por qué un fondo de capital de riesgo o una startup racional tenía incentivos inmediatos para retirar todos sus fondos ante el primer indicio de falta de capital, generando una corrida digital instantánea sin necesidad de colas físicas en ventanillas.
+3. **El canal de crédito de Bernanke en acción:**
+   Utilizando las tesis de Bernanke (1983) sobre el canal de crédito y los costos de intermediación, discute por qué las autoridades estadounidenses declararon una "excepción por riesgo sistémico" para proteger a todos los depositantes no asegurados de SVB y Signature Bank. ¿Qué consecuencias macroeconómicas intentaban evitar?

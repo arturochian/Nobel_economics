@@ -1,0 +1,79 @@
+---
+title: "Guía de Ejercicios Prácticos: Experimentos Naturales y Evaluación Causal"
+subtitle: "Premio Nobel de Economía 2021: David Card, Joshua D. Angrist y Guido W. Imbens"
+author: "Nobel_economics Docencia"
+date: "2021-10-11"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta actividad práctica trabajarás directamente con los conceptos y datos del Premio Nobel de Economía 2021:
+1. **Diferencias en Diferencias (DiD):** Cómo estimar e interpretar el efecto del salario mínimo sobre el empleo a partir de la tabla canónica 2x2 de Card y Krueger (1994).
+2. **El Supuesto de Tendencias Paralelas:** Cuáles son las amenazas metodológicas y cómo evaluar la validez de un grupo de control cuasi-experimental.
+3. **Efecto Tratamiento Promedio Local (LATE):** Cómo interpretar la heterogeneidad de efectos en presencia de cumplimiento imperfecto (*non-compliance*) y variables instrumentales según Angrist e Imbens (1994).
+
+---
+
+# Ejercicio 1: Cálculo e Interpretación Manual de la Tabla 2x2 DiD (Nivel Básico)
+
+Considera los datos de empleo equivalente a tiempo completo ($\text{FTE}$) obtenidos en la encuesta de Card y Krueger (1994) en restaurantes de comida rápida de New Jersey (NJ) y este de Pennsylvania (PA):
+
+| Estado / Grupo | Empleo Promedio Pre ($\bar{Y}_{0}$) <br> *(Feb–Mar 1992)* | Empleo Promedio Post ($\bar{Y}_{1}$) <br> *(Nov–Dic 1992)* |
+| :--- | :---: | :---: |
+| **Pennsylvania (Control)** | $19.95$ FTE | $17.54$ FTE |
+| **New Jersey (Tratamiento)** | $17.06$ FTE | $17.57$ FTE |
+
+*Nota:* El 1 de abril de 1992, New Jersey incrementó el salario mínimo de $\$4.25$ a $\$5.05$ por hora. Pennsylvania mantuvo el salario mínimo federal en $\$4.25$.
+
+## Preguntas:
+1. **Diferencias simples antes y después:**
+   - Calcula el cambio temporal observado en el grupo de control de Pennsylvania: $\Delta \bar{Y}_{\text{PA}} = \bar{Y}_{\text{PA, 1}} - \bar{Y}_{\text{PA, 0}}$.
+   - Calcula el cambio temporal observado en el grupo de tratamiento de New Jersey: $\Delta \bar{Y}_{\text{NJ}} = \bar{Y}_{\text{NJ, 1}} - \bar{Y}_{\text{NJ, 0}}$.
+2. **Estimador de Diferencias en Diferencias:**
+   - Calcula manualmente el estimador $\hat{\tau}_{\text{DiD}} = \Delta \bar{Y}_{\text{NJ}} - \Delta \bar{Y}_{\text{PA}}$.
+3. **Interpretación Económica:**
+   - ¿Qué predecía el modelo neoclásico elemental de oferta y demanda laboral ante un incremento del $18.8\%$ en el costo salarial?
+   - ¿Cómo contradice el valor de $\hat{\tau}_{\text{DiD}}$ la predicción del modelo competitivo estándar?
+   - Si hubieras realizado una comparación ingenua solo en el periodo posterior ($\bar{Y}_{\text{NJ, 1}} - \bar{Y}_{\text{PA, 1}}$), ¿a qué conclusión habrías llegado y por qué esa comparación adolece de sesgo?
+
+---
+
+# Ejercicio 2: El Supuesto de Tendencias Paralelas y Amenazas al Diseño (Nivel Intermedio)
+
+El pilar fundamental de la identificación causal en Diferencias en Diferencias es el supuesto de **Tendencias Paralelas** (*Parallel Trends Assumption*).
+
+## Preguntas:
+1. **Formalización:**
+   - Expresa matemáticamente el supuesto de tendencias paralelas utilizando el marco de resultados potenciales ($Y_i(0)$ y $Y_i(1)$).
+   - ¿Por qué este supuesto es **intesteable directamente** en el periodo posterior al tratamiento?
+2. **Evaluación Empírica:**
+   - Si tuvieras acceso a datos de encuestas en trimestres anteriores (ej. 1990 y 1991), ¿qué prueba empírica o gráfico de estudio de eventos (*event-study*) construirías para respaldar la plausibilidad del supuesto?
+3. **Amenazas al Diseño Cuasi-Experimental:**
+   - **Shocks Macroeconómicos Asimétricos:** A principios de la década de 1990, EE. UU. atravesaba una recesión económica. ¿Qué ocurriría con el estimador DiD si la recesión golpeó con mayor severidad al este de Pennsylvania que a New Jersey por razones ajenas al salario mínimo?
+   - **Efectos de Derrame (*Spillovers*) y SUTVA:** Supón que algunos jóvenes residentes en el este de Pennsylvania cruzaron los puentes sobre el río Delaware para buscar trabajo en los locales de New Jersey ante el aumento salarial a $\$5.05$. ¿Cómo violaría esto el supuesto de no-interferencia (SUTVA) y cómo afectaría la estimación?
+
+---
+
+# Ejercicio 3: Reto Teórico-Econométrico — El Marco LATE vs. ATE y Compliers (Nivel Avanzado)
+
+En un influyente estudio cuasi-experimental, Joshua Angrist (1990) utilizó la lotería del servicio militar durante la Guerra de Vietnam para estimar el efecto del servicio militar obligatorio sobre los ingresos laborales posteriores de los veteranos.
+
+Sea $Z_i \in \{0, 1\}$ un indicador de sorteo aleatorio (1 si la fecha de nacimiento recibió un número bajo y fue elegible para el reclutamiento; 0 si no) y $D_i \in \{0, 1\}$ un indicador de si la persona efectivamente sirvió en las fuerzas armadas.
+
+## Preguntas:
+1. **Cumplimiento Imperfecto y Tipos Latentes:**
+   - Explica por qué el sorteo de la lotería no determina perfectamente el servicio militar (identifica la existencia de voluntarios e individuos exceptuados por salud o estudios universitarios).
+   - Clasifica a los individuos en los cuatro subgrupos latentes definidos por Imbens y Angrist (1994): *Compliers*, *Always-takers*, *Never-takers* y *Defiers*.
+2. **El Supuesto de Monotonicidad:**
+   - ¿Qué establece el supuesto de monotonicidad (*no-defiers*) en este contexto histórico? Proporciona una explicación intuitiva de por qué es razonable asumir que no existen individuos que se alistarían voluntariamente solo si *no* fueran llamados al servicio.
+3. **El Estimador de Wald y la Causalidad Local:**
+   - En los datos de la cohorte de 1971, supón que:
+     - La tasa de servicio militar fue del $30\%$ entre los sorteados ($Z=1$) y del $14\%$ entre los no sorteados ($Z=0$).
+     - Los ingresos promedio anuales fueron $\$15,200$ para los sorteados y $\$15,800$ para los no sorteados.
+   - Calcula el estimador de Wald:
+     $$\hat{\tau}_{\text{Wald}} = \frac{\bar{Y}_{Z=1} - \bar{Y}_{Z=0}}{\bar{D}_{Z=1} - \bar{D}_{Z=0}}$$
+   - ¿A qué subpoblación aplica este efecto estimado (LATE)? ¿Representa este valor el efecto causal promedio de reclutar a toda la población masculina ($\text{ATE}$) o a los voluntarios profesionales ($\text{ATT}_{\text{Always-takers}}$)? Explica las limitaciones de validez externa del LATE para la política de defensa.

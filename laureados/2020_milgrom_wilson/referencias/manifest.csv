@@ -1,0 +1,9 @@
+id,titulo,doi,url,estado_descarga,licencia
+wilson1977bidding,"A Bidding Model of Perfect Competition",10.2307/2296904,https://doi.org/10.2307/2296904,solo_enlace,copyright_editorial
+milgrom1982theory,"A Theory of Auctions and Competitive Bidding",10.2307/1911865,https://doi.org/10.2307/1911865,solo_enlace,copyright_editorial
+milgrom2000putting,"Putting Auction Theory to Work: The Simultaneous Ascending Auction",10.1086/262118,https://doi.org/10.1086/262118,solo_enlace,copyright_editorial
+milgrom2004putting,"Putting Auction Theory to Work",10.1017/CBO9780511813825,https://doi.org/10.1017/CBO9780511813825,solo_enlace,copyright_editorial
+wilson1969competitive,"Competitive Bidding with Disparate Information",10.1287/mnsc.15.7.446,https://doi.org/10.1287/mnsc.15.7.446,solo_enlace,copyright_editorial
+milgrom1981good,"Good News and Bad News: Representation Theorems and Applications",10.2307/3003562,https://doi.org/10.2307/3003562,solo_enlace,copyright_editorial
+nobel2020scientific,"Scientific Background: Improvements to Auction Theory and Inventions of New Auction Formats",NA,https://www.nobelprize.org/uploads/2020/09/advanced-economicsciencesprize2020.pdf,descargado,public_domain_nobel
+nobel2020popular,"Popular Science Background: The Quest for the Perfect Auction",NA,https://www.nobelprize.org/uploads/2020/09/popular-economicsciencesprize2020.pdf,descargado,public_domain_nobel

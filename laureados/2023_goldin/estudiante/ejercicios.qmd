@@ -1,0 +1,51 @@
+---
+title: "Guía de Ejercicios Prácticos: La Economía Laboral de Género"
+subtitle: "Premio Nobel de Economía 2023: Claudia Goldin"
+author: "Nobel_economics Docencia"
+date: "2023-10-09"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En este conjunto de actividades analizarás los modelos y datos históricos desarrollados por Claudia Goldin para entender por qué la participación laboral femenina no fue lineal con el desarrollo económico y por qué persiste la brecha salarial moderna en profesiones de alta cualificación.
+
+---
+
+# Ejercicio 1: Efecto Ingreso vs. Efecto Sustitución en la Curva en U (Nivel Básico)
+
+Considera una familia donde la función de utilidad del hogar depende del consumo agregado $C$ y del ocio/trabajo doméstico de la mujer $L_m$:
+
+$$U(C, L_m) = \ln(C) + \theta \ln(L_m)$$
+
+sujeto a la restricción presupuestaria familiar:
+$$C = W_h \cdot H_h + W_m \cdot (T - L_m)$$
+
+donde $W_h$ es el salario del esposo, $H_h$ son sus horas fijas de trabajo, $W_m$ es el salario de mercado de la mujer, y $T - L_m = H_m$ son las horas laborales de la mujer.
+
+1. **Pregunta conceptual:** Durante la primera fase de la Revolución Industrial (1830–1890), los salarios de los hombres ($W_h$) aumentaron con rapidez gracias a la industria pesada, mientras que el salario fabril femenino ($W_m$) era relativamente bajo y el trabajo fuera del hogar sufría fuerte sanción social. ¿Qué efecto dominó sobre la oferta laboral femenina ($H_m$): el efecto ingreso o el efecto sustitución?
+2. **Las barreras matrimoniales (*marriage bars*):** A principios del siglo XX, muchos distritos escolares y bancos prohibían por ley o reglamento contratar a mujeres casadas o las despedían inmediatamente al casarse. ¿Cómo altera esta restricción institucional la elasticidad de oferta laboral femenina frente a los salarios?
+3. **El giro del siglo XX:** ¿Por qué la expansión masiva de la educación secundaria y del sector administrativo y de servicios a partir de 1930 alteró el balance entre ambos efectos?
+
+---
+
+# Ejercicio 2: La Píldora Anticonceptiva y el Retraso del Matrimonio (Nivel Intermedio)
+
+En su célebre artículo *"The Power of the Pill"* (Goldin y Katz, 2002), los autores analizan la difusión de la píldora anticonceptiva oral a mujeres jóvenes solteras durante fines de la década de 1960 y principios de 1970 en Estados Unidos.
+
+1. **El problema de horizonte temporal:** Antes de la difusión de métodos anticonceptivos de alta eficacia controlados por la mujer, el riesgo de un embarazo no planificado penalizaba fuertemente las inversiones educativas de largo plazo (como estudiar medicina, abogacía, odontología o cursar un MBA). Explica formal o intuitivamente cómo la píldora redujo el costo de esperar y retrasó la edad promedio del primer matrimonio.
+2. **Equilibrio de mercado matrimonial (*thick market effect*):** Si una mujer decidía individualmente posponer el matrimonio para estudiar una carrera universitaria en 1955, corría el riesgo de que la mayoría de los varones elegibles ya se hubieran casado a los 21 o 22 años. Explica por qué la difusión masiva de la píldora generó una externalidad positiva en el mercado de emparejamiento (*marriage market*) resolviendo este problema de coordinación.
+3. **Datos y hechos:** ¿Qué ocurrió entre 1970 y 1985 con la proporción de mujeres matriculadas en escuelas de medicina y derecho en EE. UU. tras la aprobación del acceso a la píldora para mujeres menores de 21 años?
+
+---
+
+# Ejercicio 3: Reto de Simulación en R: Empleos Codiciosos y Flexibilidad Horaria (Nivel Avanzado)
+
+Abre el script `laureados/2023_goldin/replicacion/R/curva_u_y_brecha_genero.R`.
+
+1. **Experimento contrafactual:** Modifica la penalización por maternidad en el sector de "Empleos Codiciosos". Supón que una política de regulación laboral impone un límite estricto de 45 horas semanales y desincentiva el trabajo durante fines de semana, reduciendo la penalización inmediata al nacer el hijo del 28% actual a un 12%, y permitiendo que la tasa de crecimiento salarial femenina crezca al 6% anual en vez del 3.8%.
+2. **Cálculo:** Ejecuta de nuevo el script y examina la nueva brecha salarial porcentual resultante a los 10 años ($t = 10$). ¿En cuántos puntos porcentuales se reduce la brecha salarial de género a largo plazo?
+3. **Discusión económica:** ¿Por qué Claudia Goldin argumenta que la solución más duradera para cerrar la brecha salarial de género del siglo XXI no consiste necesariamente en leyes de igualdad salarial (*equal pay for equal work*), sino en rediseñar los puestos de trabajo para que los trabajadores sean sustitutos cercanos y no se pague una prima desproporcionada por la disponibilidad horaria continua?
