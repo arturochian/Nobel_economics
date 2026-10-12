@@ -1,0 +1,31 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.Renviron
+*.Rproj
+
+# renv
+# Note: renv/activate.R and renv.lock should be committed, but renv/library ignored
+renv/library/
+renv/local/
+renv/cellar/
+renv/staging/
+
+# Outputs and binaries
+*.pdf
+!laureados/*/referencias/pdf/*.pdf
+*.png
+*.jpeg
+*.jpg
+*.svg
+
+# Large files (> 20 MB)
+*.zip
+*.tar.gz
+*.parquet
+
+# OS specific
+.DS_Store
+Thumbs.db
+desktop.ini

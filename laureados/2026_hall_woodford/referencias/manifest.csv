@@ -1,0 +1,9 @@
+id,titulo,doi,url,estado_descarga,licencia
+hall1978stochastic,"Stochastic Implications of the Life Cycle-Permanent Income Hypothesis: Theory and Evidence",10.1086/260724,https://doi.org/10.1086/260724,solo_enlace,copyright_editorial
+hall1980employment,"Employment Fluctuations and Wage Rigidity",NA,https://www.brookings.edu/wp-content/uploads/1980/01/1980a_bpea_hall_summers_baily.pdf,descargado,open_access_brookings
+hall2005employment,"Employment Fluctuations with Equilibrium Wage Stickiness",10.1257/0002828053854497,https://doi.org/10.1257/0002828053854497,solo_enlace,copyright_editorial
+rotemb_woodford1997,"An Optimization-Based Econometric Framework for the Evaluation of Monetary Policy",10.1086/654340,https://www.nber.org/system/files/working_papers/w6025/w6025.pdf,descargado,open_access_working_paper
+woodford2003interest,"Interest and Prices: Foundations of a Theory of Monetary Policy",NA,https://press.princeton.edu/books/hardcover/9780691010496/interest-and-prices,solo_enlace,copyright_editorial
+woodford2001taylor,"The Taylor Rule and Optimal Monetary Policy",10.1257/aer.91.2.232,https://doi.org/10.1257/aer.91.2.232,solo_enlace,copyright_editorial
+nobel2026scientific,"Microeconomic Foundations of Macroeconomic Stabilization (Scientific Background)",NA,https://www.nobelprize.org/prizes/economics/2026/advanced-information/,descargado,public_domain_nobel
+nobel2026popular,"Microfoundations Deliver Macro Insights (Popular Information)",NA,https://www.nobelprize.org/prizes/economics/2026/popular-information/,descargado,public_domain_nobel
