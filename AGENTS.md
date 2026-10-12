@@ -312,3 +312,96 @@ Reglas de coordinación:
 2. Catalogador: CSV completo; fila 2026 con `prioridad=0`.
 3. Cadena 2026 (§11) con los roles de §13.1; en paralelo Desarrollador-Web y Editor-Didáctico.
 4. Revisión humana del docente de la ficha 2026 y de la web antes de lanzar los pilotos (Fase C).
+
+---
+
+## 14. Estructura canónica final (ORDENADA) — fuente de verdad
+
+Consolida §2 y §12.1. Si hay contradicción, **manda esta sección**. Principio: *raíz limpia* (solo lo que un estudiante necesita ver primero), todo lo demás agrupado por función.
+
+```
+Nobel_economics/
+│
+├── README.md                  # portada: qué es + inicio rápido (3 pasos)
+├── AGENTS.md                  # instrucciones para IA
+├── LICENSE  CITATION.cff
+├── .gitignore  .gitattributes # (LFS para PDFs si hace falta)
+├── renv.lock  .Rprofile       # entorno R reproducible
+├── Dockerfile
+├── .devcontainer/
+├── .github/workflows/         # r-check.yml, deploy-web.yml
+│
+├── data/                      # catálogo global
+│   ├── laureados.csv
+│   └── glosario.csv           # términos técnicos -> web
+│
+├── laureados/                 # UN LAUREADO = UNA CARPETA
+│   ├── 2026_hall_woodford/
+│   │   ├── README.md          # índice de la carpeta (qué hay y por dónde empezar)
+│   │   ├── referencias/       # bib, manifest.csv, pdf/ (solo acceso abierto)
+│   │   ├── replicacion/       # replicar.qmd, R/, datos/, salidas/
+│   │   ├── estudiante/        # ejercicios.qmd (sin solución)
+│   │   ├── docente/           # soluciones, rúbrica (no se publica en la web)
+│   │   └── web/               # ficha.md (fuente única del contenido web)
+│   └── AAAA_apellido/         # misma estructura; nombre ASCII, minúsculas
+│
+├── scripts/                   # automatización numerada (00_ ... 03_), utils.R
+│
+├── web/                       # sitio estático
+│   ├── src/                   # código del sitio
+│   ├── content/               # GENERADO desde laureados/*/web — no editar
+│   └── public/                # imágenes, fuentes
+│
+├── docs/
+│   ├── GUIA_ESTUDIANTE.md  GUIA_DOCENTE.md
+│   ├── ORQUESTACION.md  DECISIONES.md  FUENTES.md  ESTADO.md
+│   └── PLANTILLAS/            # ficha_plantilla.md, replicar_plantilla.qmd
+│
+└── _output/                   # builds locales (ignorado por git)
+```
+
+Reglas de orden:
+1. **Raíz**: no crear archivos sueltos fuera de lo listado; todo código en `scripts/`, todo contenido en `laureados/`.
+2. **Una sola fuente por dato**: contenido web solo en `laureados/*/web/ficha.md`; metadatos en `data/laureados.csv`. `web/content/` se regenera.
+3. **Nombres**: ASCII, minúsculas, sin espacios; carpetas de laureados `AAAA_apellido[_apellido2]`; scripts con prefijo numérico; salidas con prefijo `fig_`/`tab_`.
+4. **Cada carpeta de laureado tiene `README.md`** de 5 líneas con enlaces a sus subcarpetas, para que un estudiante no se pierda.
+5. **Carpetas vacías** llevan `.gitkeep`.
+6. **Ignorar en git**: `_output/`, `.Rproj.user/`, `*.html` renderizados, `.Renviron`, `node_modules/`, PDFs >20 MB, datos crudos grandes.
+7. **Archivos pesados** (PDF/datos): solo en `referencias/pdf/` y `replicacion/datos/`; si pasan de 20 MB, script de descarga en lugar del archivo.
+
+---
+
+## 15. Apps Shiny interactivas (obligatorio por laureado)
+
+Para que el material sea súper amigable, **cada laureado debe tener al menos una app Shiny** donde el estudiante mueva parámetros y vea cómo cambia el resultado (sin escribir código). Ejemplo 2026: modelo Nuevo Keynesiano con sliders para la regla de Taylor, persistencia del shock y pendiente de la curva de Phillips, mostrando impulso-respuesta en vivo.
+
+### 15.1 Estructura (se suma a §14)
+
+```
+laureados/AAAA_apellido/
+└── shiny/
+    ├── app.R              # app autocontenida (o ui.R/server.R)
+    ├── R/                 # funciones (reutilizar las de replicacion/R/, sin duplicar lógica)
+    └── README.md          # qué enseña la app, parámetros, cómo correrla local
+web/public/apps/           # GENERADO: export shinylive (no editar)
+```
+
+### 15.2 Requisitos
+
+- **Despliegue sin servidor (preferido):** exportar con **`shinylive`** (Shiny corriendo en el navegador vía WebAssembly/webR) para que funcione dentro de GitHub Pages, sin backend, e incrustarla en la ficha con `<iframe>`. Si un paquete no es compatible con webR, usar Shiny normal en shinyapps.io o Posit Connect Cloud y **registrar la decisión en `docs/DECISIONES.md`**; la ficha enlaza a la app.
+- **Local:** `shiny::runApp("laureados/<slug>/shiny")` debe funcionar tras `renv::restore()`. Documentarlo en `docs/GUIA_ESTUDIANTE.md`.
+- **Didáctica:** título claro, 2–5 controles (sliders/selectores) con etiquetas en español y ayuda breve, un gráfico principal, un recuadro "¿Qué estoy viendo?" que explica el resultado y botón "Restablecer valores".
+- **Ligera y robusta:** sin API keys ni descargas en vivo; usar datos simulados con semilla o archivos pequeños en `shiny/` o `replicacion/datos/`. Respuesta < 1 s por interacción.
+- **Accesible:** contraste AA, etiquetas en controles, texto alternativo en gráficos, `bslib` con modo claro/oscuro coherente con la web.
+- **Coherencia:** la app usa el mismo modelo/código que `replicar.qmd`; no inventes resultados distintos. Indicar nivel (ilustrativa/parcial/completa) igual que en la ficha.
+- **Ejercicio guiado:** `estudiante/ejercicios.qmd` incluye al menos un ejercicio del tipo "usa la app y responde: ¿qué pasa si…?"; las respuestas van en `docente/`.
+- **Testeo:** `shinytest2` o prueba de humo (la app arranca sin error) en CI (`r-check.yml`).
+- **Paquetes:** `shiny`, `bslib`, `plotly` o `ggplot2`; fijarlos en `renv.lock`.
+
+### 15.3 Cambios en otros roles y fases
+
+- **Nuevo subagente "Desarrollador-Shiny"** (1 por laureado): entrada = `replicacion/R/` + ficha; salida = `shiny/` + export shinylive; no toca `ficha.md` ni la web. Va **después del Replicador-R y en paralelo al Redactor**.
+- **Desarrollador-Web:** incrusta la app en cada página de laureado (sección "Pruébalo tú mismo") y añade en el Home un filtro/insignia "Tiene app interactiva".
+- **Verificador:** comprueba que la app corre y que sus parámetros por defecto reproducen la figura principal de `salidas/`.
+- **Definición de hecho (§9 y §13.2.4):** se suma "app Shiny funcional y enlazada en la web".
+- **Fase B 2026** queda: Referencista → {Replicador-R → Desarrollador-Shiny || Redactor} → Verificador.

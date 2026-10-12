@@ -15,6 +15,13 @@
   - [replicar.qmd](replicacion/replicar.qmd): Reporte Quarto de replicación dinámica del Modelo Nuevo Keynesiano de 3 ecuaciones.
   - [R/modelo_nuevo_keynesiano.R](replicacion/R/modelo_nuevo_keynesiano.R): Script en R que resuelve el sistema dinámico y calcula las funciones impulso-respuesta (IRF).
   - [salidas/](replicacion/salidas/): Gráficos exportados en alta resolución (`irf_shock_monetario.png`, `irf_shock_demanda.png`) y datos numéricos (`tabla_irf_simulaciones.csv`).
+- [shiny/](shiny/):
+  - [app.R](shiny/app.R): Aplicación interactiva Shiny construida con `bslib` para simular dinámicamente respuestas a shocks y evaluar el Principio de Taylor.
+  - [README.md](shiny/README.md): Instrucciones y conceptos didácticos de la aplicación interactiva.
+- [estudiante/](estudiante/):
+  - [ejercicios.qmd](estudiante/ejercicios.qmd): Cuaderno de ejercicios prácticos graduados (básico, intermedio y reto en código) utilizando la app Shiny.
+- [docente/](docente/):
+  - [soluciones.md](docente/soluciones.md): Pautas pedagógicas, justificaciones analíticas y soluciones a los ejercicios.
 - [web/](web/):
   - [ficha.md](web/ficha.md): Ficha en Markdown estructurada con YAML front-matter para integración en la plataforma web del proyecto.
 

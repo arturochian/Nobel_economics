@@ -1,0 +1,44 @@
+---
+title: "Guía de Ejercicios Prácticos: Modelo Nuevo Keynesiano"
+subtitle: "Premio Nobel de Economía 2026: Robert E. Hall y Michael Woodford"
+author: "Nobel_economics Docencia"
+date: "2026-10-12"
+format:
+  html:
+    toc: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta actividad práctica utilizarás la **App Interactiva Shiny** y el script de simulación en R para comprender intuitivamente los mecanismos de transmisión de la política macroeconómica moderna formulados por Hall y Woodford.
+
+---
+
+# Ejercicio 1: El Principio de Taylor (Nivel Básico)
+
+1. Abre la app Shiny ejecutando en R:
+   ```r
+   shiny::runApp("laureados/2026_hall_woodford/shiny")
+   ```
+2. Selecciona un **Shock de Demanda Agregada (+1%)**.
+3. Deja los parámetros por defecto ($\phi_\pi = 1.5, \rho_i = 0.75$). Observa cómo se comportan la brecha de producto y la inflación.
+4. Ahora reduce el control del Principio de Taylor $\phi_\pi$ a un valor menor o igual a $1.0$ (por ejemplo, $\phi_\pi = 0.9$).
+5. **Pregunta:** ¿Qué ocurre con la trayectoria de la inflación y la brecha del producto? ¿Por qué Michael Woodford y John Taylor afirman que un banco central que ajusta la tasa nominal menos de 1 a 1 frente a la inflación genera inestabilidad?
+
+---
+
+# Ejercicio 2: Inercia y Suavizamiento de Tasas (Nivel Intermedio)
+
+1. Restablece los valores con el botón *"Restablecer Valores"*.
+2. Selecciona un **Shock de Política Monetaria (+100 pb)**.
+3. Compara dos escenarios:
+   - **Escenario A (Sin inercia):** Fija $\rho_i = 0.0$.
+   - **Escenario B (Alta inercia):** Fija $\rho_i = 0.85$.
+4. **Pregunta:** ¿Cuál de los dos escenarios provoca una caída inicial más abrupta en la brecha del producto? ¿Por qué en la práctica la Reserva Federal o el BCE prefieren ajustar tasas de forma gradual y predecible?
+
+---
+
+# Ejercicio 3: Reto de Simulación en R (Nivel Avanzado)
+
+Abre el archivo `replicacion/R/modelo_nuevo_keynesiano.R` y modifica el parámetro $\kappa$ (pendiente de la Curva de Phillips) a $\kappa = 0.05$ (precios muy rígidos) y luego a $\kappa = 0.40$ (precios muy flexibles).
+- **Pregunta:** ¿Cómo influye el grado de rigidez de precios en la eficacia de la política monetaria para estabilizar la actividad económica real? Justifica utilizando la teoría de fijación de precios escalonados de Calvo-Woodford.

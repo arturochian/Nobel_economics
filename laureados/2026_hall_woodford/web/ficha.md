@@ -55,6 +55,12 @@ La metodología compartida por ambos laureados descansa en los modelos de equili
 - **Resultados obtenidos:** Un shock monetario contractivo (+100 pb) reduce contemporáneamente la inflación y la brecha del producto, convergiendo suavemente a su estado estacionario. Un shock positivo de demanda (+1%) induce una respuesta estabilizadora de tasas conforme al Principio de Taylor.
 - **Limitaciones:** Representación con agente representativo (RANK); extensiones contemporáneas incorporan fricciones financieras y heterogeneidad de hogares (HANK).
 
+## Pruébalo tú mismo (App Interactiva Shiny)
+Este laureado incluye una aplicación interactiva en Shiny (`shiny/app.R`) diseñada con `bslib` para que estudiantes e investigadores puedan manipular directamente los parámetros macroeconómicos en vivo:
+- Modificar el parámetro del **Principio de Taylor ($\phi_\pi$)** para observar el desanclaje de expectativas.
+- Ajustar la **inercia de la tasa de política ($\rho_i$)** y la **pendiente de la curva de Phillips ($\kappa$)**.
+- Ejecución local directa mediante: `shiny::runApp("laureados/2026_hall_woodford/shiny")`.
+
 ## Para profundizar
 - Hall, R. E. (1978). *Stochastic Implications of the Life Cycle-Permanent Income Hypothesis: Theory and Evidence*. `hall1978stochastic`.
 - Woodford, M. (2003). *Interest and Prices: Foundations of a Theory of Monetary Policy*. `woodford2003interest`.
