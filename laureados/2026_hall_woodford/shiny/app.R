@@ -104,7 +104,7 @@ ui <- page_sidebar(
 # Servidor (Server)
 server <- function(input, output, session) {
   
-  observeEvent(input["reset"], {
+  observeEvent(input$reset, {
     updateSelectInput(session, "shock_tipo", selected = "monetario")
     updateSliderInput(session, "phi_pi", value = 1.5)
     updateSliderInput(session, "rho_i", value = 0.75)
