@@ -19,6 +19,12 @@ renv/staging/
 *.jpeg
 *.jpg
 *.svg
+!laureados/*/replicacion/salidas/*.png
+
+# Web build artifacts and dependencies
+web/node_modules/
+web/dist/
+*.html
 
 # Large files (> 20 MB)
 *.zip

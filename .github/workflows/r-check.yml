@@ -1,0 +1,120 @@
+name: R checks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**/*.R"
+      - "**/*.qmd"
+      - "data/**"
+      - "renv.lock"
+      - ".Rprofile"
+      - ".github/workflows/r-check.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "**/*.R"
+      - "**/*.qmd"
+      - "data/**"
+      - "renv.lock"
+      - ".Rprofile"
+      - ".github/workflows/r-check.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: r-check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Catalog, R, Quarto and Shiny
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      FAST: "TRUE"
+      CI: "true"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: "4.3"
+          use-public-rspm: true
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Detect reproducible environment
+        id: renv
+        shell: bash
+        run: |
+          if [[ -f renv.lock ]]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "::warning file=renv.lock::renv.lock aún no existe; se omiten renderizado y prueba Shiny."
+          fi
+
+      - name: Restore R dependencies
+        if: steps.renv.outputs.available == 'true'
+        uses: r-lib/actions/setup-renv@v2
+
+      - name: Validate master catalog
+        shell: Rscript {0}
+        run: |
+          catalog <- read.csv("data/laureados.csv", check.names = FALSE)
+          expected <- c(
+            "anio", "laureados", "pais_afiliacion", "area",
+            "aporte_corto", "slug", "prioridad", "estado"
+          )
+          stopifnot(identical(names(catalog), expected))
+          stopifnot(!anyDuplicated(catalog$anio), !anyDuplicated(catalog$slug))
+          stopifnot(all(catalog$estado %in% c(
+            "pendiente", "referencias", "replicado", "web", "completo"
+          )))
+          stopifnot(all(grepl("^[0-9]{4}_[a-z0-9_]+$", catalog$slug)))
+
+      - name: Parse R source files
+        shell: Rscript {0}
+        run: |
+          files <- list.files(
+            ".", pattern = "[.]R$", recursive = TRUE,
+            full.names = TRUE, ignore.case = FALSE
+          )
+          files <- files[!grepl("(^|/|\\\\)(renv|packrat)(/|\\\\)", files)]
+          failures <- character()
+          for (file in files) {
+            tryCatch(parse(file = file), error = function(error) {
+              failures <<- c(failures, sprintf("%s: %s", file, conditionMessage(error)))
+            })
+          }
+          if (length(failures)) stop(paste(failures, collapse = "\n"), call. = FALSE)
+          message("Archivos R analizados: ", length(files))
+
+      - name: Run lightweight replications
+        if: steps.renv.outputs.available == 'true'
+        shell: bash
+        run: |
+          if [[ -f scripts/02_replicar_todo.R ]]; then
+            Rscript scripts/02_replicar_todo.R
+          else
+            echo "::warning file=scripts/02_replicar_todo.R::El orquestador de replicaciones aún no existe; paso omitido."
+          fi
+
+      - name: Smoke-test Shiny apps
+        if: steps.renv.outputs.available == 'true'
+        shell: Rscript {0}
+        run: |
+          apps <- list.files("laureados", pattern = "app[.]R$", recursive = TRUE, full.names = TRUE)
+          apps <- apps[grepl("[/\\\\]shiny[/\\\\]app[.]R$", apps)]
+          for (app in apps) {
+            app_dir <- dirname(app)
+            shiny::as.shiny.appobj(app_dir)
+            message("Shiny OK: ", app_dir)
+          }
+          message("Apps Shiny comprobadas: ", length(apps))

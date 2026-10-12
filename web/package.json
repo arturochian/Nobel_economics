@@ -1,0 +1,18 @@
+{
+  "name": "nobel-economics-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node src/build.mjs",
+    "lint": "node --check src/build.mjs && node --check src/serve.mjs && node --check src/assets/site.js",
+    "test": "node src/test.mjs",
+    "serve": "node src/serve.mjs"
+  },
+  "dependencies": {
+    "csv-parse": "^7.0.3",
+    "js-yaml": "^4.1.0",
+    "katex": "^0.19.0",
+    "marked": "^15.0.12"
+  }
+}

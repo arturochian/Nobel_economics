@@ -27,3 +27,18 @@ Para reproducir una replicación específica en R:
 # Correr script de replicación
 source("laureados/2026_hall_woodford/replicacion/R/modelo_nuevo_keynesiano.R")
 ```
+
+## Ver la web localmente
+
+La web se genera desde el catálogo y las fichas Markdown existentes; no requiere R ni Quarto.
+
+En Windows, la forma más sencilla es abrir con doble clic `web/ver_web.bat`.
+
+```bash
+cd web
+npm ci
+npm run build
+npm run serve
+```
+
+El build queda en `web/dist/`. Las entradas todavía incompletas se muestran como contenido en preparación y se actualizan automáticamente al añadir nuevas fichas.
