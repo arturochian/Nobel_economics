@@ -21,3 +21,7 @@ Este documento registra las decisiones clave tomadas durante el desarrollo del p
 - **Motivación:** La web puede publicarse aunque R y Quarto no estén disponibles en el entorno de despliegue. El contenido académico conserva una sola fuente de verdad y la dependencia de JavaScript en el navegador se limita a búsqueda, filtros, navegación y modo de color.
 - **Contenido parcial:** El generador incluye fichas descubiertas aunque todavía no estén en el catálogo y crea páginas de estado para filas del catálogo cuya ficha aún no existe. Esto permite publicar avances sin representar material pendiente como completo.
 - **Despliegue:** GitHub Actions construye `web/dist/` y lo publica en GitHub Pages bajo la subruta del repositorio. `dist/` y `node_modules/` son artefactos locales ignorados por Git.
+
+## 2026-10-12: Despliegue estático en Netlify
+- **Decisión:** Preparar el sitio para despliegue continuo en Netlify con el dominio previsto `nobel.arturochian.com`. La configuración vive en `netlify.toml`: base `web`, comando `npm run build`, publicación desde `web/dist` y Node.js 22.
+- **Motivación:** El sitio es completamente estático; Netlify puede construirlo desde GitHub tras cada cambio en `main`, mientras que la VPS queda disponible para validar, automatizar el repositorio y alojar únicamente las aplicaciones Shiny que no puedan exportarse con Shinylive.
