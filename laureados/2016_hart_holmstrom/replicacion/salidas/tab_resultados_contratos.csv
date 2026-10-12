@@ -1,0 +1,10 @@
+"Marco_Teorico","Autor_Referencia","Parametros_Clave","Incentivo_Poder_beta","Esfuerzo_Inversion","Prima_Riesgo_Distorsion","Excedente_Total_W"
+"Primer Mejor (Benchmark)","Teoría Clásica","sigma^2 = 0 o r = 0",1,"e = 1.00",0,0.5
+"Holmström (1979) - Riesgo Bajo","Holmström (1979)","sigma^2 = 0.5, r = 1.0",0.667,"e = 0.667",0.111,0.334
+"Holmström (1979) - Riesgo Alto","Holmström (1979)","sigma^2 = 3.0, r = 1.0",0.25,"e = 0.25",0.094,0.125
+"Holmström (1979) - Con RPE (Filtro Ruido)","Holmström (1979)","sigma^2 = 3.0, rho = 0.85",0.546,"e = 0.546",0.124,0.332
+"Holmström & Milgrom (1991) - Incentivo Agresivo","Holmström & Milgrom (1991)","beta1 = 1.0, gamma = 0.7",1,"e1 = 1.96, e2 = 0.00",1.25,0.71
+"Holmström & Milgrom (1991) - Incentivo Equilibrado","Holmström & Milgrom (1991)","beta1 = 0.35, gamma = 0.7",0.35,"e1 = 0.69, e2 = 0.72",0.28,1.492
+"Grossman & Hart (1986) - B-Ownership (B decisivo)","Grossman & Hart (1986)","theta = 0.80 (B clave)",0.825,"i_B = 1.04, i_S = 0.32",0,0.925
+"Grossman & Hart (1986) - S-Ownership (S decisivo)","Grossman & Hart (1986)","theta = 0.20 (S clave)",0.825,"i_B = 0.32, i_S = 1.04",0,0.925
+"Grossman & Hart (1986) - Asignación Equivocada","Grossman & Hart (1986)","theta = 0.80 pero asignado a S",0.5,"i_B = 0.63, i_S = 0.52",0.165,0.794

@@ -1,0 +1,106 @@
+---
+title: "Guía de Ejercicios Prácticos: Regulación, Información Asimétrica y Plataformas Bilaterales"
+subtitle: "Premio Nobel de Economía 2014: Jean Tirole"
+author: "Nobel_economics Docencia"
+date: "2014-10-13"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta actividad práctica aplicarás los conceptos fundamentales de la organización industrial moderna y la teoría de la regulación desarrollados por **Jean Tirole**:
+1. Cómo resolver el dilema entre inducir esfuerzo productivo y limitar rentas monopólicas mediante un **menú de contratos de incentivos** (Laffont & Tirole, 1986).
+2. Por qué en las **plataformas de dos lados** (*two-sided markets*) es económicamente eficiente cobrar precios por debajo del costo marginal (o incluso precios cero o negativos) a uno de los lados sin incurrir en prácticas predatorias (Rochet & Tirole, 2003).
+3. Cómo analizar casos reales de **defensa de la competencia en Big Tech** (comisiones de App Stores, reglas anti-redireccionamiento y autofavorecimiento) distinguiendo entre externalidades legítimas y abuso de posición de dominio.
+
+---
+
+# Ejercicio 1: El Menú de Contratos Regulatorios y la Renta Informacional (Nivel Básico)
+
+Imagina una agencia estatal de regulación de energía eléctrica que debe regular a una empresa distribuidora en régimen de monopolio natural. El costo contable realizado de la empresa es:
+$$C = \beta - e$$
+donde $\beta$ es el parámetro de costo base intrínseco de la empresa y $e \ge 0$ es el esfuerzo de los ingenieros y gerentes para reducir costos. La desutilidad monetaria del esfuerzo para la empresa es:
+$$\psi(e) = \frac{1}{2} e^2$$
+
+El regulador sabe que existen dos tipos posibles de empresa con igual probabilidad ($\pi = 0.5$):
+- **Empresa Eficiente ($\beta_L = 20$):** tiene tecnología moderna.
+- **Empresa Ineficiente ($\beta_H = 30$):** opera con infraestructura obsoleta.
+
+El tipo $\beta$ es **información privada** de la empresa (asimetría informativa). El regulador observa el costo realizado $C$, pero no puede discernir por separado cuánto se debió a la eficiencia intrínseca $\beta$ y cuánto al esfuerzo $e$.
+
+El regulador ofrece una compensación monetaria neta $t$. El beneficio o renta neta de la empresa es:
+$$U = t - \psi(e)$$
+Recaudar fondos públicos a través de impuestos distorsiona la economía, con un costo sombra de los fondos públicos de $\lambda = 0.20$ (cada dólar transferido cuesta $\$1.20$ a la sociedad).
+
+1. **Régimen de Costo-Plus (Reembolso Contable):**
+   - Si el regulador adopta una política de costo de servicio simple donde reembolsa cualquier costo observado $C$ y fija $t = 0$:
+     - ¿Qué nivel de esfuerzo $e$ elegirá la empresa?
+     - ¿Cuál será el costo observado realizado $C$ para cada tipo de empresa?
+     - ¿Qué problemas de eficiencia genera esta política para los usuarios de la red eléctrica?
+
+2. **Régimen de Precio Techo Fijo (*Price-Cap*):**
+   - El regulador establece una tarifa fija inflexible para asegurar que la empresa ineficiente no quiebre: fija una transferencia que garantiza $U_H = 0$ con esfuerzo óptimo $e = 1$.
+   - ¿Qué nivel de esfuerzo elige la empresa eficiente $\beta_L$?
+   - Si la empresa eficiente enfrenta este mismo precio fijo, ¿cuánta renta informacional ($U_L$) se apropia? Calcula la pérdida social derivada de transferir esa renta a la empresa eficiente.
+
+3. **Diseño del Menú Óptimo de Laffont-Tirole:**
+   - Para resolver este dilema, el regulador ofrece un menú de dos contratos: $\{ (C_L, t_L), (C_H, t_H) \}$.
+   - Escribe la condición de compatibilidad de incentivos (evitar que la empresa eficiente elija el contrato destinado a la ineficiente) y la condición de participación (garantizar que la ineficiente no quiebre).
+   - Explica conceptualmente por qué la solución óptima de Laffont-Tirole exige **"no distorsionar en la cima"** ($e_L = 1$) pero **"distorsionar a la baja el esfuerzo del tipo ineficiente"** ($e_H < 1$).
+
+---
+
+# Ejercicio 2: La Regla de Precios de Rochet-Tirole y Subsidios Cruzados (Nivel Intermedio)
+
+Considera una plataforma de pagos con tarjeta de débito/crédito que conecta a dos grupos de agentes:
+- **Lado Consumidores / Tarjetahabientes ($B$):** deciden si solicitan la tarjeta y la usan para sus compras diarias.
+- **Lado Comercios / Vendedores ($S$):** deciden si aceptan la tarjeta en sus puntos de venta.
+
+Por cada transacción efectuada, la plataforma incurre en un costo marginal de procesamiento tecnológico conjunto de $c = \$0.40$.
+La plataforma cobra una comisión por transacción $p_B$ al consumidor y una tasa de descuento comercial $p_S$ al comercio. El precio total por transacción es $p = p_B + p_S$.
+
+El volumen total de transacciones depende de las demandas bilaterales:
+$$Q(p_B, p_S) = N_B(p_B) \cdot N_S(p_S)$$
+Las elasticidades precio de la demanda para cada lado son:
+$$\eta_B = 3.0 \quad \text{(los consumidores son muy sensibles y pueden usar efectivo alternativamente)}$$
+$$\eta_S = 0.8 \quad \text{(los comercios son muy inelásticos; no aceptar la tarjeta significa perder ventas)}$$
+
+1. **La Regla de Tarificación de Rochet-Tirole:**
+   - La regla óptima de estructura de precios de Rochet & Tirole (2003) se expresa como:
+     $$\frac{p_B - (c - p_S)}{p_B} = \frac{1}{\eta_B}$$
+   - Explica el significado económico del término $(c - p_S)$. ¿Por qué se denomina "costo marginal efectivo" de atender al consumidor?
+
+2. **Cálculo de Precios y Subsidio Cruzado:**
+   - Supongamos que en el equilibrio óptimo de la plataforma, la comisión cobrada a los comercios se fija en $p_S = \$1.00$.
+   - Utilizando la fórmula de Rochet-Tirole, despeja y calcula el precio óptimo $p_B$ que la plataforma debe cobrar al tarjetahabiente.
+   - Interpreta el signo del resultado obtenido: ¿cómo se materializa en la práctica un precio $p_B < 0$ en el mercado de tarjetas de crédito (ej. programas de cashback, puntos de lealtad, seguros gratuitos de viaje)?
+   - ¿Por qué un análisis antimonopolio tradicional unilateral calificaría erróneamente esta tarifa negativa como una práctica predatoria de *dumping*?
+
+3. **El "Efecto Balancín" (*See-Saw Effect*):**
+   - Supón que el banco central o el regulador de competencia aprueba una ley que fija un tope estricto a la tasa de intercambio comercial, obligando a reducir $p_S$ de $\$1.00$ a $\$0.20$.
+   - Predice, utilizando la lógica de plataformas bilaterales de Tirole, qué ocurrirá con la cuota de mantenimiento de las tarjetas, los programas de recompensas de los bancos y el volumen total de transacciones en la economía.
+
+---
+
+# Ejercicio 3: Defensa de la Competencia en Plataformas Big Tech (Nivel Avanzado / Reto)
+
+En los últimos años, las autoridades de competencia de la Unión Europea (Comisión Europea) y del Departamento de Justicia de EE. UU. (DOJ) han iniciado investigaciones históricas contra gigantes tecnológicos como Apple (App Store) y Alphabet/Google (Play Store y Search).
+
+El caso central involucra la **tasa del 30%** cobrada por Apple a los desarrolladores de aplicaciones por compras dentro de la app (*in-app purchases*), junto con las cláusulas contractuales **anti-redireccionamiento** (*anti-steering provisions*), que prohíben a desarrolladores como Spotify o Epic Games informar a los usuarios dentro de la app que pueden adquirir suscripciones más baratas en su propio sitio web exterior.
+
+Utilizando los marcos conceptuales de Jean Tirole (Organización Industrial moderna, contratos de exclusividad y mercados bilaterales):
+
+1. **La Justificación de Eficiencia de la Plataforma (Defensa de Apple):**
+   - ¿Qué externalidades positivas de red genera la plataforma para los desarrolladores y usuarios (ej. seguridad, reputación del ecosistema, APIs, reducción de fricciones de pago)?
+   - ¿Por qué Apple argumenta que las cláusulas anti-redireccionamiento son necesarias para evitar el problema del polizón (*free-rider problem*) por parte de gigantes como Spotify o Netflix?
+
+2. **La Teoría del Daño Antimonopolio (Ataque de los Reguladores):**
+   - ¿Por qué el hecho de que los usuarios finales sufran de **costos de cambio elevados** (*switching costs*) o estén cautivos en el ecosistema iOS convierte a Apple en un "cuello de botella de terminación" (*terminating bottleneck*) para los desarrolladores?
+   - Si los desarrolladores no pueden eludir la plataforma sin perder a los usuarios de iPhone, ¿sigue aplicando la disciplina competitiva tradicional de mercados de dos lados? ¿En qué punto la tasa del 30% deja de ser un precio eficiente de externalidad cruzada y se convierte en una extracción pura de renta monopólica?
+
+3. **Diseño de Remedios Regulatorios (Enfoque Tirole):**
+   - Jean Tirole ha defendido que las leyes antimonopolio tradicionales (diseñadas para cárteles de acero o ferrocarriles del siglo XIX) son demasiado lentas para la economía digital. Propone una **regulación participativa ágil** (*participatory regulation*).
+   - Diseña un remedio regulatorio para la App Store que equilibre los incentivos de Apple para invertir en la seguridad de iOS con la apertura competitiva para desarrolladores independientes, evaluando la reciente Ley de Mercados Digitales de la UE (*Digital Markets Act* - DMA).

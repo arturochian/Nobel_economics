@@ -1,0 +1,7 @@
+mecanismo_o_modelo,esfuerzo_o_elasticidad,costo_o_precio_lado1,renta_o_precio_lado2,indicador_eficiencia
+Regulación: Cost-Plus (Reembolso Contable),e = 0.00,C_medio = 17.50,Renta U = 0.00,Costo Social = 17.50
+Regulación: Price-Cap Puro (Precio Fijo RPI-X),e = 1.00,C_medio = 16.50,Renta U = 7.50,Costo Social = 26.25
+Regulación: Menú Óptimo (Laffont-Tirole 1986),e_medio = 0.83,C_medio = 16.67,Renta U = 5.77,Costo Social = 24.18 (Óptimo)
+Plataforma: Mercado Bilateral Sin Subsidio (η_B = 1.2),η_B = 1.20,p_B = +0.50,p_S = +2.20,Volumen = 188.2 transacciones
+Plataforma: Mercado Bilateral Asimétrico (η_B = 2.5),η_B = 2.50,p_B = -0.54 (subsidio),p_S = +2.79,Volumen = 282.4 transacciones
+Plataforma: Mercado Bilateral Ultra-Asimétrico (η_B = 4.0),η_B = 4.00,p_B = -1.74 (subsidio),p_S = +3.46,Volumen = 386.7 transacciones

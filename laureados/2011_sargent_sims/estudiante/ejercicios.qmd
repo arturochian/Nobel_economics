@@ -1,0 +1,71 @@
+---
+title: "Guía de Ejercicios Prácticos: Macroeconometría Estructural y Causalidad Dinámica"
+subtitle: "Premio Nobel de Economía 2011: Thomas J. Sargent y Christopher A. Sims"
+author: "Nobel_economics Docencia"
+date: "2026-10-12"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# Introducción
+
+El Premio Nobel de Economía 2011 otorgado a **Thomas J. Sargent** y **Christopher A. Sims** reconoció sus contribuciones pioneras para desentrañar la dirección de causa y efecto en la macroeconomía:
+- Christopher Sims desarrolló el instrumental de los **Vectores Autorregresivos Estructurales (SVAR)**, las funciones impulso-respuesta y la descomposición de varianza, liberando a la econometría de "restricciones de identificación increíbles".
+- Thomas Sargent formalizó cómo estimar modelos macroeconómicos consistentes con las **expectativas racionales**, permitiendo distinguir entre perturbaciones aleatorias no anticipadas (*shocks*) y cambios en las reglas de política sistemática.
+
+Esta guía contiene tres ejercicios diseñados para profundizar en los fundamentos algebraicos, empíricos y metodológicos de la macroeconometría moderna.
+
+---
+
+# Ejercicio 1: El Ordenamiento de Cholesky y la Matriz Contemporánea de Impacto (Nivel Básico)
+
+Considera un modelo VAR tri-variado en forma reducida con vector de variables $Y_t = [y_t, \pi_t, i_t]'$, donde $y_t$ es la brecha de producto, $\pi_t$ es la inflación e $i_t$ es la tasa de interés de política monetaria:
+$$Y_t = A_1 Y_{t-1} + u_t, \quad \mathbb{E}[u_t u_t'] = \Sigma_u$$
+Supón que la matriz de varianzas y covarianzas de los residuos estimados en forma reducida es:
+$$\Sigma_u = \begin{pmatrix} 0.49 & 0.14 & 0.07 \\ 0.14 & 0.29 & 0.11 \\ 0.07 & 0.11 & 0.18 \end{pmatrix}$$
+
+1. **Estructura triangular y factorización de Cholesky:**
+   Deseamos identificar los shocks estructurales ortogonales $\varepsilon_t = [\varepsilon^y_t, \varepsilon^\pi_t, \varepsilon^i_t]'$ con $\mathbb{E}[\varepsilon_t \varepsilon_t'] = I_3$, tales que $u_t = P \varepsilon_t$, donde $P$ es una matriz triangular inferior con elementos diagonales positivos:
+   $$P = \begin{pmatrix} p_{11} & 0 & 0 \\ p_{21} & p_{22} & 0 \\ p_{31} & p_{32} & p_{33} \end{pmatrix}$$
+   Calcula paso a paso los valores numéricos exactos de los coeficientes $p_{ij}$ resolviendo el sistema $P P' = \Sigma_u$.
+2. **Impacto contemporáneo de un shock de política monetaria:**
+   Utilizando la matriz $P$ obtenida, determina cuál es el impacto contemporáneo ($h = 0$) de una perturbación estructural de política monetaria $\varepsilon^i_t = 1$ sobre $y_t$, sobre $\pi_t$ y sobre $i_t$. ¿Por qué $y_t$ y $\pi_t$ no reaccionan en el momento $t = 0$?
+3. **Sensibilidad al orden de las variables:**
+   ¿Cuántos ordenamientos causales recursivos distintos son posibles en un sistema de $K = 3$ variables? Si un investigador alterara el orden a $Y_t^* = [i_t, y_t, \pi_t]'$, ¿qué supuesto económico estaría asumiendo sobre los retrasos de información del banco central y la velocidad de respuesta de los mercados financieros y reales?
+
+---
+
+# Ejercicio 2: La "Paradoja del Precio" (*Price Puzzle*) y Variables Informacionales (Nivel Intermedio)
+
+En las primeras aplicaciones de modelos VAR empíricos durante los años 80 y comienzos de los 90 (Sims 1980, 1992), se observó frecuentemente una anomalía contraintuitiva: tras un incremento no anticipado en la tasa de interés (política monetaria contractiva), la tasa de inflación estimada tendía a aumentar durante varios trimestres antes de comenzar a caer. Este fenómeno se denominó la **paradoja del precio** (*price puzzle*).
+
+1. **Causa informacional y sesgo por variable omitida:**
+   Siguiendo la explicación formulada por Christopher Sims (1992), explica detalladamente por qué el *price puzzle* surge como consecuencia de una omisión de información en el VAR:
+   - ¿Qué información observa el banco central en tiempo real que podría no estar reflejada en los rezagos de la inflación y del producto?
+   - Si las autoridades monetarias anticipan una aceleración inflacionaria futura y elevan la tasa de interés preventivamente, ¿por qué el econometrista que no incluye variables adelantadas confunde una respuesta preventiva con la causa del aumento de precios?
+2. **Solución econométrica clásica:**
+   ¿Qué tipo de variables propuso Sims (1992) y posteriormente Bernanke y Blinder (1992) incorporar en el VAR para resolver esta paradoja? Explica cómo la inclusión de un índice de precios de materias primas (*commodity price index*) o diferenciales de tipos de interés (*spreads* de rendimiento) restaura una respuesta contractiva negativa en los precios.
+3. **Perspectiva de Sargent y expectativas racionales:**
+   ¿Cómo interpreta Thomas Sargent la dificultad de aislar shocks monetarios puros a partir de datos observados? Si la mayor parte de las variaciones de la tasa de interés responde a la regla sistemática y a las expectativas del sector privado, ¿qué advertencias surgen al interpretar las innovaciones residuales de un VAR como intervenciones de política deliberadas?
+
+---
+
+# Ejercicio 3: Métodos Alternativos de Identificación: Restricciones de Signos vs. Largo Plazo de Blanchard-Quah (Nivel Avanzado / Reto)
+
+La identificación recursiva de Cholesky ha sido objeto de debate debido a que exige asumir que ciertas variables macroeconómicas tienen una respuesta contemporánea idénticamente nula (restricciones de ceros contemporáneos). Para superar esta limitación, la literatura macroeconométrica contemporánea ha desarrollado dos paradigmas alternativos de identificación:
+
+1. **Restricciones de Largo Plazo (Blanchard y Quah, 1989):**
+   Olivier Blanchard y Danny Quah propusieron identificar perturbaciones agregadas mediante propiedades de neutralidad de largo plazo derivadas de la teoría macroeconómica:
+   - Supón un modelo bivariado con la primera diferencia del producto real ($\Delta y_t$) y la tasa de desempleo ($u_t$).
+   - La restricción impuesta es que los shocks de demanda agregada no tienen ningún efecto persistente en el nivel de producto a largo plazo ($\lim_{k \to \infty} \sum_{j=0}^k \theta_{12, j} = 0$), mientras que los shocks de oferta (tecnología) sí pueden modificar el producto potencial permanentemente.
+   - Explica matemáticamente cómo se traduce esta condición sobre la matriz de multiplicadores de largo plazo $C(1) = (I - A_1 - \dots - A_p)^{-1} P$.
+2. **Restricciones de Signos (Uhlig, 2005; Faust, 1998):**
+   Harald Uhlig propuso un enfoque agnóstico que prescinde tanto de ceros contemporáneos como de restricciones en el infinito, empleando descomposiciones ortogonales basadas en matrices ortonormales de rotación $Q$ ($Q Q' = I$):
+   - Para identificar un shock contractivo de política monetaria, Uhlig exige que la respuesta impulso-respuesta cumpla condiciones de signo cualitativas consensuadas durante $k = 4$ trimestres:
+     $$IRF(i_t) \ge 0, \quad IRF(\pi_t) \le 0, \quad IRF(\text{reservas bancarias}_t) \le 0$$
+     dejando libre la respuesta del producto ($y_t$) para verificar si efectivamente genera una recesión o si el dinero es neutral.
+   - ¿Qué ventaja epistemológica tiene este método frente al ordenamiento de Sims (1980)? ¿Cuál es su principal costo en términos de inferencia estadística (conjunto de modelos identificados vs. identificación puntual)?
+3. **Síntesis metodológica:**
+   Compara críticamente los tres enfoques de identificación (Cholesky de Sims, Largo Plazo de Blanchard-Quah y Signos de Uhlig). ¿Cuál de ellos es más robusto ante la crítica de Lucas y los argumentos de Sargent sobre la invariancia de los parámetros ante cambios de régimen de política?

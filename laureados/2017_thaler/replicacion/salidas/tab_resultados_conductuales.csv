@@ -1,0 +1,7 @@
+modulo,estrategia_o_mercado,tasa_inicial_o_wta,tasa_final_o_wtp,metrica_clave,transacciones_o_retencion
+Programa Save More Tomorrow (Ahorro 401k),Programa SMarT (Compromiso escalonado),3.5%,13.6%,+10.1 pp incremento (x3.9),78% retención tras 4 aumentos
+Programa Save More Tomorrow (Ahorro 401k),Ahorro Inmediato (Asesoría clásica),3.5%,4.4%,+0.9 pp incremento (congelado),18% aceptaron aumento inicial
+Programa Save More Tomorrow (Ahorro 401k),Status Quo (Inercia sin cambio),3.5%,3.5%,0.0 pp cambio (inercia pura),0% opt-in voluntario
+Experimento Efecto Dotación (KKT 1990),Benchmark Teorema de Coase,N/A,N/A,Ratio WTA/WTP = 1.00,50 transacciones (100%)
+Experimento Efecto Dotación (KKT 1990),Mercado Tokens (Valor Inducido),$5.12,$4.33,Ratio WTA/WTP = 1.18,44 transacciones (88%)
+Experimento Efecto Dotación (KKT 1990),Mercado Tazas (Efecto Dotación),$11,$4.33,Ratio WTA/WTP = 2.54,25 transacciones (50%)

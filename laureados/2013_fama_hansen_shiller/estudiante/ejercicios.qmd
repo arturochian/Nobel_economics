@@ -1,0 +1,89 @@
+---
+title: "Guía de Ejercicios Prácticos: Análisis Empírico de Precios de Activos"
+subtitle: "Premio Nobel de Economía 2013: Eugene F. Fama, Lars Peter Hansen y Robert J. Shiller"
+author: "Nobel_economics Docencia"
+date: "2026-10-12"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# Introducción
+
+El Premio Nobel de Economía 2013 reconoció a Eugene F. Fama, Lars Peter Hansen y Robert J. Shiller por transformar nuestra comprensión empírica de cómo se determinan los precios en los mercados financieros. A través de estos ejercicios analizarás la eficiencia informacional a corto plazo, la predictibilidad de rendimientos a largo plazo y las herramientas econométricas no lineales necesarias para evaluar modelos de consumo intertemporal.
+
+---
+
+# Ejercicio 1: Formas de Eficiencia de Fama y el Alfa de Jensen (Nivel Básico)
+
+Eugene Fama (1970) clasificó la Hipótesis de Mercados Eficientes (*Efficient Market Hypothesis*, EMH) en tres formas según el conjunto de información reflejado en los precios: débil, semifuerte y fuerte.
+
+Un analista financiero evalúa el desempeño de dos fondos mutuos durante los últimos 10 años con datos mensuales. Durante este periodo, la tasa libre de riesgo promedio fue $R_f = 0.25\%$ mensual y el rendimiento del índice de mercado fue $R_M = 0.85\%$ mensual.
+
+Los resultados de las regresiones unifactoriales clásicas (CAPM) arrojan:
+
+- **Fondo Alpha-Tech:** Retorno promedio mensual $\bar{R}_1 = 1.35\%$, beta estimado $\hat{\beta}_1 = 1.40$, error estándar $SE(\hat{\beta}_1) = 0.08$.
+- **Fondo Deep-Value:** Retorno promedio mensual $\bar{R}_2 = 0.95\%$, beta estimado $\hat{\beta}_2 = 0.80$, error estándar $SE(\hat{\beta}_2) = 0.05$.
+
+1. **Cálculo de los Alfas de Jensen:**
+   Calcula analíticamente el alfa de Jensen anualizado ($\alpha_1$ y $\alpha_2$) para cada uno de los dos fondos según el modelo CAPM unifactorial:
+   $$\alpha_i = \bar{R}_i - [R_f + \beta_i (\bar{R}_M - R_f)]$$
+   ¿Qué fondo parece ofrecer una rentabilidad extraordinaria anormal a primera vista?
+
+2. **El Problema de la Hipótesis Conjunta de Fama:**
+   Supón que un análisis adicional revela que el *Fondo Deep-Value* invierte fuertemente en empresas pequeñas con alto ratio valor en libros/mercado (*Book-to-Market*). Explica cómo el modelo de tres factores de Fama y French (1993) reinterpreta el "alfa aparente" obtenido por el CAPM. ¿Por qué Fama argumenta que nunca se puede testear la eficiencia del mercado de forma aislada?
+
+3. **Formas de Eficiencia y Reglas de Trading:**
+   Un operador de bolsa afirma que utilizando medias móviles exponenciales sobre precios pasados puede batir al mercado de manera consistente después de descontar comisiones. ¿Qué nivel de eficiencia de Fama quedaría directamente refutado si dicha estrategia produjera rendimientos anormales persistentes? Justifica tu respuesta.
+
+---
+
+# Ejercicio 2: La Paradoja de Shiller y las Cotas de Varianza (Nivel Intermedio)
+
+Robert Shiller (1981) demostró que bajo expectativas racionales y tasas de descuento constantes, el precio observado del mercado bursátil debe ser menos volátil que el valor presente descontado de los dividendos efectivamente pagados a posteriori.
+
+Considera el modelo de valor presente en tiempo discreto:
+$$P_t^* = \sum_{k=0}^{\infty} \left( \frac{1}{1+r} \right)^{k+1} D_{t+k}$$
+donde $P_t^*$ es el precio ex-post racional de previsión perfecta, $r > 0$ es la tasa de descuento real constante, y $P_t = \mathbb{E}_t [P_t^*]$ es el precio de mercado determinado por agentes racionales.
+
+1. **Demostración de la Desigualdad de Varianza de Shiller:**
+   Define el error de pronóstico como $\varepsilon_t \equiv P_t^* - P_t$.
+   - Demuestra formalmente por qué la propiedad de expectativas racionales exige que $\operatorname{Cov}(P_t, \varepsilon_t) = 0$.
+   - A partir de dicha ortogonalidad, deriva matemáticamente la cota inferior de varianza:
+     $$\operatorname{Var}(P_t^*) \ge \operatorname{Var}(P_t)$$
+   - ¿Por qué esta desigualdad implica necesariamente que $\sigma(P_t) \le \sigma(P_t^*)$?
+
+2. **Interpretación Económica del Resultado Empírico:**
+   En los datos históricos de EE.UU. de 1871 a 1979 analizados por Shiller, la desviación estándar del precio real $P_t$ fue aproximadamente cinco veces mayor que la desviación estándar de $P_t^*$ ($\sigma(P_t) \approx 5 \cdot \sigma(P_t^*)$).
+   - Explica por qué este hallazgo empírico fue considerado una refutación contundente del modelo clásico de mercados eficientes con tasas de descuento constantes.
+   - ¿Qué explicaciones alternativas surgieron posteriormente para reconciliar este exceso de volatilidad (por ejemplo, variación en el tiempo del apetito por riesgo y finanzas conductuales)?
+
+3. **El Ratio Shiller CAPE:**
+   ¿Por qué Shiller propone promediar las ganancias reales de los últimos 10 años para construir el ratio CAPE (*Cyclically Adjusted Price-to-Earnings*) en lugar de utilizar el ratio $P/E$ tradicional de un solo año? ¿Qué predice un CAPE históricamente elevado sobre los retornos reales esperados a 10 años vista?
+
+---
+
+# Ejercicio 3: GMM, la Ecuación de Euler y la Cota Hansen-Jagannathan (Nivel Avanzado / Reto)
+
+Lars Peter Hansen (1982) revolucionó la econometría de activos al introducir el Método Generalizado de Momentos (GMM), permitiendo contrastar la microfundamentación del consumo intertemporal sin asumir distribuciones normales.
+
+Considera una economía donde un agente representativo maximiza su utilidad esperada de consumo con aversión relativa al riesgo constante (CRRA):
+$$\mathbb{E}_t \sum_{s=0}^\infty \beta^s \frac{C_{t+s}^{1-\gamma} - 1}{1-\gamma}$$
+La condición de primer orden para cualquier activo $j \in \{1, \dots, N\}$ con retorno bruto $R_{j,t+1}$ genera la ecuación de Euler:
+$$\mathbb{E}_t [m_{t+1} R_{j,t+1}] = 1, \quad \text{donde } m_{t+1} = \beta \left( \frac{C_{t+1}}{C_t} \right)^{-\gamma}$$
+
+1. **Condiciones de Momentos e Instrumentos Predeterminados:**
+   Sea $Z_t$ un vector de $K$ variables instrumentales pertenecientes al conjunto de información del periodo $t$ (por ejemplo, una constante y el crecimiento de consumo rezagado $\frac{C_t}{C_{t-1}}$).
+   - Escribe formalmente el vector de condiciones de momentos ortogonales $\mathbb{E}[g_t(\theta)]$ que se utilizan para estimar $\theta = (\beta, \gamma)'$.
+   - Si dispones de $N = 3$ activos financieros y $K = 2$ instrumentos, ¿cuántas condiciones de momentos $M$ contiene el sistema? ¿Cuántos grados de libertad tendrá el test de sobreidentificación $J$ de Hansen?
+
+2. **El Test $J$ de Restricciones Sobreidentificadas:**
+   En una estimación empírica con $T = 300$ observaciones trimestrales, se obtiene un valor del estadístico de Hansen $J = 11.85$.
+   - ¿Cuál es la distribución asintótica del estadístico $J$ bajo la hipótesis nula de que el modelo está correctamente especificado?
+   - Si el valor crítico al $5\%$ de significancia para una distribución chi-cuadrado con 4 grados de libertad es $\chi^2_{0.95}(4) = 9.49$, ¿cuál es la conclusión econométrica respecto a la ecuación de Euler estándar del CCAPM?
+
+3. **La Cota de Volatilidad de Hansen-Jagannathan (1991):**
+   Utilizando la relación de no arbitraje $\mathbb{E}[m R_j] = 1$ y definiendo el exceso de retorno de un activo sobre la tasa libre de riesgo como $R_j^e = R_j - R_f$, demuestra la cota de volatilidad de Hansen-Jagannathan:
+   $$\frac{\sigma(m)}{\mathbb{E}[m]} \ge \frac{|\mathbb{E}[R^e]|}{\sigma(R^e)} \quad (\text{Ratio de Sharpe})$$
+   Si el ratio de Sharpe anualizado del mercado accionario es $0.40$ y la tasa libre de riesgo es del $2\%$ ($\mathbb{E}[m] \approx 0.98$), ¿cuál es la volatilidad mínima que debe tener el factor de descuento estocástico $\sigma(m)$? Explica por qué este resultado plantea el "Equity Premium Puzzle" cuando el crecimiento del consumo real per cápita tiene una volatilidad anual de apenas $1.5\%$.

@@ -1,0 +1,86 @@
+---
+title: "Guía de Ejercicios Prácticos: Clima, Ideas y Crecimiento de Largo Plazo"
+subtitle: "Premio Nobel de Economía 2018: William D. Nordhaus y Paul M. Romer"
+author: "Nobel_economics Docencia"
+date: "2026-10-12"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta actividad práctica utilizarás los modelos teóricos y simulaciones en R desarrolladas para el módulo del Premio Nobel de Economía 2018 (`replicacion/R/modelo_dice_y_romer.R`).
+
+Aprenderás a:
+1. Evaluar cuantitativamente la sensibilidad del **Costo Social del Carbono (SCC)** y las trayectorias de calentamiento global ante diferentes supuestos éticos y de mercado sobre la **tasa de descuento intertemporal**.
+2. Comprender la propiedad económica de **no rivalidad de las ideas** formulada por Paul Romer y por qué hace incompatible el crecimiento tecnológico sostenido con la competencia perfecta tradicional.
+3. Analizar la interacción de política económica entre **impuestos pigouvianos al carbono** y **subsidios a la innovación limpia**, demostrando por qué una transición energética eficiente requiere resolver simultáneamente dos fallas de mercado distintas.
+
+---
+
+# Ejercicio 1: La Controversia del Descuento Intergeneracional: Nordhaus vs. Stern (Nivel Básico)
+
+El cálculo del Costo Social del Carbono ($SCC$) depende críticamente de la tasa de descuento intertemporal del bienestar $r$, gobernada por la regla de Ramsey:
+$$r = \rho + \eta_c g$$
+donde $\rho$ es la tasa pura de preferencia temporal (cuánto valoramos el bienestar de la generación presente respecto a las futuras), $\eta_c$ es la elasticidad de la utilidad marginal del consumo y $g$ es la tasa tendencial de crecimiento económico per cápita.
+
+Revisa los resultados generados en `replicacion/salidas/tab_dice_escenarios_carbono.csv` y el gráfico `replicacion/salidas/fig_dice_trayectoria_clima.png`.
+
+1. **Comparación cuantitativa:**
+   - Observa el valor estimado del $SCC$ en el año 2020 bajo el escenario *Nordhaus Óptimo* ($r = 4.25\%$) y bajo el escenario *Stern Ético* ($r = 1.40\%$).
+   - ¿Por cuántas veces supera el $SCC$ de Stern al $SCC$ de Nordhaus al inicio de la trayectoria?
+   - Si un daño ambiental catastrófico de 1 billón de dólares ocurrirá dentro de 100 años (en el año 2120), calcula formalmente el valor presente de dicho daño descontado al $4.25\%$ frente al valor presente descontado al $1.40\%$.
+
+2. **Preguntas analíticas y éticas:**
+   - ¿Cuál es la justificación filosófica y normativa de Nicholas Stern para fijar $\rho \approx 0.1\%$ (cercano a cero)?
+   - ¿Cuál es el argumento positivo y descriptivo de William Nordhaus para rechazar tasas de descuento artificialmente bajas y calibrar $\rho$ y $r$ a partir de los rendimientos reales observados en los mercados financieros y de capitales?
+   - Si un gobierno adopta la tasa de Stern para evaluar proyectos de infraestructura verde pero utiliza la tasa de mercado para evaluar hospitales y escuelas, ¿qué tipo de inconsistencia o distorsión intertemporal en la asignación del capital público podría generarse?
+
+---
+
+# Ejercicio 2: Bienes No Rivales, Teorema de Euler y Falla de la Competencia Perfecta (Nivel Intermedio)
+
+En *Endogenous Technological Change* (1990), Paul Romer argumentó que el progreso técnico no puede ser analizado con las herramientas estándar del equilibrio general walrasiano bajo competencia perfecta.
+
+Considera una función de producción agregada que depende del capital físico $K$, el trabajo calificado $L$ y un índice de tecnología o variedad de diseños no rivales $A$:
+$$Y = F(K, L, A)$$
+
+Asume que si duplicamos los insumos físicos rivales ($K$ y $L$) manteniendo constante el stock de ideas ($A$), el producto exactamente se duplica:
+$$F(\lambda K, \lambda L, A) = \lambda F(K, L, A), \quad \forall \lambda > 0$$
+
+1. **Rendimientos crecientes:**
+   - Si ahora duplicamos simultáneamente los insumos rivales y el stock de conocimientos no rivales ($\lambda K, \lambda L, \lambda A$ con $\lambda = 2$), ¿qué ocurre con el producto total $Y$? Demuestra analíticamente que la función exhibe rendimientos crecientes a escala en el conjunto total de sus factores.
+   
+2. **El colapso de la competencia perfecta (Teorema de Euler):**
+   - Recuerda que por el Teorema de Euler, para cualquier función homogénea de grado 1 en $(K, L)$, se cumple:
+     $$Y = \frac{\partial Y}{\partial K} K + \frac{\partial Y}{\partial L} L$$
+   - Si los mercados de factores son perfectamente competitivos y remuneran a cada insumo rival a su producto marginal ($r = \partial Y / \partial K$, $w = \partial Y / \partial L$), ¿cuánto ingreso queda disponible para remunerar a los investigadores que descubrieron los diseños $A$?
+   - Explica por qué Romer concluye que la existencia de bienes no rivales exige abandonar la competencia perfecta e introducir competencia monopolística protegida por patentes o derechos de propiedad intelectual temporales.
+
+3. **Costo marginal cero:**
+   - Una vez que un laboratorio químico invierte 1,000 millones de dólares en descubrir la fórmula molecular de un medicamento o una empresa diseña el software de un algoritmo de inteligencia artificial, ¿cuál es el costo marginal de aplicar esa misma fórmula a 10 millones de pacientes o copiar el software a 10 millones de servidores?
+   - ¿Qué dilema de bienestar surge entre la eficiencia estática (fijar precio igual al costo marginal) y la eficiencia dinámica (incentivar la inversión hundida en I+D)?
+
+---
+
+# Ejercicio 3: Reto en R — La Doble Falla de Mercado: Impuesto al Carbono vs. Subsidio a la Innovación Limpia (Nivel Avanzado)
+
+Abre el archivo `replicacion/R/modelo_dice_y_romer.R` y sitúate en la sección donde se evalúan los escenarios del modelo de Romer y del modelo DICE.
+
+Imagina que una economía enfrenta simultáneamente dos problemas interconectados:
+1. Una externalidad climática negativa: las empresas usan combustibles fósiles porque no pagan el daño ambiental que generan hacia la atmósfera común (Nordhaus).
+2. Una externalidad de conocimiento positiva: los innovadores que desarrollan baterías de litio, hidrógeno verde o energía solar no pueden apropiarse de todos los beneficios de derrame que sus diseños generan para el resto de la economía (Romer).
+
+Imagina que el Ministro de Hacienda evalúa tres opciones de política para alcanzar la descarbonización al año 2050:
+- **Política A:** Exclusivamente un Impuesto Pigouviano al Carbono equivalente al $SCC$, sin subsidios a la tecnología limpia.
+- **Política B:** Exclusivamente Subsidios a la Investigación y Desarrollo Limpio, sin poner precio a las emisiones de carbono.
+- **Política C (Combinación Óptima):** Impuesto al Carbono para corregir la externalidad negativa + Subsidio a la I+D verde para corregir la externalidad de bienes no rivales.
+
+**Consignas para resolver:**
+
+1. Utilizando los conceptos de Nordhaus y Romer, argumenta por qué la **Política A** por sí sola resulta subóptima y políticamente muy costosa: ¿qué ocurre con el costo de sustitución si las alternativas tecnológicas limpias aún son incipientes y caras debido a la subinversión en I+D?
+2. Argumenta por qué la **Política B** por sí sola es insuficiente: ¿garantiza un subsidio a las energías renovables que una central de carbón amortizada deje de operar si emitir $CO_2$ a la atmósfera sigue siendo legalmente gratuito?
+3. En el script `modelo_dice_y_romer.R`, identifica la variable `sigma` (intensidad de carbono) y la tasa de mitigación `mu`. ¿Cómo modelaría la teoría de Romer una aceleración inducida en la caída de `sigma` gracias a la mayor reasignación de investigadores $s_A$ hacia tecnologías sostenibles?
+4. Formula una recomendación integral de diseño fiscal: ¿cómo podrían utilizarse los ingresos recaudados por el impuesto al carbono propuesto por Nordhaus para financiar de forma presupuestariamente neutral los subsidios a la ciencia y la innovación propuestos por Romer?

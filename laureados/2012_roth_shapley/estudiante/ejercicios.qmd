@@ -1,0 +1,111 @@
+---
+title: "Guía de Ejercicios Prácticos: Asignaciones Estables y Diseño de Mercados"
+subtitle: "Premio Nobel de Economía 2012: Alvin E. Roth y Lloyd S. Shapley"
+author: "Nobel_economics Docencia"
+date: "2012-10-15"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta actividad práctica dominarás los conceptos fundamentales de la teoría del emparejamiento (*matching theory*) y el diseño de mercados (*market design*) galardonados con el Premio Nobel 2012:
+1. Cómo aplicar mecánicamente el **algoritmo de aceptación diferida de Gale-Shapley** paso a paso, diagnosticar la presencia de **pares bloqueadores** y verificar analíticamente la estabilidad de una asignación.
+2. Cómo opera la asimetría fundamental de bienestar entre el lado proponente y el lado receptor (**optimalidad proponente vs. pesimalidad receptora**) y analizar los incentivos a la veracidad estratégica (*strategy-proofness*).
+3. Cómo modelar la **donación cruzada de riñones** mediante el algoritmo **Top Trading Cycles (TTC)** de Shapley-Scarf y Roth-Sönmez-Ünver, identificando ciclos dirigidos de intercambio y comprendiendo el rol de las cadenas iniciadas por donantes altruistas.
+
+---
+
+# Ejercicio 1: Algoritmo de Gale-Shapley y Detección de Pares Bloqueadores (Nivel Básico)
+
+Considera un mercado laboral de médicos recién graduados que postulan a programas de residencia hospitalaria. Existen tres médicos ($D = \{d_1, d_2, d_3\}$) y tres hospitales ($H = \{h_1, h_2, h_3\}$), cada uno con exactamente una vacante (cupo = 1).
+
+Las listas de preferencias estrictas de cada participante (ordenadas de mayor a menor preferencia) son las siguientes:
+
+**Preferencias de los Médicos:**
+- $d_1: h_1 \succ h_2 \succ h_3$
+- $d_2: h_2 \succ h_1 \succ h_3$
+- $d_3: h_1 \succ h_2 \succ h_3$
+
+**Preferencias de los Hospitales:**
+- $h_1: d_2 \succ d_1 \succ d_3$
+- $h_2: d_1 \succ d_2 \succ d_3$
+- $h_3: d_1 \succ d_2 \succ d_3$
+
+### Preguntas:
+
+1. **Ejecución Paso a Paso del Algoritmo Proponente-Médicos (DA-D):**
+   - Ejecuta manualmente cada ronda del algoritmo de aceptación diferida donde los médicos hacen las propuestas:
+     - Indica qué médico propone a qué hospital en cada ronda.
+     - Indica qué propuestas son retenidas de forma provisional y cuáles son rechazadas.
+     - Muestra la asignación final resultante $\mu_D$.
+   - ¿En cuántas rondas converge el algoritmo?
+
+2. **Ejecución del Algoritmo Proponente-Hospitales (DA-H):**
+   - Ejecuta ahora el algoritmo donde los hospitales hacen las propuestas a los médicos.
+   - Detalla las rondas y presenta la asignación final resultante $\mu_H$.
+   - ¿Coincide $\mu_H$ con $\mu_D$? ¿Qué implicancia tiene esto respecto a la unicidad del conjunto de asignaciones estables en este mercado?
+
+3. **Diagnóstico de Pares Bloqueadores e Inestabilidad:**
+   - Considera una asignación alternativa descentralizada y arbitraria $\mu_{\text{alt}}$ dada por:
+     $$\mu_{\text{alt}} = \{(d_1, h_3), (d_2, h_2), (d_3, h_1)\}$$
+   - ¿Es $\mu_{\text{alt}}$ una asignación individualmente racional?
+   - Demuestra formalmente si existe al menos un **par bloqueador** $(d_i, h_j)$ que desestabilice $\mu_{\text{alt}}$. Explica qué harían en la práctica los agentes que conforman dicho par.
+
+---
+
+# Ejercicio 2: Asimetría Proponente-Receptor y Veracidad Estratégica (Nivel Intermedio)
+
+Uno de los resultados más célebres de la teoría de asignaciones estables es la profunda tensión de bienestar e incentivos entre el lado que propone y el lado que recibe ofertas:
+
+1. **Optimalidad Proponente vs. Pesimalidad Receptora:**
+   - Enuncia con precisión el **Teorema de Optimalidad Proponente** de Gale y Shapley (1962).
+   - Enuncia el teorema complementario de **Pesimalidad Receptora** demostrado por Knuth (1976) y Roth (1984).
+   - Con base en los resultados numéricos obtenidos en nuestra simulación de Monte Carlo en R (Tabla `tab_matching_resultados.csv`), donde con 20 participantes el ranking promedio obtenido por los médicos fue de **3.14** cuando proponían ellos, pero cayó a **6.00** cuando proponían los hospitales:
+     - Interpreta económicamente este resultado: ¿por qué el acto de proponer primero confiere una ventaja estructural sistemática?
+     - ¿Qué implicancias éticas y distributivas tuvo este hallazgo cuando Alvin Roth rediseñó el algoritmo del *National Resident Matching Program* (NRMP) en Estados Unidos en 1998 para favorecer a los estudiantes frente a los directores de hospitales?
+
+2. **Incentivos Estratégicos y Manipulación de Listas (*Strategy-Proofness*):**
+   - Sea un mecanismo de aceptación diferida donde los médicos proponen.
+   - Explica el teorema de Dubins y Freedman (1981) y Roth (1982) respecto a la veracidad de los proponentes. ¿Puede un médico beneficiarse mintiendo sobre sus preferencias reales (por ejemplo, omitiendo un hospital o alterando el orden)?
+   - Considera ahora el lado receptor (los hospitales). Supongamos que un hospital $h$ conoce las preferencias de los médicos. ¿Puede dicho hospital manipular con éxito el mecanismo truncando su lista de preferencias (es decir, declarando inaceptables a médicos que en realidad sí consideraba aceptables)? Ilustra el concepto con un contraejemplo breve o un argumento intuitivo.
+
+---
+
+# Ejercicio 3: Reto — Intercambio de Riñones y Algoritmo Top Trading Cycles (Nivel Avanzado)
+
+En la mayoría de los países, la legislación prohíbe terminantemente la compraventa comercial de órganos humanos por razones bioéticas, provocando una severa escasez de riñones para pacientes con insuficiencia renal crónica terminal. Muchos pacientes cuentan con un familiar o cónyuge dispuesto a donarles un riñón en vida, pero con frecuencia la donación directa es biológicamente inviable debido a incompatibilidad de grupo sanguíneo ABO o a la presencia de anticuerpos contra los antígenos leucocitarios humanos (HLA) del donante.
+
+Para resolver este desafío sin transferencias monetarias, Alvin Roth, Tayfun Sönmez y M. Utku Ünver (2004) adaptaron el algoritmo **Top Trading Cycles** (TTC) de Shapley y Scarf (1974).
+
+Considera un registro con cuatro pares paciente-donante:
+- Cada paciente $P_i$ acude con su donante incompatible $D_i$, para $i \in \{1, 2, 3, 4\}$.
+
+Tras realizar las pruebas cruzadas de laboratorio (*crossmatch*), se determinan los siguientes donantes biológicamente compatibles con cada paciente. El orden de preferencia de cada paciente sobre los donantes compatibles (según edad del riñón, compatibilidad HLA y tamaño del órgano) es:
+
+- $P_1: D_2 \succ D_3 \succ D_1$ (Nota: $D_1$ es su propio donante; no es compatible, por lo que $D_1$ representa la autarquía/diálisis).
+- $P_2: D_3 \succ D_1 \succ D_2$
+- $P_3: D_1 \succ D_2 \succ D_3$
+- $P_4: D_2 \succ D_4$ (Solo es compatible con el donante $D_2$; incompatible con los demás).
+
+### Preguntas:
+
+1. **Construcción del Grafo Dirigido en la Ronda 1:**
+   - Recuerda la regla de apontamiento en TTC:
+     - Cada paciente $P_i$ apunta al donante de su máxima preferencia disponible.
+     - Cada donante $D_i$ apunta obligatoriamente a su paciente emparejado $P_i$.
+   - Dibuja o describe las aristas dirigidas del grafo en la Ronda 1.
+   - Identifica el ciclo o ciclos dirigidos presentes. ¿Qué pares paciente-donante forman un ciclo?
+   - ¿Qué trasplantes se ejecutan inmediatamente y qué pares son retirados del registro al finalizar la Ronda 1?
+
+2. **Ronda 2 y Asignación Final:**
+   - ¿Qué pares permanecen en el registro para la Ronda 2?
+   - ¿A qué donante disponible apunta cada paciente restante?
+   - Determina el ciclo de la Ronda 2 y describe la asignación final completa de riñones.
+   - ¿Cuántos pacientes incompatibles recibieron un riñón gracias al intercambio cooperativo? ¿Qué ocurrió con el paciente $P_4$?
+
+3. **Cadenas de Donación con Donantes Altruistas No Dirigidos:**
+   - En la práctica clínica real (iniciada en EE.UU. a partir de 2007), un número creciente de personas donan un riñón de forma puramente altruista sin tener un familiar enfermo (donantes no dirigidos o "buenos samaritanos").
+   - Explica por qué la presencia de un solo donante altruista no dirigido transforma los **ciclos cerrados** en **cadenas abiertas de trasplante**, y por qué las cadenas permiten superar la restricción de ejecutar todas las cirugías de manera simultánea en el mismo quirófano.

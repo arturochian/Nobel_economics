@@ -1,0 +1,107 @@
+---
+title: "Guía de Ejercicios Prácticos: Mercados Laborales con Fricciones de Búsqueda (Modelo DMP)"
+subtitle: "Premio Nobel de Economía 2010: Peter A. Diamond, Dale T. Mortensen y Christopher A. Pissarides"
+author: "Nobel_economics Docencia"
+date: "2010-10-11"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta actividad práctica aplicarás los conceptos fundamentales formulados por **Peter Diamond**, **Dale Mortensen** y **Christopher Pissarides**:
+1. Cómo formalizar la dinámica de flujos de contratación y separación laboral para derivar analíticamente la **Curva de Beveridge**, distinguiendo entre fluctuaciones cíclicas y desplazamientos estructurales de desajuste.
+2. Cómo evaluar la eficiencia social del equilibrio de mercado mediante la **Condición de Hosios (1990)**, identificando las externalidades de congestión y de grosor de mercado.
+3. Cómo modelar cuantitativamente el impacto de las reformas al **seguro de desempleo** ($z$) sobre la creación de vacantes, los salarios de negociación de Nash y la tasa natural de desempleo.
+
+---
+
+# Ejercicio 1: La Curva de Beveridge y la Dinámica de Flujos de Empleo (Nivel Básico)
+
+Considera una economía donde la fuerza de trabajo total está normalizada a $L = 1$. El número de trabajadores empleados es $e_t$ y el número de desempleados es $u_t$, de modo que $e_t + u_t = 1$.
+
+En cada período continuo, una fracción exógena $\delta = 0.03$ (3% mensual) de los trabajadores ocupados pierde su empleo y pasa al desempleo. Por otro lado, las empresas mantienen $v_t$ vacantes de trabajo abiertas. El número mensual de contrataciones efectivas está determinado por la función agregada de emparejamiento (*matching*):
+$$M(u_t, v_t) = \mu \, u_t^{1/2} v_t^{1/2}$$
+donde $\mu = 0.60$ mide la eficiencia institucional del emparejamiento.
+
+### Preguntas:
+
+1. **Ecuación Diferencial de Flujos:**
+   - Escribe la ecuación diferencial $\dot{u}_t = \frac{du_t}{dt}$ que gobierna la evolución del desempleo como el balance neto entre el flujo de entrada al desempleo (despidos/separaciones) y el flujo de salida hacia el empleo (contrataciones).
+   - Define formalmente la tasa de salida del desempleo para un trabajador individual ($f_t$) y la tasa de cobertura de vacantes para una empresa ($q_t$) en términos de la tensión laboral $\theta_t \equiv v_t / u_t$.
+
+2. **Derivación Analítica de la Curva de Beveridge:**
+   - Impón la condición de estado estacionario ($\dot{u}_t = 0$) y despeja la tasa de desempleo de equilibrio $u^*$ en función de la tasa de destrucción $\delta$ y de la tasa de encuentro de empleo $f(\theta)$.
+   - Despeja algebraicamente la relación explícita de vacantes en función del desempleo $v(u)$ para obtener la ecuación de la **Curva de Beveridge**.
+   - Calcula analíticamente la derivada $\frac{dv}{du}$ y demuestra que la pendiente de la Curva de Beveridge es estrictamente negativa en el plano $(u, v)$.
+
+3. **Cálculo Numérico y Choque Estructural:**
+   - Si la tensión observada en el mercado es $\theta = 1.0$ (hay tantas vacantes como desempleados):
+     - Calcula la tasa mensual de salida del desempleo $f(1.0)$ y la duración promedio del desempleo en meses ($1/f$).
+     - Calcula la tasa de desempleo de estado estacionario $u^*$ y la tasa de vacantes $v^*$.
+   - Supón que sobreviene una disrupción estructural (como la transformación digital acelerada o la relocalización industrial post-pandemia) que provoca un fuerte desajuste de habilidades (*mismatch*), reduciendo la eficiencia de emparejamiento de $\mu = 0.60$ a $\mu = 0.40$:
+     - Para la misma tensión laboral $\theta = 1.0$, calcula la nueva tasa de desempleo $u^{*\text{nuevo}}$ y vacantes $v^{*\text{nuevo}}$.
+     - Explica gráficamente e intuitivamente por qué este fenómeno desplaza la curva de Beveridge hacia afuera y qué implicaciones tiene para el diseño de políticas públicas.
+
+---
+
+# Ejercicio 2: La Condición de Hosios y la Eficiencia Social (Nivel Intermedio)
+
+En los mercados con fricciones de búsqueda, la mano invisible de Adam Smith no opera de manera automática debido a que las decisiones descentralizadas de las empresas y los trabajadores generan externalidades recíprocas no compensadas.
+
+Sea la función de emparejamiento Cobb-Douglas $M(u, v) = \mu u^\alpha v^{1-\alpha}$, donde $\alpha \in (0, 1)$ es la elasticidad del matching respecto al desempleo.
+Cada vacante abierta genera un costo de flujo constante $c > 0$ por período. La producción por trabajador empleado es $p$, y el valor del tiempo en desempleo (ocio y producción doméstica) es $z$, con $p > z$. La tasa de descuento social es $r$ y la tasa de separación es $\delta$.
+
+1. **Las Dos Externalidades de Búsqueda:**
+   - Identifica y explica conceptualmente la **externalidad de congestión negativa** y la **externalidad de grosor de mercado positiva** (*thick-market externality*) que provoca una empresa cuando decide abrir una vacante adicional en el mercado.
+   - ¿Qué externalidades provoca un desempleado adicional que busca activamente trabajo?
+
+2. **El Problema del Planificador Social:**
+   - Un planificador social benevolente busca maximizar el valor presente del flujo neto de producción social:
+     $$\max_{\{v_t\}} \int_0^\infty e^{-rt} \left[ p(1 - u_t) + z u_t - c v_t \right] dt$$
+     sujeto a la ley de movimiento del desempleo:
+     $$\dot{u}_t = \delta (1 - u_t) - M(u_t, v_t)$$
+   - En el estado estacionario, el planificador social elige la tensión óptima $\theta^{SP}$ que satisface:
+     $$\frac{(r + \delta) c}{q(\theta^{SP})} = (1 - \alpha)(p - z) - \alpha c \theta^{SP}$$
+     Interpreta económicamente los términos de esta ecuación: ¿por qué aparece la ponderación $(1 - \alpha)$ multiplicando al excedente social $(p - z)$?
+
+3. **Comparación con el Mercado Descentralizado y la Regla de Hosios (1990):**
+   - En el mercado descentralizado con salarios determinados por la negociación de Nash con poder del trabajador $\beta \in (0, 1)$, la condición de equilibrio para la tensión $\theta^*$ es:
+     $$\frac{(r + \delta) c}{q(\theta^*)} = (1 - \beta)(p - z) - \beta c \theta^*$$
+   - Demuestra formalmente bajo qué condición paramétrica exacta el equilibrio competitivo descentralizado coincide con el óptimo social del planificador ($\theta^* = \theta^{SP}$).
+   - **Diagnóstico normativo:**
+     - Si los sindicatos poseen un poder de negociación excesivo tal que $\beta > \alpha$, ¿qué ocurre con el nivel de vacantes y desempleo respecto al óptimo social? ¿Existe subempleo o sobreempleo?
+     - Si las empresas poseen un poder de negociación monopsonista tal que $\beta < \alpha$, ¿por qué se produce una sobrecreación ineficiente de vacantes?
+
+---
+
+# Ejercicio 3: Reforma al Seguro de Desempleo y Tensión Laboral (Nivel Avanzado / Reto)
+
+Uno de los debates de política macroeconómica más intensos consiste en determinar el nivel óptimo de las prestaciones por desempleo (*unemployment benefits*, $z$). Durante recesiones severas (como la Gran Recesión de 2008 o la pandemia de COVID-19 en 2020), los gobiernos suelen ampliar la generosidad y duración de estos subsidios.
+
+Considera el modelo canónico DMP estacionario con negociación de Nash:
+- Condición de Creación de Empleo (JC):
+  $$(1 - \beta)(p - z) = c \left[ \beta \theta + \frac{r + \delta}{\mu} \theta^\alpha \right]$$
+- Ecuación Salarial (WC):
+  $$w = (1 - \beta) z + \beta (p + c \theta)$$
+- Tasa de desempleo estacionaria:
+  $$u = \frac{\delta}{\delta + \mu \theta^{1-\alpha}}$$
+
+### Preguntas:
+
+1. **Derivación Analítica del Efecto Marginal de un Aumento en $z$:**
+   - Aplica diferenciación implícita sobre la condición de creación de empleo para calcular analíticamente el signo y la expresión de la derivada:
+     $$\frac{d\theta^*}{dz}$$
+   - Demuestra rigurosamente que un incremento en las prestaciones por desempleo ($z \uparrow$) reduce inequívocamente la tensión laboral de equilibrio ($\frac{d\theta^*}{dz} < 0$).
+   - A través de la regla de la cadena, calcula $\frac{du^*}{dz}$ y confirma su impacto sobre la tasa de desempleo estacionaria.
+
+2. **Mecanismo de Transmisión Económica:**
+   - Descompón el canal microeconómico: ¿por qué un subsidio más alto eleva el salario de reserva de los trabajadores desempleados?
+   - ¿Cómo afecta esto a la porción del excedente de emparejamiento que captura la firma $(J)$ y a su incentivo de incurrir en el costo fijo de vacante $c$?
+
+3. **Dilema Normativo y Evidencia Empírica Moderna:**
+   - Si elevar $z$ incrementa el desempleo de equilibrio $u^*$, ¿significa esto que el subsidio por desempleo óptimo debería ser cero ($z = 0$)?
+   - Argumenta incorporando los beneficios sociales que no contempla el modelo básico DMP (por ejemplo: aversión al riesgo de los hogares y suavizamiento del consumo, mejora en la calidad del emparejamiento y productividad del empleo final).
+   - ¿Qué proponen las teorías de seguro de desempleo óptimo dependiente del ciclo económico (e.g., Landais, Michaillat y Saez, 2018) sobre si las prestaciones deben ser más generosas en recesiones profundas que en expansiones de pleno empleo?

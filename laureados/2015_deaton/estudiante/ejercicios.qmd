@@ -1,0 +1,75 @@
+---
+title: "Guía de Ejercicios Prácticos: Demanda, Consumo y Medición del Bienestar"
+subtitle: "Premio Nobel de Economía 2015: Angus Deaton"
+author: "Nobel_economics Docencia"
+date: "2015-10-12"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta guía aplicarás los modelos teóricos y econométricos desarrollados por Angus Deaton para analizar la conducta del consumidor, la dinámica macroeconómica del ahorro intertemporal y los desafíos metodológicos en la medición de la pobreza a partir de encuestas de hogares.
+
+---
+
+# Ejercicio 1: Curvas de Engel y Clasificación de Bienes en el Sistema AIDS (Nivel Básico)
+
+En el Sistema Casi Ideal de Demanda (*Almost Ideal Demand System*, AIDS) de Deaton y Muellbauer (1980), la participación del bien $i$ en el gasto total del hogar $X$ se expresa como:
+
+$$w_i = \alpha_i + \sum_{j=1}^K \gamma_{ij} \ln p_j + \beta_i \ln \left( \frac{X}{P} \right)$$
+
+donde $P$ representa el índice de precios translog o la aproximación de Stone, y $w_i = p_i q_i / X$.
+
+1. **Derivación de la elasticidad de gasto:** A partir de la definición de elasticidad de gasto $e_i = \frac{\partial \ln q_i}{\partial \ln X}$, demuestra paso a paso que en el sistema AIDS se cumple:
+   $$e_i = 1 + \frac{\beta_i}{w_i}$$
+   *(Pista: Recuerda que $\ln q_i = \ln w_i + \ln X - \ln p_i$).*
+2. **Ley de Engel y política de subsidios:** Un gobierno está evaluando un subsidio focalizado a los alimentos de primera necesidad ($i=1$) y un impuesto selectivo a los servicios recreativos de lujo ($i=2$). Las estimaciones empíricas en los hogares del quintil más pobre arrojaron:
+   - Alimentos: $w_1 = 0.52$, $\beta_1 = -0.13$.
+   - Recreación: $w_2 = 0.04$, $\beta_2 = +0.08$.
+   Calcula la elasticidad de gasto de ambos rubros para este estrato socioeconómico. Interpreta el significado económico de ambos coeficientes.
+3. **Condición de aditividad (*adding-up*):** ¿Por qué la teoría económica exige rigurosamente que $\sum_{i=1}^K \beta_i = 0$? ¿Qué absurdo económico ocurriría si todos los bienes de una economía fuesen bienes de lujo ($\beta_i > 0, \; \forall i$)?
+
+---
+
+# Ejercicio 2: La Paradoja de Deaton y el Exceso de Suavidad (Nivel Intermedio)
+
+Considera la Hipótesis del Ingreso Permanente de Hall (1978) con utilidad cuadrática y tasa de interés igual a la tasa subjetiva de descuento ($r = \delta$). Supongamos que el ingreso laboral en primeras diferencias sigue un proceso autorregresivo de primer orden:
+
+$$\Delta y_t = \rho \Delta y_{t-1} + \epsilon_t, \quad \epsilon_t \sim \text{iid}(0, \sigma_\epsilon^2), \quad 0 < \rho < 1$$
+
+1. **Revisión de expectativas:** Muestra que la innovación en el ingreso permanente en el periodo $t$, definida como:
+   $$\Delta c_t = \frac{r}{1+r} \sum_{j=0}^\infty (1+r)^{-j} (E_t - E_{t-1}) y_{t+j}$$
+   se simplifica analíticamente a:
+   $$\Delta c_t = \left( \frac{1+r}{1+r-\rho} \right) \epsilon_t$$
+2. **El cálculo del exceso de volatilidad:** Supongamos una tasa de interés real anual de $r = 0.03$ y una persistencia estimada del crecimiento del PIB de $\rho = 0.44$ (estimación típica en Campbell y Deaton, 1989).
+   - Calcula el multiplicador $\kappa = \frac{1+r}{1+r-\rho}$.
+   - Calcula la predicción teórica del cociente de varianzas: $\frac{\operatorname{Var}(\Delta c_t)}{\operatorname{Var}(\Delta y_t)}$.
+3. **La paradoja empírica:** En las series agregadas de Estados Unidos y Europa, el ratio empírico de desviaciones estándar $\sigma(\Delta c) / \sigma(\Delta y)$ no es mayor a 1, sino que ronda el $0.50$ (es decir, una razón de varianzas de apenas $0.25$). Explica las dos razones microeconómicas clave por las cuales Angus Deaton resolvió esta aparente contradicción:
+   - Restricciones de liquidez y endeudamiento ($A_t \ge 0$).
+   - Ahorro precautorio (*buffer-stock saving*) y falacia del consumidor representativo.
+
+---
+
+# Ejercicio 3: Reto de Medición de la Pobreza y Escalas de Equivalencia en R (Nivel Avanzado)
+
+En su célebre libro *The Analysis of Household Surveys* (1997), Angus Deaton analiza los problemas de medir el bienestar cuando los hogares difieren en tamaño y composición por edades.
+
+Una escala de equivalencia estándar define el ingreso per cápita equivalente de un hogar como:
+
+$$y^* = \frac{Y}{(A + \theta K)^\gamma}$$
+
+donde $Y$ es el ingreso o gasto total del hogar, $A$ es el número de adultos, $K$ es el número de niños, $\theta \in [0, 1]$ es el peso relativo de las necesidades de un niño frente a un adulto, y $\gamma \in [0, 1]$ captura las economías de escala en el consumo dentro del hogar (como vivienda compartida, servicios y cocina común).
+
+Abre el script `laureados/2015_deaton/replicacion/R/modelo_demanda_aids.R` o tu terminal interactiva de R.
+
+1. **Simulación de línea de pobreza:** Supón dos hogares con el mismo gasto total $Y = \$1\,000$:
+   - Hogar A: 2 adultos ($A=2, K=0$).
+   - Hogar B: 2 adultos y 3 niños ($A=2, K=3$).
+   - Parámetros de calibración: $\theta = 0.6$ y $\gamma = 0.8$.
+   Calcula en R el gasto equivalente $y_A^*$ y $y_B^*$. Compara con la medición per cápita cruda ($\gamma = 1, \theta = 1$). ¿En qué porcentaje sobreestima la pobreza del hogar B la métrica per cápita cruda?
+2. **El método de los bienes de adultos de Deaton (*Outlay Equivalent Method*):** Deaton propuso una técnica ingeniosa para testear empíricamente si existe discriminación de género contra las niñas dentro del hogar midiendo cómo cae el gasto en bienes consumidos exclusivamente por adultos (tabaco, vestimenta de adultos, alcohol) cuando nace un niño varón versus cuando nace una niña.
+   - Si la llegada de un niño varón reduce el gasto en bienes de adultos en $\$25$ mensuales pero la llegada de una niña lo reduce en solo $\$10$, ¿qué revela esto sobre la asignación de recursos familiares?
+3. **Discusión crítica:** ¿Por qué Deaton advertía en 2013 (*The Great Escape*) que las líneas internacionales de pobreza absoluta (como la famosa línea de $\$1.90$ o $\$2.15$ al día del Banco Mundial) son altamente sensibles a los índices de paridad de poder adquisitivo (PPA) y a las encuestas de precios subyacentes?

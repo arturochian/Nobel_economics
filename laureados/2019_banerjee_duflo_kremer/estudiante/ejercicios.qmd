@@ -1,0 +1,72 @@
+---
+title: "Guía de Ejercicios Prácticos: Ensayos Aleatorizados, Externalidades y Efectos de Conglomerado"
+subtitle: "Premio Nobel de Economía 2019: Abhijit Banerjee, Esther Duflo y Michael Kremer"
+author: "Nobel_economics Docencia"
+date: "2019-10-14"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En este laboratorio práctico trabajarás con los conceptos metodológicos centrales de la revolución de la economía experimental liderada por **Abhijit Banerjee**, **Esther Duflo** y **Michael Kremer**:
+1. Comprender la distinción matemática y conceptual entre el estimador de **Intención de Tratar (ITT)** y el estimador del **Efecto en los Tratados (TOT / LATE)** cuando existe cumplimiento imperfecto.
+2. Identificar el problema de la **correlación intraclase** en diseños aleatorizados por conglomerados (*Cluster RCT*) y cuantificar el factor de inflación de la varianza de Moulton.
+3. Analizar la violación del supuesto de no interferencia (**SUTVA**) por externalidades espaciales y entender por qué una evaluación ingenua subestima el verdadero retorno social de las políticas de salud pública.
+
+---
+
+# Ejercicio 1: Cumplimiento Imperfecto, ITT vs. TOT (Nivel Básico)
+
+Imagina un programa gubernamental donde las escuelas primarias son asignadas aleatoriamente para recibir pastillas desparasitantes gratuitas ($Z_s = 1$) o formar parte del grupo de control ($Z_s = 0$).
+
+1. En la muestra experimental (`replicacion/datos/desparasitacion_kenia.csv`):
+   - La tasa de asistencia en las escuelas asignadas a tratamiento es de aproximadamente un $75.0\%$.
+   - La tasa de asistencia en las escuelas asignadas a control es de aproximadamente un $68.8\%$.
+   - Sin embargo, dentro de las escuelas tratadas, solo el $75\%$ de los alumnos toma la pastilla ($D_i = 1$), debido a ausencias el día de entrega o falta de consentimiento parental. En las escuelas de control, la tasa de adopción de la pastilla es del $0\%$.
+
+2. **Preguntas conceptuales y analíticas:**
+   - (a) Calcula numéricamente el estimador de **Intención de Tratar** ($\hat{\tau}_{\text{ITT}} = \mathbb{E}[Y | Z=1] - \mathbb{E}[Y | Z=0]$). ¿Qué representa exactamente este valor?
+   - (b) Utilizando la fórmula de Wald para variables instrumentales binarias:
+     $$\hat{\tau}_{\text{TOT}} = \frac{\mathbb{E}[Y | Z=1] - \mathbb{E}[Y | Z=0]}{\mathbb{E}[D | Z=1] - \mathbb{E}[D | Z=0]}$$
+     calcula el impacto causal sobre los alumnos que efectivamente ingirieron el fármaco ($\hat{\tau}_{\text{TOT}}$).
+   - (c) Si eres el Ministro de Hacienda y debes decidir si financiar este programa a escala nacional con fondos del presupuesto público, ¿cuál de los dos parámetros (ITT o TOT) debes utilizar para el análisis costo-beneficio del desembolso total? ¿Por qué?
+
+---
+
+# Ejercicio 2: Aleatorización por Conglomerados y el Factor de Moulton (Nivel Intermedio)
+
+Abre y revisa el script de R en `replicacion/R/evaluacion_rct_desparasitacion.R`. Examina la tabla comparativa de resultados `replicacion/salidas/tab_resultados_rct.csv`.
+
+1. Observa que el coeficiente estimado de tratamiento es idéntico en el Modelo 1 (MCO ingenuo) y en el Modelo 2 (ITT con errores estándar agrupados por escuela):
+   $$\hat{\beta} \approx 0.0632$$
+   Sin embargo:
+   - El error estándar en el Modelo 1 es $\text{SE}_{\text{OLS}} \approx 0.0057$ ($t \approx 11.18$).
+   - El error estándar en el Modelo 2 es $\text{SE}_{\text{Cluster}} \approx 0.0106$ ($t \approx 5.96$).
+
+2. **Preguntas metodológicas y de inferencia:**
+   - (a) ¿Por qué el coeficiente estimado puntual $\hat{\beta}$ no cambia, pero su error estándar casi se duplica al aplicar la corrección por conglomerados?
+   - (b) Recuerda la fórmula analítica del factor de inflación de varianza de Moulton (1986):
+     $$\frac{V(\hat{\beta}_{\text{Cluster}})}{V(\hat{\beta}_{\text{OLS}})} \approx 1 + (\bar{m} - 1) \rho$$
+     donde $\bar{m}$ es el tamaño medio de cada escuela ($\approx 393$ alumnos) y $\rho$ es el coeficiente de correlación intraclase. Si la razón de errores estándar es $\frac{\text{SE}_{\text{Cluster}}}{\text{SE}_{\text{OLS}}} = \frac{0.0106}{0.0057} \approx 1.86$, calcula el valor implícito de la correlación intraclase $\rho$.
+   - (c) Si un investigador novato ignora el agrupamiento escolar y reporta únicamente los resultados del Modelo 1, ¿qué error de inferencia estadística (Error Tipo I o Tipo II) corre el riesgo de cometer? Justifica tu respuesta considerando el tamaño nominal del test al $5\%$.
+
+---
+
+# Ejercicio 3: Violación de SUTVA y Externalidades Espaciales (Nivel Avanzado / Reto en R)
+
+En la teoría moderna de inferencia causal, el supuesto SUTVA (*Stable Unit Treatment Value Assumption*) exige que el resultado potencial de cualquier unidad no dependa de la asignación de tratamiento de otras unidades:
+$$Y_i(D_1, D_2, \dots, D_N) = Y_i(D_i)$$
+
+1. **La Paradoja Epidemiológica de la Desparasitación:**
+   - Examina el gráfico `replicacion/salidas/fig_externalidades_espaciales.png`.
+   - Explica biológicamente por qué el tratamiento de desparasitación en una escuela reduce la carga parasitaria y aumenta la asistencia en las escuelas vecinas de control ubicadas a menos de 3 kilómetros.
+   - Demuestra algebraicamente que si existe una externalidad positiva en el grupo de control ($Y_i(0, \text{vecinos tratados}) > Y_i(0, \text{sin vecinos tratados})$), la diferencia simple observada entre tratados y controles ($\bar{Y}_T - \bar{Y}_C$) está sesgada hacia cero (*sesgo por atenuación*).
+
+2. **Reto de Modelación Econométrica:**
+   - En el Modelo 4 (`mod4_spillover`), la especificación incluye:
+     $$Y_{is} = \alpha + \beta_1 T_s + \beta_2 \left(\frac{N_{s, 3\text{km}}^T}{1000}\right) + \beta_3 \left(\frac{N_{s, 3\text{km}}^{\text{Tot}}}{1000}\right) + \mathbf{X}_{is}'\boldsymbol{\gamma} + \varepsilon_{is}$$
+   - ¿Por qué es metodológicamente imprescindible incluir la variable de control de alumnos totales a 3 km ($N_{s, 3\text{km}}^{\text{Tot}}$) junto con la variable de alumnos tratados ($N_{s, 3\text{km}}^T$)? (Pista: considera la densidad poblacional y la correlación potencial entre densidad y acceso a caminos/mercados).
+   - Utilizando los coeficientes estimados del Modelo 4 ($\hat{\beta}_1 \approx 0.0611$ y $\hat{\beta}_2 \approx 0.0340$), calcula el incremento total esperado en la probabilidad de asistencia para un alumno cuya propia escuela fue tratada ($T_s = 1$) y que tiene 2,000 alumnos tratados en escuelas vecinas a menos de 3 km.

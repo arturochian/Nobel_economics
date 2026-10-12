@@ -1,0 +1,9 @@
+id,titulo,doi,url,estado_descarga,licencia
+miguel2004worms,"Worms: Identifying Impacts on Education and Health in the Presence of Treatment Externalities",10.1111/j.1468-0262.2004.00481.x,https://doi.org/10.1111/j.1468-0262.2004.00481.x,solo_enlace,copyright_editorial
+banerjee2015miracle,"The Miracle of Microfinance? Evidence from a Randomized Evaluation",10.1257/app.20130533,https://doi.org/10.1257/app.20130533,solo_enlace,open_access_aea
+banerjee2011poor,"Poor Economics: A Radical Rethinking of the Way to Fight Global Poverty",NA,https://www.publicaffairsbooks.com/titles/abhijit-v-banerjee/poor-economics/9781610390408/,solo_enlace,copyright_editorial
+duflo2011peer,"Peer Effects, Teacher Incentives, and the Impact of Tracking: Evidence from a Randomized Evaluation in Kenya",10.1257/aer.101.5.1739,https://doi.org/10.1257/aer.101.5.1739,solo_enlace,copyright_editorial
+banerjee2015multifaceted,"A multifaceted program causes lasting progress for the very poor: Evidence from six countries",10.1126/science.1260799,https://doi.org/10.1226/science.1260799,solo_enlace,open_access_aaas
+nobel2019scientific,"Scientific Background: Understanding and Alleviating Global Poverty",NA,https://www.nobelprize.org/uploads/2019/10/advanced-economicsciencesprize2019.pdf,descargado,public_domain_nobel
+nobel2019popular,"Popular Science Background: Research to Help the World's Poor",NA,https://www.nobelprize.org/uploads/2019/10/popular-economicsciencesprize2019.pdf,descargado,public_domain_nobel
+miguel2004replication_guide,"Guide to Replication of Miguel and Kremer (2004)",NA,https://escholarship.org/uc/item/8db127cm,descargado,open_access_escholarship

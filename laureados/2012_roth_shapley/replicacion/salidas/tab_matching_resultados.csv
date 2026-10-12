@@ -1,0 +1,7 @@
+Mecanismo,Tipo_Mercado,Satisfaccion_Proponente_Rank,Satisfaccion_Receptor_Rank,Pares_Bloqueadores_Promedio,Tasa_Efectividad_o_Asignacion,Propiedades_Teoricas
+Gale-Shapley: Doctores Proponen (DA-D),Bilateral de Residentes,3.14 (±0.83),5.96 (±1.42),0.00 (Estable),100.0%,Óptimo de Pareto para Doctores; Libre de manipulación
+Gale-Shapley: Hospitales Proponen (DA-H),Bilateral de Residentes,3.10 (±0.76),6.00 (±1.44),0.00 (Estable),100.0%,Óptimo de Pareto para Hospitales; Libre de manipulación
+Matching Descentralizado / Aleatorio,Bilateral de Residentes,10.60 (±1.26),10.56 (±1.20),96.7 (±18.7) Inestable,100.0%,Severo colapso por unraveling; Masivamente manipulable
+Top Trading Cycles Renal (Pool N=40),Donación Cruzada de Órganos,N/A,N/A,0 (Core-Estable),88.6%,Pareto-eficiente; En el núcleo estricto (Strict Core)
+Top Trading Cycles Renal (Pool N=100),Donación Cruzada de Órganos,N/A,N/A,0 (Core-Estable),95.6%,Pareto-eficiente; En el núcleo estricto (Strict Core)
+Top Trading Cycles Renal (Pool N=150),Donación Cruzada de Órganos,N/A,N/A,0 (Core-Estable),97.0%,Pareto-eficiente; En el núcleo estricto (Strict Core)

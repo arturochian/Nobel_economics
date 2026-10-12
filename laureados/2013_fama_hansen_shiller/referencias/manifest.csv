@@ -1,0 +1,9 @@
+id,titulo,doi,url,estado_descarga,licencia
+fama1970efficient,"Efficient Capital Markets: A Review of Theory and Empirical Work",10.2307/2325486,https://doi.org/10.2307/2325486,solo_enlace,copyright_editorial
+fama_french1993common,"Common Risk Factors in the Returns on Stocks and Bonds",10.1016/0304-405X(93)90023-5,https://doi.org/10.1016/0304-405X(93)90023-5,solo_enlace,copyright_editorial
+hansen1982large,"Large Sample Properties of Generalized Method of Moments Estimators",10.2307/1912775,https://doi.org/10.2307/1912775,solo_enlace,copyright_editorial
+hansen_singleton1982generalized,"Generalized Instrumental Variables Estimation of Nonlinear Rational Expectations Models",10.2307/1911873,https://doi.org/10.2307/1911873,solo_enlace,copyright_editorial
+shiller1981stock,"Do Stock Prices Move Too Much to be Justified by Subsequent Changes in Dividends?",NA,https://www.jstor.org/stable/1802789,solo_enlace,copyright_editorial
+campbell_shiller1988dividend,"Stock Prices, Earnings, and Expected Dividends",10.1111/j.1540-6261.1988.tb04598.x,https://doi.org/10.1111/j.1540-6261.1988.tb04598.x,solo_enlace,copyright_editorial
+nobel2013scientific,"Understanding Asset Prices: Scientific Background on the Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel 2013",NA,https://www.nobelprize.org/prizes/economic-sciences/2013/advanced-information/,descargado,public_domain_nobel
+nobel2013popular,"Trendspotting in Asset Markets (Popular Science Background)",NA,https://www.nobelprize.org/prizes/economic-sciences/2013/popular-information/,descargado,public_domain_nobel

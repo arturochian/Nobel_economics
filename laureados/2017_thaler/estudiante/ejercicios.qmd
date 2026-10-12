@@ -1,0 +1,89 @@
+---
+title: "Guía de Ejercicios Prácticos: Economía Conductual y Arquitectura de Decisiones"
+subtitle: "Premio Nobel de Economía 2017: Richard H. Thaler"
+author: "Nobel_economics Docencia"
+date: "2026-10-12"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta actividad práctica aplicarás los conceptos de economía conductual, contabilidad mental y paternalismo libertario desarrollados por Richard H. Thaler, utilizando los modelos y simulaciones disponibles en `replicacion/R/simulacion_thaler_conductual.R`.
+
+Aprenderás a:
+1. Identificar analíticamente las violaciones al principio neoclásico de **fungibilidad del dinero** y formalizar la **falacia del costo hundido** (*sunk cost fallacy*) a través de funciones de valor de contabilidad mental.
+2. Desglosar las fuerzas psicológicas que gobiernan las decisiones de ahorro para el retiro (sesgo del presente, aversión a pérdidas e inercia) y evaluar matemáticamente por qué el programa **Save More Tomorrow (SMarT)** supera al asesoramiento financiero convencional.
+3. Debatir críticamente la delgada frontera ética entre el **paternalismo libertario** benevolente (*nudging*) y la manipulación conductual extractiva o perjudicial (**sludge** / *dark patterns*) en mercados digitales y políticas públicas.
+
+---
+
+# Ejercicio 1: Contabilidad Mental, No Fungibilidad y Costos Hundidos (Nivel Básico)
+
+La teoría del consumidor estándar establece que el dinero es perfectamente fungible: la utilidad total depende del consumo agregado de bienes y de la restricción presupuestaria unificada $I = \sum p_i x_i$. Richard Thaler (1980, 1985) demostró que los consumidores organizan mentalmente sus finanzas en presupuestos separados y evalúan las transacciones de manera relativa.
+
+## Caso 1.1: El dilema del concierto y la pérdida de dinero
+Considera dos situaciones experimentales clásicas documentadas por Thaler:
+- **Escenario A:** Has decidido ir a un concierto y pagas $\$100$ por la entrada en la taquilla por adelantado. Al llegar a la puerta del teatro, descubres que has perdido la entrada física. Para entrar, debes comprar otra entrada idéntica en taquilla por $\$100$.
+- **Escenario B:** Has decidido ir al concierto y planeas comprar la entrada en taquilla al llegar por $\$100$. Al llegar a la puerta del teatro, descubres que se te han caído $\$100$ en efectivo que llevabas en el bolsillo. Todavía dispones de dinero suficiente para comprar la entrada al concierto por $\$100$.
+
+1. **Predicción Neoclásica:** Demuestra que, desde la perspectiva de la teoría estándar de la utilidad esperada y la riqueza total, el conjunto presupuestario contable y la pérdida patrimonial neta son idénticos en ambos escenarios ($-\$100$). ¿Debería el individuo tomar la misma decisión en ambos casos?
+2. **Análisis de Contabilidad Mental:** Explica por qué en los experimentos de Thaler la mayoría de las personas se niega a comprar otra entrada en el **Escenario A**, pero decide comprar la entrada en el **Escenario B**. Describe cómo se abren y cierran las "cuentas mentales" (*mental accounts*) en la mente del consumidor en cada situación.
+
+## Caso 1.2: La falacia del costo hundido y la regla de cierre de cuenta
+Un consumidor compra un boleto de cine por $\$15$. A los 20 minutos de película, confirma que la película es extraordinariamente aburrida y desagradable. Salir de la sala le permitiría dedicar los siguientes 90 minutos a pasear o descansar en casa con utilidad positiva.
+1. Plantea formalmente por qué la regla marginal neoclásica $\text{Umg} < 0$ prescribe abandonar inmediatamente la sala.
+2. Explica por qué la función de valor de Kahneman y Tversky adaptada por Thaler ($v(x)$ convexa en el cuadrante de pérdidas con $v'(x) > 0$ y $v''(x) > 0$) genera resistencia psicológica a abandonar la sala: ¿qué significa "cerrar una cuenta mental con pérdidas realizadas"?
+
+---
+
+# Ejercicio 2: El Diseño de "Save More Tomorrow" y Aversión a Pérdidas (Nivel Intermedio)
+
+En *Save More Tomorrow™: Using Behavioral Economics to Increase Employee Saving* (Thaler & Benartzi 2004), los autores enfrentan el desafío del ahorro previsional en cuentas 401(k).
+
+Analiza los datos de la replicación presentes en `replicacion/salidas/tab_resultados_conductuales.csv` y el gráfico `replicacion/salidas/fig_ahorro_save_more_tomorrow.png`.
+
+Supongamos un trabajador representativo con salario nominal en el periodo $t$ de $W_t = \$50,000$, con una tasa de ahorro base para el retiro del $s_0 = 3.5\%$. En el periodo $t+1$, la empresa otorga un aumento salarial del $g = 5\%$ ($W_1 = \$52,500$).
+
+## Preguntas:
+
+1. **Aversión a la pérdida en asesoría tradicional:**
+   - Si un asesor financiero convencional le pide al trabajador en $t=0$ incrementar inmediatamente su tasa de ahorro voluntaria a $s_0' = 6.5\%$ (antes del aumento):
+     a) Calcula el salario neto disponible recibido por el trabajador antes y después del cambio.
+     b) Si la función de valor sobre el ingreso neto disponible toma la forma prospectiva de Tversky y Kahneman:
+        $$v(\Delta Y) = \begin{cases} \Delta Y^{0.88} & \text{si } \Delta Y \ge 0 \\ -\lambda (-\Delta Y)^{0.88} & \text{si } \Delta Y < 0 \end{cases}$$
+        con coeficiente de aversión a pérdidas $\lambda = 2.25$, evalúa psicológicamente la variación del ingreso neto percibida por el trabajador. ¿Por qué la mayoría rechaza esta asesoría?
+
+2. **La mecánica no traumática de SMarT:**
+   - Bajo el programa SMarT, el trabajador se compromete a que el $60\%$ de cada aumento salarial futuro se destine automáticamente a su fondo de pensiones, comenzando en el aumento $t=1$:
+     a) Calcula la nueva tasa de contribución efectiva $s_1$ en el periodo $t=1$.
+     b) Calcula el salario neto de bolsillo en $t=1$ frente al salario neto en $t=0$. ¿Experimenta el trabajador una ganancia o una pérdida nominal en su cheque de pago?
+     c) Evalúa el cambio en la función de valor $v(\Delta Y)$. Explica analíticamente por qué esta arquitectura neutraliza la aversión a pérdidas ($\lambda$).
+
+3. **Inercia y Descuento Hiperbólico:**
+   - En el modelo de descuento hiperbólico ($\beta$-$\delta$ con $\beta = 0.7$ y $\delta = 0.95$), ¿por qué un individuo está dispuesto a aceptar un plan de ahorro si el sacrificio empieza en el futuro ($t=1$), pero lo rechaza sistemáticamente si el sacrificio empieza hoy ($t=0$)?
+
+---
+
+# Ejercicio 3: Paternalismo Libertario vs. "Sludge" y la Ética de las Decisiones (Nivel Avanzado / Reto)
+
+Richard Thaler y Cass Sunstein (2008) definen el **paternalismo libertario** como la práctica de diseñar la arquitectura de decisiones de manera que incentive elecciones favorables para el bienestar del individuo a largo plazo, **sin restringir ninguna opción disponible ni imponer penalizaciones económicas forzosas**.
+
+Sin embargo, en la última década ha proliferado el fenómeno inverso: el **sludge** (lodo o fricción regulatoria/comercial) y los patrones oscuros (*dark patterns*).
+
+## Tareas analíticas y debate de política:
+
+1. **El Teorema de la No Neutralidad del Default:**
+   - Demuestra por qué en presencia de costos cognitivos de procesamiento y sesgo de status quo, **es imposible no diseñar una arquitectura de decisiones**: la abstención estatal de fijar un default simplemente deja el default en manos del mercado o del azar.
+   - Contrasta los regímenes de donación de órganos entre países con *opt-in* explícito (ej. EE. UU. y Alemania, con tasas de consentimiento menores al $20\%$) frente a países con consentimiento presunto / *opt-out* (ej. España y Austria, con tasas superiores al $90\%$). ¿Es legítimo que el Estado aproveche la inercia cognitiva para salvar vidas?
+
+2. **La frontera entre "Nudge" y "Sludge":**
+   - Formaliza el concepto de *sludge* introducido por Thaler (2018): ¿En qué se diferencia una fricción deliberada orientada a proteger al consumidor (ej. un periodo de reflexión de 24 horas antes de autorizar un préstamo usurario o comprar un arma) de un *sludge* extractivo corporativo (ej. exigir una llamada telefónica en horario restringido para cancelar una suscripción que se contrató con un solo clic digital)?
+
+3. **Reto de Diseño Institucional:**
+   - Propón una política pública concreta en tu país o sector (educación superior, salud preventiva, créditos al consumo o recaudación de impuestos) que implemente los principios de Thaler:
+     a) Identifica el sesgo conductual predominante que genera el fallo individual.
+     b) Diseña la intervención de arquitectura de decisión (opción por defecto, encuadre o simplificación de trámites).
+     c) Establece una salvaguarda explícita para evitar que la intervención degenere en coerción o *sludge*.

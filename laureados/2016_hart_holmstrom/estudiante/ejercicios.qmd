@@ -1,0 +1,130 @@
+---
+title: "Guía de Ejercicios Prácticos: Teoría de Contratos y Gobierno Corporativo"
+subtitle: "Premio Nobel de Economía 2016: Oliver Hart y Bengt Holmström"
+author: "Nobel_economics Docencia"
+date: "2016-10-10"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta actividad práctica aplicarás los conceptos seminales desarrollados por **Bengt Holmström** y **Oliver Hart**:
+1. Cómo aplicar el **Principio de Informatividad** y la **Evaluación de Desempeño Relativo** (*Relative Performance Evaluation*, RPE) para filtrar el ruido macroeconómico y diseñar esquemas de remuneración ejecutiva eficientes.
+2. Cómo diagnosticar los incentivos perversos y la distorsión del esfuerzo provocados por esquemas de pago por desempeño unidimensionales en entornos de **multitarea** (*multitasking*), aplicados a la educación pública y la atención sanitaria.
+3. Cómo analizar el dilema entre **gestión pública directa vs. privatización de servicios esenciales** (el modelo de prisiones de Hart, Shleifer y Vishny, 1997) utilizando el marco de **contratos incompletos** y derechos residuales de control.
+
+---
+
+# Ejercicio 1: El Principio de Informatividad y Remuneración Ejecutiva Relativa (Nivel Básico)
+
+Imagina que eres asesor del comité de compensaciones de una empresa industrial de energía renovable ("SolarTech"). La junta directiva desea contratar a un nuevo Director Ejecutivo (CEO) y estructurar un contrato de incentivos.
+
+El desempeño financiero de la empresa ($y$) depende del esfuerzo del CEO ($e$) y de choques aleatorios:
+$$y = e + \eta + \varepsilon_y$$
+donde:
+- $e$ es el esfuerzo gerencial no observable, con costo $C(e) = \frac{1}{2} e^2$.
+- $\eta \sim \mathcal{N}(0, \sigma_\eta^2 = 4.0)$ es un choque macroeconómico sectorial (fluctuaciones globales en el precio de la energía, tasas de interés mundiales).
+- $\varepsilon_y \sim \mathcal{N}(0, \sigma_{\varepsilon}^2 = 1.0)$ es un choque idiosincrático propio de SolarTech, independiente de $\eta$.
+- El CEO es adverso al riesgo con preferencias CARA y coeficiente $r = 1.0$.
+- El contrato ofrecido es lineal: $w = \alpha + \beta y$.
+
+### Preguntas:
+
+1. **Contrato Estándar sin Benchmarking:**
+   - Calcula la varianza total del ruido que enfrenta el CEO si su compensación depende exclusivamente del resultado absoluto de su empresa: $\operatorname{Var}(y) = \sigma_y^2$.
+   - Utilizando la fórmula de Holmström $\beta^* = \frac{1}{1 + r k \sigma_y^2}$, calcula el poder del incentivo óptimo $\beta^*$ y el esfuerzo inducido $e^*$.
+   - Calcula la prima de riesgo que la empresa debe compensar al CEO: $RP = \frac{1}{2} r (\beta^*)^2 \sigma_y^2$.
+
+2. **Incorporación de un Índice Sectorial (Principio de Informatividad):**
+   - El comité de remuneraciones puede observar sin costo adicional el índice bursátil de la industria solar ($z$), el cual evoluciona según:
+     $$z = \eta + \varepsilon_z$$
+     donde $\varepsilon_z \sim \mathcal{N}(0, 1.0)$ es ruido propio del índice, independiente de $\varepsilon_y$.
+   - Explica conceptualmente por qué, según el **Principio de Informatividad de Holmström (1979)**, el contrato de compensación debe incluir obligatoriamente el índice $z$, aun cuando el CEO no tiene ningún control sobre las demás empresas de la industria.
+   - Si el contrato adopta una regla de desempeño relativo $w = \alpha + \beta (y - \gamma z)$, demuestra intuitivamente cuál es el coeficiente óptimo $\gamma^*$ que filtra el choque macroeconómico $\eta$ y cómo impacta en el poder del incentivo $\beta^*$ y en el bienestar social.
+
+3. **Reflexión sobre el Gobierno Corporativo Real:**
+   - En muchos mercados reales, los CEOs reciben cuantiosas bonificaciones cuando los precios de las materias primas o las acciones suben debido a vientos de cola globales ("recompensar la suerte"). ¿Qué fallas de gobierno corporativo explican la resistencia de las juntas directivas a adoptar la evaluación de desempeño relativo propuesta por Holmström?
+
+---
+
+# Ejercicio 2: Incentivos Multitarea y Distorsión en Educación y Salud (Nivel Intermedio)
+
+El Ministerio de Educación de un país desea mejorar la calidad escolar introduciendo un programa de pago por mérito (*merit pay*) para los docentes de secundaria.
+
+Un profesor asigna su tiempo y esfuerzo semanal entre dos dimensiones críticas:
+- $e_1$: **Entrenamiento para el examen estandarizado** (*teaching to the test*), fácilmente medible a fin de curso.
+- $e_2$: **Desarrollo del pensamiento crítico y bienestar socioemocional**, una dimensión cualitativa esencial pero inobservable o no contractible a corto plazo.
+
+El beneficio social integral generado por el docente es:
+$$B(e_1, e_2) = 2 e_1 + 4 e_2$$
+Nótese que la sociedad valora el pensamiento crítico el doble que la memorización estandarizada ($p_2 = 4 > p_1 = 2$).
+
+La función de costo de esfuerzo del docente (que refleja tiempo y energía mental finitos) es:
+$$C(e_1, e_2) = \frac{1}{2}\left(e_1^2 + e_2^2 + 2\gamma e_1 e_2\right)$$
+donde $\gamma = 0.6$ refleja que dedicar tiempo a preparar plantillas de exámenes reduce directamente el tiempo disponible para tutorías y debates reflexivos.
+
+El Ministerio implementa un bono salarial basado en el puntaje de la prueba:
+$$w = \alpha + \beta_1 y_1, \quad \text{con } y_1 = e_1 + \varepsilon_1$$
+Dado que el pensamiento crítico $e_2$ no se puede medir en una prueba objetiva de opción múltiple, el contrato no puede ofrecer bonos directos sobre $e_2$ ($\beta_2 = 0$).
+
+### Preguntas:
+
+1. **El Óptimo Social (Primer Mejor):**
+   - Si el esfuerzo fuera plenamente verificable ante un planificador social benevolente, ¿cuáles serían los niveles eficientes de esfuerzo $e_1^{FB}$ y $e_2^{FB}$ que maximizan $B(e_1, e_2) - C(e_1, e_2)$?
+
+2. **La Respuesta del Docente ante un Bono Agresivo:**
+   - Escribe el problema de optimización del docente ante el salario $w = \alpha + \beta_1 e_1 - C(e_1, e_2)$.
+   - Deriva las condiciones de primer orden con respecto a $e_1$ y $e_2$.
+   - Demuestra que el esfuerzo en pensamiento crítico es $e_2 = -\gamma e_1 = -0.6 e_1$.
+   - Si el docente tiene un nivel basal ético de dedicación $e_{2,\text{base}} = 3.0$, ¿qué ocurre con el pensamiento crítico si el Ministerio fija un bono agresivo de $\beta_1 = 3.0$? Calcula $e_1$, $e_2$ y el beneficio social resultante.
+
+3. **La Recomendación de Holmström y Milgrom (1991):**
+   - ¿Por qué el marco multitarea recomienda fijar incentivos de baja potencia ($\beta_1$ muy bajo o nulo) cuando las tareas compiten entre sí y la tarea más valiosa es difícil de medir?
+   - Discute cómo este mismo dilema explica por qué remunerar a los médicos exclusivamente por número de consultas o procedimientos quirúrgicos puede deteriorar la medicina preventiva y la relación médico-paciente.
+
+---
+
+# Ejercicio 3 (Reto Avanzado): Contratos Incompletos y el Dilema de la Privatización de Prisiones (Hart, Shleifer y Vishny, 1997)
+
+En el debate de política pública sobre el tamaño del Estado, existe una controversia fundamental: ¿debe el Estado gestionar directamente las prisiones y centros penitenciarios, o debe subcontratarlas a operadores privados mediante licitación?
+
+Oliver Hart, Andrei Shleifer y Robert Vishny (1997) desarrollaron un modelo formal de contratos incompletos para responder a esta pregunta.
+
+El director del centro penitenciario puede realizar dos tipos de innovaciones no contratables:
+1. **Innovación en Reducción de Costos ($e$):** Reduce los costos operativos en $C(e) = -c \cdot e$, pero tiene el efecto colateral no intencionado de deteriorar la calidad y seguridad de la prisión en $-d \cdot e$ (por ejemplo, reducir el personal de guardia, contratar guardias sin capacitación o abaratar los alimentos).
+2. **Innovación en Calidad y Rehabilitación ($i$):** Aumenta la calidad del servicio en $B(i) = b \cdot i$ (por ejemplo, diseñar programas educativos o de reinserción laboral para los reclusos), elevando los costos de operación en un monto moderado o nulo.
+
+Los costos personales de implementar estas innovaciones son:
+$$g(e) = \frac{1}{2} e^2, \qquad h(i) = \frac{1}{2} i^2$$
+
+El contrato entre el Estado y el gestor es **incompleto**: las especificaciones técnicas iniciales fijan un estándar básico, pero cualquier innovación ex-post no prevista en el contrato original requiere la aprobación del dueño del activo físico (la infraestructura penitenciaria).
+
+### Escenarios Institucionales:
+- **Régimen 1: Prisión Privada (Propiedad Privada del Activo):**
+  La empresa privada es la dueña de la prisión. Puede implementar la innovación reductora de costos $e$ unilateralmente sin pedir permiso al Estado y quedarse con el 100% del ahorro de costos ($c \cdot e$). Sin embargo, si implementa una mejora de calidad $i$, debe renegociar con el Estado para que este le pague por el beneficio adicional $b \cdot i$. En la renegociación ex-post (Nash 50/50), la empresa privada solo captura una fracción $\lambda = 0.5$ de la mejora de calidad.
+- **Régimen 2: Prisión Pública (Propiedad Estatal del Activo):**
+  El Estado es dueño de la prisión y el alcaide es un funcionario público empleado. Para implementar cualquier cambio en costos $e$, el funcionario debe solicitar la aprobación del Ministerio de Justicia. El Estado aprueba el cambio solo si no deteriora inaceptablemente la calidad; al renegociar, el funcionario solo captura una fracción $\mu = 0.2$ de los ahorros. Por otro lado, las mejoras de calidad $i$ se alinean con la misión pública pero también se recompensan parcialmente con $\mu = 0.2$.
+
+Supongamos los parámetros empíricos:
+- Ahorro de costos: $c = 3$
+- Daño colateral a la calidad por recortes: $d = 2.5$
+- Beneficio social de la calidad: $b = 4$
+
+### Preguntas del Reto:
+
+1. **Incentivos Bajo Propiedad Privada:**
+   - Plantea la función de utilidad de la empresa privada y calcula los niveles de esfuerzo elegidos $e_{\text{priv}}^*$ e $i_{\text{priv}}^*$.
+   - Calcula el Excedente Social Neto generado bajo el régimen privado:
+     $$W_{\text{priv}} = \left[ b \cdot i_{\text{priv}} - d \cdot e_{\text{priv}} \right] + c \cdot e_{\text{priv}} - \frac{1}{2}(e_{\text{priv}})^2 - \frac{1}{2}(i_{\text{priv}})^2$$
+
+2. **Incentivos Bajo Propiedad Pública:**
+   - Plantea la función de utilidad del gestor público y calcula los niveles de esfuerzo elegidos $e_{\text{pub}}^*$ e $i_{\text{pub}}^*$.
+   - Calcula el Excedente Social Neto generado bajo el régimen público ($W_{\text{pub}}$).
+
+3. **Comparación Institucional y Decisión de Política:**
+   - Compara $W_{\text{priv}}$ frente a $W_{\text{pub}}$. ¿Qué régimen resulta superior socialmente para los parámetros dados?
+   - Explica intuitivamente por qué la empresa privada tiene un incentivo excesivo a recortar costos y un incentivo subóptimo a mejorar la calidad no contractual.
+   - ¿En qué circunstancias (por ejemplo, basureros, telecomunicaciones o pavimentación de calles vs. prisiones, policía y escuelas) concluye Oliver Hart que la propiedad privada es claramente superior a la propiedad pública?

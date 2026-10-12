@@ -1,0 +1,7 @@
+Modelo,Variable_Interes,Coeficiente,Error_Estandar,P_Valor,Externalidad_3km,SE_Externalidad,N_Observaciones,N_Clusters
+Modelo 1: MCO Ingenuo (sin agrupar),Tratamiento,0.0632,0.0057,0,NA,NA,29457,No ajustado
+Modelo 2: ITT (Cluster-Robust SE),Tratamiento,0.0632,0.0106,0,NA,NA,29457,75 escuelas
+Modelo 3: ITT + Controles,Tratamiento,0.0646,0.0094,0,NA,NA,29457,75 escuelas
+Modelo 4: ITT + Externalidades Espaciales,Tratamiento,0.0611,0.0088,0,0.034,0.012,29457,75 escuelas
+Modelo 5: TOT / LATE (2SLS),Cumplimiento (Tomó dosis),0.0864,0.0125,0,NA,NA,29457,75 escuelas
+Modelo 6: Reducción Infección Helmintos,Tratamiento,-0.244,0.0069,0,-0.0684,0.0081,29457,75 escuelas
