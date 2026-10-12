@@ -1,0 +1,105 @@
+---
+title: "Guía de Ejercicios Prácticos: Cuentas Nacionales, Matrices SAM y Sistema Lineal de Gasto"
+subtitle: "Premio Nobel de Economía 1984: Sir Richard Stone"
+author: "Nobel_economics Docencia"
+date: "1984-10-25"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta guía pedagógica aplicarás las tres grandes contribuciones de Sir Richard Stone:
+1. **El Sistema Lineal de Gasto (LES / Stone-Geary 1954):** Deducirás formalmente la relación entre el consumo mínimo indispensable (subsistencia), el ingreso supernumerario discrecional y la trayectoria de las elasticidades ingreso y precio.
+2. **Matrices de Contabilidad Social (SAM) y Partida Doble:** Construirás y verificarás el equilibrio contable de una economía multisectorial y deducirás la matriz de multiplicadores contables de Stone ($M = (I - A)^{-1}$).
+3. **Simulación de Políticas Públicas y Análisis de Bienestar:** Cuantificarás el impacto distributivo de una inyección fiscal exógena y calcularás la compensación monetaria requerida ante shocks de precios en bienes básicos de subsistencia.
+
+---
+
+# Ejercicio 1: El Sistema Lineal de Gasto (LES) y la Función Stone-Geary (Nivel Básico)
+
+Un consumidor representativo maximiza su bienestar asignando su presupuesto entre tres bienes de consumo: Alimentos ($q_1$), Vivienda ($q_2$) y Esparcimiento ($q_3$). Sus preferencias están descritas por la función de utilidad Stone-Geary:
+
+$$U(q_1, q_2, q_3) = \beta_1 \ln(q_1 - \gamma_1) + \beta_2 \ln(q_2 - \gamma_2) + \beta_3 \ln(q_3 - \gamma_3)$$
+
+Los parámetros estructurales son:
+- Cantidades de subsistencia: $\gamma_1 = 20, \quad \gamma_2 = 15, \quad \gamma_3 = 5$.
+- Propensiones marginales al gasto: $\beta_1 = 0.20, \quad \beta_2 = 0.30, \quad \beta_3 = 0.50$ (con $\sum_{i=1}^3 \beta_i = 1$).
+- Precios de mercado: $p_1 = 2, \quad p_2 = 4, \quad p_3 = 1$.
+- Ingreso monetario total del consumidor: $y = 200$.
+
+## Preguntas:
+
+1. **Gasto de Subsistencia e Ingreso Supernumerario:**
+   - Calcule el gasto monetario comprometido en subsistencia para cada bien ($p_i \gamma_i$) y el gasto mínimo total de subsistencia ($S = \sum_{j=1}^3 p_j \gamma_j$).
+   - Determine el ingreso discrecional o supernumerario disponible ($y^* = y - S$).
+2. **Demandas Óptimas y Distribución del Presupuesto:**
+   - Calcule el gasto total monetario en cada bien ($p_i q_i$) y las cantidades físicas óptimas demandadas ($q_1^*, q_2^*, q_3^*$).
+   - Verifique formalmente que se cumple la restricción presupuestaria ($\sum_{i=1}^3 p_i q_i^* = y$).
+   - Calcule la participación presupuestaria de cada bien en el gasto total ($w_i = \frac{p_i q_i}{y}$).
+3. **Cálculo de Elasticidades:**
+   - Calcule la elasticidad ingreso de la demanda para cada bien ($\eta_i = \frac{\beta_i}{w_i}$).
+   - Clasifique cada bien como necesario ($\eta < 1$) o de lujo ($\eta > 1$). ¿Coincide el resultado con la Ley de Engel para los alimentos?
+   - Calcule la elasticidad precio propia no compensada para el bien 1 ($\epsilon_{11} = -1 + (1 - \beta_1) \frac{\gamma_1}{q_1}$).
+4. **Caso Límite sin Subsistencia:**
+   - Demuestre algebraicamente qué ocurre con la función de utilidad y con las ecuaciones de demanda si todos los parámetros de subsistencia son nulos ($\gamma_1 = \gamma_2 = \gamma_3 = 0$). ¿A qué función de utilidad estándar converge el modelo?
+
+---
+
+# Ejercicio 2: Matriz de Contabilidad Social (SAM) y Multiplicadores de Stone (Nivel Intermedio)
+
+Considere una economía simplificada estructurada en cuatro cuentas macroeconómicas:
+1. **Actividades Productivas ($A$)** (Producción)
+2. **Factores Primarios ($F$)** (Trabajo y Capital)
+3. **Hogares ($H$)** (Consumo privado)
+4. **Gobierno / Resto del Mundo ($G$)** (Sector exógeno consolidado)
+
+La matriz de flujos observados $T$ (en millones de euros) presenta las siguientes transacciones (filas = ingresos/entradas; columnas = gastos/egresos):
+
+| Cuentas | Actividades ($A$) | Factores ($F$) | Hogares ($H$) | Exógeno ($G$) | Total Ingresos |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Actividades ($A$)** | 40 | 0 | 120 | 40 | $y_A$ |
+| **Factores ($F$)** | 140 | 0 | 0 | 0 | $y_F$ |
+| **Hogares ($H$)** | 0 | 140 | 0 | 10 | $y_H$ |
+| **Exógeno ($G$)** | 20 | 0 | 30 | 0 | $y_G$ |
+| **Total Gastos** | $E_A$ | $E_F$ | $E_H$ | $E_G$ | |
+
+## Preguntas:
+
+1. **Equilibrio de Partida Doble:**
+   - Calcule el total de ingresos por fila ($y_A, y_F, y_H, y_G$) y el total de egresos por columna ($E_A, E_F, E_H, E_G$).
+   - Verifique que la matriz está rigurosamente balanceada ($y_i = E_i$ para toda cuenta $i$).
+2. **Matriz de Propensiones Medias Endógenas ($A_n$):**
+   - Considerando como cuentas endógenas a Actividades ($A$), Factores ($F$) e Hogares ($H$), y como cuenta exógena al Gobierno ($G$), calcule la matriz $3 \times 3$ de coeficientes medios de gasto $A_n = T_{endo} \hat{y}_{endo}^{-1}$.
+3. **Matriz de Multiplicadores Contables de Stone ($M$):**
+   - Calcule la matriz de multiplicadores de Stone $M = (I - A_n)^{-1}$.
+   - Interprete económicamente el significado del multiplicador $M_{AH}$ (efecto de un incremento en el ingreso de los hogares sobre la demanda de actividades productivas).
+4. **Simulación de un Shock Fiscal:**
+   - Suponga que el gobierno aprueba un programa de gasto público en infraestructura por valor de 30 millones de euros inyectados en la cuenta de Actividades ($x = [30, 0, 0]'$).
+   - Calcule el impacto total en la producción de Actividades ($\Delta y_A$), en las rentas factoriales ($\Delta y_F$) y en el ingreso disponible de las familias ($\Delta y_H$).
+
+---
+
+# Ejercicio 3: Shocks de Precios Básicos y Compensación de Slutsky (Nivel Reto)
+
+En una economía en desarrollo, los hogares de menores ingresos enfrentan una función de gasto tipo Stone (LES) con dos bienes: Alimentos ($q_1$) y Otros Bienes ($q_2$).
+- Parámetros: $\gamma_1 = 50, \quad \gamma_2 = 10, \quad \beta_1 = 0.40, \quad \beta_2 = 0.60$.
+- Precios iniciales: $p_1^0 = 1.0, \quad p_2^0 = 1.0$.
+- Ingreso inicial: $y^0 = 100$.
+
+Debido a un shock de oferta internacional, el precio de los alimentos se duplica: $p_1^1 = 2.0$, mientras que $p_2^1 = 1.0$ permanece constante.
+
+## Preguntas:
+
+1. **Impacto en el Consumo de Subsistencia e Ingreso Supernumerario:**
+   - Calcule el gasto de subsistencia inicial $S^0$ y el ingreso supernumerario inicial $y^{*0}$.
+   - Calcule el gasto de subsistencia con los nuevos precios $S^1$. ¿Es viable para el hogar adquirir la canasta mínima de subsistencia si su ingreso se mantiene en $y = 100$?
+2. **Transferencia Monetaria Compensatoria:**
+   - ¿Cuál es la transferencia monetaria mínima $\Delta y_{sub}$ que el Estado debe otorgar al hogar para que su nuevo ingreso supernumerario sea idéntico al inicial ($y^{*1} = y^{*0}$)?
+3. **Efecto Sustitución vs. Efecto Ingreso:**
+   - Calcule la cantidad demandada de alimentos antes y después de la transferencia compensatoria del inciso anterior.
+   - Demuestre por qué en el Sistema Lineal de Gasto, a pesar del shock de precios y la caída del ingreso supernumerario, el consumo del bien 1 nunca puede caer por debajo de $\gamma_1$.
+4. **Implicancias para la Medición de Pobreza Extrema:**
+   - Discuta críticamente cómo las autoridades estadísticas utilizan el parámetro $\sum p_j \gamma_j$ para actualizar la línea oficial de pobreza extrema monetaria y qué sesgos se cometen si no se ajustan los parámetros de consumo comprometido con el paso del tiempo.

@@ -1,0 +1,105 @@
+---
+title: "Guía de Ejercicios Prácticos: Modelos Macroeconométricos, Estimación Simultánea y Multiplicadores Dinámicos"
+subtitle: "Premio Nobel de Economía 1980: Lawrence R. Klein"
+author: "Nobel_economics Docencia"
+date: "1980-10-15"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta guía aplicarás las herramientas seminales desarrolladas por Lawrence R. Klein (Premio Nobel 1980):
+1. **Identificación y Sesgo de Simultaneidad:** Deducirás formalmente por qué la estimación uniecuacional por Mínimos Cuadrados Ordinarios (MCO) fracasa en presencia de equilibrio general y cómo el estimador de Mínimos Cuadrados en Dos Etapas (MC2E / 2SLS) restaura la consistencia estadística.
+2. **Álgebra de Forma Reducida y Multiplicadores de Política:** Aprenderás a transformar un sistema de ecuaciones estructurales simultáneas con identidades contables en una representación matricial reducida para calcular multiplicadores de impacto fiscal y tributario.
+3. **Dinámica de Sistemas y Estabilidad:** Analizarás la matriz companion dinámica ($\Pi_1$), calcularás sus raíces características complejas y verificarás las condiciones de estabilidad y periodicidad cíclica de las fluctuaciones macroeconómicas.
+
+---
+
+# Ejercicio 1: Sesgo de Simultaneidad y Estimación MC2E (Nivel Básico)
+
+Considere el siguiente modelo macroeconómico simplificado de dos ecuaciones:
+
+$$\begin{aligned}
+C_t &= \alpha_0 + \alpha_1 Y_t + u_t \quad &(\text{Ecuación de comportamiento: Consumo}) \\
+Y_t &= C_t + I_t + G_t \quad &(\text{Identidad de balance contable})
+\end{aligned}$$
+
+donde $C_t$ es el consumo, $Y_t$ es el producto nacional, $I_t$ es la inversión privada (exógena), $G_t$ es el gasto del gobierno (exógeno), y $u_t$ es una perturbación aleatoria con media cero y varianza $\sigma_u^2$, independiente de $I_t$ y $G_t$. Suponga que la propensión marginal al consumo satisface $0 < \alpha_1 < 1$.
+
+## Preguntas:
+
+1. **Deducción de la Forma Reducida:**
+   - Despeje el producto nacional $Y_t$ en función exclusivamente de las variables exógenas ($I_t, G_t$), los parámetros ($\alpha_0, \alpha_1$) y el error estructural $u_t$.
+2. **Cálculo del Sesgo de Simultaneidad de MCO:**
+   - Calcule la covarianza analítica contemporánea entre el producto $Y_t$ y el término de perturbación $u_t$, $\text{Cov}(Y_t, u_t)$.
+   - Demuestre que el estimador MCO de la propensión marginal al consumo ($\hat{\alpha}_1^{\text{MCO}}$) es inconsistente y determine el signo de su sesgo asintótico ($\text{plim} \, \hat{\alpha}_1^{\text{MCO}} - \alpha_1$).
+3. **Mecánica de Variables Instrumentales (MC2E / 2SLS):**
+   - Proponga un instrumento válido $Z_t$ para $Y_t$. Justifique formalmente el cumplimiento de las condiciones de **relevancia** ($\text{Cov}(Z_t, Y_t) \neq 0$) y **exogeneidad** ($\text{Cov}(Z_t, u_t) = 0$).
+   - Escriba la ecuación de la Primera Etapa de MC2E y demuestre que el valor ajustado $\hat{Y}_t$ es asintóticamente ortogonal a $u_t$.
+4. **Interpretación Empírica:**
+   - En el Modelo Klein I estimado con datos históricos de EE. UU. (1921–1941), el coeficiente de los beneficios sobre el consumo es $\hat{\alpha}_1^{\text{MCO}} = 0.1929$, mientras que con MC2E cae a $\hat{\alpha}_1^{\text{MC2E}} = 0.0173$. Explique conceptualmente por qué la estimación MCO sobreestimaba la sensibilidad inmediata del consumo ante los beneficios corporativos.
+
+---
+
+# Ejercicio 2: Álgebra de Forma Reducida y Multiplicadores de Impacto (Nivel Intermedio)
+
+Considere el sistema lineal del Modelo Klein I expresado en términos matriciales para las variables endógenas contemporáneas $y_t = (C_t, I_t, W^p_t, Y_t, P_t, K_t)'$:
+
+$$y_t = \Gamma y_t + B_0 x_t + \dots$$
+
+donde las estimaciones puntuales MC2E arrojan los siguientes coeficientes relevantes:
+- Ecuación de Consumo: $\alpha_1 = 0.0173$ (sobre beneficios $P_t$), $\alpha_3 = 0.8102$ (sobre masa salarial $W^p_t$).
+- Ecuación de Inversión: $\beta_1 = 0.1502$ (sobre beneficios $P_t$).
+- Ecuación de Salarios Privados: $\gamma_1 = 0.4389$ (sobre producto privado $X_t$, donde $X_t = Y_t + T_t - W^g_t$).
+- Identidades contables: $Y_t = C_t + I_t + G_t - T_t$, $P_t = Y_t - W^p_t$, $K_t = K_{t-1} + I_t$.
+
+## Preguntas:
+
+1. **Construcción de la Matriz de Simultaneidad $\Gamma$:**
+   - Escriba explícitamente la matriz numérica $\Gamma$ de tamaño $6 \times 6$ correspondiente al orden de variables $(C, I, W^p, Y, P, K)$.
+2. **Matriz Inversa del Multiplicador $(I - \Gamma)^{-1}$:**
+   - Muestre analíticamente cómo el desacople simultáneo se resuelve mediante la inversión $(I - \Gamma)^{-1}$.
+   - Sabiendo que el vector de entrada del gasto público es $e_G = (0, 0, 0, 1, 0, 0)'$, verifique que el multiplicador de impacto del producto es:
+     $$\frac{\partial Y_t}{\partial G_t} = 1.8167$$
+3. **Multiplicador de Impuestos Indirectos:**
+   - Observe que en el producto $Y_t$ los impuestos entran con coeficiente $-1$, pero además en la ecuación de salarios privados entran a través de $X_t = Y_t + T_t - W^g_t$ con coeficiente $+\gamma_1$.
+   - Deduzca el vector de entrada para los impuestos $e_T$.
+   - Calcule el multiplicador de impacto de un incremento tributario sobre el producto ($\frac{\partial Y_t}{\partial T_t}$) y el consumo ($\frac{\partial C_t}{\partial T_t}$).
+4. **Teorema del Presupuesto Equilibrado de Haavelmo:**
+   - Calcule el impacto combinado sobre el producto $Y_t$ de un incremento simultáneo y de igual magnitud en el gasto público y en los impuestos ($\Delta G_t = \Delta T_t = 1$). ¿Es el multiplicador resultante exactamente igual a 1 o difiere? Explique la razón económica.
+
+---
+
+# Ejercicio 3: Dinámica Matricial, Autovalores y Ciclos de Negocios (Nivel Reto)
+
+La evolución temporal del Modelo Klein I está gobernada por la ecuación en diferencias matricial de primer orden:
+
+$$y_t = \Pi_1 y_{t-1} + \Pi_0 x_t$$
+
+donde la matriz companion reducida es $\Pi_1 = (I - \Gamma)^{-1} B_1$.
+
+Los coeficientes de las variables rezagadas son:
+- En Consumo: $\alpha_2 = 0.2162$ (sobre $P_{t-1}$).
+- En Inversión: $\beta_2 = 0.6159$ (sobre $P_{t-1}$) y $\beta_3 = -0.1578$ (sobre $K_{t-1}$).
+- En Salarios: $\gamma_2 = 0.1467$ (sobre $Y_{t-1}$).
+- En Capital: el stock se acumula idénticamente como $K_t = K_{t-1} + I_t$.
+
+La descomposición en autovalores de la matriz $\Pi_1$ arroja las siguientes raíces no nulas:
+$$\lambda_{1,2} = 0.7702 \pm 0.3494i, \quad \lambda_3 = 0.2973$$
+
+## Preguntas:
+
+1. **Condición de Estabilidad Dinámica:**
+   - Calcule el módulo (norma euclidiana en el plano complejo) del par de raíces conjugadas $\lambda_{1,2}$:
+     $$|\lambda| = \sqrt{\text{Re}(\lambda)^2 + \text{Im}(\lambda)^2}$$
+   - Concluya si el sistema macroeconómico es asintóticamente estable ante choques transitorios.
+2. **Periodicidad del Ciclo Económico Endógeno:**
+   - Convierta la raíz compleja a su forma trigonométrica polar $\lambda = r e^{i\theta} = r (\cos \theta + i \sin \theta)$, determinando el ángulo $\theta = \arctan\left(\frac{0.3494}{0.7702}\right)$ en radianes.
+   - Demuestre que el ciclo económico intrínseco predicho por el modelo tiene un período de aproximadamente $14.75$ años. ¿Qué tipo de fluctuación histórica (ciclo de Juglar o Kuznets) describe esta frecuencia?
+3. **Mecanismo Económico de Aceleración y Amortiguamiento:**
+   - Explique por qué el signo negativo del coeficiente del stock de capital rezagado en la inversión ($\beta_3 = -0.1578 < 0$) es indispensable para evitar que una expansión económica se transforme en una burbuja explosiva infinita.
+4. **Simulación de Multiplicadores Dinámicos:**
+   - Utilizando la fórmula iterativa del multiplicador interino a $s$ periodos $\mu_s = \Pi_1^s \Pi_0^{(G)}$, explique por qué ante un choque fiscal transitorio en $t=0$, el impacto sobre el producto es fuertemente positivo en los años $0$ a $2$, pero se vuelve negativo entre los años $4$ y $8$.

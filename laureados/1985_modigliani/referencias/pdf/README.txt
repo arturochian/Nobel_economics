@@ -1,0 +1,1 @@
+Este directorio se reserva para versiones en acceso abierto de documentos de trabajo, notas técnicas y discursos oficiales del Premio Nobel 1985 (Franco Modigliani) procedentes de repositorios públicos o de nobelprize.org.

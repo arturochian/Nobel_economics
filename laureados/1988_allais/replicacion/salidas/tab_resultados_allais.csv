@@ -1,0 +1,8 @@
+"dimension","regimen_o_prueba","precio_o_tasa","cantidad_producida","excedente_consumidor","beneficio_productor","bienestar_total","perdida_eficiencia_dwl"
+"1. Paradoja Allais: Eleccion Par 1","L1 (Certeza 100M) vs L2 (Loteria arriesgada)","L1: 82% eligen certeza","N/A","N/A","N/A","N/A","Refuta Axioma de Independencia"
+"1. Paradoja Allais: Eleccion Par 2","L4 (Loteria 10% 500M) vs L3 (11% 100M)","L4: 83% eligen mayor premio","N/A","N/A","N/A","N/A","Confirma Apertura en Abanico"
+"1. Paradoja Allais: Tasa Violacion EUT","Porcentaje de sujetos que eligen L1 y L4","80% de inconsistencia empirica","N/A","N/A","N/A","N/A","Efecto Certeza demostrable"
+"2. Tarificacion: Monopolio No Regulado","Maximiza beneficio privado (IMg = CMg)","$70.00","50.00","$1250.00","$1700.00","$2950.00","$1250.00"
+"2. Tarificacion: Costo Medio (CMe)","Equilibrio presupuestario cero (P = CMe)","$28.77","91.23","$4161.55","$0.00","$4161.55","$38.45"
+"2. Tarificacion: Primer Mejor Allais (P=CMg)","Optimo paretiano de bienestar (P = CMg)","$20.00","100.00","$5000.00","-$800.00 (Deficit)","$4200.00","$0.00 (Eficiencia Absoluta)"
+"2. Eficiencia: Ganancia Social vs Monopolio","Incremento de excedente social total","+$1250.00","+50.00","+$3750.00","-$2500.00","+$1250.00","Pobreza paretiana eliminada"

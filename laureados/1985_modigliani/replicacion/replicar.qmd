@@ -1,0 +1,448 @@
+---
+title: "Replicación Cuantitativa: Hipótesis del Ciclo de Vida y Dinámica Demográfica del Ahorro"
+subtitle: "Premio Nobel de Economía 1985: Franco Modigliani"
+author: "Nobel_economics Project"
+date: "1985-10-15"
+format:
+  html:
+    toc: true
+    number-sections: true
+    embed-resources: true
+    theme: cosmo
+    code-fold: show
+    code-tools: true
+---
+
+# Introducción y Contexto Histórico
+
+En 1985, la Real Academia Sueca de Ciencias otorgó el Premio del Banco de Suecia en Ciencias Económicas en Memoria de Alfred Nobel en solitario a **Franco Modigliani**:
+
+> *"for his pioneering analyses of saving and of financial markets"* (Por sus análisis pioneros del ahorro y de los mercados financieros).
+
+Franco Modigliani (1918–2003), nacido en Roma y exiliado en Estados Unidos huyendo de las leyes raciales fascistas de 1938, desarrolló en el Massachusetts Institute of Technology (MIT) dos de los edificios analíticos más revolucionarios y duraderos de la economía del siglo XX:
+
+1. **La Hipótesis del Ciclo de Vida (Life-Cycle Hypothesis, LCH):** Formulada en sus trabajos seminales con Richard Brumberg (1954) y Albert Ando (1963), y sintetizada en su conferencia Nobel de 1986. Modigliani rompió con la función de consumo keynesiana simple basada exclusivamente en el ingreso corriente, demostrando que los seres humanos racionales planifican intertemporalmente sus decisiones de consumo para mantener un estándar de vida estable a lo largo de su existencia: desahorran o se endeudan en la juventud, acumulan activos financieros durante la edad laboral activa y desahorran progresivamente durante la jubilación.
+2. **Los Teoremas de Modigliani-Miller sobre Finanzas Corporativas (1958, 1963):** En colaboración con Merton Miller (Nobel en 1990), formuló los teoremas de irrelevancia de la estructura de capital y de la política de dividendos en mercados de capitales perfectos, demostrando el mecanismo del arbitraje individual (*homemade leverage*), y derivando posteriormente el valor del escudo fiscal (*tax shield*) asociado a la deducibilidad tributaria de los intereses de la deuda corporativa.
+
+## ¿Qué vas a aprender?
+
+1. **La Microeconomía del Suavizamiento del Consumo:** Cómo se deduce la trayectoria óptima de consumo individual a partir de un problema formal de maximización intertemporal de utilidad sujeto a la restricción presupuestaria vital.
+2. **La Resolución de la Paradoja de Keynes-Kuznets:** Por qué en estudios de corte transversal los hogares ricos ahorran una mayor fracción de su ingreso, mientras que en series temporales macroeconómicas de largo plazo la propensión media a consumir se mantiene constante.
+3. **El Mecanismo de Agregación Demográfica de Generaciones Solapadas:** Cómo la tasa de ahorro nacional agregada emerge no del nivel absoluto de riqueza de la nación, sino de la tasa de crecimiento demográfico ($n$) y del crecimiento salarial de la productividad ($g$).
+4. **El Impacto del Envejecimiento y la Seguridad Social:** Cómo una mayor tasa de dependencia de la vejez y los sistemas de pensiones públicas de reparto (*pay-as-you-go*) modifican la acumulación agregada de capital y la tasa de ahorro privado.
+5. **Implementación Computacional en R:** Cómo modelar perfiles salariales cóncavos, resolver trayectorias dinámicas de riqueza financiera y proyectar tasas de ahorro macroeconómicas ante transiciones demográficas con `ggplot2` y `patchwork`.
+
+## Nivel de Replicación
+
+- **Nivel:** **Completa e Ilustrativa Rigurosa**
+- **Alcance:** Formulación matemática cerrada del ciclo de vida individual, calibración empírica con perfiles de ingresos por edad (20 a 85 años), simulación agregada de generaciones solapadas con demografía variable y estimación del impacto de regímenes de pensiones.
+
+---
+
+# Fundamentos Teóricos y Derivaciones Matemáticas
+
+## 1. El Modelo Microeconómico del Ciclo de Vida (Modigliani-Brumberg 1954)
+
+Consideremos un agente económico representativo que ingresa al mercado laboral a la edad $t = 1$ (edad biológica 20 años), se jubila en el período $R$ (edad biológica 65 años) y fallece con certidumbre en el período $T$ (edad biológica 85 años). 
+
+El agente maximiza su función de utilidad intertemporal aditivamente separable:
+
+$$\max_{\{C_t\}_{t=1}^T} U = \sum_{t=1}^T \left(\frac{1}{1 + \rho}\right)^{t-1} u(C_t)$$
+
+donde $\rho > 0$ es la tasa subjetiva de descuento temporal y $u(C_t)$ satisface $u' > 0$ y $u'' < 0$ (aversión estricta a la fluctuación intertemporal).
+
+La restricción presupuestaria intertemporal vital establece que el valor presente del consumo total no puede exceder el valor presente de los recursos disponibles a lo largo de la vida:
+
+$$\sum_{t=1}^T \frac{C_t}{(1 + r)^{t-1}} = A_0 + \sum_{t=1}^R \frac{Y_t}{(1 + r)^{t-1}}$$
+
+donde $A_0$ es la riqueza financiera o herencia inicial (generalmente $A_0 = 0$ al ingresar al mercado laboral), $Y_t$ es el flujo de ingresos laborales antes de la jubilación ($Y_t = 0$ para $t > R$) y $r$ es la tasa de interés real del mercado financiero.
+
+### Condición de Primer Orden (Ecuación de Euler)
+La condición de optimización entre dos períodos consecutivos cualesquiera $t$ y $t+1$ viene dada por la clásica ecuación de Euler:
+
+$$u'(C_t) = \frac{1 + r}{1 + \rho} u'(C_{t+1})$$
+
+Si asumimos, siguiendo el caso de referencia canónico analizado por Modigliani y Brumberg, que la tasa de interés de mercado coincide con la tasa subjetiva de preferencia temporal ($r = \rho$):
+
+$$u'(C_t) = u'(C_{t+1}) \implies C_1 = C_2 = \dots = C_T = \bar{C}$$
+
+El consumidor óptimo suaviza por completo su consumo a lo largo de toda su vida adulta (*complete consumption smoothing*).
+
+### La Regla Canónica de Consumo
+Bajo $r = 0$ (o en aproximación lineal de anualidad con horizonte remanente), si en el período corriente $t$ el individuo posee un acervo acumulado de riqueza financiera $A_t$, le restan $R_t$ años de actividad laboral con un flujo medio de ingresos futuros $Y_t^e$, y su expectativa de vida remanente es de $L_t = T - t + 1$ años, el consumo óptimo del período $t$ se determina por:
+
+$$C_t = \frac{A_t + R_t Y_t^e}{L_t} = \left(\frac{1}{L_t}\right) A_t + \left(\frac{R_t}{L_t}\right) Y_t^e$$
+
+Esta es la célebre **función de consumo de Modigliani**:
+
+$$C_t = \alpha_t A_t + \beta_t Y_t^e$$
+
+donde:
+- $\alpha_t = \frac{1}{L_t}$: Propensión marginal a consumir de la riqueza acumulada. Como $L_t$ se reduce con la edad, los adultos mayores poseen una propensión a consumir de su riqueza sustancialmente más elevada que los jóvenes.
+- $\beta_t = \frac{R_t}{L_t}$: Propensión marginal a consumir del ingreso laboral corriente. Para un joven al inicio de su carrera con 45 años de trabajo y 65 años de vida ($45/65 \approx 0.69$), la propensión a consumir del ingreso es moderada. A medida que se aproxima al retiro ($R_t \to 0$), $\beta_t \to 0$.
+
+### Dinámica de Acumulación de Riqueza
+La riqueza financiera evoluciona período a período según:
+
+$$A_{t+1} = (1 + r) A_t + Y_t - C_t$$
+
+El ahorro en el período $t$ se define como la adición neta a la riqueza:
+
+$$S_t \equiv A_{t+1} - A_t = r A_t + Y_t - C_t$$
+
+Durante los años laborales ($t \le R$), como $Y_t > C_t$, el ahorro es positivo ($S_t > 0$), permitiendo acumular un acervo de riqueza financiera $A_t$ que alcanza su cúspide precisamente a la edad de jubilación $t = R$. A partir de dicho hito ($t > R$), el ingreso laboral cae a cero ($Y_t = 0$), de modo que el consumo se financia enteramente desahorrando activos acumulados:
+
+$$C_t = (1 + r) A_t - A_{t+1} \implies S_t = - (C_t - r A_t) < 0$$
+
+Alcanzada la edad máxima $T$, el acervo de riqueza se agota por completo: $A_{T+1} = 0$.
+
+---
+
+## 2. La Resolución del Enigma del Consumo de Keynes-Kuznets
+
+En la década de 1940, Simon Kuznets descubrió una flagrante discrepancia empírica que desconcertó a la profesión económica:
+1. **Evidencia de Corte Transversal (Microeconómica):** En encuestas de presupuestos familiares para un año determinado, los hogares de ingresos altos ahorraban una proporción mucho mayor de su renta que los hogares de ingresos bajos. La propensión media a consumir ($C/Y$) caía sistemáticamente con el ingreso, respaldando la teoría keynesiana de la propensión marginal decreciente.
+2. **Evidencia de Series Temporales (Macroeconómica):** En datos históricos agregados de Estados Unidos a lo largo de décadas de continuo crecimiento económico, la ratio de consumo sobre el PIB ($C/Y$) se mantuvo prácticamente constante en torno al 86%–90%, sin exhibir la tendencia secular a la baja predicha por Keynes.
+
+Modigliani resolvió elegantemente esta paradoja agregando la función de ciclo de vida:
+
+$$C = \alpha W + \beta Y \implies \frac{C}{Y} = \alpha \left(\frac{W}{Y}\right) + \beta$$
+
+- **En el corto plazo (corte transversal):** La riqueza acumulada $W$ está fija. Por tanto, los hogares que en un año específico reciben un ingreso inusualmente alto exhiben una ratio $W/Y$ baja, lo que arroja una propensión media $C/Y$ menor.
+- **En el largo plazo (crecimiento económico secular):** Tanto el acervo de riqueza como el ingreso agregado crecen al mismo ritmo sostenido gracias a la acumulación de capital. La ratio riqueza-ingreso $W/Y$ se estabiliza en un valor de equilibrio estacionario $k^*$. En consecuencia:
+  $$\frac{C}{Y} = \alpha k^* + \beta = \text{Constante}$$
+
+---
+
+## 3. Demografía y la Tasa de Ahorro Agregada (Ando-Modigliani 1963; Modigliani 1986)
+
+El resultado macroeconómico más profundo de Franco Modigliani reside en su teoría del ahorro nacional agregado en un contexto de generaciones solapadas (OLG, *Overlapping Generations*).
+
+Supongamos una economía poblada por múltiples cohortes de edad $a \in [1, T]$. En cualquier instante de tiempo, el ahorro nacional agregado es la suma del ahorro positivo de todas las cohortes activas menos el desahorro de todas las cohortes jubiladas:
+
+$$S_{\text{nacional}} = \sum_{a=1}^R N(a) S(a) + \sum_{a=R+1}^T N(a) S(a)$$
+
+donde $N(a)$ es el tamaño demográfico de la cohorte de edad $a$.
+
+### El "Teorema Cero" de Modigliani
+Si la población es estacionaria (tasa de crecimiento demográfico $n = 0$) y la tecnología no progresa (crecimiento salarial de la productividad $g = 0$), el tamaño y los ingresos de cada cohorte son idénticos a los de sus predecesores. En este estado estacionario:
+
+$$\sum_{a=1}^R N_0 S(a) = - \sum_{a=R+1}^T N_0 S(a) \implies S_{\text{nacional}} = 0$$
+
+> **Proposición de Modigliani:** En una sociedad estacionaria sin crecimiento poblacional ni progreso técnico, **la tasa de ahorro nacional agregada neta es exactamente igual a cero**, a pesar de que cada individuo ahorra sumas considerables a lo largo de su vida laboral activa. El ahorro de los activos se destina íntegramente a adquirir los activos que los jubilados liquidan para subsistir.
+
+### Crecimiento Demográfico y Tasa de Dependencia
+El ahorro agregado neto se torna positivo únicamente cuando existe **crecimiento**:
+1. **Crecimiento de la población ($n > 0$):** Cada cohorte entrante de jóvenes trabajadores es más numerosa que las cohortes de jubilados que la precedieron en una tasa $(1 + n)^a$. La masa de agentes ahorradores supera en número a la masa de desahorradores.
+2. **Crecimiento de la productividad ($g > 0$):** Gracias al avance tecnológico, cada nueva cohorte percibe ingresos vitales más altos que las generaciones previas. Por tanto, los activos ahorran volúmenes monetarios superiores a los que los jubilados de menores ingresos históricos están liquidando.
+
+Formalmente, la tasa de ahorro agregada $s = S/Y$ puede expresarse aproximadamente como una función lineal creciente del ritmo de expansión económica total ($g_{\text{PIB}} \approx n + g$) y decreciente de la tasa de dependencia de la vejez ($D = N_{\text{jubilados}} / N_{\text{activos}}$):
+
+$$s \approx \phi_0 + \phi_1 (n + g) - \phi_2 D$$
+
+---
+
+## 4. Los Teoremas de Modigliani-Miller sobre Finanzas Corporativas (1958, 1963)
+
+Paralelamente a su teoría del consumo, Franco Modigliani y Merton Miller fundaron las finanzas corporativas analíticas modernas.
+
+### Proposición I (Sin Impuestos): Neutralidad de la Estructura de Capital
+En un mercado de capitales perfecto (sin impuestos, sin costos de transacción, con acceso simétrico a información y donde individuos y empresas pueden endeudarse a la misma tasa libre de riesgo):
+
+$$V_L = V_U$$
+
+El valor de mercado de una empresa apalancada con deuda ($V_L = E_L + D$) es idéntico al valor de una empresa idéntica desapalancada financiada exclusivamente con acciones ($V_U = E_U$). 
+
+*Mecanismo de Arbitraje:* Si una empresa intentara aumentar su valor artificialmente emitiendo deuda ($V_L > V_U$), un inversionista podría vender acciones sobrevaloradas de la empresa $L$, comprar acciones de la empresa $U$ y tomar un crédito personal en idéntica proporción (*homemade leverage*), obteniendo el mismo flujo de retornos a un costo menor. La presión competitiva del arbitraje restablece de inmediato la paridad $V_L = V_U$.
+
+### Proposición II (Sin Impuestos): Costo del Capital Propio
+El rendimiento esperado exigido por los accionistas de una empresa con deuda ($r_E$) aumenta de forma lineal con la ratio deuda/capital ($D/E$):
+
+$$r_E = r_0 + (r_0 - r_D) \frac{D}{E}$$
+
+donde $r_0$ es el costo de capital de la empresa no apalancada (la tasa de corte del riesgo del negocio operativo) y $r_D$ es la tasa de interés de la deuda corporativa.
+
+Como resultado, el Costo Medio Ponderado del Capital (WACC, *Weighted Average Cost of Capital*) permanece rigurosamente invariable:
+
+$$\text{WACC} = \left(\frac{E}{V}\right) r_E + \left(\frac{D}{V}\right) r_D = r_0$$
+
+### La Corrección con Impuestos Corporativos (1963): El Escudo Fiscal
+Cuando existe impuesto a la renta corporativa a una tasa $\tau_C > 0$, los intereses financieros pagados a los acreedores ($r_D D$) son deducibles de la base gravable, mientras que los dividendos pagados a los accionistas provienen de utilidades después de impuestos.
+
+El flujo de caja operacional libre de la empresa apalancada supera al de la empresa desapalancada en el monto del ahorro impositivo:
+
+$$\Delta \text{Flujo}_t = \tau_C r_D D$$
+
+Descontando este flujo perpetuo al costo de la deuda $r_D$, el valor actual del escudo fiscal (*tax shield*) es:
+
+$$\text{PV}(\text{Tax Shield}) = \frac{\tau_C r_D D}{r_D} = \tau_C D$$
+
+En consecuencia:
+
+$$V_L = V_U + \tau_C D$$
+
+---
+
+# Replicación Computacional en R
+
+A continuación, implementamos de forma reproducible el modelo microeconómico del ciclo de vida individual y el modelo de agregación demográfica de generaciones solapadas.
+
+```{r setup, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(scales)
+library(patchwork)
+
+# Configuración estética
+tema_nobel <- theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", size = 13, color = "#1a252f"),
+    plot.subtitle = element_text(size = 10.5, color = "#555555"),
+    plot.caption = element_text(size = 8.5, color = "#777777", hjust = 1),
+    panel.grid.minor = element_blank(),
+    panel.grid.major = element_line(color = "#e2e8f0", linewidth = 0.5),
+    legend.position = "bottom",
+    legend.title = element_text(face = "bold", size = 9.5),
+    axis.title = element_text(face = "bold", size = 10, color = "#2c3e50")
+  )
+```
+
+## Simulación 1: Perfiles Individuales de Ingreso, Consumo y Riqueza
+
+Modelamos un horizonte de vida adulta desde los 20 hasta los 85 años, con retiro a los 65. Se calibra un perfil salarial realista con joroba y se deduce la regla óptima de suavizamiento del consumo.
+
+```{r simulacion_individual}
+edad_inicio <- 20
+edad_retiro <- 65
+edad_muerte <- 85
+edades <- edad_inicio:edad_muerte
+n_edades <- length(edades)
+
+# Perfil salarial empírico cuadrático (en miles de USD)
+ingreso_laboral <- function(e) {
+  if (e < edad_retiro) {
+    pico <- 25 + 2.5 * (e - 20) - 0.045 * (e - 20)^2
+    return(max(0, pico))
+  } else {
+    return(0)
+  }
+}
+
+Y_base <- sapply(edades, ingreso_laboral)
+r <- 0.03
+
+# Valor presente de la riqueza humana
+vp_factores <- (1 + r)^(-(0:(n_edades - 1)))
+riqueza_humana_vp <- sum(Y_base * vp_factores)
+factor_anualidad <- sum(vp_factores)
+C_constante <- riqueza_humana_vp / factor_anualidad
+
+# Trayectorias de acumulación de riqueza y ahorro
+A_trayectoria <- numeric(n_edades)
+S_trayectoria <- numeric(n_edades)
+A_actual <- 0
+
+for (i in 1:n_edades) {
+  A_trayectoria[i] <- A_actual
+  S_trayectoria[i] <- Y_base[i] + r * A_actual - C_constante
+  A_actual <- (1 + r) * A_actual + Y_base[i] - C_constante
+}
+
+# Escenario alternativo: Con Sistema de Reparto (Pay-As-You-Go)
+tasa_aporte <- 0.12
+pension_promedio <- mean(Y_base[1:(edad_retiro - edad_inicio)]) * 0.45
+
+Y_reparto <- sapply(1:n_edades, function(i) {
+  if (edades[i] < edad_retiro) Y_base[i] * (1 - tasa_aporte) else pension_promedio
+})
+
+vp_reparto <- sum(Y_reparto * vp_factores)
+C_reparto <- vp_reparto / factor_anualidad
+A_reparto <- numeric(n_edades)
+A_act_rep <- 0
+
+for (i in 1:n_edades) {
+  A_reparto[i] <- A_act_rep
+  A_act_rep <- (1 + r) * A_act_rep + Y_reparto[i] - C_reparto
+}
+
+df_individual <- data.frame(
+  Edad = rep(edades, 2),
+  Regimen = rep(c("Ahorro Privado Puro", "Con Sistema de Reparto (45% Reemplazo)"), each = n_edades),
+  Ingreso = c(Y_base, Y_reparto),
+  Consumo = c(rep(C_constante, n_edades), rep(C_reparto, n_edades)),
+  Riqueza = c(A_trayectoria, A_reparto)
+)
+```
+
+Visualizamos la trayectoria individual clásica:
+
+```{r grafico_individual, fig.width=9.5, fig.height=8}
+p_flujos <- ggplot(df_individual %>% filter(Regimen == "Ahorro Privado Puro"), aes(x = Edad)) +
+  geom_ribbon(aes(ymin = Consumo, ymax = pmax(Ingreso, Consumo)), fill = "#2ecc71", alpha = 0.25) +
+  geom_ribbon(aes(ymin = pmin(Ingreso, Consumo), ymax = Consumo), fill = "#e74c3c", alpha = 0.20) +
+  geom_line(aes(y = Ingreso, color = "Ingreso Laboral (Y)"), linewidth = 1.2) +
+  geom_line(aes(y = Consumo, color = "Consumo Suavizado (C)"), linewidth = 1.2) +
+  geom_vline(xintercept = 65, linetype = "dashed", color = "#7f8c8d") +
+  annotate("text", x = 65.5, y = 55, label = "Retiro (65)", hjust = 0, size = 3.3, fontface = "italic") +
+  annotate("text", x = 40, y = 48, label = "Acumulación de Ahorro", size = 3.5, color = "#27ae60", fontface = "bold") +
+  annotate("text", x = 75, y = 25, label = "Desahorro de Retiro", size = 3.5, color = "#c0392b", fontface = "bold") +
+  scale_color_manual(name = "Flujo", values = c("Ingreso Laboral (Y)" = "#2980b9", "Consumo Suavizado (C)" = "#e67e22")) +
+  scale_y_continuous(labels = label_dollar(suffix = "k", prefix = "$")) +
+  labs(
+    title = "A. Perfil Canónico de Ciclo de Vida: Flujos de Ingreso y Consumo",
+    subtitle = "Suavizamiento del consumo y fases vitales de acumulación y desahorro",
+    x = "Edad", y = "Monto Anual ($ miles)"
+  ) +
+  tema_nobel
+
+p_riqueza <- ggplot(df_individual, aes(x = Edad, y = Riqueza, color = Regimen, linetype = Regimen)) +
+  geom_line(linewidth = 1.2) +
+  geom_vline(xintercept = 65, linetype = "dashed", color = "#7f8c8d") +
+  scale_color_manual(values = c("Ahorro Privado Puro" = "#2c3e50", "Con Sistema de Reparto (45% Reemplazo)" = "#8e44ad")) +
+  scale_linetype_manual(values = c("solid", "dashed")) +
+  scale_y_continuous(labels = label_dollar(suffix = "k", prefix = "$")) +
+  annotate("text", x = 64, y = max(df_individual$Riqueza) * 0.95, label = "Pico de Riqueza Acumulada", hjust = 1, size = 3.3, fontface = "bold") +
+  labs(
+    title = "B. Acervo de Riqueza y Efecto Desplazamiento Previsional",
+    subtitle = "La promesa de pensiones estatales reduce el ahorro financiero privado acumulado",
+    x = "Edad", y = "Riqueza Financiera ($ miles)"
+  ) +
+  tema_nobel
+
+p_flujos / p_riqueza
+```
+
+---
+
+## Simulación 2: Agregación Macroeconómica y Dinámica Demográfica
+
+A continuación, agregamos las cohortes en un modelo de generaciones solapadas para evaluar la tasa de ahorro nacional agregada ($S/Y$) bajo distintos ritmos de natalidad ($n$) y crecimiento de la productividad ($g$).
+
+```{r simulacion_demografica}
+simular_ahorro_agregado <- function(n_val, g_val) {
+  pesos_pob <- (1 + n_val)^(-(edades - 20))
+  pesos_prod <- (1 + g_val)^(-(edades - 20))
+  
+  N_activos <- sum(pesos_pob[edades < edad_retiro])
+  N_retirados <- sum(pesos_pob[edades >= edad_retiro])
+  dep_ratio <- N_retirados / N_activos
+  
+  Y_cohorte <- pesos_pob * (Y_base * pesos_prod)
+  C_cohorte <- pesos_pob * (C_constante * pesos_prod)
+  A_cohorte <- pesos_pob * (A_trayectoria * pesos_prod)
+  
+  Y_total <- sum(Y_cohorte) + r * sum(A_cohorte)
+  C_total <- sum(C_cohorte)
+  S_total <- Y_total - C_total
+  W_total <- sum(A_cohorte)
+  
+  return(data.frame(
+    n = n_val,
+    g = g_val,
+    tasa_dependencia = dep_ratio,
+    tasa_ahorro = S_total / Y_total,
+    ratio_W_Y = W_total / Y_total
+  ))
+}
+
+grid_n <- seq(-0.015, 0.030, by = 0.001)
+
+df_demografia <- bind_rows(
+  lapply(grid_n, function(x) simular_ahorro_agregado(x, g_val = 0.00)),
+  lapply(grid_n, function(x) simular_ahorro_agregado(x, g_val = 0.015)),
+  lapply(grid_n, function(x) simular_ahorro_agregado(x, g_val = 0.030))
+) %>% mutate(
+  g_label = factor(
+    case_when(
+      g == 0.000 ~ "Productividad Estacionaria (g = 0%)",
+      g == 0.015 ~ "Crecimiento Moderado (g = 1.5%)",
+      g == 0.030 ~ "Crecimiento Dinámico (g = 3.0%)"
+    ),
+    levels = c("Productividad Estacionaria (g = 0%)", "Crecimiento Moderado (g = 1.5%)", "Crecimiento Dinámico (g = 3.0%)")
+  )
+)
+```
+
+Generamos el panel comparativo:
+
+```{r grafico_demografico, fig.width=10.5, fig.height=5}
+p_n <- ggplot(df_demografia, aes(x = n, y = tasa_ahorro, color = g_label)) +
+  geom_hline(yintercept = 0, color = "#7f8c8d", linetype = "solid") +
+  geom_line(linewidth = 1.2) +
+  scale_x_continuous(labels = label_percent(accuracy = 0.5)) +
+  scale_y_continuous(labels = label_percent(accuracy = 1)) +
+  scale_color_manual(name = "Productividad", values = c("#c0392b", "#2980b9", "#27ae60")) +
+  labs(
+    title = "A. Crecimiento Demográfico y Ahorro",
+    subtitle = "Mayor natalidad eleva la proporción de activos ahorradores",
+    x = "Crecimiento Poblacional (n)", y = "Tasa de Ahorro (S/Y)"
+  ) +
+  tema_nobel
+
+p_dep <- ggplot(df_demografia, aes(x = tasa_dependencia, y = tasa_ahorro, color = g_label)) +
+  geom_hline(yintercept = 0, color = "#7f8c8d", linetype = "solid") +
+  geom_line(linewidth = 1.2) +
+  scale_x_continuous(labels = label_percent(accuracy = 1)) +
+  scale_y_continuous(labels = label_percent(accuracy = 1)) +
+  scale_color_manual(name = "Productividad", values = c("#c0392b", "#2980b9", "#27ae60")) +
+  annotate("rect", xmin = 0.40, xmax = 0.65, ymin = -Inf, ymax = Inf, fill = "#e74c3c", alpha = 0.08) +
+  annotate("text", x = 0.52, y = 0.12, label = "Sociedades\nEnvejecidas", size = 3.2, color = "#c0392b", fontface = "italic") +
+  labs(
+    title = "B. Tasa de Dependencia de la Vejez",
+    subtitle = "El envejecimiento poblacional colapsa la tasa de ahorro agregada",
+    x = "Tasa de Dependencia de Vejez (Retirados / Activos)", y = "Tasa de Ahorro (S/Y)"
+  ) +
+  tema_nobel
+
+(p_n + p_dep) + plot_layout(guides = "collect") & theme(legend.position = "bottom")
+```
+
+---
+
+# Resultados y Tabla Consolidada
+
+Presentamos a continuación los resultados cuantitativos correspondientes a los cinco escenarios demográficos canónicos:
+
+```{r tabla_resultados}
+escenarios <- list(
+  list(nom = "Envejecimiento Severo (Crisis Demográfica)", n = -0.010, g = 0.010),
+  list(nom = "Población Estacionaria (Reemplazo Cero)", n = 0.000, g = 0.015),
+  list(nom = "Teorema Puro de Modigliani (g=0, n=0)", n = 0.000, g = 0.000),
+  list(nom = "Bono Demográfico Dinámico", n = 0.015, g = 0.020),
+  list(nom = "Expansión Demográfica Emergente", n = 0.025, g = 0.030)
+)
+
+tab_res <- bind_rows(lapply(escenarios, function(s) {
+  r_sim <- simular_ahorro_agregado(s$n, s$g)
+  r_sim$Escenario <- s$nom
+  return(r_sim)
+})) %>%
+  select(Escenario, n, g, tasa_dependencia, tasa_ahorro, ratio_W_Y) %>%
+  mutate(
+    `Crec. Población (n)` = sprintf("%.1f%%", n * 100),
+    `Crec. Productividad (g)` = sprintf("%.1f%%", g * 100),
+    `Tasa Dependencia` = sprintf("%.1f%%", tasa_dependencia * 100),
+    `Tasa Ahorro (S/Y)` = sprintf("%.2f%%", tasa_ahorro * 100),
+    `Ratio Riqueza/PIB (W/Y)` = sprintf("%.2f", ratio_W_Y)
+  ) %>%
+  select(Escenario, `Crec. Población (n)`, `Crec. Productividad (g)`, `Tasa Dependencia`, `Tasa Ahorro (S/Y)`, `Ratio Riqueza/PIB (W/Y)`)
+
+knitr::kable(tab_res, caption = "Tabla 1: Efecto del Crecimiento y la Demografía sobre el Ahorro Nacional según la Hipótesis del Ciclo de Vida.")
+```
+
+### Hallazgos Clave de la Replicación:
+1. **Comprobación Numérica del Teorema Cero de Modigliani:** Cuando $n = 0\%$ y $g = 0\%$, la tasa de ahorro nacional agregada es rigurosamente $0.00\%$, confirmando que en estado estacionario estático el ahorro neto de la economía es nulo a pesar del intenso ahorro individual de los trabajadores activos.
+2. **El Dividendo Demográfico:** Con un crecimiento poblacional de $1.5\%$ y productividad de $2.0\%$, la tasa de ahorro alcanza el $8.13\%$, con una tasa de dependencia de solo $28.1\%$.
+3. **El Colapso del Ahorro por Envejecimiento:** Cuando la natalidad decrece al $-1.0\%$ anual y la dependencia se dispara al $64.6\%$, la tasa de ahorro agregada se torna negativa ($-0.05\%$), obligando a la economía a liquidar acervos de riqueza o depender de ahorro externo.
+
+---
+
+# Conclusiones y Relevancia Contemporánea
+
+El marco analítico de Franco Modigliani mantiene plena vigencia en tres debates contemporáneos cardinales:
+
+1. **La Crisis Global de las Pensiones de Reparto:** En países con tasas de fertilidad por debajo del reemplazo generacional (España, Italia, Corea del Sur, Japón), la hipótesis del ciclo de vida demuestra que los esquemas de reparto sufren un déficit de financiamiento estructural y deprimen la formación de capital interno.
+2. **Los Desequilibrios Globales de Cuenta Corriente:** Las elevadísimas tasas de ahorro de China y el este asiático durante las décadas de 1990 y 2000 no se debieron a peculiaridades culturales, sino a la transición demográfica acelerada (fuerte reducción en la tasa de dependencia infantil y masiva entrada de jóvenes trabajadores al mercado con rápido crecimiento salarial $g > 8\%$).
+3. **La Estructura de Capital y el Costo de Capital en Finanzas:** El teorema de Modigliani-Miller sigue siendo el marco normativo de referencia para calcular el WACC, cuantificar el beneficio del escudo fiscal corporativo y evaluar la estructura óptima de deuda en bancos centrales y corporaciones multinacionales.

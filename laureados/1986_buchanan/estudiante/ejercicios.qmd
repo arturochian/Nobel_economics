@@ -1,0 +1,109 @@
+---
+title: "Guía de Ejercicios Prácticos: Elección Pública, Reglas de Votación y Búsqueda de Rentas"
+subtitle: "Premio Nobel de Economía 1986: James M. Buchanan Jr."
+author: "Nobel_economics Docencia"
+date: "1986-10-16"
+format:
+  html:
+    toc: true
+    number-sections: true
+    embed-resources: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta guía aplicarás el instrumental desarrollado por **James M. Buchanan Jr.** (junto a Gordon Tullock) para analizar la toma de decisiones colectivas, las reglas constitucionales y la economía política del gasto público:
+
+1. Derivarás matemáticamente la **regla de votación óptima** en *The Calculus of Consent* (1962), balanceando costos externos y costos de negociación.
+2. Analizarás la lógica de por qué las **materias constitucionales** exigen mayorías supercalificadas frente a la regla de mayoría simple ordinaria.
+3. Modelarás analíticamente el concurso de **búsqueda de rentas (*rent-seeking*) de Tullock** y calcularás la tasa de disipación de recursos sociales frente a la pérdida tradicional de Harberger.
+4. Resolverás un reto computacional en R sobre la **ilusión fiscal, el sesgo al déficit público** y el impacto estabilizador de una regla fiscal constitucional vinculante.
+
+---
+
+# Ejercicio 1: El Cálculo del Consenso y la Regla Óptima de Mayoría (Nivel Básico)
+
+Considera una comunidad con $N = 100$ ciudadanos que deben decidir en una asamblea constituyente qué fracción $k \in (0, 1]$ de votos a favor se requerirá para aprobar cualquier legislación impositiva o de provisión de bienes públicos ($k = K / N$).
+
+Cada individuo se enfrenta a dos tipos de costos esperados antes de conocer su rol en las decisiones futuras:
+
+1. **Costos Externos Esperados:** El daño monetario esperado que una coalición vencedora puede imponerle mediante impuestos confiscatorios o regulaciones adversas si se aprueba una ley sin su consentimiento:
+   $$C(k) = 144 (1 - k)^2$$
+2. **Costos de Toma de Decisión (Negociación):** El costo en tiempo, regateo y concesiones mutuas necesario para forjar un acuerdo entre $k \cdot N$ votantes:
+   $$D(k) = 16 k^2$$
+
+### Preguntas:
+
+1. **Interpretación Económica de los Extremos:**
+   - ¿Cuál es el costo externo esperado bajo una autocracia ($k \to 0$)? ¿Cuál es bajo la regla de unanimidad wickselliana ($k = 1$)? Explica el significado económico de que $C(1) = 0$.
+   - ¿Cuál es el costo de negociación bajo autocracia ($k \to 0$) y bajo unanimidad ($k = 1$)?
+2. **Determinación Analítica de la Regla Óptima:**
+   - Expresa la función de costo total esperado $TC(k) = C(k) + D(k)$.
+   - Calcula la regla de votación óptima $k^*$ que minimiza $TC(k)$ igualando el beneficio marginal de protección (reducción de costos externos) al costo marginal de negociación ($-C'(k) = D'(k)$).
+   - Comprueba la condición de segundo orden para garantizar que se trata de un mínimo estricto.
+   - ¿Qué porcentaje exacto de la asamblea ($K^*$) debe exigirse para aprobar una ley?
+3. **Costos en el Óptimo vs. Mayoria Simple Absoluta:**
+   - Evalúa $C(k^*)$, $D(k^*)$ y $TC(k^*)$ en la regla óptima calculada.
+   - Si la asamblea adoptase mecánicamente la regla convencional de **mayoría simple estricta ($k = 0.50$)**, ¿cuáles serían los costos totales $TC(0.50)$? ¿Cuál es la pérdida de eficiencia social por utilizar mayoría simple en lugar de la regla óptima de Buchanan-Tullock?
+4. **Decisiones Constitucionales vs. Decisiones de Emergencia:**
+   - Supón ahora que se trata de reformar la **Constitución y los derechos de propiedad**, por lo que el riesgo de expoliación se triplica: $C_{\text{const}}(k) = 432 (1 - k)^2$, manteniendo $D(k) = 16 k^2$. Calcula la nueva regla óptima $k^*_{\text{const}}$. ¿Qué tipo de mayoría calificada surge naturalmente del modelo?
+   - Supón alternativamente una situación de **guerra o catástrofe nacional**, donde el tiempo es crítico y el costo de deliberación se dispara a $D_{\text{emerg}}(k) = 144 k^2$, manteniendo $C(k) = 144 (1 - k)^2$. ¿Cuál es el umbral óptimo $k^*_{\text{emerg}}$? Explica por qué en emergencias se delegan poderes ejecutivos unipersonales.
+
+---
+
+# Ejercicio 2: El Concurso de Tullock y la Disipación del Excedente Social (Nivel Intermedio)
+
+El Ministerio de Industria decide otorgar una licencia de importación exclusiva (monopolio legal) que generará una renta económica extraordinaria de $R = \$1,000,000$ para la empresa adjudicataria.
+
+Un conjunto de $n$ empresas idénticas compiten por la concesión invirtiendo recursos reales $x_i \ge 0$ en consultoras de cabildeo, relaciones públicas y campañas políticas. La probabilidad de adjudicación de la empresa $i$ sigue la función de concurso de Tullock:
+$$p_i = \frac{x_i}{\sum_{j=1}^n x_j}$$
+Cada empresa maximiza su beneficio esperado: $\pi_i = p_i R - x_i$.
+
+### Preguntas:
+
+1. **Equilibrio de Nash Simétrico:**
+   - Plantea la condición de primer orden de la empresa $i$ considerando los gastos de las demás empresas como dados.
+   - Aplica el supuesto de simetría ($x_1 = x_2 = \dots = x_n = x^*$) y demuestra algebraicamente que el gasto individual de equilibrio es:
+     $$x^*(n) = R \cdot \frac{n - 1}{n^2}$$
+2. **Gasto Agregado y Tasa de Disipación:**
+   - Demuestra que el gasto social total en cabildeo es $X(n) = n x^* = R \frac{n - 1}{n}$.
+   - Calcula el gasto individual $x^*$, el gasto agregado $X$ y la tasa de disipación de la renta $DR = X / R$ para:
+     - $n = 2$ empresas (duopolio de cabildeo).
+     - $n = 5$ empresas.
+     - $n = 20$ empresas.
+     - $\lim_{n \to \infty}$.
+3. **El Beneficio Neto de los Participantes:**
+   - Calcula el beneficio neto esperado de cada empresa en equilibrio, $\pi_i^* = p_i^* R - x^*$.
+   - ¿Qué le ocurre al beneficio neto esperado a medida que $n \to \infty$? ¿Quién se beneficia realmente de la creación de la renta si toda la ganancia es disipada en costos de influencia?
+4. **Cálculo del Costo Social Total (Harberger vs. Tullock):**
+   - Supón que el monopolio causa además una pérdida irrecuperable de eficiencia en el mercado de bienes de $DWL_{\text{Harberger}} = \$200,000$.
+   - Según el análisis neoclásico tradicional de Harberger (1954), ¿cuál era la pérdida total de bienestar para la sociedad?
+   - Según el análisis de Tullock (1967) y Buchanan (1980) con $n = 20$ competidores, ¿cuál es el costo social verdadero ($DWL + X$)? ¿Por cuánto se multiplicó el daño social real frente a la estimación tradicional?
+
+---
+
+# Ejercicio 3: Reto en R — Ilusión Fiscal, Sesgo al Déficit y Regla Constitucional de Presupuesto Equilibrado (Nivel Avanzado)
+
+James Buchanan (1958, 1977) argumentó que la democracia representativa sin reglas fiscales sufre de un **sesgo estructural hacia el déficit público** (*deficit bias*). Los políticos que compiten por la reelección tienen un horizonte temporal corto ($T = 1$ legislatura): ofrecen gasto público inmediato a sus votantes actuales pero lo financian emitiendo deuda pública, posponiendo los impuestos para futuras legislaturas donde gobernarán otros o donde los votantes no han nacido aún (**ilusión fiscal** e intertemporalidad).
+
+### Tu tarea:
+Construye una simulación en R que compare dos regímenes institucionales a lo largo de 10 periodos legislativos ($t = 1, \dots, 10$):
+- **Régimen A (Discrecionalidad Pura / Sin Candados Constitucionales):** En cada periodo, el gobierno gasta $G_t = 120$, pero los ingresos tributarios recaudados son solo $T_t = 100$. El déficit $\Delta B_t = G_t - T_t = 20$ se financia acumulando deuda soberana $B_t = (1 + r) B_{t-1} + 20$ a una tasa de interés real $r = 5\%$.
+- **Régimen B (Regla Fiscal Constitucional de Presupuesto Equilibrado — Enmienda Buchanan):** La Constitución prohíbe el déficit corriente no justificado, imponiendo una sanción institucional o recorte automático (*freno a la deuda*) si el déficit excede 0, de modo que $G_t = T_t = 100$ y la deuda se mantiene en $B_t = 0$.
+
+### Código esqueleto a completar:
+
+```r
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+set.seed(1986)
+periodos <- 10
+r_interes <- 0.05
+
+# 1. Simular la trayectoria de deuda y carga tributaria futura
+# 2. Calcular la carga de intereses acumulada que hereda la siguiente generacion
+# 3. Graficar la trayectoria comparada de la deuda bajo ambos regimenes
+# 4. Reflexionar: ¿Por que una regla constitucional vinculante no puede ser modificada por mayoria simple en cada legislatura?
+```

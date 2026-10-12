@@ -1,0 +1,530 @@
+---
+title: "Replicación Cuantitativa: Modelo de Crecimiento Neoclásico y Contabilidad del Crecimiento"
+subtitle: "Premio Nobel de Economía 1987: Robert M. Solow"
+author: "Nobel_economics Project"
+date: "1987-10-21"
+format:
+  html:
+    toc: true
+    number-sections: true
+    embed-resources: true
+    theme: cosmo
+    code-fold: show
+    code-tools: true
+---
+
+# Introducción y Contexto Histórico
+
+En octubre de 1987, la Real Academia Sueca de Ciencias otorgó el Premio del Banco de Suecia en Ciencias Económicas en Memoria de Alfred Nobel a **Robert M. Solow** (Massachusetts Institute of Technology, MIT):
+
+> *"for his contributions to the theory of economic growth"* (Por sus contribuciones a la teoría del crecimiento económico).
+
+Robert M. Solow (1924–2023) revolucionó los fundamentos de la macroeconomía moderna a través de dos artículos seminales publicados en la década de 1950:
+
+1. **"A Contribution to the Theory of Economic Growth" (1956):** Formuló el célebre **Modelo de Crecimiento Neoclásico** (conocido también como modelo de Solow-Swan), que superó la inestabilidad inherente del modelo keynesiano previo de Harrod (1939) y Domar (1946). Al incorporar rendimientos decrecientes del capital y sustitución suave entre factores productivos, Solow demostró que las economías convergen de manera natural hacia un sendero de crecimiento equilibrado (*steady state*). En este estado estacionario, la tasa de ahorro determina el *nivel* de ingreso per cápita, pero la *tasa* de crecimiento de largo plazo depende exclusivamente del progreso tecnológico exógeno y de la dinámica demográfica.
+2. **"Technical Change and the Aggregate Production Function" (1957):** Creó la **Contabilidad del Crecimiento** (*growth accounting*) y derivó el concepto del **Residuo de Solow**, correspondiente a la **Productividad Total de los Factores (PTF)**. Al aplicar su método a la economía estadounidense entre 1909 y 1949, obtuvo un resultado empírico que conmocionó a la disciplina: cerca del 87.5% del crecimiento del producto por hora trabajada provenía del progreso técnico, mientras que la acumulación de capital físico explicaba únicamente el 12.5% restante.
+
+## ¿Qué vas a aprender en este documento?
+
+1. **La Estructura Matemática del Modelo de Solow-Swan (1956):** Derivación analítica de la ecuación de acumulación en variables intensivas por unidad de trabajo eficiente, cálculo del estado estacionario ($k^*, y^*, c^*$) y caracterización de la Regla de Oro del capital ($s_{oro} = \alpha$).
+2. **Velocidad de Convergencia:** Linealización logarítmica de la ecuación diferencial en torno al estado estacionario para calcular la tasa analítica de convergencia ($\lambda$) y el tiempo de vida media ($t_{1/2}$).
+3. **Contabilidad del Crecimiento y Descomposición del PIB (1957):** Formulación del Residuo de Solow a partir de la diferenciación total de la función de producción y el teorema de Euler bajo competencia perfecta.
+4. **Simulación y Visualización Reproducible en R:** Construcción del diagrama canónico de Solow, simulación de la transición temporal desde condiciones iniciales heterogéneas, y descomposición contable sobre series temporales macroeconómicas de 50 años.
+
+## Nivel de Replicación
+
+- **Nivel:** **Completa e Ilustrativa Rigurosa**
+- **Alcance:** Derivación matemática formal del modelo neoclásico continuo y discreto, cálculo de equilibrio analítico, simulación numérica de transiciones y replicación cuantitativa del algoritmo de descomposición del crecimiento de Solow (1957).
+
+---
+
+# Marco Teórico y Fundamentos Matemáticos
+
+## 1. El Modelo Neoclásico de Solow-Swan (1956)
+
+### La Función de Producción Agregada Neoclásica
+
+Consideremos una economía agregada con una tecnología representada por una función de producción neoclásica:
+
+$$Y(t) = F(K(t), A(t)L(t))$$
+
+donde $Y(t)$ es el Producto Interno Bruto real, $K(t)$ es el stock de capital físico, $L(t)$ es la fuerza laboral y $A(t)$ representa el nivel de tecnología o eficiencia del trabajo (progreso técnico aumentador de trabajo o *Harrod-neutral*).
+
+La función $F(\cdot, \cdot)$ cumple las siguientes propiedades neoclásicas canónicas:
+
+1. **Rendimientos constantes a escala (RCE):** $\forall \lambda > 0, \; F(\lambda K, \lambda AL) = \lambda F(K, AL)$.
+2. **Productividades marginales positivas y decrecientes:**
+   $$\frac{\partial F}{\partial K} > 0, \quad \frac{\partial^2 F}{\partial K^2} < 0; \qquad \frac{\partial F}{\partial (AL)} > 0, \quad \frac{\partial^2 F}{\partial (AL)^2} < 0$$
+3. **Condiciones de Inada (1963):**
+   $$\lim_{K \to 0} \frac{\partial F}{\partial K} = \infty, \quad \lim_{K \to \infty} \frac{\partial F}{\partial K} = 0$$
+
+Adoptando la especificación Cobb-Douglas homogénea de grado 1:
+
+$$Y(t) = K(t)^\alpha (A(t)L(t))^{1-\alpha}, \quad \alpha \in (0, 1)$$
+
+donde $\alpha$ es la elasticidad del producto respecto al capital físico.
+
+### Variables Intensivas y Ecuación Fundamental de Acumulación
+
+Definimos las unidades por trabajador eficiente:
+
+$$k(t) \equiv \frac{K(t)}{A(t)L(t)}, \qquad y(t) \equiv \frac{Y(t)}{A(t)L(t)} = f(k(t)) = k(t)^\alpha$$
+
+Las dotaciones de trabajo y tecnología crecen a tasas exponenciales exógenas y constantes:
+
+$$\frac{\dot{L}(t)}{L(t)} = n, \qquad \frac{\dot{A}(t)}{A(t)} = g$$
+
+El capital físico se acumula según la inversión bruta (determinada por una tasa constante de ahorro exógena $s \in (0, 1)$) menos la depreciación física a tasa $\delta > 0$:
+
+$$\dot{K}(t) = I(t) - \delta K(t) = s Y(t) - \delta K(t)$$
+
+Diferenciando logarítmicamente $k(t) = \frac{K(t)}{A(t)L(t)}$ respecto al tiempo:
+
+$$\frac{\dot{k}(t)}{k(t)} = \frac{\dot{K}(t)}{K(t)} - \frac{\dot{A}(t)}{A(t)} - \frac{\dot{L}(t)}{L(t)} = \frac{s Y(t) - \delta K(t)}{K(t)} - g - n$$
+
+Multiplicando por $k(t)$ y sustituyendo $\frac{Y(t)}{K(t)} = \frac{y(t)}{k(t)}$:
+
+$$\dot{k}(t) = s f(k(t)) - (n + g + \delta) k(t)$$
+
+Esta es la **Ecuación Diferencial Fundamental de Solow**. En ella:
+- $s f(k)$ representa la **inversión efectiva por unidad de trabajo eficiente**.
+- $(n + g + \delta)k$ representa la **inversión de reposición y dilución**, necesaria para mantener constante el capital por trabajador eficiente frente al desgaste físico ($\delta$), el crecimiento demográfico ($n$) y el incremento de eficiencia tecnológica ($g$).
+
+### El Estado Estacionario (*Steady State*)
+
+En el estado estacionario, el capital por unidad de trabajo eficiente deja de variar: $\dot{k}(t) = 0$.
+
+$$s f(k^*) = (n + g + \delta) k^*$$
+
+Para la función Cobb-Douglas $f(k) = k^\alpha$:
+
+$$s (k^*)^\alpha = (n + g + \delta) k^* \implies (k^*)^{1-\alpha} = \frac{s}{n + g + \delta}$$
+
+Despejando el capital de equilibrio:
+
+$$k^* = \left( \frac{s}{n + g + \delta} \right)^{\frac{1}{1-\alpha}}$$
+
+El producto y el consumo por unidad de trabajo eficiente en estado estacionario son:
+
+$$y^* = (k^*)^\alpha = \left( \frac{s}{n + g + \delta} \right)^{\frac{\alpha}{1-\alpha}}$$
+
+$$c^* = (1 - s) y^* = (1 - s) \left( \frac{s}{n + g + \delta} \right)^{\frac{\alpha}{1-\alpha}}$$
+
+**Tasas de crecimiento de largo plazo:**
+- Por unidad de trabajo eficiente: $k^*, y^*, c^*$ crecen al $0\%$.
+- Por trabajador real ($Y/L = A y^*$): crece a la tasa de progreso técnico $g$.
+- Variables agregadas ($Y, K, C$): crecen a la tasa $(n + g)$.
+
+### La Regla de Oro de la Acumulación de Capital (*Golden Rule*)
+
+¿Qué tasa de ahorro $s$ maximiza el consumo por habitante sostenible en el estado estacionario?
+
+$$\max_s c^*(s) = f(k^*(s)) - (n + g + \delta) k^*(s)$$
+
+Derivando respecto a $s$ e igualando a cero:
+
+$$\frac{dc^*}{ds} = \left[ f'(k^*) - (n + g + \delta) \right] \frac{dk^*}{ds} = 0$$
+
+Como $\frac{dk^*}{ds} > 0$, la condición de primer orden exige:
+
+$$f'(k_{oro}^*) = n + g + \delta$$
+
+Para la Cobb-Douglas $f'(k) = \alpha k^{\alpha - 1}$:
+
+$$\alpha (k_{oro}^*)^{\alpha - 1} = n + g + \delta \implies \alpha \frac{y_{oro}^*}{k_{oro}^*} = n + g + \delta \implies \alpha y_{oro}^* = (n + g + \delta) k_{oro}^*$$
+
+Sustituyendo la condición de estado estacionario $s_{oro} y_{oro}^* = (n + g + \delta) k_{oro}^*$:
+
+$$s_{oro} = \alpha$$
+
+- **Ineficiencia Dinámica ($s > \alpha$):** Si una economía ahorra por encima de la participación del capital, acumula un exceso de capital cuya reposición cuesta más que el producto marginal que rinde. Reducir el ahorro permite aumentar el consumo de todas las generaciones presentes y futuras simultáneamente.
+- **Eficiencia Dinámica ($s \le \alpha$):** Si $s < \alpha$, aumentar el ahorro eleva el consumo futuro, pero a costa de sacrificar consumo en el presente (dilema intertemporal).
+
+### Velocidad de Convergencia Asintótica
+
+Linealizando la ecuación $\dot{k} = s k^\alpha - (n+g+\delta)k$ mediante una expansión de Taylor de primer orden alrededor de $k^*$:
+
+$$\dot{k} \approx \left. \frac{d\dot{k}}{dk} \right|_{k^*} (k - k^*) = \left[ s \alpha (k^*)^{\alpha - 1} - (n + g + \delta) \right] (k - k^*)$$
+
+Dado que $s (k^*)^\alpha = (n + g + \delta) k^* \implies s (k^*)^{\alpha - 1} = \frac{n + g + \delta}{k^*}$:
+
+$$\dot{k} \approx \left[ \alpha (n + g + \delta) - (n + g + \delta) \right] (k - k^*) = -(1 - \alpha)(n + g + \delta) (k - k^*)$$
+
+Definiendo la **tasa de convergencia** $\lambda$:
+
+$$\lambda \equiv (1 - \alpha)(n + g + \delta)$$
+
+La solución de esta ecuación diferencial ordinaria es:
+
+$$k(t) - k^* \approx (k(0) - k^*) e^{-\lambda t}$$
+
+El tiempo requerido para cerrar la mitad de la brecha respecto al estado estacionario (vida media, *half-life*) es:
+
+$$t_{1/2} = \frac{\ln(2)}{\lambda}$$
+
+---
+
+## 2. Contabilidad del Crecimiento y el Residuo de Solow (1957)
+
+En su célebre trabajo de 1957, Solow propuso un marco empírico no paramétrico para descomponer el crecimiento económico entre la acumulación de factores y el cambio técnico.
+
+Partiendo de una función de producción agregada con progreso técnico neutral en el sentido de Hicks:
+
+$$Y(t) = A(t) F(K(t), L(t))$$
+
+Diferenciando respecto al tiempo:
+
+$$\dot{Y} = \dot{A} F(K, L) + A \frac{\partial F}{\partial K} \dot{K} + A \frac{\partial F}{\partial L} \dot{L}$$
+
+Dividiendo entre $Y = A F(K, L)$:
+
+$$\frac{\dot{Y}}{Y} = \frac{\dot{A}}{A} + \left( \frac{A \frac{\partial F}{\partial K} K}{Y} \right) \frac{\dot{K}}{K} + \left( \frac{A \frac{\partial F}{\partial L} L}{Y} \right) \frac{\dot{L}}{L}$$
+
+Bajo el supuesto neoclásico de competencia perfecta en mercados de factores:
+- El salario real iguala el producto marginal del trabajo: $w = A \frac{\partial F}{\partial L}$.
+- La tasa de remuneración del capital iguala el producto marginal del capital: $r = A \frac{\partial F}{\partial K}$.
+
+Por lo tanto:
+- $\alpha_K \equiv \frac{r K}{Y}$ es la **participación del capital en el ingreso nacional**.
+- $\alpha_L \equiv \frac{w L}{Y}$ es la **participación del trabajo en el ingreso nacional**.
+
+Bajo rendimientos constantes a escala (Teorema de Euler), $\alpha_K + \alpha_L = 1 \implies \alpha_L = 1 - \alpha_K$. Denotando $\alpha_K = \alpha$:
+
+$$\frac{\dot{Y}}{Y} = \alpha \frac{\dot{K}}{K} + (1 - \alpha) \frac{\dot{L}}{L} + \frac{\dot{A}}{A}$$
+
+El **Residuo de Solow** o tasa de crecimiento de la Productividad Total de los Factores ($g_A$) se obtiene despejando:
+
+$$\boxed{g_A \equiv \frac{\dot{A}}{A} = \frac{\dot{Y}}{Y} - \left[ \alpha \frac{\dot{K}}{K} + (1 - \alpha) \frac{\dot{L}}{L} \right]}$$
+
+En tiempo discreto (datos anuales observados):
+
+$$\Delta \ln A_t = \Delta \ln Y_t - \bar{\alpha}_t \Delta \ln K_t - (1 - \bar{\alpha}_t) \Delta \ln L_t$$
+
+donde $\bar{\alpha}_t = \frac{\alpha_t + \alpha_{t-1}}{2}$ es el índice de Törnqvist comúnmente empleado en contabilidad macroeconómica.
+
+---
+
+# Implementación Computacional en R
+
+A continuación, implementamos el script completo y reproducible `modelo_crecimiento_solow.R`.
+
+## Carga de Paquetes y Configuración
+
+```{r setup, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(scales)
+library(gridExtra)
+
+# Directorio de salidas
+ruta_salidas <- file.path("salidas")
+if (!dir.exists(ruta_salidas)) {
+  dir.create(ruta_salidas, recursive = TRUE, showWarnings = FALSE)
+}
+```
+
+## Calibración y Solución del Modelo de Solow (1956)
+
+Definimos los parámetros estándar de la literatura macroeconómica:
+
+```{r calibracion}
+alpha  <- 0.35    # Participación del capital
+s_base <- 0.22    # Tasa de ahorro e inversión base
+n      <- 0.015   # Crecimiento demográfico (1.5%)
+g      <- 0.020   # Progreso técnico (2.0%)
+delta  <- 0.050   # Depreciación física (5.0%)
+
+# Tasa de dilución efectiva del capital
+dilucion <- n + g + delta # 0.085
+
+# Estado estacionario analítico
+k_star <- (s_base / dilucion)^(1 / (1 - alpha))
+y_star <- k_star^alpha
+c_star <- (1 - s_base) * y_star
+i_star <- s_base * y_star
+
+# Regla de Oro
+s_gold <- alpha
+k_gold <- (s_gold / dilucion)^(1 / (1 - alpha))
+y_gold <- k_gold^alpha
+c_gold <- (1 - s_gold) * y_gold
+
+# Velocidad de convergencia
+lambda_conv <- (1 - alpha) * dilucion
+t_medivida  <- log(2) / lambda_conv
+
+cat(sprintf("Estado Estacionario Base: k* = %.3f, y* = %.3f, c* = %.3f\n", k_star, y_star, c_star))
+cat(sprintf("Regla de Oro: s_oro = %.2f, k_oro* = %.3f, c_oro* = %.3f\n", s_gold, k_gold, c_gold))
+cat(sprintf("Tasa de Convergencia: lambda = %.2f%% anual (Vida media: %.1f años)\n", lambda_conv * 100, t_medivida))
+```
+
+## Visualización: Diagrama de Solow y Trayectoria de Transición
+
+```{r grafico_solow, fig.width=9, fig.height=10, warning=FALSE}
+k_vals <- seq(0.01, 15, length.out = 400)
+df_diagrama <- data.frame(
+  k = k_vals,
+  y = k_vals^alpha,
+  inversion_base = s_base * (k_vals^alpha),
+  inversion_gold = s_gold * (k_vals^alpha),
+  depreciacion_efectiva = dilucion * k_vals
+)
+
+p1a <- ggplot(df_diagrama, aes(x = k)) +
+  geom_ribbon(aes(ymin = inversion_base, ymax = y), fill = "#EBF4F6", alpha = 0.5) +
+  geom_line(aes(y = y, color = "Producto: y = f(k) = k^α"), linewidth = 1.1) +
+  geom_line(aes(y = depreciacion_efectiva, color = "Depreciación efectiva: (n + g + δ)k"), linewidth = 1.1, linetype = "dashed") +
+  geom_line(aes(y = inversion_base, color = "Inversión base: s·f(k) (s = 0.22)"), linewidth = 1.2) +
+  geom_line(aes(y = inversion_gold, color = "Regla de Oro: s_oro·f(k) (s = 0.35)"), linewidth = 1.0, linetype = "dotdash") +
+  geom_point(x = k_star, y = s_base * (k_star^alpha), color = "#E76F51", size = 3.5) +
+  geom_point(x = k_gold, y = s_gold * (k_gold^alpha), color = "#F4A261", size = 3.5) +
+  annotate("text", x = k_star + 0.3, y = (s_base * (k_star^alpha)) + 0.18,
+           label = paste0("k* = ", round(k_star, 2)), color = "#E76F51", fontface = "bold", size = 3.8) +
+  annotate("text", x = k_gold + 0.3, y = (s_gold * (k_gold^alpha)) - 0.12,
+           label = paste0("k[oro]* = ", round(k_gold, 2)), color = "#B25E00", fontface = "bold", size = 3.8) +
+  scale_color_manual(
+    name = "Curvas del Modelo:",
+    values = c(
+      "Producto: y = f(k) = k^α" = "#264653",
+      "Depreciación efectiva: (n + g + δ)k" = "#8D99AE",
+      "Inversión base: s·f(k) (s = 0.22)" = "#E76F51",
+      "Regla de Oro: s_oro·f(k) (s = 0.35)" = "#F4A261"
+    )
+  ) +
+  scale_x_continuous(breaks = seq(0, 15, 2.5), expand = c(0, 0)) +
+  scale_y_continuous(breaks = seq(0, 3, 0.5), limits = c(0, 2.7)) +
+  labs(
+    title = "A. Diagrama del Estado Estacionario y Regla de Oro",
+    subtitle = expression(paste("Equilibrio donde el ahorro bruto iguala la reposición: ", s %.% f(k) == (n + g + delta) %.% k)),
+    x = "Capital por unidad de trabajo eficiente (k)",
+    y = "Valores por unidad eficiente"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "bottom", plot.title = element_text(face = "bold", color = "#1E3D59"))
+
+# Simulación de transición
+T_max <- 70
+simular_transicion <- function(k0, s_val, T_horizon = 70) {
+  k_vec <- numeric(T_horizon)
+  k_vec[1] <- k0
+  for (t in 1:(T_horizon - 1)) {
+    dk <- s_val * (k_vec[t]^alpha) - dilucion * k_vec[t]
+    k_vec[t + 1] <- max(0.001, k_vec[t] + dk)
+  }
+  return(k_vec)
+}
+
+trayectoria_1 <- data.frame(
+  t = 1:T_max,
+  k = simular_transicion(k0 = 0.5, s_val = s_base, T_horizon = T_max),
+  escenario = "1. País subdesarrollado (k0 = 0.50 < k*)"
+)
+trayectoria_2 <- data.frame(
+  t = 1:T_max,
+  k = simular_transicion(k0 = 8.0, s_val = s_base, T_horizon = T_max),
+  escenario = "2. Capital excedente (k0 = 8.00 > k*)"
+)
+trayectoria_3 <- data.frame(
+  t = 1:T_max,
+  k = simular_transicion(k0 = 0.5, s_val = s_gold, T_horizon = T_max),
+  escenario = "3. Transición con Regla de Oro (s = 0.35)"
+)
+
+df_transicion <- rbind(trayectoria_1, trayectoria_2, trayectoria_3)
+
+p1b <- ggplot(df_transicion, aes(x = t, y = k, color = escenario, linetype = escenario)) +
+  geom_hline(yintercept = k_star, color = "#E76F51", linetype = "dashed", alpha = 0.7) +
+  geom_hline(yintercept = k_gold, color = "#F4A261", linetype = "dotdash", alpha = 0.7) +
+  geom_line(linewidth = 1.2) +
+  scale_color_manual(
+    name = "Trayectoria:",
+    values = c(
+      "1. País subdesarrollado (k0 = 0.50 < k*)" = "#2A9D8F",
+      "2. Capital excedente (k0 = 8.00 > k*)" = "#E76F51",
+      "3. Transición con Regla de Oro (s = 0.35)" = "#E9C46A"
+    )
+  ) +
+  scale_linetype_manual(
+    name = "Trayectoria:",
+    values = c(
+      "1. País subdesarrollado (k0 = 0.50 < k*)" = "solid",
+      "2. Capital excedente (k0 = 8.00 > k*)" = "solid",
+      "3. Transición con Regla de Oro (s = 0.35)" = "dashed"
+    )
+  ) +
+  scale_x_continuous(breaks = seq(0, T_max, 10)) +
+  labs(
+    title = "B. Trayectoria de Transición y Convergencia Hacia el Estado Estacionario",
+    subtitle = sprintf("Convergencia asintótica a una tasa teórica λ = %.2f%% anual", lambda_conv * 100),
+    x = "Tiempo (períodos / años)",
+    y = "Capital por trabajador efectivo k(t)"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "bottom", plot.title = element_text(face = "bold", color = "#1E3D59"))
+
+grid.arrange(p1a, p1b, ncol = 1)
+```
+
+## Simulación de Contabilidad del Crecimiento (Solow 1957)
+
+Generamos una serie histórica sintética representativa de 50 años (1971 a 2020) con una semilla fija (`set.seed(1987)`):
+
+```{r contabilidad_crecimiento, fig.width=9, fig.height=10, warning=FALSE}
+set.seed(1987)
+anios <- 1971:2020
+N_anios <- length(anios)
+
+# Simulación de tasas de crecimiento
+g_L_sim <- rnorm(N_anios, mean = 0.012, sd = 0.005)
+g_K_sim <- rnorm(N_anios, mean = 0.030, sd = 0.010)
+
+g_A_base <- rnorm(N_anios, mean = 0.013, sd = 0.007)
+anios_boom <- anios >= 1995 & anios <= 2004
+g_A_base[anios_boom] <- g_A_base[anios_boom] + 0.012
+anios_crisis <- anios %in% c(2008, 2009)
+g_A_base[anios_crisis] <- g_A_base[anios_crisis] - 0.025
+g_A_sim <- g_A_base
+
+# Descomposición exacta
+g_Y_sim <- alpha * g_K_sim + (1 - alpha) * g_L_sim + g_A_sim
+contrib_K <- alpha * g_K_sim
+contrib_L <- (1 - alpha) * g_L_sim
+residuo_solow <- g_Y_sim - (contrib_K + contrib_L)
+
+df_contabilidad <- data.frame(
+  anio = anios,
+  g_Y = g_Y_sim * 100,
+  contrib_K = contrib_K * 100,
+  contrib_L = contrib_L * 100,
+  residuo_PTF = residuo_solow * 100
+)
+
+# Construcción de índices acumulados (1970 = 100)
+idx_Y <- numeric(N_anios + 1)
+idx_K <- numeric(N_anios + 1)
+idx_L <- numeric(N_anios + 1)
+idx_A <- numeric(N_anios + 1)
+
+idx_Y[1] <- 100; idx_K[1] <- 100; idx_L[1] <- 100; idx_A[1] <- 100
+
+for (i in 1:N_anios) {
+  idx_Y[i + 1] <- idx_Y[i] * (1 + g_Y_sim[i])
+  idx_K[i + 1] <- idx_K[i] * (1 + g_K_sim[i])
+  idx_L[i + 1] <- idx_L[i] * (1 + g_L_sim[i])
+  idx_A[i + 1] <- idx_A[i] * (1 + residuo_solow[i])
+}
+
+df_barras <- df_contabilidad %>%
+  select(anio, contrib_K, contrib_L, residuo_PTF) %>%
+  pivot_longer(cols = c(contrib_K, contrib_L, residuo_PTF),
+               names_to = "componente", values_to = "contribucion") %>%
+  mutate(componente_lab = factor(
+    componente,
+    levels = c("contrib_L", "contrib_K", "residuo_PTF"),
+    labels = c("Trabajo: (1 - α)·Δln L", "Capital: α·Δln K", "Residuo de Solow (PTF): Δln A")
+  ))
+
+p2a <- ggplot() +
+  geom_bar(data = df_barras, aes(x = anio, y = contribucion, fill = componente_lab),
+           stat = "identity", position = "stack", width = 0.75, alpha = 0.9) +
+  geom_line(data = df_contabilidad, aes(x = anio, y = g_Y, color = "Crecimiento del PIB: Δln Y"),
+            linewidth = 1.0) +
+  geom_point(data = df_contabilidad, aes(x = anio, y = g_Y, color = "Crecimiento del PIB: Δln Y"),
+             size = 1.5) +
+  scale_fill_manual(
+    name = "Fuentes de Crecimiento:",
+    values = c(
+      "Trabajo: (1 - α)·Δln L" = "#2A9D8F",
+      "Capital: α·Δln K" = "#E76F51",
+      "Residuo de Solow (PTF): Δln A" = "#457B9D"
+    )
+  ) +
+  scale_color_manual(name = "", values = c("Crecimiento del PIB: Δln Y" = "#1E2022")) +
+  scale_x_continuous(breaks = seq(1970, 2020, 5)) +
+  scale_y_continuous(breaks = seq(-4, 8, 2), labels = function(x) paste0(x, "%")) +
+  labs(
+    title = "A. Descomposición Anual del Crecimiento Económico (1971–2020)",
+    subtitle = "Aporte de factores y del Residuo de Solow (PTF)",
+    x = "Año", y = "Tasa anual"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "bottom", plot.title = element_text(face = "bold", color = "#1E3D59"))
+
+df_indices <- data.frame(
+  anio = 1970:2020,
+  PIB_Total = idx_Y,
+  Capital_por_Trabajador = (idx_K / idx_L) * 100,
+  PTF_Solow = idx_A
+) %>%
+  pivot_longer(cols = c(PIB_Total, Capital_por_Trabajador, PTF_Solow),
+               names_to = "variable", values_to = "indice") %>%
+  mutate(variable_lab = factor(
+    variable,
+    levels = c("PIB_Total", "Capital_por_Trabajador", "PTF_Solow"),
+    labels = c("PIB Agregado Y(t)", "Intensidad de Capital K(t)/L(t)", "Productividad Total de Factores A(t)")
+  ))
+
+p2b <- ggplot(df_indices, aes(x = anio, y = indice, color = variable_lab, linetype = variable_lab)) +
+  geom_hline(yintercept = 100, linetype = "dotted", color = "gray50") +
+  geom_line(linewidth = 1.2) +
+  scale_color_manual(
+    name = "Índice (1970 = 100):",
+    values = c(
+      "PIB Agregado Y(t)" = "#1E3D59",
+      "Intensidad de Capital K(t)/L(t)" = "#E76F51",
+      "Productividad Total de Factores A(t)" = "#457B9D"
+    )
+  ) +
+  scale_linetype_manual(
+    name = "Índice (1970 = 100):",
+    values = c(
+      "PIB Agregado Y(t)" = "solid",
+      "Intensidad de Capital K(t)/L(t)" = "dashed",
+      "Productividad Total de Factores A(t)" = "dotdash"
+    )
+  ) +
+  scale_x_continuous(breaks = seq(1970, 2020, 5)) +
+  labs(
+    title = "B. Evolución de Índices Acumulados de Largo Plazo (Base 1970 = 100)",
+    subtitle = "Replicando Solow (1957): la PTF impulsa la mayor parte del crecimiento sostenido",
+    x = "Año", y = "Nivel del índice"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "bottom", plot.title = element_text(face = "bold", color = "#1E3D59"))
+
+grid.arrange(p2a, p2b, ncol = 1)
+```
+
+---
+
+# Resultados Cuantitativos y Discusión
+
+## Tabla Consolidada de Métricas
+
+```{r tabla_metricas}
+tabla_csv <- read.csv("salidas/tab_resultados_solow.csv", encoding = "UTF-8")
+knitr::kable(tabla_csv, caption = "Resumen de Métricas del Modelo de Solow y Contabilidad del Crecimiento")
+```
+
+## Implicaciones Económicas Centrales
+
+### Efecto Nivel vs. Efecto Tasa de Crecimiento
+Uno de los resultados más influyentes del modelo de Solow es que las políticas orientadas a fomentar el ahorro y la inversión (como subsidios fiscales a la formación de capital) generan únicamente un **efecto nivel**: aumentan temporalmente la tasa de crecimiento mientras la economía transita hacia un nuevo estado estacionario con mayor capital por trabajador ($k^*$), pero una vez alcanzado el equilibrio, la tasa de crecimiento del producto per cápita vuelve a ser exactamente igual a la tasa exógena de progreso técnico $g$.
+
+### El Residuo de Solow como "Medida de Nuestra Ignorancia"
+Moses Abramovitz (1956) denominó célebremente al residuo como "la medida de nuestra ignorancia". Debido a que se calcula como un residuo sustractivo, incorpora no solo la innovación tecnológica genuina y el descubrimiento científico, sino también:
+- Economías de escala y reorganización logística.
+- Mejoras en la asignación eficiente de factores entre sectores.
+- Calidad de la educación e inversión en capital humano.
+- Calidad institucional, seguridad jurídica y marco regulatorio.
+- Errores de medición en los stocks de capital y horas trabajadas.
+
+### De Solow al Modelo Ampliado de Mankiw, Romer y Weil (1992)
+En 1992, Gregory Mankiw, David Romer y David Weil demostraron que el modelo de Solow estándar sobrestimaba la velocidad de convergencia observada empíricamente en el mundo ($\approx 2\%$ anual frente al $\approx 5.5\%$ predicho por el modelo con $\alpha = 0.35$). Al introducir el **capital humano** ($H$) en la función de producción ($Y = K^\alpha H^\beta (AL)^{1-\alpha-\beta}$ con $\alpha \approx 1/3, \beta \approx 1/3$), la participación del capital ampliado sube a $2/3$, reduciendo la tasa teórica de convergencia a $\lambda = (1 - \alpha - \beta)(n + g + \delta) \approx 2\%$, coincidiendo con precisión con los datos de corte transversal de la Penn World Table.
+
+---
+
+# Conclusión
+
+El trabajo de Robert M. Solow transformó el estudio de la riqueza y la pobreza de las naciones de una serie de especulaciones cualitativas en una disciplina científica cuantitativa y comprobable empíricamente. Su modelo neoclásico sigue siendo el punto de referencia indispensable para cualquier macroeconomista, y su técnica de contabilidad del crecimiento constituye el estándar metodológico oficial empleado hoy en día por bancos centrales, ministerios de finanzas, el Banco Mundial y la OCDE.

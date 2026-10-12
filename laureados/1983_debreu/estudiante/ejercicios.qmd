@@ -1,0 +1,95 @@
+---
+title: "Guía de Ejercicios Prácticos: Equilibrio General Arrow-Debreu y Teorema del Núcleo"
+subtitle: "Premio Nobel de Economía 1983: Gérard Debreu"
+author: "Nobel_economics Docencia"
+date: "1983-10-17"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta guía pedagógica aplicarás las tres grandes contribuciones de Gérard Debreu a la teoría económica:
+1. **El Modelo de Equilibrio General Competitivo (Arrow & Debreu 1954; Debreu 1959):** Resolverás analíticamente los precios de equilibrio, la asignación descentralizada y la curva de contrato en una economía de intercambio puro.
+2. **El Teorema de Equivalencia del Núcleo (Debreu & Scarf 1963):** Analizarás las condiciones bajo las cuales coaliciones asimétricas bloquean acuerdos injustos en economías replicadas ($N = 1, 2, 5, \infty$) y verificarás la contracción del Núcleo hacia la competencia perfecta.
+3. **Economías Regulares y el Teorema SMD (Debreu 1970; Sonnenschein-Mantel-Debreu):** Comprenderás la noción de regularidad genérica, multiplicidad de equilibrios y las consecuencias de la topología diferencial para los modelos macroeconómicos contemporáneos.
+
+---
+
+# Ejercicio 1: Equilibrio Competitivo Arrow-Debreu en la Caja de Edgeworth (Nivel Básico)
+
+Considere una economía de intercambio puro con dos consumidores ($A$ y $B$) y dos bienes ($1$ y $2$). Las dotaciones iniciales de recursos son:
+- Consumidor $A$: $\omega_A = (\omega_{1A}, \omega_{2A}) = (8, 2)$
+- Consumidor $B$: $\omega_B = (\omega_{1B}, \omega_{2B}) = (2, 8)$
+
+Las funciones de utilidad de los agentes están dadas por:
+$$U_A(x_{1A}, x_{2A}) = x_{1A}^{0.6} x_{2A}^{0.4}$$
+$$U_B(x_{1B}, x_{2B}) = x_{1B}^{0.4} x_{2B}^{0.6}$$
+
+Normalice el precio del bien 2 como numerario ($p_2 = 1$) y denote $p = p_1$.
+
+## Preguntas:
+
+1. **Rentas y Funciones de Demanda Marshallianas:**
+   - Escriba las restricciones presupuestarias de cada consumidor en función de $p$ y sus dotaciones.
+   - Deduzca las demandas óptimas $x_{1A}(p), x_{2A}(p)$ y $x_{1B}(p), x_{2B}(p)$.
+2. **Vaciado de Mercados y Precios de Equilibrio:**
+   - Formule la función de exceso de demanda agregada para el bien 1: $z_1(p) = x_{1A}(p) + x_{1B}(p) - \omega_{1}^{total}$.
+   - Encuentre el precio relativo de equilibrio $p^* = p_1^* / p_2^*$.
+   - Verifique que la Ley de Walras garantiza el vaciado automático del mercado del bien 2 ($z_2(p^*) = 0$).
+3. **Asignación de Equilibrio y Ganancias del Comercio:**
+   - Calcule la asignación de consumo de equilibrio $(x_A^*, x_B^*)$.
+   - Compare los niveles de utilidad en la dotación inicial ($U_A(\omega_A), U_B(\omega_B)$) con los niveles de equilibrio ($U_A(x_A^*), U_B(x_B^*)$). ¿Cuál es la ganancia porcentual de bienestar para cada agente?
+4. **Curva de Contrato Analítica:**
+   - Obtenga las Relaciones Marginales de Sustitución ($\text{RMS}_A$ y $\text{RMS}_B$).
+   - Demuestre que la curva de contrato viene dada por la ecuación:
+     $$x_{2A} = \frac{8 x_{1A}}{18 - x_{1A}}$$
+   - Verifique que el punto $(6, 4)$ pertenece a la curva de contrato y satisface $\text{RMS}_A = \text{RMS}_B = p^*$.
+
+---
+
+# Ejercicio 2: El Teorema del Núcleo de Debreu-Scarf y Coaliciones Bloqueantes (Nivel Intermedio)
+
+Utilizando los parámetros del Ejercicio 1, examine la economía desde la perspectiva de la teoría de juegos cooperativos y la formación de coaliciones desarrollada por Debreu y Scarf (1963).
+
+## Preguntas:
+
+1. **El Núcleo en la Economía Base ($N = 1$):**
+   - Defina formalmente qué es una asignación en el Núcleo ($\mathcal{C}(\mathcal{E})$).
+   - Explique por qué en una economía de 2 agentes, el Núcleo se reduce al segmento de la curva de contrato comprendido entre las utilidades de reserva de la dotación:
+     $$U_A(x_A) \ge U_A(\omega_A) \approx 4.5948 \quad \text{y} \quad U_B(x_B) \ge U_B(\omega_B) \approx 4.5948$$
+   - Con ayuda de la tabla computacional de replicación, identifique los límites inferior y superior de $x_{1A}$ en el núcleo para $N = 1$. ¿Cuál es la amplitud total del intervalo de negociación?
+2. **La Propiedad de Igualdad de Trato (*Equal Treatment*):**
+   - Suponga una réplica de la economía con $N = 2$ (dos agentes de tipo $A$: $A_1, A_2$; y dos de tipo $B$: $B_1, B_2$).
+   - Explique intuitivamente por qué en el Núcleo es imposible que $A_1$ reciba una cesta estrictamente mejor que $A_2$. Si recibieran cestas diferentes, ¿qué coalición se formaría para bloquear dicha asignación?
+3. **Mecanismo de Bloqueo por Coaliciones Asimétricas:**
+   - Considere una asignación sobre la curva de contrato donde $x_{1A} = 5.50$ (lo que otorga a los agentes de tipo $A$ una utilidad muy cercana a su subsistencia de reserva y transfiere casi todo el excedente a los agentes de tipo $B$).
+   - Con $N = 2$, considere una coalición formada por dos agentes de tipo $A$ ($A_1, A_2$) y un solo agente de tipo $B$ ($B_1$).
+   - Explique analítica y conceptualmente por qué esta coalición asimétrica ($2A + 1B$) tiene incentivos y recursos suficientes para bloquear la asignación $x_{1A} = 5.50$.
+4. **Convergencia Asintótica:**
+   - Observe los datos de la réplica: para $N = 1$ la amplitud es $0.9917$, para $N = 2$ es $0.3056$, para $N = 5$ es $0.1011$ y para $N = 20$ es $0.0234$.
+   - ¿A qué tasa converge la longitud del núcleo hacia cero según el Teorema de Debreu-Scarf?
+   - ¿Qué implicancia filosófica e institucional tiene este resultado para la defensa del mecanismo de mercado descentralizado frente a la negociación bilateral?
+
+---
+
+# Ejercicio 3: Economías Regulares, Teorema de Sard e Indeterminación SMD (Nivel Reto)
+
+En 1970, Gérard Debreu publicó su célebre artículo *"Economies with a Finite Set of Equilibria"* en *Econometrica*, inaugurando el uso de la topología diferencial en economía.
+
+## Preguntas:
+
+1. **El Problema de la Multiplicidad de Equilibrios:**
+   - ¿Por qué el Teorema de Existencia Arrow-Debreu (1954) basado en Kakutani no garantiza la unicidad ni la estabilidad del vector de precios de equilibrio?
+   - Explique brevemente el **Teorema de Sonnenschein-Mantel-Debreu (SMD, 1973–1974)**. Si las demandas individuales satisfacen todos los axiomas de racionalidad (transitividad, convexidad, etc.), ¿por qué la demanda agregada de mercado puede exhibir pendientes positivas o formas arbitrarias?
+2. **Definición de Economía Regular:**
+   - Sea $z(p; \omega)$ la función de exceso de demanda agregada en precios normalizados dependiente de las dotaciones $\omega$.
+   - Un precio $p^*$ es un equilibrio si $z(p^*; \omega) = 0$.
+   - Defina qué es una **economía regular** en términos de la matriz Jacobiana $Dz(p^*; \omega)$.
+   - Si la matriz Jacobiana es invertible ($\det Dz(p^*) \neq 0$), ¿qué garantiza el **Teorema de la Función Implícita** sobre la estática comparativa del equilibrio?
+3. **El Teorema de Sard y la Genericidad del Equilibrio:**
+   - Enuncie el **Teorema de Sard** de la topología diferencial.
+   - ¿Cómo utilizó Debreu este teorema para demostrar que el conjunto de dotaciones que generan economías "críticas" (con infinitos equilibrios o equilibrios singulares) tiene medida de Lebesgue cero en el espacio de economías?
+   - ¿Por qué este resultado rescató a la economía neoclásica de la objeción de indeterminación total planteada por el Teorema SMD?

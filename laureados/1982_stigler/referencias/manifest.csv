@@ -1,0 +1,9 @@
+id,titulo,doi,url,estado_descarga,licencia
+nobel1982_press,The Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel 1982: Press Release,,https://www.nobelprize.org/prizes/economic-sciences/1982/press-release/,solo_enlace,Dominio publico institucional
+stigler1983nobel_lecture,Nobel Lecture: The Process and Progress of Economics,10.1086/261166,https://doi.org/10.1086/261166,solo_enlace,Copyright University of Chicago Press
+stigler1961information,The Economics of Information,10.1086/258464,https://doi.org/10.1086/258464,solo_enlace,Copyright University of Chicago Press
+stigler1971regulation,The Theory of Economic Regulation,10.2307/3003160,https://doi.org/10.2307/3003160,solo_enlace,Copyright RAND Corporation
+stigler1958scale,The Economies of Scale,10.1086/466541,https://doi.org/10.1086/466541,solo_enlace,Copyright University of Chicago Press
+stigler_friedland1962electricity,What Can Regulators Regulate? The Case of Electricity,10.1086/466579,https://doi.org/10.1086/466579,solo_enlace,Copyright University of Chicago Press
+stigler1964oligopoly,A Theory of Oligopoly,10.1086/258853,https://doi.org/10.1086/258853,solo_enlace,Copyright University of Chicago Press
+stigler1962labor,Information in the Labor Market,10.1086/258727,https://doi.org/10.1086/258727,solo_enlace,Copyright University of Chicago Press

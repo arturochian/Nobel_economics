@@ -1,0 +1,134 @@
+---
+title: "Guía de Ejercicios Prácticos: Ciclo de Vida del Consumo y Teoremas de Modigliani-Miller"
+subtitle: "Premio Nobel de Economía 1985: Franco Modigliani"
+author: "Nobel_economics Docencia"
+date: "1985-10-15"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta guía pedagógica aplicarás las dos grandes revoluciones analíticas legadas por Franco Modigliani:
+1. **La Hipótesis del Ciclo de Vida del Consumo (LCH):** Resolverás analíticamente el problema de decisión intertemporal de un individuo a lo largo de su vida adulta, cuantificando el consumo óptimo suavizado, las fases de acumulación y desahorro, y el impacto de los sistemas de pensiones sobre la formación de capital privado.
+2. **Los Teoremas de Finanzas Corporativas de Modigliani-Miller (MM):** Analizarás la irrelevancia de la estructura de capital en mercados perfectos mediante el arbitraje de apalancamiento casero (*homemade leverage*), la ley de incremento lineal del costo del capital propio, y el beneficio del escudo fiscal (*tax shield*) bajo fiscalidad corporativa.
+3. **Agregación Macroeconómica y Demografía:** Deducirás formalmente el célebre "Teorema Cero de Modigliani" y proyectarás el impacto del envejecimiento poblacional sobre la tasa de ahorro nacional agregada.
+
+---
+
+# Ejercicio 1: El Modelo Canónico del Ciclo de Vida y Suavizamiento del Consumo (Nivel Básico)
+
+Considera una persona representativa que ingresa al mercado laboral a los **20 años**, planea jubilarse a los **65 años** y posee una expectativa de vida de **85 años** (65 años de vida adulta total).
+
+Para simplificar el cálculo financiero en este primer bloque, asume que la tasa de interés real libre de riesgo es $r = 0$, que la tasa subjetiva de preferencia intertemporal es $\rho = 0$ y que el individuo no recibe herencias iniciales ni desea dejar legados testamentarios ($A_0 = 0$, $A_{85} = 0$).
+
+Durante su vida laboral activa (de los 20 a los 64 años, 45 años de trabajo), percibe un salario anual constante de:
+
+$$Y = 40.000 \text{ dólares al año}$$
+
+Durante los años de retiro (de los 65 a los 84 años, 20 años de jubilación), no percibe ningún ingreso laboral ($Y = 0$).
+
+## Preguntas:
+
+1. **Consumo Óptimo Vital:**
+   - Escribe la restricción presupuestaria intertemporal vital del individuo.
+   - Demuestra formalmente y calcula el nivel de consumo anual constante óptimo ($\bar{C}$) que garantiza un estándar de vida perfectamente suavizado durante los 65 años de vida adulta.
+2. **Propensiones Marginales a Consumir:**
+   - Expresa la función de consumo de Modigliani en la forma:
+     $$C_t = \alpha_t A_t + \beta_t Y$$
+   - Calcula el valor numérico de la propensión marginal a consumir de la riqueza ($\alpha_{20}$) y del ingreso laboral ($\beta_{20}$) cuando el individuo tiene exactamente 20 años.
+   - ¿Cuáles son los valores de $\alpha_{60}$ y $\beta_{60}$ a la edad de 60 años (cuando solo le restan 5 años de trabajo y 25 años de vida)? Explica la intuición económica del cambio en estos coeficientes.
+3. **Trayectoria de Riqueza Acumulada:**
+   - Calcula el acervo total de riqueza financiera acumulada ($A_{65}$) que el individuo habrá atesorado exactamente al cumplir los 65 años (justo antes de jubilarse).
+   - Si a partir de los 65 años consume a una tasa constante $\bar{C}$ y no percibe ingresos, ¿cuál será su saldo de riqueza acumulada a los 75 años? ¿Y al cumplir los 85 años?
+4. **Introducción de la Seguridad Social de Reparto (*Pay-As-You-Go*):**
+   - Supón ahora que el Estado introduce un sistema público de pensiones de reparto. El gobierno cobra una contribución social del $15\%$ sobre el salario bruto anual durante los 45 años laborales ($tasa = 0.15$), y promete pagar una pensión anual en el retiro de $27.000$ dólares durante los 20 años de vejez.
+   - Calcula el nuevo ingreso disponible anual durante la etapa laboral ($Y_{\text{disp}}$).
+   - Calcula el nuevo consumo anual constante $\bar{C}_{\text{pension}}$ y la nueva riqueza privada acumulada al momento del retiro ($A_{65}^{\text{pension}}$).
+   - ¿Qué porcentaje de la riqueza acumulada privada fue desplazado (*crowded out*) por la seguridad social pública? Comenta las implicancias de este hallazgo de Franco Modigliani y Martin Feldstein para la formación nacional de capital.
+
+---
+
+# Ejercicio 2: Teoremas de Modigliani-Miller, WACC y Escudo Fiscal (Nivel Intermedio)
+
+La empresa manufacturera **"Corporación Apolo S.A."** opera en un entorno de riesgo operativo constante. Sus activos operativos generan un flujo de caja anual antes de intereses e impuestos (EBIT) perpetuo y constante de:
+
+$$\text{EBIT} = 6.000.000 \text{ dólares al año}$$
+
+Todos los flujos de caja libres generados se distribuyen íntegramente a los proveedores de capital (no hay retención de utilidades para crecimiento).
+
+En la situación inicial, la empresa está **100% financiada con capital propio** (acciones ordinarias, desapalancada o empresa $U$). El rendimiento exigido por los accionistas para su nivel de riesgo operativo es:
+
+$$r_0 = 12\% \text{ anual}$$
+
+La junta directiva está debatiendo una propuesta de recapitalización financiera: emitir **$20.000.000$ de dólares en deuda perpetua** (bonos corporativos) a una tasa de interés de mercado libre de riesgo de quiebra de:
+
+$$r_D = 6\% \text{ anual}$$
+
+Los fondos obtenidos de la emisión de deuda se utilizarán íntegramente para recomprar acciones propias al valor de mercado, transformando la compañía en una empresa apalancada (empresa $L$).
+
+## Preguntas:
+
+### Caso A: Mundo Ideal de Modigliani-Miller (Sin Impuestos Corporativos, $\tau_C = 0$)
+1. **Valor de la Empresa y Estructura de Capital:**
+   - Calcula el valor de mercado total de la empresa desapalancada ($V_U$).
+   - Aplicando la **Proposición I de Modigliani-Miller**, ¿cuál es el valor de mercado total de la empresa apalancada ($V_L$)?
+   - ¿Cuál es el valor de mercado de las acciones restantes ($E_L$)?
+2. **Costo del Capital Propio y WACC:**
+   - Aplicando la **Proposición II de Modigliani-Miller**, calcula el nuevo costo de oportunidad exigido por los accionistas ($r_E$).
+   - Calcula el Costo Medio Ponderado del Capital (WACC) de la empresa apalancada. ¿Cambió el WACC con respecto a la situación no apalancada? Explica la intuición económica.
+3. **El Mecanismo de Arbitraje (*Homemade Leverage*):**
+   - Supón que, tras la emisión de deuda, el mercado valorara irracionalmente la empresa apalancada en $V_L = 55.000.000$ de dólares (de modo que las acciones valieran $E_L = 35.000.000$ y la deuda $D = 20.000.000$).
+   - Demuestra con un balance paso a paso cómo un inversionista astuto que posee el $1\%$ de las acciones de la empresa apalancada puede vender sus títulos y realizar "apalancamiento casero" comprando acciones de la empresa desapalancada $U$ financiado con un crédito bancario personal, obteniendo un arbitraje positivo sin incurrir en ningún riesgo adicional.
+
+---
+
+### Caso B: Con Impuestos Corporativos (Modigliani-Miller 1963, $\tau_C = 30\%$)
+Asume ahora un impuesto sobre los beneficios corporativos del $\tau_C = 30\%$. Los intereses pagados a la deuda ($r_D D$) son deducibles de la base imponible del impuesto.
+
+4. **El Valor del Escudo Fiscal:**
+   - Calcula el valor de mercado de la empresa desapalancada bajo impuestos ($V_U$).
+   - Calcula el valor presente del ahorro fiscal generado por la deducibilidad de intereses ($\text{PV}(\text{Tax Shield})$).
+   - Determina el valor de mercado total de la empresa apalancada ($V_L$) y el valor de su capital accionario ($E_L$).
+5. **Costo de Capital después de Impuestos:**
+   - Calcula el nuevo costo del capital propio ($r_E$) bajo la fórmula de Modigliani-Miller con impuestos:
+     $$r_E = r_0 + (1 - \tau_C)(r_0 - r_D)\frac{D}{E_L}$$
+   - Calcula el WACC después de impuestos:
+     $$\text{WACC} = \left(\frac{E_L}{V_L}\right) r_E + \left(\frac{D}{V_L}\right) r_D (1 - \tau_C)$$
+   - Compara este WACC con el $12\%$ inicial y sintetiza la conclusión fundamental de Modigliani-Miller (1963) sobre el valor de la empresa apalancada.
+
+---
+
+# Ejercicio 3: Demografía, Tasa de Dependencia y el Teorema Cero de Ahorro Agregado (Nivel Reto)
+
+Considera un modelo macroeconómico de generaciones solapadas (OLG) en tiempo continuo/discreto inspirado en Modigliani (1966, 1986).
+
+Una cohorte vive dos períodos vitales idénticos:
+- Período 1 (Activo / Juventud): Trabaja, percibe ingreso laboral $Y_1 = w$ y ahorra una fracción $s_1$ para su retiro.
+- Período 2 (Jubilado / Vejez): No trabaja ($Y_2 = 0$), desahorra todo su patrimonio acumulado para consumir.
+
+Asume tasa de interés real $r = 0$. Por tanto, el ahorro individual del joven es $S_1 = s_1 w$ y el desahorro del jubilado es exactamente $S_2 = -S_1 = -s_1 w$.
+
+El tamaño poblacional de la cohorte nacida en el año $t$ es $N_t = N_0 (1 + n)^t$, donde $n$ es la tasa neta de crecimiento demográfico anual.
+
+Asimismo, la productividad de los salarios laborales avanza a una tasa constante $g$: los salarios percibidos por los jóvenes en el período $t$ son $w_t = w_0 (1 + g)^t$.
+
+## Preguntas:
+
+1. **Demostración Analítica del Teorema Cero de Modigliani:**
+   - Expresa algebraicamente el ahorro nacional agregado en el período $t$ ($S_t$) sumando el ahorro total de los trabajadores jóvenes y el desahorro total de los jubilados de dicho período.
+   - Demuestra formalmente que si la tasa de crecimiento poblacional es nula ($n = 0$) y la productividad es estacionaria ($g = 0$), el ahorro nacional agregado es estrictamente cero ($S_t = 0$), a pesar de que cada trabajador activo individual ahorra positivamente a lo largo de su juventud.
+2. **Derivación de la Tasa de Ahorro Agregada con Crecimiento:**
+   - Asumiendo que $n > 0$ y $g > 0$, deriva la expresión matemática de la tasa de ahorro nacional agregada:
+     $$s_t \equiv \frac{S_t}{Y_t^{\text{nacional}}}$$
+   - Demuestra que para tasas de crecimiento moderadas ($n, g$ pequeños), la tasa de ahorro agregada puede aproximarse como:
+     $$s_t \approx s_1 \cdot (n + g)$$
+   - ¿Qué implicancia tiene este resultado sobre la creencia popular de que los países son ricos porque ahorran mucho, en contraste con la tesis de Modigliani de que los países ahorran mucho porque están creciendo rápido?
+3. **El Reto Demográfico del Envejecimiento:**
+   - Considera una economía donde la tasa de natalidad colapsa y la población comienza a contraerse a una tasa $n = -1.5\%$ anual, mientras el crecimiento de productividad es mediocre ($g = 0.5\%$).
+   - ¿Qué signo tendrá la tasa de ahorro nacional agregada $s_t$?
+   - Con base en la identidad macroeconómica de cuentas nacionales:
+     $$S - I = CA$$
+     donde $S$ es el ahorro nacional, $I$ es la inversión interna y $CA$ es la cuenta corriente de la balanza de pagos, explica qué dilema enfrentan las economías avanzadas envejecidas (como Japón o la Unión Europea) respecto a la sostenibilidad de su acumulación de capital y su posición de inversión internacional.

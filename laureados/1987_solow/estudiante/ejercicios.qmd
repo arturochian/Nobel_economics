@@ -1,0 +1,114 @@
+---
+title: "Guía de Ejercicios Prácticos: Modelo de Solow-Swan, Regla de Oro y Contabilidad del Crecimiento"
+subtitle: "Premio Nobel de Economía 1987: Robert M. Solow"
+author: "Nobel_economics Docencia"
+date: "1987-10-21"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta guía pedagógica aplicarás los modelos teóricos y empíricos fundacionales de Robert M. Solow:
+1. **Dinámica del Modelo de Solow-Swan (1956):** Resolverás analítica y numéricamente el estado estacionario ($k^*, y^*, c^*$) y calcularás la velocidad a la que una economía en desarrollo converge hacia su equilibrio de largo plazo.
+2. **La Regla de Oro del Capital:** Determinarás la tasa de ahorro que maximiza el bienestar material por habitante y evaluarás las consecuencias macroeconómicas del sobreahorro y la ineficiencia dinámica intertemporal.
+3. **Contabilidad del Crecimiento y el Residuo de Solow (1957):** Descompondrás el crecimiento del PIB en una economía real entre acumulación de factores y Productividad Total de los Factores (PTF), y extenderás el marco neoclásico incorporando el capital humano de Mankiw, Romer y Weil (1992).
+
+---
+
+# Ejercicio 1: Dinámica de Transición y Estado Estacionario en Solow-Swan (Nivel Básico)
+
+Considera una economía cuya función de producción agregada adopta la especificación Cobb-Douglas:
+
+$$Y(t) = K(t)^\alpha (A(t)L(t))^{1-\alpha}$$
+
+Los parámetros estructurales de esta economía son:
+- Elasticidad del producto respecto al capital físico: $\alpha = 0.30$.
+- Tasa de ahorro e inversión: $s = 0.24$ ($24\%$).
+- Tasa de crecimiento poblacional: $n = 0.02$ ($2\%$ anual).
+- Tasa de progreso tecnológico aumentador de trabajo: $g = 0.02$ ($2\%$ anual).
+- Tasa de depreciación física del capital: $\delta = 0.04$ ($4\%$ anual).
+
+## Preguntas:
+
+1. **Variables Intensivas y Ecuación Fundamental:**
+   - Define el capital por unidad de trabajo eficiente $k(t) \equiv \frac{K(t)}{A(t)L(t)}$ y el producto por unidad de trabajo eficiente $y(t) \equiv \frac{Y(t)}{A(t)L(t)}$.
+   - Demuestra formalmente los pasos para derivar la ecuación diferencial de acumulación:
+     $$\dot{k}(t) = s k(t)^\alpha - (n + g + \delta) k(t)$$
+   - ¿Qué significado económico tiene el término $(n + g + \delta) k(t)$? Distingue entre depreciación física y dilución de capital.
+2. **Cálculo del Estado Estacionario:**
+   - Calcula el valor analítico y numérico exacto de:
+     - El stock de capital de equilibrio: $k^*$.
+     - El producto por trabajador eficiente de equilibrio: $y^*$.
+     - El consumo por trabajador eficiente de equilibrio: $c^*$.
+     - La tasa de inversión por trabajador eficiente de equilibrio: $i^*$.
+   - Verifica numéricamente que la inversión bruta iguala la inversión de reposición y dilución ($s y^* = (n + g + \delta)k^*$).
+3. **Tasas de Crecimiento en Equilibrio:**
+   - En el estado estacionario, ¿a qué tasa porcentual anual crecen:
+     a) El producto por trabajador eficiente $y$?
+     b) El producto por trabajador real $Y / L$?
+     c) El Producto Interno Bruto agregado $Y$?
+4. **Velocidad de Convergencia y Vida Media:**
+   - Calcula el parámetro de velocidad de convergencia $\lambda = (1 - \alpha)(n + g + \delta)$.
+   - Calcula el tiempo de vida media ($t_{1/2}$ en años) requerido para que una economía cierre el 50% de su brecha inicial respecto a $k^*$.
+   - Si un país parte con un capital inicial $k(0) = 0.25 k^*$, ¿cuántos años tardará aproximadamente en alcanzar el $90\%$ de su estado estacionario?
+
+---
+
+# Ejercicio 2: La Regla de Oro del Capital e Ineficiencia Dinámica (Nivel Intermedio)
+
+Manteniendo la misma función de producción y los parámetros demográficos y tecnológicos del Ejercicio 1 ($\alpha = 0.30$, $n = 0.02$, $g = 0.02$, $\delta = 0.04$):
+
+## Preguntas:
+
+1. **Derivación de la Tasa de Ahorro de la Regla de Oro:**
+   - Expresa el consumo por unidad de trabajo eficiente en estado estacionario $c^*$ en función de la tasa de ahorro $s$:
+     $$c^*(s) = (1 - s) \left( \frac{s}{n + g + \delta} \right)^{\frac{\alpha}{1-\alpha}}$$
+   - Maximiza $c^*(s)$ respecto a $s$ y demuestra algebraicamente que la condición de primer orden implica:
+     $$f'(k_{oro}^*) = n + g + \delta \iff s_{oro} = \alpha$$
+2. **Comparación Cuantitativa de Escenarios:**
+   - Calcula numéricamente $k_{oro}^*, y_{oro}^*$ y $c_{oro}^*$ bajo la tasa de la Regla de Oro ($s = 0.30$).
+   - Compara estos resultados con la economía base del Ejercicio 1 ($s = 0.24$): ¿cuánto consumo estacionario sacrifica la economía base por tener una tasa de ahorro inferior a la de la Regla de Oro?
+3. **Ineficiencia Dinámica vs. Eficiencia Dinámica:**
+   - Supón ahora una economía alternativa (Economía X) con una tasa de ahorro excesiva $s_X = 0.45$.
+     a) Calcula $k_X^*, y_X^*$ y $c_X^*$.
+     b) Compara el consumo $c_X^*$ con el de la Regla de Oro $c_{oro}^*$.
+     c) Explica con precisión qué significa que la Economía X es **dinámicamente ineficiente**.
+     d) Si el gobierno de la Economía X decide reducir su tasa de ahorro de $0.45$ a $0.30$, describe la trayectoria temporal del consumo per cápita: ¿hay algún periodo de sacrificio o el consumo aumenta de inmediato en el presente y en el futuro?
+   - Si la economía base ($s = 0.24$) decidiera aumentar su ahorro a $s = 0.30$, ¿ocurriría lo mismo? Explica la diferencia cualitativa.
+
+---
+
+# Ejercicio 3: Contabilidad del Crecimiento y el Residuo de Solow (Nivel Reto / Avanzado)
+
+Un analista macroeconómico dispone de los siguientes datos agregados para una economía emergente a lo largo de un período de una década (2010–2020):
+
+- El PIB real creció a una tasa media anual compuesta del $4.5\%$ ($\Delta \ln Y = 0.045$).
+- El stock de capital físico creció a una tasa media anual del $5.0\%$ ($\Delta \ln K = 0.050$).
+- La fuerza laboral (empleo total) creció a una tasa media anual del $1.5\%$ ($\Delta \ln L = 0.015$).
+- En las cuentas nacionales, la masa salarial representa el $60\%$ del PIB y los beneficios brutos del capital representan el $40\%$ ($\alpha = 0.40$).
+
+## Preguntas:
+
+1. **Estimación del Residuo de Solow Canónico (1957):**
+   - Utilizando la fórmula clásica de Solow:
+     $$\Delta \ln Y = \alpha \Delta \ln K + (1 - \alpha) \Delta \ln L + \Delta \ln A$$
+     a) Calcula la contribución porcentual anual del capital físico al crecimiento del PIB ($\alpha \Delta \ln K$).
+     b) Calcula la contribución porcentual anual del factor trabajo al crecimiento del PIB ($(1 - \alpha) \Delta \ln L$).
+     c) Obtén el Residuo de Solow (la tasa anual de crecimiento de la PTF, $\Delta \ln A$).
+     d) ¿Qué porcentaje del crecimiento total del producto se explica por la acumulación de factores y qué porcentaje por la PTF?
+2. **Crecimiento Intensivo (Producto por Trabajador):**
+   - Reescribe la ecuación de contabilidad del crecimiento en términos del producto por trabajador $y = Y / L$:
+     $$\Delta \ln y = \alpha \Delta \ln (K / L) + \Delta \ln A$$
+   - Calcula el crecimiento del producto por trabajador y la tasa de intensificación del capital ($K/L$).
+   - ¿Qué porcentaje del crecimiento del producto por trabajador es atribuible a la intensificación de capital y qué porcentaje a la PTF?
+3. **Ampliación con Capital Humano (Mankiw, Romer y Weil, 1992):**
+   - Supón ahora que el analista sospecha que parte del residuo se debe a mejoras educativas. Considera la función de producción ampliada:
+     $$Y = K^\alpha H^\beta (AL)^{1 - \alpha - \beta}$$
+     donde $H$ es el stock de capital humano, con participaciones $\alpha = 0.30, \beta = 0.30$ y trabajo bruto $1 - \alpha - \beta = 0.40$.
+   - Si los años promedio de escolaridad crecieron de tal forma que el capital humano acumulado se expandió a una tasa anual del $3.5\%$ ($\Delta \ln H = 0.035$):
+     a) Plantea la nueva ecuación de contabilidad del crecimiento para el residuo de Solow purificado ($\Delta \ln A_{MRW}$).
+     b) Calcula numéricamente el nuevo residuo tecnológico $\Delta \ln A_{MRW}$.
+     c) Compara este resultado con el residuo obtenido en la pregunta 1: ¿en cuánto se reduce la "medida de nuestra ignorancia" al contabilizar explícitamente el capital humano?

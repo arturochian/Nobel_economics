@@ -1,0 +1,133 @@
+---
+title: "Guía de Ejercicios Prácticos: Paradoja de Allais, Tarificación Marginal y Regla de Oro"
+subtitle: "Premio Nobel de Economía 1988: Maurice Allais"
+author: "Nobel_economics Docencia"
+date: "1988-10-18"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta guía pedagógica aplicarás las tres contribuciones seminales de Maurice Allais:
+1. **La Paradoja de Allais y el Efecto Certeza:** Demostrarás analíticamente por qué las decisiones humanas reales bajo riesgo violan la linealidad en probabilidades del axioma de independencia de von Neumann y Morgenstern.
+2. **Eficiencia Asignativa y Monopolios Naturales:** Resolverás los equilibrios regulatorios de un monopolio de red, calculando la pérdida de bienestar social del monopolio privado, el compromiso del costo medio y la regla de tarificación al costo marginal de Allais ($P = CMg$) complementada con tarifas en dos partes.
+3. **La Regla de Oro de Acumulación de Capital (Allais 1947):** Deducirás matemáticamente la condición macroeconómica que maximiza el consumo intertemporal por habitante y comprenderás el concepto de ineficiencia dinámica.
+
+---
+
+# Ejercicio 1: La Paradoja de Allais y la Quiebra de la Utilidad Esperada (Nivel Básico)
+
+Considera el experimento canónico de loterías monetarias diseñado por Maurice Allais en París en 1952. Un agente se enfrenta a dos decisiones independientes.
+
+Los pagos posibles son:
+- $x_1 = 0$ euros
+- $x_2 = 1.000.000$ euros ($1$ millón)
+- $x_3 = 5.000.000$ euros ($5$ millones)
+
+**Decisión 1:** Elegir entre la Lotería $L_1$ y la Lotería $L_2$:
+- **Lotería $L_1$:** Recibir $1.000.000$ € con certeza absoluta ($p_2 = 1.0$).
+- **Lotería $L_2$:** Recibir $5.000.000$ € con probabilidad $0.10$, $1.000.000$ € con probabilidad $0.89$, y $0$ € con probabilidad $0.01$.
+
+**Decisión 2:** Elegir entre la Lotería $L_3$ y la Lotería $L_4$:
+- **Lotería $L_3$:** Recibir $1.000.000$ € con probabilidad $0.11$, y $0$ € con probabilidad $0.89$.
+- **Lotería $L_4$:** Recibir $5.000.000$ € con probabilidad $0.10$, y $0$ € con probabilidad $0.90$.
+
+## Preguntas:
+
+1. **Valores Esperados:**
+   - Calcula el valor monetario esperado $\mathbb{E}[L]$ para cada una de las cuatro loterías ($L_1, L_2, L_3, L_4$).
+   - Si un decisor fuera neutral al riesgo, ¿qué lotería elegiría en la Decisión 1 y cuál en la Decisión 2?
+2. **Preferencia Empírica y la Inconsistencia con la Utilidad Esperada:**
+   - En experimentos empíricos, la mayoría de los individuos elige $L_1 \succ L_2$ y $L_4 \succ L_3$.
+   - Expresa algebraicamente la utilidad esperada de cada una de las cuatro loterías asumiendo una función de utilidad von Neumann-Morgenstern $u(x)$, normalizando $u(0) = 0$.
+   - Demuestra formalmente mediante pasos algebraicos rigurosos por qué es matemáticamente imposible que una función de utilidad $u(x)$ satisfaga simultáneamente $L_1 \succ L_2$ y $L_4 \succ L_3$ bajo la teoría clásica.
+3. **Evaluación de una Función con Aversión al Riesgo:**
+   - Supón un individuo con función de utilidad Bernoulli $u(x) = \sqrt{x}$ (donde $x$ se mide en millones de euros: $x_1=0, x_2=1, x_3=5$).
+   - Calcula numéricamente $EU(L_1), EU(L_2), EU(L_3)$ y $EU(L_4)$.
+   - ¿Qué par de elecciones toma este individuo? ¿Comete la paradoja de Allais? Explica la intuición del resultado.
+4. **El Efecto Certeza (*Certainty Effect*):**
+   - Explica con tus propias palabras qué fenómeno psicológico identificó Maurice Allais para explicar por qué la gente rechaza una probabilidad del 1% de quedarse sin nada en $L_2$, pero acepta con entusiasmo cambiar de $L_3$ a $L_4$ en la segunda decisión.
+
+---
+
+# Ejercicio 2: Monopolio Natural, Tarificación Marginal de Allais y Tarifas en Dos Partes (Nivel Intermedio)
+
+Una empresa pública de distribución de agua potable abastece a una ciudad. La demanda inversa de agua en el mercado local está dada por:
+
+$$P(Q) = 140 - Q$$
+
+donde $Q$ representa los miles de metros cúbicos consumidos al mes y $P$ es el precio en euros por metro cúbico.
+
+La infraestructura de captación y redes de tuberías genera una función de costos totales:
+
+$$C(Q) = 1.600 + 20 Q$$
+
+donde $F = 1.600$ euros al mes corresponde al costo fijo de mantenimiento de la red y $c = 20$ euros es el costo marginal constante por cada mil metros cúbicos bombeados.
+
+## Preguntas:
+
+1. **Monopolio Privado No Regulado:**
+   - Supón que la empresa opera como un monopolio no regulado que maximiza sus beneficios privados.
+   - Determina el ingreso marginal $IMg(Q)$ y halla la cantidad producida $Q_m$, el precio cobrado $P_m$ y los beneficios empresariales $\Pi_m$.
+   - Calcula el Excedente del Consumidor ($CS_m$), el Excedente Social Total ($W_m$) y la Pérdida Irrecuperable de Eficiencia ($DWL_m$).
+2. **Regulación al Costo Medio ($P = CMe$):**
+   - Supón que el regulador municipal exige que la empresa opere con presupuesto equilibrado sin recibir subsidios públicos ($\Pi = 0$), fijando el precio igual al costo medio.
+   - Plantea la ecuación cuadrática $P(Q) = CMe(Q)$ y resuelve el volumen de producción económicamente viable $Q_{cme}$ y el precio $P_{cme}$.
+   - Calcula el Excedente del Consumidor ($CS_{cme}$) y la pérdida de bienestar social ($DWL_{cme}$) en comparación con el óptimo social.
+3. **La Regla de Allais (Primer Mejor: $P = CMg$):**
+   - Siguiendo la prescripción de Maurice Allais (1943), el regulador obliga a la empresa a fijar el precio estrictamente igual al costo marginal: $P^* = CMg$.
+   - Determina la cantidad óptima $Q^*$, el Excedente del Consumidor ($CS^*$) y el Excedente Social Total ($W^*$).
+   - Demuestra que este régimen elimina por completo la pérdida irrecuperable de eficiencia ($DWL = 0$).
+   - ¿A cuánto asciende el déficit de explotación financiero $\Pi^*$ que sufre la empresa pública?
+4. **Diseño de una Tarifa en Dos Partes de Allais-Boiteux:**
+   - La ciudad cuenta con $N = 200$ familias usuarias idénticas.
+   - Diseña un esquema tarifario en dos partes $(T, P)$ donde cada usuario paga una cuota fija de abono mensual $T$ por estar conectado a la red y un precio variable unitario $P$ por cada unidad consumida.
+   - Determina los valores exactos de $P$ y $T$ que eliminan el déficit público cubriendo los costos fijos $F$ y garantizan al mismo tiempo la eficiencia de primer mejor paretiana de Allais.
+
+---
+
+# Ejercicio 3: La Regla de Oro de Acumulación de Capital de Allais (1947) (Nivel Reto)
+
+En su libro seminal *Économie et Intérêt* (1947), Maurice Allais estudió la tasa de interés que maximiza el bienestar intertemporal de una sociedad, formulando lo que la literatura macroeconómica bautizó posteriormente como la "Regla de Oro de la Acumulación de Capital" (Phelps 1961).
+
+Considera una economía cerrada en crecimiento continuo. La función de producción agregada per cápita es neoclásica:
+
+$$y = f(k) = A k^\alpha$$
+
+donde $k = K/L$ es el capital por trabajador, $y = Y/L$ es el producto por trabajador, $A = 10$, $\alpha = 0.35$.
+
+La tasa de crecimiento de la población activa es $n = 0.015$ (1.5% anual) y la tasa de depreciación física del capital es $\delta = 0.05$ (5.0% anual). No hay progreso técnico exógeno ($g = 0$).
+
+El producto por habitante se divide entre consumo $c$ e inversión bruta $i$:
+
+$$y = c + i$$
+
+En el estado estacionario de largo plazo ($\dot{k} = 0$), la inversión bruta per cápita requerida para mantener constante el capital por trabajador es:
+
+$$i^* = (n + \delta) k$$
+
+por lo que el consumo per cápita en estado estacionario viene dado por:
+
+$$c(k) = f(k) - (n + \delta) k$$
+
+## Preguntas:
+
+1. **Derivación Analítica del Teorema de la Regla de Oro de Allais:**
+   - Maximiza la función $c(k)$ con respecto al stock de capital por trabajador $k$.
+   - Demuestra que la condición necesaria de primer orden exige:
+     $$f'(k_{oro}) = n + \delta$$
+   - En un mercado competitivo donde el capital se remunera según su productividad marginal neta ($r = f'(k) - \delta$, donde $r$ es la tasa de interés real neta), demuestra que la regla de Allais equivale a:
+     $$r_{oro} = n$$
+     *(El rendimiento real del capital debe igualar la tasa biológica de crecimiento demográfico de la economía).*
+2. **Cálculo Numérico del Estado Estacionario Óptimo:**
+   - Utilizando los parámetros dados ($A = 10$, $\alpha = 0.35$, $n = 0.015$, $\delta = 0.05$):
+     a) Calcula el stock de capital por habitante de la regla de oro $k_{oro}$.
+     b) Calcula el producto por habitante $y_{oro}$.
+     c) Calcula el consumo máximo sostenible por habitante $c_{oro}$.
+     d) Calcula la tasa de inversión o ahorro requerida $s_{oro} = \frac{i_{oro}}{y_{oro}}$. Demuestra algebraicamente que $s_{oro} = \alpha$.
+3. **Ineficiencia Dinámica y el Teorema de Allais:**
+   - Supón que una sociedad ahorra una fracción excesiva de su ingreso ($s = 0.60 > \alpha$), acumulando un stock de capital $k > k_{oro}$.
+   - Demuestra por qué esta situación representa un despilfarro paretiano intertemporal (**ineficiencia dinámica**) y explica cómo la sociedad puede aumentar el consumo de **todas** las generaciones presentes y futuras reduciendo la acumulación de capital.

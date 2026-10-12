@@ -1,0 +1,119 @@
+---
+title: "Guía de Ejercicios Prácticos: Fundamentos Probabilísticos, Ecuaciones Simultáneas y Multiplicador Fiscal"
+subtitle: "Premio Nobel de Economía 1989: Trygve Haavelmo"
+author: "Nobel_economics Docencia"
+date: "2026-10-12"
+format:
+  html:
+    toc: true
+    number-sections: true
+    theme: cosmo
+---
+
+# Introducción
+
+El Premio Nobel de Economía de 1989 otorgado a **Trygve Haavelmo** reconoció su papel pionero en transformar la economía cuantitativa en una ciencia empírica con fundamentos probabilísticos rigurosos. Sus contribuciones más trascendentales comprenden:
+
+1. **La Fundación Probabilística de la Econometría (1944):** Demostró que las relaciones económicas observadas deben modelarse como variables aleatorias dotadas de una función de distribución de probabilidad conjunta, permitiendo la aplicación legítima de la inferencia estadística moderna a datos no experimentales.
+2. **El Sesgo de Simultaneidad y Sistemas de Ecuaciones (1943):** Probó matemáticamente que estimar mediante Mínimos Cuadrados Ordinarios (MCO) una ecuación individual perteneciente a un sistema de equilibrio general produce estimadores inconsistentes y sesgados debido a la correlación endógena entre las variables explicativas y el término de error.
+3. **El Teorema del Presupuesto Equilibrado (1945):** Demostró analíticamente que un aumento del gasto público financiado íntegramente con impuestos no es neutral, sino que genera una expansión en el producto con un multiplicador idénticamente igual a 1 ($k=1$).
+
+Esta guía propone tres ejercicios con dificultad progresiva (básico, intermedio y avanzado/reto) orientados a afianzar la comprensión matemática y econométrica de estos conceptos.
+
+---
+
+# Ejercicio 1: Derivación Analítica del Sesgo de Simultaneidad (Nivel Básico)
+
+Considera el modelo macroeconómico de equilibrio general propuesto originalmente por Haavelmo (1943):
+
+$$\begin{aligned}
+C_t &= \alpha + \beta Y_t + u_t \quad && (0 < \beta < 1) \\
+Y_t &= C_t + I_t
+\end{aligned}$$
+
+donde:
+- $C_t$ es el consumo agregado y $Y_t$ es el ingreso nacional (ambas variables endógenas).
+- $I_t$ es la inversión autónoma, considerada estrictamente exógena: $\mathbb{E}[I_t u_t] = 0$, con media $\mu_I$ y varianza $\sigma_I^2 > 0$.
+- $u_t$ es una perturbación aleatoria estructural con $\mathbb{E}[u_t] = 0$ y $\text{Var}(u_t) = \sigma_u^2 > 0$.
+- $I_t$ y $u_t$ son estocásticamente independientes.
+
+## Preguntas
+
+1. **Ecuaciones de Forma Reducida:**
+   - Resuelve algebraicamente el sistema simultáneo para expresar las variables endógenas $Y_t$ y $C_t$ únicamente en función de las variables exógenas ($I_t$), los parámetros estructurales ($\alpha, \beta$) y el error ($u_t$).
+   - Identifica el multiplicador del gasto autónomo en la ecuación de forma reducida del producto.
+
+2. **Covarianza y Varianza Asintóticas:**
+   - A partir de la forma reducida de $Y_t$, calcula la covarianza analítica entre el ingreso nacional $Y_t$ y el término de error estructural del consumo $u_t$, $\text{Cov}(Y_t, u_t)$.
+   - Calcula la varianza no condicional del ingreso nacional, $\text{Var}(Y_t)$.
+
+3. **Límite Probabilístico del Estimador MCO:**
+   - Demuestra formalmente que el estimador de MCO obtenido al regresar $C_t$ sobre una constante y $Y_t$ converge en probabilidad a:
+     $$\text{plim} \, \hat{\beta}_{MCO} = \beta + (1 - \beta) \left( \frac{\sigma_u^2}{\sigma_I^2 + \sigma_u^2} \right)$$
+   - ¿Cuál es el signo del sesgo asintótico? Explica intuitivamente por qué un shock positivo al consumo ($u_t > 0$) distorsiona la estimación de la propensión marginal al consumo.
+   - Analiza qué sucede con el sesgo en los siguientes casos límite:
+     a) $\sigma_u^2 \to 0$ (la ecuación de consumo es determinista exacta).  
+     b) $\sigma_I^2 \to \infty$ (la volatilidad de la inversión exógena domina completamente al sistema).  
+     c) $\sigma_I^2 \to 0$ (la inversión no exhibe variación exógena).
+
+---
+
+# Ejercicio 2: El Multiplicador del Presupuesto Equilibrado de Haavelmo (Nivel Intermedio)
+
+En 1945, Haavelmo demostró en *Econometrica* que la creencia común de que "un presupuesto balanceado carece de impacto en el producto nacional" era una falacia matemática.
+
+Considera la economía cerrada con gobierno:
+
+$$\begin{aligned}
+Y &= C + I + G \\
+C &= \alpha + \beta Y_d + u \quad && (0 < \beta < 1) \\
+Y_d &= Y - T
+\end{aligned}$$
+
+donde $G$ es el gasto público en bienes y servicios, $T$ es la recaudación tributaria neta y $Y_d$ es el ingreso disponible. Supón que la inversión $I$ es constante.
+
+## Preguntas
+
+1. **Derivación del Teorema de Haavelmo con Impuestos de Suma Fija:**
+   - Obtén la expresión analítica del producto de equilibrio $Y^*$ en función de $G$ y $T$.
+   - Supón que el gobierno incrementa el gasto público en $\Delta G > 0$ y financia dicho gasto aumentando los impuestos en exactamente la misma magnitud ($\Delta T = \Delta G$). Demuestra paso a paso que el multiplicador del producto es:
+     $$\frac{\Delta Y}{\Delta G}\Bigg|_{\Delta T = \Delta G} = 1$$
+   - ¿Por qué el multiplicador del presupuesto equilibrado no es igual a cero? Descompón el efecto en el impacto sobre la demanda directa del gobierno versus la contracción inducida en el consumo privado.
+
+2. **Extensión con Impuestos Proporcionales al Ingreso:**
+   - Supón ahora que el sistema tributario es endógeno: $T = t_0 + t Y$, con $0 < t < 1$.
+   - Obtén el nuevo ingreso de equilibrio $Y^*$.
+   - Si el gobierno desea incrementar $G$ en $\Delta G$ manteniendo el presupuesto en equilibrio ex-post ($\Delta G = \Delta T$), ¿se sigue cumpliendo que el multiplicador es idénticamente 1? Demuestra bajo qué condiciones específicas sobre los parámetros tributarios se mantiene el resultado de Haavelmo.
+
+3. **Interpretación y Crítica Contemporánea:**
+   - Si los agentes económicos anticiparan que los impuestos futuros aumentarán para financiar el gasto actual (equivalencia ricardiana), ¿se mantendría el resultado del multiplicador de Haavelmo? Contrasta el teorema de Haavelmo con la teoría de Robert Barro (1974).
+
+---
+
+# Ejercicio 3: Identificación, Variables Instrumentales y Ruptura de Exogeneidad (Nivel Avanzado / Reto)
+
+Considera un sistema macroeconómico con dos ecuaciones estructurales y dos variables endógenas $(Y_t, C_t)$:
+
+$$\begin{aligned}
+C_t &= \alpha_1 + \beta_1 Y_t + u_{1t} \quad && \text{(Ecuación 1: Consumo)} \\
+Y_t &= \alpha_2 + \gamma_1 I_t + \gamma_2 G_t + u_{2t} \quad && \text{(Ecuación 2: Ecuación reducida de producto)}
+\end{aligned}$$
+
+donde $I_t$ y $G_t$ son variables exógenas con matriz de covarianza definida positiva, y los errores tienen $\mathbb{E}[u_{1t}] = 0$, $\mathbb{E}[u_{2t}] = 0$.
+
+## Preguntas
+
+1. **Condición de Rango y Orden de la Comisión Cowles:**
+   - Enuncia las reglas formales de orden y rango para la identificación de ecuaciones simultáneas desarrolladas por la Comisión Cowles tras el trabajo de Haavelmo.
+   - Aplica estas condiciones a la Ecuación 1 para determinar si el parámetro $\beta_1$ está subidentificado, exactamente identificado o sobreidentificado cuando el conjunto de instrumentos disponibles es $\{I_t, G_t\}$.
+
+2. **Estimador de Variables Instrumentales (MC2E / 2SLS):**
+   - Escribe formalmente la regresión de primera etapa para la variable endógena $Y_t$ proyectada sobre el espacio vectorial generado por las variables exógenas $Z_t = (1, I_t, G_t)'$.
+   - Demuestra que el estimador $\hat{\beta}_{1, IV}$ es consistente:
+     $$\text{plim}_{T \to \infty} \, \hat{\beta}_{1, IV} = \beta_1$$
+   - ¿Qué supuesto sobre la relación entre $Z_t$ y $u_{1t}$ es estrictamente indispensable para garantizar esta consistencia?
+
+3. **Reto Computacional en R (Simulación de Instrumentos Débiles):**
+   - Escribe un script en R que simule el modelo con $T = 150$ observaciones y $1,000$ réplicas Monte Carlo.
+   - Genera un escenario de **instrumento débil** reduciendo la correlación entre el instrumento $I_t$ y el producto $Y_t$ (por ejemplo, haciendo que la varianza de $I_t$ tienda a cero o su coeficiente en la primera etapa sea insignificante: $\pi_1 = 0.05$).
+   - Compara las distribuciones muestrales de $\hat{\beta}_{MCO}$ y $\hat{\beta}_{IV}$. ¿Conserva el estimador de variables instrumentales su superioridad cuando el instrumento es débil? Justifica a la luz de la literatura econométrica moderna (Stock, Wright y Yogo, 2002).

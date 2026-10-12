@@ -1,0 +1,109 @@
+---
+title: "Guía de Ejercicios Prácticos: La q de Tobin, Inversión Empresarial y Selección de Cartera"
+subtitle: "Premio Nobel de Economía 1981: James Tobin"
+author: "Nobel_economics Docencia"
+date: "1981-10-12"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta guía pedagógica aplicarás las grandes herramientas teóricas y empíricas formuladas por James Tobin:
+1. **La Teoría de la Inversión Empresarial basada en la q de Tobin:** Calcularás la ratio $q$ a partir de balances corporativos y datos bursátiles, y determinarás la tasa óptima de inversión física con costos de ajuste convexos.
+2. **El Teorema de Separación de Dos Fondos de Tobin (1958):** Descompondrás el problema de optimización financiera en la elección técnica de la cartera riesgosa óptima (tangente) y la asignación subjetiva entre riesgo y preferencia por liquidez.
+3. **El Modelo Econométrico Tobit y la Irreversibilidad del Capital:** Analizarás las consecuencias de los límites de censura en variables dependientes y modelarás la asimetría de costos de instalación entre expansión e infrautilización de capital.
+
+---
+
+# Ejercicio 1: La q de Tobin y la Decisión de Inversión Corporativa (Nivel Básico)
+
+Considera la corporación industrial **"Manufacturas del Norte S.A."**, cuyas acciones cotizan en bolsa. Dispones de los siguientes datos contables y de mercado:
+
+- Número de acciones ordinarias en circulación: $50.000.000$ acciones.
+- Precio de cotización de la acción en bolsa: $24$ dólares por acción.
+- Valor de mercado de la deuda financiera de la empresa: $400.000.000$ dólares.
+- Caja y equivalentes de efectivo (activos líquidos): $100.000.000$ dólares.
+- Costo de reposición a precios corrientes del parque de maquinaria, inmuebles e instalaciones productivas ($p_K K$): $1.000.000.000$ dólares ($1.000$ millones).
+- Tasa de depreciación anual del capital físico: $\delta = 0.08$ ($8\%$ anual).
+- Coeficiente de fricción o costo marginal de ajuste del capital: $\chi = 10$.
+
+## Preguntas:
+
+1. **Cálculo del Valor de la Empresa y la q de Tobin:**
+   - Calcula el valor total de mercado de los activos de la firma ($V$), definido como el valor de mercado del patrimonio neto (capitalización bursátil) más el valor de mercado de la deuda financiera menos la caja líquida disponible.
+   - Determina el valor numérico de la **$q$ de Tobin media** de la corporación.
+   - Con base en el valor de $q$ obtenido, ¿está la empresa en una zona de estímulo a la formación bruta de capital, en reposición estacionaria o en contracción de capital? Explica la intuición económica.
+
+2. **Determinación de la Tasa de Inversión Óptima:**
+   - A partir de la condición de primer orden de costos cuadráticos de ajuste:
+     $$\frac{I}{K} = \delta + \frac{1}{\chi}(q - 1)$$
+     calcula la tasa de inversión bruta ($I/K$) y la tasa de inversión neta de depreciación.
+   - ¿Cuál es el gasto monetario total en inversión nueva ($I$) que la empresa debe acometer durante el ejercicio anual?
+
+3. **Análisis de Sensibilidad ante un Shock Bursátil:**
+   - Supón que el banco central eleva las tasas de interés de política monetaria, provocando una corrección bursátil que desploma el precio de la acción a $14$ dólares (manteniendo constantes la deuda y la reposición del capital).
+   - Recalcula el nuevo valor de la $q$ de Tobin.
+   - ¿Cuál será la nueva tasa de inversión bruta de la empresa? ¿Qué ocurrirá con el stock de capital físico de la compañía a lo largo del tiempo si esta cotización persiste?
+
+---
+
+# Ejercicio 2: El Teorema de Separación de Tobin y Preferencia por Liquidez (Nivel Intermedio)
+
+Un comité de inversiones gestiona los recursos de una fundación universitaria y cuenta con acceso a los siguientes instrumentos financieros:
+
+1. **Activo libre de riesgo (dinero / letras soberanas de corto plazo):**
+   - Rendimiento seguro: $R_f = 0.03$ ($3.0\%$ anual) con desviación estándar $\sigma_f = 0$.
+
+2. **Dos activos de riesgo (Renta Variable $A$ y Deuda Corporativa $B$):**
+   - Retornos esperados: $\mu_A = 0.12$ ($12\%$ anual), $\mu_B = 0.06$ ($6\%$ anual).
+   - Volatilidades anuales: $\sigma_A = 0.20$ ($20\%$), $\sigma_B = 0.10$ ($10\%$).
+   - Coeficiente de correlación entre ambos: $\rho_{AB} = 0.25$.
+
+## Preguntas:
+
+1. **Matriz de Covarianzas:**
+   - Calcula numéricamente la covarianza entre los activos $A$ y $B$: $\sigma_{AB} = \rho_{AB} \sigma_A \sigma_B$.
+   - Escribe la matriz de covarianzas $\boldsymbol{\Sigma}$.
+
+2. **Deducción de la Cartera Tangente (Fase Técnica de Tobin):**
+   - Utilizando la fórmula analítica de Tobin:
+     $$\mathbf{w}_T = \frac{\boldsymbol{\Sigma}^{-1}(\boldsymbol{\mu} - R_f \mathbf{1})}{\mathbf{1}^\top \boldsymbol{\Sigma}^{-1}(\boldsymbol{\mu} - R_f \mathbf{1})}$$
+     calcula las ponderaciones óptimas $w_A^*$ y $w_B^*$ de la cartera tangente de activos riesgosos.
+   - Calcula el rendimiento esperado ($\mu_T$), la desviación estándar ($\sigma_T$) y la ratio de Sharpe de la cartera tangente.
+
+3. **Línea de Asignación de Capital (CAL):**
+   - Escribe la ecuación analítica de la CAL que relaciona el retorno esperado de una cartera combinada con su volatilidad ($\mu_c = f(\sigma_c)$).
+
+4. **Separación de Preferencias y Asignación de Activos:**
+   - La fundación atiende a dos tipos de donantes con diferentes comités de tolerancia al riesgo:
+     - **Perfil Prudente:** Función de utilidad con aversión al riesgo $\gamma_{\text{prudente}} = 8$.
+     - **Perfil Crecimiento:** Función de utilidad con aversión al riesgo $\gamma_{\text{crec}} = 2.5$.
+   - Calcula la proporción óptima $x^*$ invertida en la cartera riesgosa y $(1 - x^*)$ mantenida en activos líquidos seguros para cada uno de los perfiles.
+   - ¿Qué porcentaje de la riqueza total mantendrá el perfil prudente en cada uno de los tres activos (dinero, activo $A$, activo $B$)?
+   - Verifica el cumplimiento del Teorema de Separación de Tobin: ¿tienen ambos perfiles la misma proporción relativa entre acciones y deuda corporativa dentro de su canasta de riesgo?
+
+---
+
+# Ejercicio 3: Asimetría en Costos de Ajuste y el Modelo Tobit (Nivel Reto)
+
+## Parte A: Irreversibilidad y Costos Asimétricos de Ajuste
+En la teoría estándar, instalar o desinstalar capital tiene el mismo costo cuadrático. Sin embargo, en la práctica industrial, vender maquinaria pesada usada en mercados secundarios enfrenta pérdidas sustanciales por asimetría de información y especificidad técnica.
+
+Asume la siguiente función asimétrica de costos de ajuste:
+
+$$C(I, K) = \begin{cases} \frac{\chi_{\text{up}}}{2} \left( \frac{I}{K} - \delta \right)^2 K & \text{si } q \ge 1 \\ \frac{\chi_{\text{down}}}{2} \left( \frac{I}{K} - \delta \right)^2 K & \text{si } q < 1 \end{cases}$$
+
+con $\delta = 0.08$, $\chi_{\text{up}} = 8$ y $\chi_{\text{down}} = 24$.
+
+1. Dibuja o calcula la tasa de inversión $I/K$ para $q \in \{0.6, 0.8, 1.0, 1.2, 1.4\}$.
+2. Explica por qué una economía con $\chi_{\text{down}} \gg \chi_{\text{up}}$ responde más lentamente al desahucio de capital en las crisis y por qué esto genera histéresis en la capacidad productiva.
+
+## Parte B: La Lógica del Estimador Tobit (1958)
+Considera un modelo donde se analiza el gasto familiar en compra de automóviles nuevos ($y_i$), donde un $60\%$ de las familias en la muestra gasta exactamente $0$ dólares en un año dado.
+
+1. Si un investigador estima la relación entre ingreso ($x_i$) y gasto ($y_i$) mediante Mínimos Cuadrados Ordinarios (MCO) sobre toda la muestra, ¿por qué el estimador estará sesgado hacia abajo?
+2. Si el investigador descarta las familias que gastaron $0$ y estima MCO solo en los compradores positivos ($y_i > 0$), ¿por qué el estimador seguirá estando sesgado?
+3. Explica cómo la formulación del modelo Tobit mediante máxima verosimilitud conjunta (densidad normal para positivos y función de distribución acumulada para ceros) resuelve rigurosamente este problema.

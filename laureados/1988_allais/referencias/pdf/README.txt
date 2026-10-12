@@ -1,0 +1,1 @@
+Este directorio se reserva para versiones en acceso abierto de documentos de trabajo, notas tecnicas y discursos oficiales del Premio Nobel 1988 (Maurice Allais) procedentes de repositorios publicos o de nobelprize.org.

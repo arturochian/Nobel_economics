@@ -1,0 +1,17 @@
+"categoria","indicador","valor"
+"Seleccion de Cartera","Tasa libre de riesgo Rf",0.03
+"Seleccion de Cartera","Retorno esperado Cartera Tangente (mu_T)",0.0800832085938188
+"Seleccion de Cartera","Volatilidad Cartera Tangente (sigma_T)",0.0826765507867362
+"Seleccion de Cartera","Ratio de Sharpe Cartera Tangente",0.605772835431998
+"Seleccion de Cartera","Peso Acciones en Cartera Tangente",0.201461653605706
+"Seleccion de Cartera","Peso Bonos Corp en Cartera Tangente",0.497666637316193
+"Seleccion de Cartera","Peso Bienes Raices en Cartera Tangente",0.300871709078102
+"Seleccion de Cartera","Conservador: Peso en Liquidez (Rf)",0.592943269976281
+"Seleccion de Cartera","Conservador: Retorno Cartera",0.0503867071192957
+"Seleccion de Cartera","Conservador: Volatilidad Cartera",0.0336540464128888
+"Seleccion de Cartera","Moderado: Peso en Liquidez (Rf)",0.185886539952563
+"Seleccion de Cartera","Moderado: Retorno Cartera",0.0707734142385914
+"Seleccion de Cartera","Moderado: Volatilidad Cartera",0.0673080928257775
+"Seleccion de Cartera","Agresivo: Peso en Liquidez (Rf)",-0.332185661895807
+"Seleccion de Cartera","Agresivo: Retorno Cartera",0.0967201323904223
+"Seleccion de Cartera","Agresivo: Volatilidad Cartera",0.110140515533091

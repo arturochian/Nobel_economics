@@ -1,0 +1,10 @@
+"Categoria","Parametro","Metodo","Valor_Verdadero","Media_Estimada","Sesgo_Empirico","Sesgo_Teorico","Desv_Estandar","RMSE"
+"Monte Carlo Simultaneidad","beta (Propension Marginal)","MCO (OLS)",0.75,0.827,0.077,0.0769,0.0066,0.0773
+"Monte Carlo Simultaneidad","beta (Propension Marginal)","MC2E (2SLS / IV)",0.75,0.7495,-5e-04,0,0.0096,0.0096
+"Categoria","Parametro","Metodo","Valor_Verdadero","Media_Estimada","Sesgo_Empirico","Sesgo_Teorico","Desv_Estandar","RMSE","Mult_Presupuesto_Equilibrado","Mult_Gasto_Deficit","Mult_Impuestos"
+"Multiplicador Haavelmo","beta = 0.20","Multiplicador Fiscal",NA,NA,NA,NA,NA,NA,1,1.25,-0.25
+"Multiplicador Haavelmo","beta = 0.50","Multiplicador Fiscal",NA,NA,NA,NA,NA,NA,1,2,-1
+"Multiplicador Haavelmo","beta = 0.60","Multiplicador Fiscal",NA,NA,NA,NA,NA,NA,1,2.5,-1.5
+"Multiplicador Haavelmo","beta = 0.75","Multiplicador Fiscal",NA,NA,NA,NA,NA,NA,1,4,-3
+"Multiplicador Haavelmo","beta = 0.80","Multiplicador Fiscal",NA,NA,NA,NA,NA,NA,1,5,-4
+"Multiplicador Haavelmo","beta = 0.90","Multiplicador Fiscal",NA,NA,NA,NA,NA,NA,1,10,-9

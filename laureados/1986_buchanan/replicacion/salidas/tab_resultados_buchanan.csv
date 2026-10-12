@@ -1,0 +1,8 @@
+"Tipo_Metrica","Parametro","Valor_Optimo","Costos_Externos","Costos_Negociacion","Costo_Total","Interpretacion"
+"Regla de Votacion Optima","Estado de Emergencia",0.515,21.75,8.39,30.13,"Umbral reducido (<45%) para minimizar paralisis por negociacion"
+"Regla de Votacion Optima","Legislacion Ordinaria",0.64,12.96,7.87,20.83,"Cercano a mayoria simple (50%+1) para provisio corriente de bienes"
+"Regla de Votacion Optima","Nivel Constitucional",0.725,14.6,12.08,26.68,"Mayoria calificada (>65%) para salvaguardar derechos y reglas fiscales"
+"Busqueda de Rentas (r = 1.0)","n = 2 competidores",0.5,25,50,75,"Disipacion del 50.0% de la renta; Costo social total 3x el triangulo de Harberger"
+"Busqueda de Rentas (r = 1.0)","n = 5 competidores",0.8,16,80,105,"Disipacion del 80.0% de la renta; Costo social total 4.2x el triangulo de Harberger"
+"Busqueda de Rentas (r = 1.0)","n = 10 competidores",0.9,9,90,115,"Disipacion del 90.0% de la renta; Costo social total 4.6x el triangulo de Harberger"
+"Busqueda de Rentas (r = 1.0)","n = 20 competidores",0.95,4.75,95,120,"Disipacion del 95.0% de la renta; Costo social total 4.8x el triangulo de Harberger"

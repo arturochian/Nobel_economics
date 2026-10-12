@@ -1,0 +1,111 @@
+---
+title: "Guía de Ejercicios Prácticos: Búsqueda de Información, Captura Regulatoria y el Principio del Superviviente"
+subtitle: "Premio Nobel de Economía 1982: George J. Stigler"
+author: "Nobel_economics Docencia"
+date: "1982-10-20"
+format:
+  html:
+    toc: true
+    number-sections: true
+    embed-resources: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta guía aplicarás el instrumental analítico desarrollado por **George J. Stigler** para investigar la microeconomía de la información y la economía política de la regulación:
+
+1. Derivarás matemáticamente la **regla de parada óptima de búsqueda de precios** en *The Economics of Information* (1961), balanceando el ahorro esperado con el costo marginal de cotización.
+2. Analizarás por qué los compradores de mayores volúmenes de compra ($Q$) o bienes de alto valor buscan más intensamente y cómo la tecnología digital altera este equilibrio.
+3. Modelarás analíticamente la **captura regulatoria de Stigler (1971)**: cuantificarás las rentas transferidas por la restricción de licencias y calcularás la pérdida social total incorporando el gasto en cabildeo político.
+4. Resolverás un reto en R sobre el **Principio del Superviviente (*Survivor Technique*, 1958)**, deduciendo la escala óptima de planta a partir de la evolución temporal de las cuotas de mercado.
+
+---
+
+# Ejercicio 1: El Modelo de Búsqueda de Información y Regla de Parada Óptima (Nivel Básico)
+
+Imagina que deseas comprar un televisor de alta gama. Los distribuidores de la ciudad cobran precios que siguen una distribución uniforme continua en el intervalo:
+$$P \sim U(600, 1200)$$
+
+Cada llamada telefónica o visita a una tienda para obtener una cotización independiente te cuesta $c = \$15.00$ en tiempo y transporte. Planificas comprar $Q = 1$ televisor y elegirás la tienda con el precio más bajo observado entre $n$ cotizaciones:
+$$P_{(1:n)} = \min(P_1, P_2, \dots, P_n)$$
+
+### Preguntas:
+
+1. **Estadística de Orden del Precio Mínimo:**
+   - Escribe la función de distribución acumulada $F(p)$ de un precio individual y deduce la función acumulada del precio mínimo $F_{(1:n)}(p) = 1 - [1 - F(p)]^n$.
+   - Demuestra que el precio mínimo esperado analítico es:
+     $$E[P_{(1:n)}] = 600 + \frac{600}{n + 1}$$
+   - Calcula $E[P_{(1:n)}]$ para $n = 1, 2, 3, 4, 5$. ¿Qué observas respecto a la tasa de reducción del precio esperado?
+2. **Beneficio Marginal y Regla de Parada de Stigler:**
+   - Obtén la expresión analítica para el beneficio marginal esperado de la $n$-ésima cotización:
+     $$MB(n) = E[P_{(1:n-1)}] - E[P_{(1:n)}]$$
+   - Evalúa $MB(n)$ para $n = 2, 3, 4, 5, 6$.
+   - Aplicando la condición de Stigler $Q \cdot MB(n^*) \ge c > Q \cdot MB(n^* + 1)$, determina el número óptimo de búsquedas $n^*$ para un consumidor individual ($Q = 1$) con $c = \$15.00$. ¿Cuál es el precio mínimo esperado final que pagará?
+3. **El Efecto del Volumen Comprado ($Q$):**
+   - Supón ahora que el comprador es un hotel boutique que va a equipar todas sus habitaciones comprando $Q = 10$ televisores idénticos.
+   - Calcula el beneficio marginal total $10 \cdot MB(n)$ y encuentra el nuevo tamaño de búsqueda óptimo $n^*_{\text{hotel}}$.
+   - Explica intuitivamente por qué las empresas y los compradores mayoristas invierten mucho más tiempo y recursos en buscar cotizaciones que los consumidores minoristas.
+4. **Impacto de la Era Digital:**
+   - Si una plataforma agregadora de compras en internet reduce el costo marginal por cotización de $\$15.00$ a solo $c' = \$1.00$, ¿cuál sería el nuevo $n^*$ para $Q = 1$? ¿Qué predice la teoría de Stigler sobre la dispersión de precios en mercados con comercio electrónico?
+
+---
+
+# Ejercicio 2: Captura Regulatoria y Licencias Restringidas de Entrada (Nivel Intermedio)
+
+El mercado metropolitano de transporte de pasajeros en taxi tiene una curva de demanda inversa agregada dada por:
+$$P(Q) = 100 - Q$$
+donde $Q$ representa miles de viajes al mes y $P$ la tarifa por viaje en dólares.
+
+La tecnología de operación de taxis presenta rendimientos constantes a escala con un costo marginal constante $c_0 = \$20$ por viaje. No existen costos fijos de entrada adicionales a la adquisición de un vehículo.
+
+### Escenario A: Mercado Competitivo Libre (Sin Regulación de Licencias)
+1. Calcula el precio competitivo de equilibrio $P_c$, la cantidad de viajes $Q_c$ y el excedente total del consumidor $CS_c$. ¿Cuál es el beneficio de la industria?
+
+### Escenario B: Captura Regulatoria mediante Medallones / Licencias
+El gremio de taxistas titulares forma una asociación cerrada y persuade a la comisión de transporte municipal de congelar el número de licencias (medallones), limitando la oferta mensual a $Q_{reg} = 40$ mil viajes (lo que equivale a un cupo estricto).
+
+2. **Equilibrio Bajo Captura:**
+   - Calcula el precio regulado resultante en el mercado $P_{reg}$.
+   - Calcula el nuevo excedente del consumidor $CS_{reg}$.
+   - Calcula las rentas económicas extraordinarias totales acumuladas por los poseedores de licencias ($\Pi_{reg}$).
+3. **Pérdida de Eficiencia Social:**
+   - Calcula la pérdida de peso muerto de Harberger ($DWL$).
+   - Supón que para mantener la ley de restricción de licencias y bloquear la entrada de competidores (ej. servicios de transporte privado), el gremio de taxistas gasta el $40\%$ de sus rentas anuales en cabildeo político, abogados y contribuciones electorales. Calcula este gasto disipado en rentas ($Gasto = 0.40 \times \Pi_{reg}$).
+   - ¿Cuál es la pérdida social total de la regulación según el análisis de Stigler? Compárala con el cálculo convencional neoclásico que solo mide el triángulo de Harberger.
+4. **La Lógica de Acción Colectiva:**
+   - Supón que hay 100 empresas de taxi titulares y 500,000 usuarios de taxi en la ciudad.
+   - Calcula la renta neta promedio por empresa titular frente a la pérdida monetaria promedio por usuario al año.
+   - Explica, con base en la teoría de Stigler (1971), por qué las asociaciones de taxis están ferozmente organizadas y cabildean activamente, mientras que los usuarios jamás marchan al ayuntamiento para protestar por las licencias.
+
+---
+
+# Ejercicio 3: El Principio del Superviviente (*The Survivor Principle*) y Economías de Escala (Nivel Avanzado / Reto en R)
+
+En su célebre artículo de 1958, *The Economies of Scale*, Stigler argumentó que las curvas de costos medios no pueden inferirse confiablemente de los balances contables:
+> *"La técnica del superviviente postula que si una escala de planta o empresa es eficiente en las condiciones reales del mercado, su participación en la producción total de la industria aumentará o se mantendrá estable en el tiempo."*
+
+Imagina una industria que opera durante $T = 8$ años (2015–2022). Las empresas se clasifican en cuatro categorías según su tamaño de capacidad productiva:
+- **Clase 1 (Muy pequeña):** Capacidad $< 50$ unidades.
+- **Clase 2 (Mediana):** Capacidad $50 - 150$ unidades.
+- **Clase 3 (Grande):** Capacidad $150 - 300$ unidades.
+- **Clase 4 (Muy grande / Masiva):** Capacidad $> 300$ unidades.
+
+El archivo simulated de datos contiene la evolución porcentual de la producción total por clase de tamaño:
+
+| Año | Clase 1 (Muy pequeña) | Clase 2 (Mediana) | Clase 3 (Grande) | Clase 4 (Muy grande) |
+|:---:|:---:|:---:|:---:|:---:|
+| 2015 | 28.5% | 34.0% | 25.5% | 12.0% |
+| 2016 | 25.0% | 35.5% | 27.0% | 12.5% |
+| 2017 | 21.0% | 37.0% | 29.5% | 12.5% |
+| 2018 | 17.5% | 38.5% | 32.0% | 12.0% |
+| 2019 | 14.0% | 40.0% | 35.0% | 11.0% |
+| 2020 | 11.0% | 41.5% | 37.5% | 10.0% |
+| 2021 | 8.5%  | 42.5% | 40.0% | 9.0%  |
+| 2022 | 6.0%  | 43.5% | 42.5% | 8.0%  |
+
+### Reto en R:
+Escribe un script en R que:
+1. Cree un data frame con los datos anteriores en formato ordenado (*tidy*).
+2. Grafique la trayectoria temporal de la cuota de mercado de cada clase utilizando `ggplot2`.
+3. Aplique el criterio del superviviente de Stigler: identifique qué clases de tamaño son económicamente eficientes (supervivientes) y cuál es el rango de escala óptima mínima (MES, *Minimum Efficient Scale*).
+4. Explique por qué la Clase 4 (Muy grande) pierde cuota de mercado a pesar de que la teoría ingenieril suele asumir que las plantas más grandes tienen siempre menores costos unitarios.

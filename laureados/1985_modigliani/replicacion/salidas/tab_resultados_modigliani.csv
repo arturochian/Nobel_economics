@@ -1,0 +1,6 @@
+"Escenario","n_poblacion","g_productividad","tasa_dependencia","tasa_ahorro","ratio_W_Y","Crecimiento_Poblacional_pct","Crecimiento_Productividad_pct","Tasa_Dependencia_pct","Tasa_Ahorro_Nacional_pct","Ratio_Riqueza_Ingreso"
+"Envejecimiento Severo (Crisis Demográfica)",-0.01,0.01,0.645886305879178,-0.000519900159626582,5.19900159626127,"-1.0%","1.0%","64.6%","-0.05%","5.20"
+"Población Estacionaria (Reemplazo Cero)",0,0.015,0.466666666666667,0.0570163390290995,3.80108926860669,"0.0%","1.5%","46.7%","5.70%","3.80"
+"Teorema Puro de Modigliani (g=0, n=0)",0,0,0.466666666666667,-5.05573598173763e-16,5.18892388747334,"0.0%","0.0%","46.7%","-0.00%","5.19"
+"Bono Demográfico Dinámico",0.015,0.02,0.281385861391591,0.0813116486308342,2.30344613685083,"1.5%","2.0%","28.1%","8.13%","2.30"
+"Expansión Demográfica Emergente",0.025,0.03,0.198544120555341,0.0664746812075141,1.19237096336348,"2.5%","3.0%","19.9%","6.65%","1.19"

@@ -1,0 +1,423 @@
+---
+title: "Replicación Cuantitativa: Paradoja de Allais, Eficiencia Asignativa y Tarificación Óptima"
+subtitle: "Premio Nobel de Economía 1988: Maurice Allais"
+author: "Nobel_economics Project"
+date: "1988-10-18"
+format:
+  html:
+    toc: true
+    number-sections: true
+    embed-resources: true
+    theme: cosmo
+    code-fold: show
+    code-tools: true
+---
+
+# Introducción y Objetivo
+
+En 1988, la Real Academia Sueca de Ciencias otorgó el Premio del Banco de Suecia en Ciencias Económicas en Memoria de Alfred Nobel en solitario a **Maurice Allais**:
+
+> *"for his pioneering contributions to the theory of markets and efficient utilization of resources"* (Por sus contribuciones pioneras a la teoría de los mercados y la utilización eficiente de los recursos).
+
+Maurice Allais (1911–2010), ingeniero de minas y economista de la prestigiosa École Nationale Supérieure des Mines de Paris, fue una de las figuras más singulares y prolíficas de la historia del pensamiento económico. Trabajando de forma independiente en Francia durante la Segunda Guerra Mundial y los años de posguerra, Allais desarrolló en paralelo —y en varios casos con notable anterioridad— los grandes pilares de la teoría económica contemporánea:
+
+1. **La Paradoja de Allais (1953):** A través de célebres experimentos diseñados para desafiar a los mayores teóricos de la época (entre ellos Leonard Savage y Milton Friedman), Allais demostró empíricamente la quiebra sistemática del **axioma de independencia** de la teoría de la utilidad esperada de von Neumann y Morgenstern. Este descubrimiento dio origen al **efecto certeza** (*certainty effect*), al modelo de apertura en abanico (*fanning out*) de Machina (1982) y a los cimientos empíricos de la economía conductual (*behavioral economics*).
+2. **Teoría del Equilibrio General y los Teoremas del Bienestar (1943):** En su monumental tratado *À la recherche d'une discipline économique* (1943, reeditado en 1952 como *Traité d'économie pure*), Allais formuló con rigor matemático los dos Teoremas Fundamentales de la Economía del Bienestar con independencia de John Hicks, Paul Samuelson, Kenneth Arrow y Gérard Debreu.
+3. **Eficiencia y Tarificación al Costo Marginal en Monopolios Naturales (1943, 1952):** Allais demostró que la maximización del excedente social exige tarificación al costo marginal ($P = CMg$), incluso en monopolios con rendimientos crecientes donde el costo marginal es inferior al costo medio ($CMg < CMe$). Su teoría fue implementada en las grandes empresas públicas francesas (Électricité de France y SNCF) por su discípulo Marcel Boiteux (*regla de Ramsey-Boiteux*).
+4. **La Regla de Oro de la Acumulación de Capital (1947):** En *Économie et Intérêt* (1947), demostró que el consumo por habitante en estado estacionario se maximiza cuando la tasa de interés real iguala la tasa de crecimiento de la economía ($r = g$), anticipando en catorce años la famosa "regla de oro" atribuida habitualmente a Edmund Phelps (1961).
+
+## ¿Qué vas a aprender?
+
+1. **La Estructura Axiomática de la Elección Bajo Riesgo:** Por qué el axioma de independencia exige linealidad en probabilidades en la Utilidad Esperada y cómo la Paradoja de Allais refuta esa linealidad mediante el efecto certeza.
+2. **Geometría de Loterías en el Triángulo de Marschak-Machina:** Cómo mapear loterías probabilísticas tridimensionales en un símplex bidimensional, analizando por qué curvas de indiferencia paralelas no pueden explicar las decisiones humanas reales y cómo el modelo de *fanning out* resuelve la contradicción.
+3. **El Dilema del Monopolio Natural:** Por qué las tecnologías con altos costos fijos y costos marginales constantes o decrecientes sufren un dilema irresoluble entre autofinanciamiento y eficiencia paretiana.
+4. **Tarificación Marginal vs. Costo Medio:** Cómo cuantificar matemáticamente la pérdida irrecuperable de eficiencia (*deadweight loss*) del monopolio no regulado, el compromiso subóptimo de la tarificación al costo medio y el óptimo social de Allais ($P = CMg$) financiado mediante tarifas en dos partes o subsidio estatal.
+5. **Implementación y Visualización en R:** Cómo modelar funciones de demanda, curvas de costos medios y simplex de probabilidades con `ggplot2`, produciendo gráficos analíticos de calidad de publicación.
+
+## Nivel de Replicación
+
+- **Nivel:** **Completa e Ilustrativa Rigurosa**
+- **Alcance:** Replicación analítica y experimental del problema canónico de loterías de Allais (1953) y simulación cuantitativa completa del modelo de tarificación en monopolio natural bajo las especificaciones de Allais (1943) y Boiteux (1956).
+
+---
+
+# Marco Teórico y Fundamentos Matemáticos
+
+## 1. La Paradoja de Allais (1953) y el Efecto Certeza
+
+### El Axioma de Independencia de von Neumann-Morgenstern
+
+Sea $\mathcal{L}$ el conjunto de distribuciones de probabilidad (loterías) sobre un conjunto de resultados monetarios $X = \{x_1, x_2, \dots, x_m\}$. Bajo la teoría de la Utilidad Esperada (EUT, *Expected Utility Theory*), las preferencias $\succsim$ de un decisor racional satisfacen el **Axioma de Independencia**:
+
+$$\forall L, L', L'' \in \mathcal{L}, \quad \alpha \in (0, 1]: \quad L \succsim L' \iff \alpha L + (1 - \alpha) L'' \succsim \alpha L' + (1 - \alpha) L''$$
+
+Este axioma garantiza que la función de utilidad sobre loterías es lineal en las probabilidades:
+
+$$V(L) = \sum_{i=1}^m p_i u(x_i)$$
+
+### El Experimento Canónico de Allais
+
+Allais consideró tres resultados monetarios ordenados:
+- $x_1 = 0$ francos
+- $x_2 = 100$ millones de francos
+- $x_3 = 500$ millones de francos
+
+con $u(0) < u(100) < u(500)$. Sin pérdida de generalidad, normalizamos $u(0) = 0$ y $u(500) = 1$, con $u(100) \in (0, 1)$.
+
+Se plantean dos elecciones independientes a los sujetos:
+
+**Problema 1 (Elección entre Certeza y Gran Riesgo):**
+- **Lotería $L_1$ (o A):** Recibir $100$ millones con probabilidad $1.0$.
+  $$V(L_1) = u(100)$$
+- **Lotería $L_2$ (o B):** Recibir $500$ millones con prob $0.10$, $100$ millones con prob $0.89$, y $0$ con prob $0.01$.
+  $$V(L_2) = 0.10 u(500) + 0.89 u(100) + 0.01 u(0)$$
+
+**Problema 2 (Elección entre Dos Loterías Altamente Inciertas):**
+- **Lotería $L_3$ (o C):** Recibir $100$ millones con prob $0.11$, y $0$ con prob $0.89$.
+  $$V(L_3) = 0.11 u(100) + 0.89 u(0)$$
+- **Lotería $L_4$ (o D):** Recibir $500$ millones con prob $0.10$, y $0$ con prob $0.90$.
+  $$V(L_4) = 0.10 u(500) + 0.90 u(0)$$
+
+### La Inconsistencia Matemática con la Utilidad Esperada
+
+Empíricamente, en el experimento original de Allais (1953) y en todas las réplicas posteriores (Slovic y Tversky 1974; Kahneman y Tversky 1979), la abrumadora mayoría de los decisores exhibe el patrón:
+
+$$L_1 \succ L_2 \quad \text{y} \quad L_4 \succ L_3$$
+
+Bajo la teoría de la Utilidad Esperada:
+
+1. De $L_1 \succ L_2$:
+   $$u(100) > 0.10 u(500) + 0.89 u(100) + 0.01 u(0)$$
+   Restando $0.89 u(100)$ a ambos lados:
+   $$0.11 u(100) > 0.10 u(500) + 0.01 u(0)$$
+
+2. De $L_4 \succ L_3$:
+   $$0.10 u(500) + 0.90 u(0) > 0.11 u(100) + 0.89 u(0)$$
+   Restando $0.89 u(0)$ a ambos lados:
+   $$0.10 u(500) + 0.01 u(0) > 0.11 u(100)$$
+
+¡Ambas desigualdades son mutuamente excluyentes! Ninguna función de utilidad $u(x)$ puede satisfacer simultáneamente ambas preferencias bajo Utilidad Esperada.
+
+### Geometría en el Triángulo de Marschak-Machina
+
+En el símplex tridimensional, dado que $p_2 = 1 - p_1 - p_3$, podemos representar cualquier lotería en el plano $(p_1, p_3)$, donde $p_1 = \Pr(X = 0)$ es el eje horizontal y $p_3 = \Pr(X = 500\text{M})$ es el eje vertical:
+
+- $L_1 = (0, 0)$
+- $L_2 = (0.01, 0.10)$
+- $L_3 = (0.89, 0)$
+- $L_4 = (0.90, 0.10)$
+
+El vector de traslación entre $L_1 \to L_2$ es $(\Delta p_1, \Delta p_3) = (0.01, 0.10)$, con pendiente exactamente igual a $10$.
+El vector de traslación entre $L_3 \to L_4$ es exactamente el mismo: $(\Delta p_1, \Delta p_3) = (0.01, 0.10)$, con pendiente $10$.
+
+Bajo EUT, las curvas de indiferencia son rectas con pendiente fija:
+
+$$\left. \frac{dp_3}{dp_1} \right|_{EU = \text{cte}} = \frac{u(100) - u(0)}{u(500) - u(100)} = S > 0$$
+
+- Si $L_1 \succ L_2$, entonces $S > 10$.
+- Pero si $S > 10$, las mismas rectas paralelas obligan a que $L_3 \succ L_4$.
+
+**La solución de Mark Machina (1982) - *Fanning Out*:**
+Las curvas de indiferencia reales no son paralelas; se "abren en abanico" (*fan out*). Cerca del origen (zona de certeza $L_1$), las curvas son muy empinadas ($S > 10$) debido a la extrema aversión al riesgo de perder una ganancia 100% segura (**efecto certeza**). En la región de alta probabilidad de fracaso ($p_1$ alto), el sujeto asume el riesgo y las curvas se aplanan ($S < 10$), prefiriendo aspirar al premio máximo ($L_4 \succ L_3$).
+
+---
+
+## 2. Eficiencia Asignativa y Tarificación en Monopolio Natural
+
+En su *Traité d'économie pure* (1943, 1952), Allais formuló el principio de rendimiento social (*rendement social*) y pérdida de rendimiento (*perte de rendement*).
+
+### La Demostración de Allais de Tarificación al Costo Marginal
+
+Consideremos una economía con bienestar social medido por el Excedente Social Total $W(Q)$, suma del Excedente del Consumidor $CS(Q)$ y el Beneficio del Productor $\Pi(Q)$:
+
+$$W(Q) = \int_0^Q P(q) \, dq - C(Q)$$
+
+Maximizando respecto a $Q$:
+
+$$\frac{dW}{dQ} = P(Q) - C'(Q) = 0 \implies P(Q) = CMg(Q)$$
+
+La regla fundamental de Allais establece que **en cualquier empresa, competitiva o monopólica, la eficiencia económica exige que el precio de venta sea estrictamente igual al costo marginal**.
+
+### El Dilema del Déficit en Monopolios Naturales
+
+En servicios de infraestructura y redes de distribución (electricidad, ferrocarriles, agua, telecomunicaciones), la función de costos exhibe fuertes costos fijos $F$ y costos marginales unitarios constantes $c$:
+
+$$C(Q) = F + c Q$$
+$$CMg(Q) = c$$
+$$CMe(Q) = \frac{F}{Q} + c > CMg(Q) \quad \forall Q > 0$$
+
+Si el operador aplica la regla de máxima eficiencia de Allais ($P = c$):
+
+$$\Pi = P \cdot Q - C(Q) = c Q - (F + c Q) = -F < 0$$
+
+La empresa incurre en un déficit estructural constante de explotación igual al costo fijo $F$.
+
+### Comparación de los Tres Regímenes Regulatorios
+
+1. **Monopolio Privado No Regulado:**
+   Maximizador de beneficios privados: $IMg(Q) = CMg$.
+   Genera subproducción $Q_m < Q^*$ y sobreprecio $P_m > CMg$, produciendo una severa **Pérdida Irrecuperable de Eficiencia** ($DWL$).
+
+2. **Tarificación al Costo Medio ($P = CMe$ - Segundo Mejor Presupuestario):**
+   Exige equilibrio presupuestario sin intervención fiscal ($\Pi = 0$).
+   Fija $P_{cme} = CMe(Q_{cme})$. Aunque elimina el beneficio monopólico extraordinario, induce $Q_{cme} < Q^*$, manteniendo una pérdida de eficiencia paretiana residual.
+
+3. **Primer Mejor de Allais ($P = CMg$):**
+   Maximiza el bienestar total ($DWL = 0$).
+   El déficit $F$ debe ser cubierto por:
+   - **Tarifas en dos partes (*two-part tariffs*):** Los usuarios abonan una cuota fija de acceso independiente del consumo ($T_{fija} = F/N$) y un precio variable por unidad consumida estrictamente igual a $CMg$.
+   - **Subsidio fiscal directo:** Financiado mediante impuestos generales no distorsionantes (*lump-sum*).
+   - **Regla de Ramsey-Boiteux (1956):** Cuando los subsidios impositivos generan distorsiones, los precios se desvían del costo marginal inversamente a la elasticidad-precio de la demanda de cada servicio.
+
+---
+
+# Replicación en R y Simulación Cuantitativa
+
+A continuación ejecutamos y visualizamos de forma transparente ambos módulos analíticos.
+
+## 1. Módulo 1: La Paradoja de Allais en el Triángulo de Marschak-Machina
+
+```{r preparacion_entorno, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(scales)
+
+# Definicion de las loterias canonicas
+loterias <- data.frame(
+  id = c("L1 (A)", "L2 (B)", "L3 (C)", "L4 (D)"),
+  par = c("Par 1", "Par 1", "Par 2", "Par 2"),
+  eleccion = c("Mayoritaria (82%)", "Minoritaria (18%)", "Minoritaria (17%)", "Mayoritaria (83%)"),
+  p1 = c(0.00, 0.01, 0.89, 0.90),
+  p3 = c(0.00, 0.10, 0.00, 0.10)
+)
+
+# Vectores de transicion paralelos
+segmentos <- data.frame(
+  x = c(0.00, 0.89),
+  y = c(0.00, 0.00),
+  xend = c(0.01, 0.90),
+  yend = c(0.10, 0.10),
+  par = c("L1 -> L2", "L3 -> L4")
+)
+
+# Curvas de indiferencia no lineales fanning out (Machina 1982)
+p1_seq <- seq(0, 1, length.out = 300)
+grid_curvas <- expand.grid(p1 = p1_seq, nivel = c(1, 2, 3, 4, 5)) %>%
+  mutate(
+    p3_fanning = case_when(
+      nivel == 1 ~ -0.01 + 14 * p1 - 6 * p1^2,
+      nivel == 2 ~ 0.04 + 12.5 * p1 - 5.5 * p1^2,
+      nivel == 3 ~ 0.08 + 11.2 * p1 - 5.0 * p1^2,
+      nivel == 4 ~ -0.05 + 9.5 * p1 - 3.8 * p1^2,
+      nivel == 5 ~ -0.15 + 8.2 * p1 - 2.8 * p1^2
+    )
+  ) %>%
+  filter(p1 >= 0, p3_fanning >= 0, p1 + p3_fanning <= 1)
+
+# Curvas lineales de la Utilidad Esperada tradicional (EUT) con pendiente fija = 10
+grid_eut <- expand.grid(p1 = p1_seq, k = c(0.01, 0.05, -0.05, -0.80, -0.89)) %>%
+  mutate(p3_eut = k + 10 * p1) %>%
+  filter(p1 >= 0, p3_eut >= 0, p1 + p3_eut <= 1)
+```
+
+Graficamos el triángulo símplex con las elecciones de Allais:
+
+```{r grafico_paradoja_allais, fig.width=8.5, fig.height=7.0}
+p_allais <- ggplot() +
+  geom_polygon(data = data.frame(x = c(0, 1, 0), y = c(0, 0, 1)),
+               aes(x = x, y = y), fill = "#f8fafc", color = "#64748b", linewidth = 0.8) +
+  geom_line(data = grid_eut, aes(x = p1, y = p3_eut, group = k),
+            color = "#94a3b8", linetype = "dotted", linewidth = 0.6, alpha = 0.7) +
+  geom_line(data = grid_curvas, aes(x = p1, y = p3_fanning, group = nivel),
+            color = "#0284c7", linewidth = 0.9, alpha = 0.85) +
+  geom_segment(data = segmentos,
+               aes(x = x, y = y, xend = xend, yend = yend),
+               color = "#dc2626", linewidth = 1.1, arrow = arrow(length = unit(0.25, "cm"))) +
+  geom_point(data = loterias, aes(x = p1, y = p3, color = eleccion), size = 4.5) +
+  geom_text(data = loterias, aes(x = p1, y = p3, label = id),
+            vjust = c(-1.2, 1.8, -1.2, 1.8),
+            hjust = c(-0.1, -0.1, 0.9, 0.9),
+            fontface = "bold", size = 3.6, color = "#0f172a") +
+  scale_color_manual(values = c("Mayoritaria (82%)" = "#16a34a",
+                                "Mayoritaria (83%)" = "#16a34a",
+                                "Minoritaria (18%)" = "#9333ea",
+                                "Minoritaria (17%)" = "#9333ea")) +
+  annotate("text", x = 0.03, y = 0.22,
+           label = "Efecto Certeza:\nCurvas mas empinadas\n(L1 preferido a L2)",
+           color = "#0369a1", fontface = "bold", size = 3.2, hjust = 0) +
+  annotate("text", x = 0.70, y = 0.18,
+           label = "Incertidumbre Dominante:\nCurvas mas planas\n(L4 preferido a L3)",
+           color = "#0369a1", fontface = "bold", size = 3.2, hjust = 0.5) +
+  scale_x_continuous(limits = c(0, 1.02), breaks = seq(0, 1, 0.2),
+                     labels = percent_format(accuracy = 1)) +
+  scale_y_continuous(limits = c(0, 1.02), breaks = seq(0, 1, 0.2),
+                     labels = percent_format(accuracy = 1)) +
+  labs(
+    title = "La Paradoja de Allais (1953) en el Triangulo de Marschak-Machina",
+    subtitle = "Refutacion de la Utilidad Esperada: 'Fanning Out' y el Efecto Certeza",
+    x = expression(Probabilidad~del~peor~resultado~p[1]~"("*0~francos*")"),
+    y = expression(Probabilidad~del~mejor~resultado~p[3]~"("*500~millones~francos*")"),
+    color = "Patron de Eleccion Empirica"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "bottom")
+
+p_allais
+```
+
+---
+
+## 2. Módulo 2: Modelo de Eficiencia Asignativa y Monopolio Natural
+
+Simulamos la estructura de un monopolio natural representativo con la especificación matemática de Allais (1943):
+
+```{r simulacion_monopolio}
+# Parametros estructurales
+a <- 120
+b <- 1
+F_fijo <- 800
+c_mg <- 20
+
+# 1. Monopolio Privado no regulado
+Q_mon <- (a - c_mg) / (2 * b)
+P_mon <- a - b * Q_mon
+CS_mon <- 0.5 * (a - P_mon) * Q_mon
+Benef_mon <- (P_mon - c_mg) * Q_mon - F_fijo
+Excedente_mon <- CS_mon + Benef_mon
+DWL_mon <- 0.5 * (P_mon - c_mg) * (((a - c_mg)/b) - Q_mon)
+
+# 2. Tarificacion al Costo Medio (P = CMe)
+discrim <- (a - c_mg)^2 - 4 * b * F_fijo
+Q_cme <- ((a - c_mg) + sqrt(discrim)) / (2 * b)
+P_cme <- a - b * Q_cme
+CS_cme <- 0.5 * (a - P_cme) * Q_cme
+Benef_cme <- 0
+Excedente_cme <- CS_cme + Benef_cme
+DWL_cme <- 0.5 * (P_cme - c_mg) * (((a - c_mg)/b) - Q_cme)
+
+# 3. Primer Mejor de Allais (P = CMg)
+Q_allais <- (a - c_mg) / b
+P_allais <- c_mg
+CS_allais <- 0.5 * (a - P_allais) * Q_allais
+Benef_allais <- -F_fijo
+Excedente_allais <- CS_allais + Benef_allais
+DWL_allais <- 0
+```
+
+Visualizamos la comparación analítica entre los tres regímenes regulatorios:
+
+```{r grafico_eficiencia_monopolio, fig.width=8.5, fig.height=7.0}
+q_grid <- seq(5, 115, length.out = 300)
+curvas_costo <- data.frame(
+  Q = q_grid,
+  Demanda = a - b * q_grid,
+  IMg = ifelse(a - 2 * b * q_grid >= 0, a - 2 * b * q_grid, NA),
+  CMg = rep(c_mg, length(q_grid)),
+  CMe = (F_fijo / q_grid) + c_mg
+)
+
+puntos_equilibrio <- data.frame(
+  Regimen = c("1. Monopolio Privado (IMg = CMg)",
+              "2. Tarificacion al Costo Medio (P = CMe)",
+              "3. Regla de Allais / Primer Mejor (P = CMg)"),
+  Q = c(Q_mon, Q_cme, Q_allais),
+  P = c(P_mon, P_cme, P_allais)
+)
+
+dwl_poly <- data.frame(
+  x = c(Q_mon, Q_allais, Q_mon),
+  y = c(P_mon, c_mg, c_mg)
+)
+
+p_eficiencia <- ggplot() +
+  geom_polygon(data = dwl_poly, aes(x = x, y = y), fill = "#fecaca", alpha = 0.55) +
+  geom_line(data = curvas_costo, aes(x = Q, y = Demanda), color = "#1e293b", linewidth = 1.1) +
+  geom_line(data = curvas_costo, aes(x = Q, y = IMg), color = "#64748b", linetype = "dashed", linewidth = 0.9) +
+  geom_line(data = curvas_costo, aes(x = Q, y = CMe), color = "#d97706", linewidth = 1.1) +
+  geom_line(data = curvas_costo, aes(x = Q, y = CMg), color = "#059669", linewidth = 1.1) +
+  geom_point(data = puntos_equilibrio, aes(x = Q, y = P, color = Regimen), size = 4) +
+  geom_segment(data = puntos_equilibrio,
+               aes(x = Q, y = 0, xend = Q, yend = P, color = Regimen),
+               linetype = "dotted", linewidth = 0.7) +
+  geom_segment(data = puntos_equilibrio,
+               aes(x = 0, y = P, xend = Q, yend = P, color = Regimen),
+               linetype = "dotted", linewidth = 0.7) +
+  annotate("text", x = 65, y = 42,
+           label = "Perdida Social del Monopolio\n(DWL = $1,250)",
+           color = "#991b1b", fontface = "bold", size = 3.0) +
+  annotate("label", x = 95, y = 75,
+           label = "Regla de Allais (1943):\nP = CMg maximiza el Excedente Social,\npero exige subsidio fiscal de explotacion\npara cubrir el costo fijo F ($800)",
+           color = "#065f46", fill = "#ecfdf5", size = 3.1, hjust = 0.5) +
+  scale_color_manual(values = c(
+    "1. Monopolio Privado (IMg = CMg)" = "#dc2626",
+    "2. Tarificacion al Costo Medio (P = CMe)" = "#d97706",
+    "3. Regla de Allais / Primer Mejor (P = CMg)" = "#059669"
+  )) +
+  scale_x_continuous(limits = c(0, 120), breaks = seq(0, 120, 20)) +
+  scale_y_continuous(limits = c(0, 125), breaks = seq(0, 120, 20)) +
+  labs(
+    title = "Tarificacion Eficiente en Monopolio Natural: La Teoria de Maurice Allais",
+    subtitle = "Monopolio Privado vs. Costo Medio vs. Primer Mejor de Allais (P = CMg)",
+    x = "Cantidad producida (Q)",
+    y = "Precio y Costes ($)",
+    color = "Regimen Asignativo"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "bottom")
+
+p_eficiencia
+```
+
+---
+
+## 3. Tabla Resumen de Resultados
+
+Cargamos la tabla de resultados exportada:
+
+```{r tabla_resultados}
+tab_res <- read.csv("salidas/tab_resultados_allais.csv", stringsAsFactors = FALSE)
+knitr::kable(tab_res, caption = "Tabla 1: Comparación cuantitativa de los resultados de Maurice Allais.")
+```
+
+---
+
+# Discusión de Resultados y Comparación con la Literatura
+
+1. **La Ruptura de la Hipótesis de Utilidad Esperada:**
+   La evidencia de Allais (1953) obligó a la comunidad económica a replantearse los axiomas de von Neumann, Morgenstern y Savage. Más de dos décadas después, Daniel Kahneman y Amos Tversky (1979) incorporaron explícitamente el "efecto certeza" y la ponderación no lineal de probabilidades en su influyente **Teoría Prospectiva** (*Prospect Theory*), ganadora del Premio Nobel en 2002.
+2. **El Aporte de Machina (1982):**
+   Mark Machina demostró que no es necesario renunciar a las herramientas clásicas de la microeconomía para modelar el comportamiento frente al riesgo: basta con sustituir la linealidad en probabilidades por derivadas funcionales continuas (utilidad localmente lineal con curvas que se abren en abanico).
+3. **La Práctica Económica de la Escuela Francesa de Ingenieros-Economistas:**
+   La demostración de Allais de que el costo marginal es la única señal de precios compatible con el óptimo social guió la reconstrucción de la infraestructura francesa tras la Segunda Guerra Mundial. Marcel Boiteux aplicó estos teoremas para diseñar la famosa "Tarifa Verde" (*Tarif Vert*) de Électricité de France en 1956, convirtiendo a Francia en líder mundial en tarificación en tiempo real y costos marginales de punta.
+
+---
+
+# Limitaciones y Desarrollos Posteriores
+
+1. **Distorsión Fiscal del Subsidio:**
+   La regla pura $P = CMg$ asume que el déficit operativo $F$ puede financiarse mediante impuestos de suma fija (*lump-sum*) sin costo social. En el mundo real, los impuestos generan distorsiones (*costo marginal de los fondos públicos*), lo que justifica el compromiso de segundo mejor de Ramsey-Boiteux.
+2. **Información Asimétrica e Incentivos:**
+   El modelo clásico de Allais asume que el regulador conoce la verdadera estructura de costos de la empresa. En presencia de información oculta (*selección adversa* y *riesgo moral*), Jean-Jacques Laffont y Jean Tirole (Premio Nobel 2014) demostraron que los contratos regulatorios óptimos deben balancear la eficiencia asignativa con incentivos a la reducción de costos mediante rentas informacionales.
+3. **Modelos Alternativos de Decisión:**
+   Aparte del *fanning out*, la literatura ha documentado violaciones en las esquinas del simplex (efectos de dispersión inversa o *fanning in*), dando lugar a la teoría de utilidad dependiente del rango (*Rank-Dependent Utility* de John Quiggin 1982) y la teoría prospectiva acumulativa (Tversky y Kahneman 1992).
+
+---
+
+# Ejercicios para el Estudiante
+
+1. **Ejercicio Básico (Álgebra de la Paradoja de Allais):**
+   Suponga que un decisor tiene una función de utilidad Bernoulli de la forma $u(x) = \sqrt{x}$.
+   - Calcule el valor esperado y la utilidad esperada de las loterías $L_1, L_2, L_3$ y $L_4$.
+   - Verifique si un decisor con esta función de utilidad exhibe el patrón de la Paradoja de Allais o si satisface el axioma de independencia.
+2. **Ejercicio Intermedio (Tarificación en Dos Partes en Monopolio Natural):**
+   Utilizando los parámetros del modelo de infraestructura ($P(Q) = 120 - Q$, $C(Q) = 800 + 20Q$ y $N = 100$ consumidores idénticos):
+   - Diseñe un esquema de tarifa en dos partes $(T, P)$ donde el precio unitario sea igual al costo marginal de Allais ($P = CMg$) y la cuota fija de abono $T$ financie el costo fijo de la red.
+   - Demuestre que el excedente neto de cada consumidor es estrictamente positivo y que el bienestar social total es idéntico al primer mejor.
+3. **Ejercicio Reto (La Regla de Oro de Acumulación de Capital de Allais 1947):**
+   Considere una economía con función de producción agregada per cápita $y = f(k) = k^\alpha$ con $\alpha = 0.3$, tasa de crecimiento poblacional $n = 0.02$ y depreciación $\delta = 0.05$.
+   - Plantee la ecuación de consumo per cápita en estado estacionario $c(k) = f(k) - (n + \delta)k$.
+   - Demuestre la condición de la Regla de Oro de Allais: $f'(k^*) = n + \delta$.
+   - Calcule numéricamente el stock de capital de la regla de oro $k^*$, el producto por habitante $y^*$ y el consumo máximo por habitante $c^*$.
+
+*(Las soluciones completas y las pautas docentes se detallan en `docente/soluciones.md`).*
