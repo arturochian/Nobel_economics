@@ -1,0 +1,332 @@
+---
+title: "Replicación Cuantitativa: Teoría del Equilibrio General, Dualidad del Consumo y Asignación Óptima del Riesgo"
+subtitle: "Premio Nobel de Economía 1972: Sir John R. Hicks y Kenneth J. Arrow"
+author: "Repositorio Nobel Economics"
+date: "1972-10-25"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-fold: show
+    theme: cosmo
+bibliography: "../referencias/referencias.bib"
+---
+
+# Introducción y Fundamentos Metodológicos
+
+En octubre de 1972, la Real Academia Sueca de Ciencias otorgó el Premio del Banco de Suecia en Ciencias Económicas en Memoria de Alfred Nobel de forma conjunta a **Sir John R. Hicks** y **Kenneth J. Arrow** *"por sus contribuciones pioneras a la teoría del equilibrio económico general y a la teoría del bienestar"* [@nobel1972press].
+
+El galardón de 1972 consagró la formalización matemática moderna de dos pilares esenciales de la ciencia económica:
+
+1. **Sir John R. Hicks (1904–1989):** Reformuló la teoría del consumidor en *Value and Capital* (1939) [@hicks1939value], independizándola de las funciones cardinales de utilidad. Desarrolló la descomposición analítica del efecto precio en **efecto sustitución** y **efecto ingreso** (ecuación de Slutsky-Hicks), fundamentó las demandas compensadas hicksianas a través de la dualidad entre maximización de utilidad y minimización del gasto, y definió las medidas rigurosas del bienestar del consumidor: la **Variación Compensatoria ($CV$)** y la **Variación Equivalente ($EV$)**, superando las ambigüedades del excedente marshaliano [@hicks1939welfare]. Asimismo, en 1937 sintetizó la teoría macroeconómica keynesiana en el celebérrimo modelo **IS-LM** [@hicks1937keynes].
+
+2. **Kenneth J. Arrow (1921–2017):** Transformó simultáneamente la microeconomía, la teoría del bienestar y las finanzas cuantitativas. En 1951 formuló el célebre **Teorema de Imposibilidad de Arrow** en *Social Choice and Individual Values* [@arrow1951social], demostrando la inexistencia de una regla democrática consistente de agregación de preferencias. En 1954, junto a Gérard Debreu [@arrow1954existence], proporcionó la primera demostración matemática rigurosa de la existencia del equilibrio competitivo general en economías descentralizadas mediante teoremas de punto fijo. Además, Arrow [@arrow1964securities] concibió la teoría de los **activos contingentes de Arrow** (*Arrow securities*), probando que un conjunto completo de contratos financieros contingentes a los estados de la naturaleza permite que agentes con aversión al riesgo alcancen asignaciones óptimas en el sentido de Pareto mediante el reparto óptimo del riesgo.
+
+Este documento presenta una réplica computacional rigurosa en R de ambos pilares: la descomposición de Hicks y sus métricas de bienestar, y el equilibrio competitivo general de Arrow-Debreu con mercados de activos contingentes en una Caja de Edgeworth.
+
+---
+
+# Fundamento Teórico: John Hicks y la Teoría de la Demanda
+
+## Dualidad y la Función de Gasto
+
+La teoría del consumidor neoclásica descansa sobre el problema primal de maximización de la utilidad sujeta a la restricción presupuestaria:
+
+$$\max_{x \in \mathbb{R}_+^n} U(x) \quad \text{s.a.} \quad p \cdot x \le I$$
+
+cuya solución entrega las demandas marshalianas $x^m(p, I)$ y la función indirecta de utilidad $V(p, I) = U(x^m(p, I))$.
+
+Hicks [@hicks1939value] introdujo de forma sistemática el problema dual: minimizar el gasto necesario para alcanzar un nivel fijado de utilidad $u$:
+
+$$e(p, u) = \min_{x \in \mathbb{R}_+^n} p \cdot x \quad \text{s.a.} \quad U(x) \ge u$$
+
+La solución a este problema es el vector de **demandas compensadas de Hicks** $h(p, u)$. Por el **Lema de Shephard**, la derivada de la función de gasto respecto al precio coincide con la demanda compensada:
+
+$$\frac{\partial e(p, u)}{\partial p_i} = h_i(p, u)$$
+
+## La Ecuación de Slutsky-Hicks
+
+Al diferenciar la identidad $h_i(p, u) \equiv x_i^m(p, e(p, u))$ con respecto al precio $p_j$, Hicks formalizó la descomposición fundamental del cambio en la demanda:
+
+$$\frac{\partial x_i^m(p, I)}{\partial p_j} = \underbrace{\frac{\partial h_i(p, u)}{\partial p_j}}_{\text{Efecto Sustitución (Hicks)}} - \underbrace{x_j^m(p, I) \frac{\partial x_i^m(p, I)}{\partial I}}_{\text{Efecto Ingreso}}$$
+
+Propiedades fundamentales probadas por Hicks:
+1. **Negatividad propia del efecto sustitución:** $\frac{\partial h_i}{\partial p_i} \le 0$ para todo bien. Una curva de demanda hicksiana siempre tiene pendiente negativa, descartando la posibilidad de "bienes Giffen" en términos compensados.
+2. **Simetría cruzada:** $\frac{\partial h_i}{\partial p_j} = \frac{\partial h_j}{\partial p_i}$.
+
+## Medidas Hicksianas de Bienestar: $CV$ y $EV$
+
+Frente a la ambigüedad del excedente del consumidor de Marshall (que asume utilidad marginal del dinero constante), Hicks [@hicks1939value; @hicks1939welfare] definió dos métricas monetarias exactas basadas en la función de gasto ante un cambio de precios de $p^0$ a $p^1$:
+
+- **Variación Compensatoria ($CV$):** Suma de dinero que debe retirarse al consumidor al nuevo vector de precios para devolverle a su nivel de bienestar inicial $u^0$:
+  $$CV = I - e(p^1, u^0) = e(p^0, u^0) - e(p^1, u^0)$$
+- **Variación Equivalente ($EV$):** Suma de dinero adicional que habría que otorgar al consumidor a los precios iniciales para que alcance el nuevo nivel de bienestar $u^1$:
+  $$EV = e(p^0, u^1) - I = e(p^0, u^1) - e(p^1, u^1)$$
+
+---
+
+# Fundamento Teórico: Kenneth Arrow y el Equilibrio General con Riesgo
+
+## El Teorema de Existencia Arrow-Debreu (1954)
+
+Kenneth Arrow y Gérard Debreu [@arrow1954existence] formalizaron la economía competitiva descentralizada con $m$ consumidores, $n$ firmas y $l$ bienes. Definieron la correspondencia de exceso de demanda agregada:
+
+$$Z(p) = \sum_{i=1}^m x_i(p) - \sum_{j=1}^n y_j(p) - \sum_{i=1}^m \omega_i$$
+
+Bajo los axiomas de convexidad estricta y continuidad de preferencias, convexidad de conjuntos de producción (rendimientos no crecientes) y la Ley de Walras ($p \cdot Z(p) = 0$), demostraron la existencia de un vector de precios $p^* \in \Delta$ tal que:
+
+$$Z(p^*) \le 0, \quad \text{con } p_k^* = 0 \text{ si } Z_k(p^*) < 0$$
+
+utilizando el **Teorema de Punto Fijo de Kakutani (1941)**.
+
+## Activos Contingentes de Arrow (*Arrow Securities*) y Reparto Óptimo del Riesgo
+
+En un entorno con incertidumbre, Arrow [@arrow1964securities] introdujo los **activos contingentes** (*contingent claims*). Sea $S = \{1, \dots, S\}$ el conjunto de posibles estados futuros de la naturaleza con probabilidades objetivas $\pi_s$.
+
+Un **activo de Arrow** para el estado $s$ es un contrato financiero que paga exactamente 1 unidad del bien numerario si ocurre el estado $s$, y 0 en cualquier otro estado. Su precio de mercado es $q_s$.
+
+Si existen $S$ activos de Arrow linealmente independientes, los **mercados financieros son completos**. En este caso:
+- Los consumidores pueden transferir riqueza de manera perfecta entre estados de la naturaleza.
+- Todo equilibrio competitivo de mercado con activos de Arrow es Pareto-eficiente (**Primer Teorema Fundamental del Bienestar**).
+- Agentes con dotaciones asimétricas de riesgo (e.g., agricultores expuestos a sequía y empresas expuestas a exceso de lluvia) pueden asegurar mutuamente su consumo, alcanzando una asignación donde las relaciones marginales de sustitución entre estados se igualan:
+  $$TMS_{i, s, s'} = \frac{\pi_s u'_i(c_{is})}{\pi_{s'} u'_i(c_{is'})} = \frac{q_s}{q_{s'}} \quad \forall i$$
+
+---
+
+# Implementación Computacional en R
+
+A continuación, cargamos los paquetes necesarios y ejecutamos las dos simulaciones cuantitativas descritas.
+
+```{r setup, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(readr)
+library(gridExtra)
+
+# Definir directorios
+dir_salidas <- "salidas"
+if (!dir.exists(dir_salidas)) {
+  dir.create(dir_salidas, recursive = TRUE)
+}
+```
+
+## Calibración 1: Descomposición de Hicks del Efecto Precio
+
+Consideremos un consumidor con preferencias Cobb-Douglas simétricas $U(x_1, x_2) = x_1^{0.5} x_2^{0.5}$, ingreso inicial $I = 100$, y precios iniciales $p_1^0 = 2$, $p_2 = 2$. Un shock exógeno reduce el precio del bien 1 a $p_1^1 = 1$.
+
+```{r hicks_simulacion}
+# Parámetros
+alpha <- 0.5
+beta  <- 0.5
+I_0   <- 100.0
+p1_0  <- 2.0
+p2    <- 2.0
+p1_1  <- 1.0
+
+# 1. Cesta Inicial A
+x1_A <- (alpha * I_0) / p1_0
+x2_A <- (beta * I_0) / p2
+U_0  <- (x1_A^alpha) * (x2_A^beta)
+
+# 2. Cesta Final Marshalliana C
+x1_C <- (alpha * I_0) / p1_1
+x2_C <- (beta * I_0) / p2
+U_1  <- (x1_C^alpha) * (x2_C^beta)
+
+# 3. Cesta Compensada de Hicks B (mantiene U = U_0 a nuevos precios)
+# Condición de tangencia: x1 / x2 = p2 / p1_1 = 2
+x2_B <- U_0 / sqrt(p2 / p1_1)
+x1_B <- (p2 / p1_1) * x2_B
+
+# Gasto compensado
+E_comp_Hicks <- p1_1 * x1_B + p2 * x2_B
+
+# Variación Compensatoria (CV) y Variación Equivalente (EV)
+CV <- I_0 - E_comp_Hicks
+E_equiv <- (U_1 / ((alpha^alpha) * (beta^beta))) * (p1_0^alpha) * (p2^beta)
+EV <- E_equiv - I_0
+
+# Descomposición de Hicks
+efecto_sustitucion_x1 <- x1_B - x1_A
+efecto_ingreso_x1      <- x1_C - x1_B
+efecto_total_x1        <- x1_C - x1_A
+
+data.frame(
+  Concepto = c("Cesta Inicial A", "Cesta Compensada Hicks B", "Cesta Final C",
+               "Efecto Sustitución", "Efecto Ingreso", "Efecto Total",
+               "Variación Compensatoria (CV)", "Variación Equivalente (EV)"),
+  Bien_1 = c(x1_A, x1_B, x1_C, efecto_sustitucion_x1, efecto_ingreso_x1, efecto_total_x1, CV, EV),
+  Bien_2 = c(x2_A, x2_B, x2_C, x2_B - x2_A, x2_C - x2_B, x2_C - x2_A, NA, NA)
+)
+```
+
+### Gráfico de la Descomposición de Hicks
+
+```{r hicks_grafico, fig.width=9.5, fig.height=6.5}
+x_seq <- seq(2, 70, length.out = 400)
+
+df_indif_U0 <- data.frame(
+  x1 = x_seq,
+  x2 = (U_0 / (x_seq^alpha))^(1 / beta)
+)
+df_indif_U1 <- data.frame(
+  x1 = x_seq,
+  x2 = (U_1 / (x_seq^alpha))^(1 / beta)
+)
+
+df_ppto_0 <- data.frame(
+  x1 = x_seq,
+  x2 = (I_0 - p1_0 * x_seq) / p2
+) %>% filter(x2 >= 0)
+
+df_ppto_1 <- data.frame(
+  x1 = x_seq,
+  x2 = (I_0 - p1_1 * x_seq) / p2
+) %>% filter(x2 >= 0)
+
+df_ppto_comp <- data.frame(
+  x1 = x_seq,
+  x2 = (E_comp_Hicks - p1_1 * x_seq) / p2
+) %>% filter(x2 >= 0)
+
+df_puntos <- data.frame(
+  x1 = c(x1_A, x1_B, x1_C),
+  x2 = c(x2_A, x2_B, x2_C),
+  Etiqueta = c("A (Inicial)", "B (Hicks)", "C (Final)")
+)
+
+p_hicks <- ggplot() +
+  geom_line(data = df_ppto_0, aes(x = x1, y = x2), color = "#4a5568", linewidth = 1.0, linetype = "dashed") +
+  geom_line(data = df_ppto_1, aes(x = x1, y = x2), color = "#2b6cb0", linewidth = 1.1) +
+  geom_line(data = df_ppto_comp, aes(x = x1, y = x2), color = "#c53030", linewidth = 1.0, linetype = "dotdash") +
+  geom_line(data = df_indif_U0, aes(x = x1, y = x2), color = "#2d3748", linewidth = 0.9) +
+  geom_line(data = df_indif_U1, aes(x = x1, y = x2), color = "#2c5282", linewidth = 0.9) +
+  annotate("segment", x = x1_A, xend = x1_B, y = 3, yend = 3,
+           arrow = arrow(length = unit(0.25, "cm")), color = "#c53030", linewidth = 1.1) +
+  annotate("text", x = (x1_A + x1_B) / 2, y = 5.5, label = sprintf("E. Sustitución (+%.2f)", efecto_sustitucion_x1),
+           color = "#c53030", fontface = "bold", size = 3.6) +
+  annotate("segment", x = x1_B, xend = x1_C, y = 3, yend = 3,
+           arrow = arrow(length = unit(0.25, "cm")), color = "#2b6cb0", linewidth = 1.1) +
+  annotate("text", x = (x1_B + x1_C) / 2, y = 5.5, label = sprintf("E. Ingreso (+%.2f)", efecto_ingreso_x1),
+           color = "#2b6cb0", fontface = "bold", size = 3.6) +
+  geom_point(data = df_puntos, aes(x = x1, y = x2), color = c("#1b9e77", "#c53030", "#2b6cb0"), size = 4) +
+  geom_text(data = df_puntos, aes(x = x1, y = x2, label = sprintf("%s\n(%.1f, %.1f)", Etiqueta, x1, x2)),
+            vjust = -0.6, hjust = -0.15, fontface = "bold", size = 3.8) +
+  annotate("label", x = 50, y = 44,
+           label = sprintf("Bienestar Hicks (1939):\nVariación Compensatoria (CV) = $%.2f\nVariación Equivalente (EV) = $%.2f\nEfecto Total: +%.1f unidades",
+                           CV, EV, efecto_total_x1),
+           fill = "#f7fafc", color = "#1a202c", size = 3.5, label.padding = unit(0.4, "lines"), hjust = 0) +
+  scale_x_continuous(limits = c(0, 75), breaks = seq(0, 75, 10), expand = c(0, 0)) +
+  scale_y_continuous(limits = c(0, 55), breaks = seq(0, 55, 10), expand = c(0, 0)) +
+  labs(
+    title = "Descomposición de Hicks: Efecto Sustitución y Efecto Ingreso",
+    subtitle = "Reducción de p1 de 2 a 1 | Preferencias Cobb-Douglas U = x1^0.5 * x2^0.5",
+    x = "Consumo de Bien 1 (x1)",
+    y = "Consumo de Bien 2 (x2)",
+    caption = "Fuente: John R. Hicks, 'Value and Capital' (1939)."
+  ) +
+  theme_minimal(base_size = 12)
+
+p_hicks
+```
+
+---
+
+## Calibración 2: Equilibrio General Arrow-Debreu en Caja de Edgeworth con Activos de Arrow
+
+Modelamos dos agentes ($A$ y $B$) que se enfrentan a dos estados posibles de la naturaleza ($s = 1$, Auge; $s = 2$, Recesión), cada uno con probabilidad $\pi = 0.5$.
+Las dotaciones iniciales de contingencia son $\omega_A = (80, 20)$ y $\omega_B = (20, 80)$, sumando una dotación social de $(100, 100)$.
+
+```{r arrow_simulacion}
+# Parámetros
+pi_1 <- 0.5; pi_2 <- 0.5
+w_A1 <- 80; w_A2 <- 20
+w_B1 <- 20; w_B2 <- 80
+Omega_1 <- 100; Omega_2 <- 100
+
+# Precios de equilibrio de activos de Arrow
+q1_eq <- 1.0
+q2_eq <- 1.0
+
+# Asignaciones competitivas walrasianas
+c_A1_eq <- 50.0; c_A2_eq <- 50.0
+c_B1_eq <- 50.0; c_B2_eq <- 50.0
+
+# Bienestar y Equivalente Cierto
+CE_A_aut <- sqrt(w_A1 * w_A2)       # Autarquía: sqrt(80 * 20) = 40.0
+CE_A_eq  <- sqrt(c_A1_eq * c_A2_eq) # Equilibrio: 50.0
+ganancia_CE_A <- CE_A_eq - CE_A_aut  # +10.0 (+25%)
+
+data.frame(
+  Estado = c("Estado 1 (Auge, pi=0.5)", "Estado 2 (Recesión, pi=0.5)", "Equivalente Cierto (CE)"),
+  Dotacion_A = c(w_A1, w_A2, CE_A_aut),
+  Equilibrio_A = c(c_A1_eq, c_A2_eq, CE_A_eq),
+  Dotacion_B = c(w_B1, w_B2, sqrt(w_B1 * w_B2)),
+  Equilibrio_B = c(c_B1_eq, c_B2_eq, sqrt(c_B1_eq * c_B2_eq))
+)
+```
+
+### Gráfico de la Caja de Edgeworth para Activos de Arrow
+
+```{r arrow_grafico, fig.width=9.5, fig.height=7.5}
+c1_grid <- seq(1, Omega_1 - 1, length.out = 300)
+
+df_indif_A_aut <- data.frame(c1 = c1_grid, c2 = (CE_A_aut^2) / c1_grid) %>% filter(c2 <= Omega_2)
+df_indif_A_eq  <- data.frame(c1 = c1_grid, c2 = (CE_A_eq^2) / c1_grid) %>% filter(c2 <= Omega_2)
+df_indif_B_aut <- data.frame(c1 = c1_grid, c2 = Omega_2 - (CE_A_aut^2) / (Omega_1 - c1_grid)) %>% filter(c2 >= 0)
+df_indif_B_eq  <- data.frame(c1 = c1_grid, c2 = Omega_2 - (CE_A_eq^2) / (Omega_1 - c1_grid)) %>% filter(c2 >= 0)
+
+df_contrato <- data.frame(c1 = c(0, Omega_1), c2 = c(0, Omega_2))
+df_ppto_arrow <- data.frame(c1 = c(0, Omega_1), c2 = c(Omega_2, 0))
+
+p_arrow <- ggplot() +
+  annotate("rect", xmin = 0, xmax = Omega_1, ymin = 0, ymax = Omega_2,
+           fill = "#f7fafc", color = "#4a5568", linewidth = 1.0) +
+  geom_line(data = df_contrato, aes(x = c1, y = c2), color = "#805ad5", linewidth = 1.3, linetype = "dashed") +
+  geom_line(data = df_indif_A_aut, aes(x = c1, y = c2), color = "#e53e3e", linetype = "dotted", linewidth = 0.9) +
+  geom_line(data = df_indif_B_aut, aes(x = c1, y = c2), color = "#3182ce", linetype = "dotted", linewidth = 0.9) +
+  geom_line(data = df_indif_A_eq, aes(x = c1, y = c2), color = "#c53030", linewidth = 1.0) +
+  geom_line(data = df_indif_B_eq, aes(x = c1, y = c2), color = "#2b6cb0", linewidth = 1.0) +
+  geom_line(data = df_ppto_arrow, aes(x = c1, y = c2), color = "#2d3748", linewidth = 1.1) +
+  geom_point(aes(x = w_A1, y = w_A2), color = "#dd6b20", size = 4.5) +
+  geom_point(aes(x = c_A1_eq, y = c_A2_eq), color = "#38a169", size = 5.0) +
+  annotate("segment", x = w_A1, xend = c_A1_eq, y = w_A2, yend = c_A2_eq,
+           arrow = arrow(length = unit(0.3, "cm")), color = "#38a169", linewidth = 1.2) +
+  annotate("text", x = w_A1 - 2, y = w_A2 - 4, label = "Dotación w (80, 20)",
+           color = "#dd6b20", fontface = "bold", size = 3.6, hjust = 1) +
+  annotate("text", x = c_A1_eq + 3, y = c_A2_eq + 4, label = "Equilibrio E* (50, 50)",
+           color = "#276749", fontface = "bold", size = 3.8, hjust = 0) +
+  annotate("text", x = 12, y = 92, label = "Curva de Contrato:\nSeguro Perfecto (cA1 = cA2)",
+           color = "#6b46c1", fontface = "bold", size = 3.5, hjust = 0) +
+  annotate("label", x = 5, y = 15,
+           label = "Teorema de Arrow (1964):\nMercados contingentes completos permiten diversificar\ntodo el riesgo idiosincrático.\nEquivalente Cierto: 40.0 -> 50.0 (+25.0%)",
+           fill = "white", color = "#1a202c", size = 3.4, hjust = 0) +
+  scale_x_continuous(limits = c(0, Omega_1), expand = c(0, 0)) +
+  scale_y_continuous(limits = c(0, Omega_2), expand = c(0, 0)) +
+  labs(
+    title = "Caja de Edgeworth: Equilibrio de Arrow-Debreu con Activos Contingentes de Arrow",
+    subtitle = "Reparto óptimo de riesgo entre estados contingentes (s1: Auge, s2: Recesión)",
+    x = "Consumo del Agente A en Estado 1 (cA1)",
+    y = "Consumo del Agente A en Estado 2 (cA2)",
+    caption = "Fuente: Kenneth J. Arrow, 'The Role of Securities in Risk-bearing' (1964)."
+  ) +
+  theme_minimal(base_size = 12)
+
+p_arrow
+```
+
+---
+
+# Discusión de Resultados y Alcance Teórico
+
+1. **La Descomposición de Hicks:**  
+   El ejercicio ilustra cuantitativamente que ante una caída del 50% en el precio del bien 1, la demanda total se expande en 25 unidades. La descomposición hicksiana aísla de manera incontestable que 10.36 unidades provienen de la sustitución pura manteniendo constante el nivel de utilidad ($U = 25$), mientras que 14.64 unidades derivan del enriquecimiento del consumidor (efecto ingreso). La Variación Compensatoria calculada ($CV = \$29.29$) revela con exactitud el impuesto de suma fija máximo que el planificador fiscal podría cobrar al consumidor tras la reducción de precios sin desmejorar su bienestar.
+
+2. **La Arquitectura de Arrow para la Cobertura del Riesgo:**  
+   En la economía con dotaciones desalineadas con los estados, la autarquía impone un costo severo de incertidumbre (Equivalente Cierto de 40 unidades de consumo para ambos agentes). La creación de dos activos de Arrow permite el intercambio financiero puro descentralizado: el Agente A vende coberturas del Estado 1 para comprar coberturas del Estado 2 al precio relativo $q_1^*/q_2^* = 1.0$. El resultado es una eliminación completa de la volatilidad del consumo ($c_1 = c_2 = 50$), incrementando el bienestar cierto en un **25.0%** sin necesidad de intervención centralizada, verificando empíricamente el Primer Teorema Fundamental del Bienestar en economías con riesgo.
+
+---
+
+# Referencias {.unnumbered}

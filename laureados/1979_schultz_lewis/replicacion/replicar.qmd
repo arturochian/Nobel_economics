@@ -1,0 +1,386 @@
+---
+title: "Replicación y Simulación Cuantitativa: Modelo Dual de Lewis y Modernización Agrícola con Capital Humano de Schultz"
+subtitle: "Premio Nobel de Economía 1979: Theodore W. Schultz y Sir Arthur Lewis"
+author: "Nobel_economics Research Group"
+date: "1979-10-16"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    theme: cosmo
+    code-fold: show
+    code-tools: true
+---
+
+# ¿Qué vas a aprender?
+
+En este módulo interactivo y reproducible estudiarás los dos pilares seminales de la economía del desarrollo moderna, galardonados con el Premio Nobel de 1979:
+
+1. **La Dinámica de Transición del Modelo Dual de W. Arthur Lewis (1954):**
+   - Cómo interactúa un sector tradicional agrícola de subsistencia (con mano de obra redundante y productividad marginal cuasi nula) con un sector moderno industrial impulsado por la acumulación de capital y la reinversión de beneficios.
+   - La condición matemática exacta que marca el **Punto de Inflexión de Lewis** (*Lewis Turning Point*, LTP), el momento en que se agota el excedente laboral campesino y los salarios reales urbanos y rurales inician su despegue sostenido.
+2. **La Teoría del Capital Humano y la Hipótesis de "Pobres pero Eficientes" de Theodore W. Schultz (1964, 1975):**
+   - Por qué el estancamiento de la agricultura campesina tradicional no se debe a ignorancia ni a falta de motivación económica, sino al agotamiento de los rendimientos marginales de tecnologías primitivas.
+   - El papel del capital humano como **habilidad para afrontar desequilibrios tecnológicos** (*dealing with disequilibria*), modelando cómo la escolaridad del agricultor acelera la adopción de innovaciones durante la Revolución Verde y multiplica el valor del producto agrícola.
+
+---
+
+# Fundamentación Teórica y Matemática
+
+## El Modelo de Desarrollo Dual de Arthur Lewis (1954)
+
+Lewis concibe una economía dividida en dos sectores estructurales dispares:
+
+### El Sector Tradicional / Agrícola de Subsistencia
+La dotación total de mano de obra en la economía es fija: $L = L_A + L_M$. El sector tradicional produce un bien de consumo alimentario mediante una tecnología con rendimientos decrecientes:
+
+$$Y_A = A_A L_A^\alpha, \quad 0 < \alpha < 1$$
+
+El producto medio del trabajo es $APL_A = A_A L_A^{\alpha - 1}$ y el producto marginal es $MPL_A = \alpha A_A L_A^{\alpha - 1}$. 
+
+En economías agrarias densamente pobladas, la cantidad de campesinos es tan alta que el producto marginal del trabajo cae por debajo de un nivel de subsistencia institucional ($\bar{w}_{sub}$). En este régimen, las familias campesinas o comunidades rurales no pagan a los trabajadores según su producto marginal (lo que provocaría inanición), sino que distribuyen el producto medio o garantizan un ingreso de subsistencia socialmente aceptado:
+
+$$w_A = \max(\bar{w}_{sub}, MPL_A(L_A))$$
+
+Mientras $MPL_A < \bar{w}_{sub}$, existe **mano de obra redundante o desempleo encubierto**: retirar un campesino del campo hacia la ciudad no reduce apreciablemente la producción de alimentos o mantiene el coste de oportunidad laboral anclado en $\bar{w}_{sub}$.
+
+### El Sector Moderno / Industrial Capitalista
+El sector industrial utiliza capital físico reproducible ($K$) y contrata mano de obra asalariada ($L_M$). Su función de producción es de tipo Cobb-Douglas con rendimientos constantes a escala:
+
+$$Y_M = A_M K^\beta L_M^{1 - \beta}, \quad 0 < \beta < 1$$
+
+Las empresas capitalistas maximizan sus beneficios en un entorno competitivo:
+
+$$\max_{L_M} \, \Pi = Y_M - w_M L_M = A_M K^\beta L_M^{1 - \beta} - w_M L_M$$
+
+La condición de primer orden determina la demanda de trabajo industrial:
+
+$$MPL_M = (1 - \beta) A_M K^\beta L_M^{-\beta} = w_M \implies L_M^d = K \left( \frac{(1 - \beta) A_M}{w_M} \right)^{1 / \beta}$$
+
+Lewis identificó que para atraer trabajadores de las aldeas rurales a las ciudades manufactureras, el sector moderno debe ofrecer un salario urbano con un recargo institucional $\mu$:
+
+$$w_M = (1 + \mu) w_A$$
+
+donde $\mu \approx 30\% - 50\%$ compensa el mayor costo de vida en la urbe, los costos de traslado y los factores psicológicos de desarraigo.
+
+### La Acumulación de Capital y la Fase Clásica
+Durante la primera fase del desarrollo, la oferta de mano de obra a la industria es **perfectamente elástica** al salario fijo $w_M = (1 + \mu) \bar{w}_{sub}$. 
+
+Los beneficios brutos de los empresarios industriales son una fracción constante de la producción:
+
+$$\Pi = \beta Y_M$$
+
+Suponiendo que los trabajadores consumen todo su salario y los capitalistas reinvierten una fracción $s_\Pi$ de sus ganancias en nuevo equipo productivo, la ley de movimiento del capital es:
+
+$$K_{t+1} = (1 - \delta) K_t + s_\Pi \Pi_t$$
+
+A medida que $K_t$ se expande, la curva de demanda de trabajo $L_M^d(w_M, K_t)$ se desplaza hacia la derecha periodo a periodo, absorbiendo mano de obra campesina **sin presionar al alza los salarios reales industriales**.
+
+### El Punto de Inflexión de Lewis (*Lewis Turning Point*, LTP)
+A medida que $L_M$ crece, la fuerza laboral rural $L_A = L - L_M$ disminuye. Como consecuencia de los rendimientos decrecientes en el campo, el producto marginal agrícola $MPL_A$ aumenta monótonamente:
+
+$$\frac{d MPL_A}{d L_M} = -\frac{d MPL_A}{d L_A} = -\alpha (\alpha - 1) A_A L_A^{\alpha - 2} > 0$$
+
+El **Punto de Inflexión de Lewis** ocurre exactamente en el instante $t^*$ donde:
+
+$$MPL_A(L - L_M) = \bar{w}_{sub}$$
+
+A partir de este umbral crítico (Fase II):
+1. El sector agrícola se comercializa plenamente: para retener trabajadores, los terratenientes deben pagar su producto marginal ($w_A = MPL_A > \bar{w}_{sub}$).
+2. La oferta de mano de obra hacia la industria se vuelve **inelástica y con pendiente positiva**.
+3. El salario real urbano $w_M = (1 + \mu) MPL_A$ empieza a crecer de forma vigorosa, comprimiendo la participación del capital e impulsando el bienestar de la clase trabajadora.
+
+---
+
+## La Teoría de Theodore Schultz: Transformación Agrícola y Capital Humano (1964, 1975)
+
+Schultz criticó severamente el supuesto extremo de que los campesinos tradicionales tienen productividad marginal cero o que son agentes indolentes e irracionales.
+
+### La Hipótesis de "Pobres pero Eficientes" (*Poor but Efficient*)
+Schultz demostró que en una agricultura tradicional sujeta a condiciones estables durante siglos, los agricultores asignan sus factores tradicionales (tierra, bueyes, estiércol, fuerza física) con una eficiencia económica admirable:
+
+$$\frac{MPK_{trad}}{P_{K, trad}} = \frac{MPL_{trad}}{P_L} = \frac{MPT_{trad}}{P_T}$$
+
+El problema central no radica en una mala asignación de recursos, sino en que la tecnología disponible es primitiva. El producto marginal de acumular más factores tradicionales adicionales decae rápidamente hacia cero:
+
+$$MPK_{trad} = \gamma A_0 K_{trad}^{\gamma - 1} \to 0 \quad (\gamma \approx 0.15)$$
+
+Por lo tanto, subsidiar crédito para comprar más arados tradicionales o semillas nativas genera un rendimiento económico inferior al costo del capital.
+
+### Modernización Tecnológica e Inversión en Capital Humano
+Para transformar la agricultura tradicional, se requieren dos componentes inseparables:
+1. **Insumos de Alta Productividad Desarrollados Científicamente:** Semillas mejoradas (variedades de alto rendimiento o *HYV* de la Revolución Verde), fertilizantes químicos solubles, pesticidas sistemáticos e irrigación motorizada.
+2. **Inversión en Capital Humano ($H$):** La tecnología moderna no rinde frutos en manos de una población iletrada y desnutrida.
+
+### La Habilidad para Afrontar Desequilibrios (*Dealing with Disequilibria*, 1975)
+En su célebre artículo de 1975 en el *Journal of Economic Literature*, Schultz reformuló la teoría del capital humano:
+- En un estado estacionario estático (agricultura tradicional milenaria), las rutinas heredadas de padres a hijos bastan para producir; el valor de la educación formal es muy modesto.
+- Cuando la ciencia introduce nuevas variedades y técnicas, el equilibrio se rompe: surgen **desequilibrios dinámicos**. En ese contexto, el valor primordial de la escolaridad del agricultor radica en su **capacidad cognitiva para procesar información compleja**, calcular proporciones de fertilizantes, descifrar instrucciones técnicas y optimizar el calendario de siembra.
+
+Formalmente, la tasa de adopción técnica sigue una función sigmoidea dependiente de los años de escolaridad $S$:
+
+$$Adopcion(S) = \frac{1}{1 + e^{-\kappa (S - S_0)}}$$
+
+y el producto agrícola de una finca moderna integra el capital humano como un multiplicador de eficiencia asignativa:
+
+$$Y_A = A(S) \cdot F(K, L, T)$$
+
+donde $\frac{d \ln Y_A}{d S}$ es sustancialmente mayor en economías que experimentan cambio tecnológico acelerado que en economías estancadas.
+
+---
+
+# Replicación Computacional en R
+
+A continuación, ejecutamos la simulación numérica integral del modelo dual de Lewis y del modelo schultziano de adopción tecnológica y capital humano.
+
+```{r setup, message=FALSE, warning=FALSE}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(readr)
+library(tibble)
+library(patchwork)
+
+# Semilla reproducible
+set.seed(19791016)
+
+# Directorio de salidas
+dir_salidas <- "salidas"
+if (!dir.exists(dir_salidas)) {
+  dir.create(dir_salidas, recursive = TRUE)
+}
+```
+
+## Simulación del Modelo Dual de Lewis
+
+```{r simulacion-lewis}
+# Parámetros macroeconómicos
+L_total     <- 1000      # Fuerza de trabajo total
+A_A         <- 25        # Productividad tradicional
+alpha_A     <- 0.50      # Elasticidad trabajo en agricultura
+w_sub       <- 1.0       # Salario de subsistencia institucional
+mu_urbana   <- 0.35      # Prima salarial urbana (35%)
+
+A_M         <- 1.80      # Productividad industrial
+beta_M      <- 0.40      # Elasticidad del capital manufacturero
+delta       <- 0.05      # Tasa de depreciación del capital
+s_pi        <- 0.28      # Reinversión del excedente capitalista
+
+T_periodos  <- 45
+K_actual    <- 140
+
+df_lewis <- tibble(
+  periodo       = integer(T_periodos),
+  capital       = numeric(T_periodos),
+  empleo_ind    = numeric(T_periodos),
+  empleo_agr    = numeric(T_periodos),
+  salario_rural = numeric(T_periodos),
+  salario_urbano= numeric(T_periodos),
+  mpla          = numeric(T_periodos),
+  pib_industrial= numeric(T_periodos),
+  pib_agricola  = numeric(T_periodos),
+  beneficios    = numeric(T_periodos),
+  fase          = character(T_periodos)
+)
+
+for (t in 1:T_periodos) {
+  # Resolver equilibrio simultáneo de mano de obra
+  f_eq <- function(LM_cand) {
+    LM_cand <- max(1, min(LM_cand, L_total - 1))
+    LA_cand <- L_total - LM_cand
+    mpla_c  <- alpha_A * A_A * (LA_cand)^(alpha_A - 1)
+    wa_c    <- max(w_sub, mpla_c)
+    wm_c    <- (1 + mu_urbana) * wa_c
+    lm_dem  <- K_actual * (((1 - beta_M) * A_M) / wm_c)^(1 / beta_M)
+    return(lm_dem - LM_cand)
+  }
+  
+  sol <- uniroot(f_eq, lower = 1, upper = L_total - 1)
+  LM_eq <- sol$root
+  LA_eq <- L_total - LM_eq
+  
+  mpla_eq <- alpha_A * A_A * (LA_eq)^(alpha_A - 1)
+  wa_eq   <- max(w_sub, mpla_eq)
+  wm_eq   <- (1 + mu_urbana) * wa_eq
+  ym_eq   <- A_M * (K_actual^beta_M) * (LM_eq^(1 - beta_M))
+  ya_eq   <- A_A * (LA_eq^alpha_A)
+  pi_eq   <- ym_eq - wm_eq * LM_eq
+  
+  df_lewis$periodo[t]        <- t
+  df_lewis$capital[t]        <- K_actual
+  df_lewis$empleo_ind[t]     <- LM_eq
+  df_lewis$empleo_agr[t]     <- LA_eq
+  df_lewis$salario_rural[t]  <- wa_eq
+  df_lewis$salario_urbano[t] <- wm_eq
+  df_lewis$mpla[t]           <- mpla_eq
+  df_lewis$pib_industrial[t] <- ym_eq
+  df_lewis$pib_agricola[t]   <- ya_eq
+  df_lewis$beneficios[t]     <- pi_eq
+  df_lewis$fase[t]           <- ifelse(mpla_eq <= w_sub, "Fase I: Excedente Laboral", "Fase II: Post-Inflexion Lewis")
+  
+  # Acumulación de capital para el siguiente período
+  K_actual <- (1 - delta) * K_actual + s_pi * pi_eq
+}
+
+t_inflexion <- min(df_lewis$periodo[df_lewis$fase == "Fase II: Post-Inflexion Lewis"])
+cat("Punto de Inflexión de Lewis alcanzado en el período t =", t_inflexion, "\n")
+```
+
+## Visualización del Modelo Dual de Lewis
+
+```{r grafico-lewis, fig.width=11, fig.height=8.5}
+tema_academico <- theme_minimal(base_size = 11) +
+  theme(
+    plot.title       = element_text(face = "bold", size = 12, color = "#1a252f"),
+    axis.title       = element_text(face = "bold", size = 10, color = "#2d3748"),
+    panel.grid.minor = element_blank(),
+    legend.position  = "bottom"
+  )
+
+p1_emp <- ggplot(df_lewis, aes(x = periodo)) +
+  geom_line(aes(y = empleo_ind, color = "Industria (LM)"), linewidth = 1.1) +
+  geom_line(aes(y = empleo_agr, color = "Agricultura (LA)"), linewidth = 1.1) +
+  geom_vline(xintercept = t_inflexion, linetype = "dashed", color = "#e53e3e") +
+  scale_color_manual(values = c("Industria (LM)" = "#2b6cb0", "Agricultura (LA)" = "#38a169")) +
+  labs(title = "A. Asignación del Empleo Intersectorial", x = "Período (t)", y = "Trabajadores", color = "Sector:") +
+  tema_academico
+
+p1_sal <- ggplot(df_lewis, aes(x = periodo)) +
+  geom_line(aes(y = salario_urbano, color = "Salario Urbano (w_M)"), linewidth = 1.1) +
+  geom_line(aes(y = salario_rural, color = "Salario Rural (w_A)"), linewidth = 1.1) +
+  geom_line(aes(y = mpla, color = "Prod. Marginal Agrícola (MPLA)"), linetype = "dotted", linewidth = 1.0) +
+  geom_vline(xintercept = t_inflexion, linetype = "dashed", color = "#e53e3e") +
+  scale_color_manual(values = c("Salario Urbano (w_M)" = "#3182ce", "Salario Rural (w_A)" = "#2f855a", "Prod. Marginal Agrícola (MPLA)" = "#d69e2e")) +
+  labs(title = "B. Evolución Salarial e Inflexión de Lewis", x = "Período (t)", y = "Salario Real / MPL", color = "Variable:") +
+  tema_academico
+
+p1_cap <- ggplot(df_lewis, aes(x = periodo)) +
+  geom_line(aes(y = capital, color = "Stock de Capital (K_t)"), linewidth = 1.1) +
+  geom_line(aes(y = beneficios * 2, color = "Excedente/Beneficios (x2)"), linewidth = 1.0, linetype = "longdash") +
+  geom_vline(xintercept = t_inflexion, linetype = "dashed", color = "#e53e3e") +
+  scale_color_manual(values = c("Stock de Capital (K_t)" = "#805ad5", "Excedente/Beneficios (x2)" = "#dd6b20")) +
+  labs(title = "C. Acumulación de Capital y Beneficios", x = "Período (t)", y = "Capital / Beneficios", color = "Indicador:") +
+  tema_academico
+
+L_grid <- seq(50, 850, by = 10)
+demanda_t5   <- (1 - beta_M) * A_M * (df_lewis$capital[5]^beta_M) * (L_grid^(-beta_M))
+demanda_tLTP <- (1 - beta_M) * A_M * (df_lewis$capital[t_inflexion]^beta_M) * (L_grid^(-beta_M))
+demanda_t40  <- (1 - beta_M) * A_M * (df_lewis$capital[40]^beta_M) * (L_grid^(-beta_M))
+
+df_demanda <- tibble(
+  L = rep(L_grid, 3),
+  w = c(demanda_t5, demanda_tLTP, demanda_t40),
+  Curva = factor(
+    rep(c("Demanda t=5 (K inicial)", "Demanda t=Inflexión", "Demanda t=40 (K maduro)"), each = length(L_grid)),
+    levels = c("Demanda t=5 (K inicial)", "Demanda t=Inflexión", "Demanda t=40 (K maduro)")
+  )
+)
+
+p1_curv <- ggplot() +
+  geom_line(data = df_demanda, aes(x = L, y = w, color = Curva), linewidth = 1.1) +
+  geom_segment(aes(x = 0, xend = df_lewis$empleo_ind[t_inflexion],
+                   y = (1 + mu_urbana) * w_sub, yend = (1 + mu_urbana) * w_sub),
+               color = "#e53e3e", linewidth = 1.2) +
+  geom_segment(aes(x = df_lewis$empleo_ind[t_inflexion], xend = 850,
+                   y = (1 + mu_urbana) * w_sub, yend = df_lewis$salario_urbano[40]),
+               color = "#e53e3e", linewidth = 1.2, linetype = "dotdash") +
+  scale_color_manual(values = c("Demanda t=5 (K inicial)" = "#718096", "Demanda t=Inflexión" = "#3182ce", "Demanda t=40 (K maduro)" = "#2c5282")) +
+  labs(title = "D. Diagrama Canónico de Demanda y Oferta", x = "Empleo Industrial (LM)", y = "Salario Real Urbano (w_M)", color = "Curva:") +
+  tema_academico
+
+(p1_emp + p1_sal) / (p1_cap + p1_curv)
+```
+
+## Simulación de la Teoría de Schultz: Modernización Agrícola y Capital Humano
+
+```{r simulacion-schultz, fig.width=11, fig.height=8.5}
+# 1. Rendimientos marginales de factores (Schultz 1964)
+k_rango <- seq(5, 100, length.out = 100)
+mpk_trad <- 2.25 * (k_rango)^(-0.85)
+mpk_mod  <- 5.40 * (k_rango)^(-0.55)
+
+df_mpk <- tibble(
+  capital = rep(k_rango, 2),
+  mpk     = c(mpk_trad, mpk_mod),
+  tipo    = rep(c("Insumo Tradicional (Schultz 1964)", "Insumo Tecnológico Moderno"), each = length(k_rango))
+)
+
+# 2. Escolaridad, adopción e ingreso (Schultz 1975)
+escolaridad   <- seq(0, 14, by = 0.2)
+tasa_adopcion <- 1 / (1 + exp(-0.75 * (escolaridad - 4.5)))
+ingreso_est   <- 1.5 * exp(0.02 * escolaridad)
+ingreso_din   <- 1.5 * (1 + 1.2 * tasa_adopcion) * exp(0.045 * escolaridad)
+
+df_schultz <- tibble(
+  escolaridad   = escolaridad,
+  tasa_adopcion = tasa_adopcion * 100,
+  ingreso_est   = ingreso_est,
+  ingreso_din   = ingreso_din
+)
+
+p2_mpk <- ggplot(df_mpk, aes(x = capital, y = mpk, color = tipo)) +
+  geom_line(linewidth = 1.2) +
+  geom_hline(yintercept = 0.5, linetype = "dashed", color = "#718096") +
+  scale_color_manual(values = c("Insumo Tradicional (Schultz 1964)" = "#e53e3e", "Insumo Tecnológico Moderno" = "#2b6cb0")) +
+  labs(title = "A. Hipótesis 'Pobres pero Eficientes'", x = "Insumo Agrícola", y = "Producto Marginal (MPK)", color = "Tipo Insumo:") +
+  tema_academico
+
+p2_adop <- ggplot(df_schultz, aes(x = escolaridad, y = tasa_adopcion)) +
+  geom_line(color = "#2f855a", linewidth = 1.2) +
+  geom_vline(xintercept = 4.5, linetype = "dotted", color = "#d69e2e", linewidth = 1) +
+  labs(title = "B. Tasa de Adopción de Innovaciones Técnicas", x = "Años de Escolaridad", y = "% Adopción") +
+  tema_academico
+
+p2_prod <- ggplot(df_schultz, aes(x = escolaridad)) +
+  geom_line(aes(y = ingreso_est, color = "Entorno Tradicional Estático"), linewidth = 1.1, linetype = "dashed") +
+  geom_line(aes(y = ingreso_din, color = "Entorno Dinámico con Cambio Técnico"), linewidth = 1.2) +
+  scale_color_manual(values = c("Entorno Tradicional Estático" = "#718096", "Entorno Dinámico con Cambio Técnico" = "#2b6cb0")) +
+  labs(title = "C. Habilidad para Afrontar Desequilibrios (1975)", x = "Años de Escolaridad", y = "Ingreso Finca (Miles USD/ha)", color = "Régimen:") +
+  tema_academico
+
+# Panel D: Componentes
+df_barras <- tibble(
+  Nivel = factor(c("Sin Instrucción\n(0 años)", "Primaria Básica\n(5 años)", "Secundaria/Técnica\n(10 años)"),
+                 levels = c("Sin Instrucción\n(0 años)", "Primaria Básica\n(5 años)", "Secundaria/Técnica\n(10 años)")),
+  Tradicional = c(1.50, 1.65, 1.83),
+  Adopcion_Tecnica = c(0.15, 0.95, 1.85),
+  Eficiencia_Asignativa = c(0.05, 0.40, 1.15)
+) %>%
+  pivot_longer(cols = c("Tradicional", "Adopcion_Tecnica", "Eficiencia_Asignativa"), names_to = "Comp", values_to = "Y")
+
+p2_bar <- ggplot(df_barras, aes(x = Nivel, y = Y, fill = Comp)) +
+  geom_bar(stat = "identity", width = 0.55) +
+  scale_fill_manual(values = c("Eficiencia_Asignativa" = "#3182ce", "Adopcion_Tecnica" = "#38a169", "Tradicional" = "#a0aec0")) +
+  labs(title = "D. Descomposición del Ingreso Agrícola", x = "Nivel Educativo", y = "Ingreso Estimado (USD/ha)", fill = "Fuente:") +
+  tema_academico
+
+(p2_mpk + p2_adop) / (p2_prod + p2_bar)
+```
+
+---
+
+# Tabla Consolidada de Resultados
+
+```{r tabla-resultados}
+read_csv(file.path(dir_salidas, "tab_resultados_desarrollo_1979.csv"), show_col_types = FALSE) %>%
+  knitr::kable(digits = 2, caption = "Métricas Estructurales de la Transición de Lewis (t=1 a t=45)")
+```
+
+---
+
+# Ejercicios para el Estudiante
+
+1. **Ejercicio Básico (El Salario de Equilibrio y la Prima Urbana):**
+   - Si la prima urbana $\mu$ se incrementa de $35\%$ a $60\%$ (por ejemplo, debido a una regulación de salario mínimo urbano o encarecimiento severo de la vivienda citadina), ¿qué ocurre con el período de llegada al Punto de Inflexión de Lewis? Explique conceptual y gráficamente.
+2. **Ejercicio Intermedio (Tasa de Reinversión de Beneficios):**
+   - Modifique la propensión a la reinversión del excedente capitalista $s_\Pi$ de $0.28$ a $0.15$ (simulando fuga de capitales o consumo conspicuo de la élite industrial). ¿Cómo altera esto la tasa de crecimiento del empleo industrial y el tiempo requerido para absorber el excedente rural?
+3. **Ejercicio Reto (La Paradoja de Schultz y la Educación en la Agricultura):**
+   - Demuestre formalmente por qué en una aldea con tecnología tradicional inmutable el retorno privado a la educación es casi nulo ($\rho \approx 2\%$), mientras que al irrumpir un paquete tecnológico de la Revolución Verde el retorno se triplica. Vincule su respuesta con el concepto de *capacidad de ajuste ante desequilibrios* (*ability to deal with disequilibria*).
+
+---
+
+# Preguntas de Discusión
+
+1. ¿Es aplicable el modelo de Lewis a las economías africanas o latinoamericanas contemporáneas, donde la urbanización masiva ha alimentado el sector informal de servicios en lugar de la manufactura intensiva en capital?
+2. ¿Cómo responde la evidencia empírica de la Revolución Verde en India y México a la controversia entre Lewis (quien priorizaba la extracción del excedente agrícola para la industria) y Schultz (quien defendía la inversión masiva en el propio sector rural)?

@@ -1,0 +1,95 @@
+---
+title: "Guía de Ejercicios Prácticos: Racionalidad Limitada, Heurística Satisfactora y Niveles de Aspiración"
+subtitle: "Premio Nobel de Economía 1978: Herbert A. Simon"
+author: "Nobel_economics Docencia"
+date: "1978-10-16"
+format:
+  html:
+    toc: true
+    number-sections: true
+    embed-resources: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta guía aplicarás el marco analítico y cuantitativo pionero de **Herbert A. Simon** (Premio Nobel de Economía 1978) para explorar la toma de decisiones bajo limitaciones cognitivas:
+
+1. Derivarás matemáticamente la **probabilidad de parada y el esfuerzo esperado de búsqueda** bajo la regla satisfactora (*satisficing*).
+2. Analizarás formalmente el **cruce de costo cognitivo de Simon**: por qué evaluar exhaustivamente todas las alternativas conduce a resultados subóptimos cuando el tiempo y la atención tienen un costo positivo ($c > 0$).
+3. Modelarás la **dinámica adaptativa de los niveles de aspiración** ($\alpha_t$) en organizaciones que experimentan perturbaciones exógenas en su entorno productivo.
+4. Desarrollarás y simularás en R un algoritmo de búsqueda heurística secuencial frente a la optimización por fuerza bruta.
+
+---
+
+# Ejercicio 1: El Modelo Canónico de Satisfacción y Probabilidad de Parada (Nivel Básico)
+
+Imagina un comité de contratación corporativo que busca cubrir un puesto de gerencia de proyectos. En el mercado laboral existen $N = 100$ candidatos calificados. El valor o productividad neta de cada candidato $V_i$ sigue una distribución uniforme continua en el intervalo:
+$$V_i \sim U(20, 80)$$
+
+En lugar de entrevistar a los $100$ candidatos (lo cual consume semanas de tiempo), el comité adopta la regla satisfactora de Herbert Simon (1955) con un **nivel de aspiración** $\alpha = 65$.
+Los candidatos se entrevistan uno por uno en orden aleatorio. El comité contrata al primer postulante que satisfaga la condición $V_k \ge \alpha$. Si tras entrevistar a los $N = 100$ candidatos ninguno cumple con $\alpha$, contratan al mejor candidato observado en la muestra.
+
+### Preguntas:
+
+1. **Probabilidad de Éxito Individual:**
+   - Calcula la probabilidad $p = P(V_i \ge 65)$ de que un candidato elegido al azar cumpla con el nivel de aspiración.
+2. **Distribución del Número de Entrevistas ($K$):**
+   - Escribe la función de probabilidad acumulada $P(K \le k)$ de detener la búsqueda en o antes de la entrevista $k$.
+   - ¿Cuál es la probabilidad de encontrar un candidato satisfactorio dentro de las primeras $5$ entrevistas? ¿Y dentro de las primeras $10$?
+3. **Número Esperado de Evaluaciones:**
+   - Demuestra formalmente que el número esperado de candidatos entrevistados es:
+     $$E[K] = \frac{1 - (1 - p)^N}{p}$$
+   - Calcula el valor numérico de $E[K]$ para $p$ obtenido en el inciso 1 con $N = 100$. Compáralo con las $100$ entrevistas que exigiría un optimizador exhaustivo.
+4. **Valor Bruto Esperado del Candidato Contratado:**
+   - Dado que el proceso se detiene en un candidato que cumple $V_k \ge 65$, calcula el valor esperado analítico $E[V \mid V \ge 65]$.
+   - Si el valor máximo absoluto esperado entre los $100$ candidatos es $E[\max(V_1, \dots, V_{100})] = 20 + \frac{60 \times 100}{101} \approx 79.4$, ¿qué porcentaje de la excelencia óptima global logra capturar el comité satisfacedor y con qué porcentaje del esfuerzo de entrevistas?
+
+---
+
+# Ejercicio 2: El Costo Cognitivo y el Cruce de Dominancia de Simon (Nivel Intermedio)
+
+Supongamos que un fondo de inversión evalúa proyectos de innovación tecnológica. Dispone de un universo de $N = 250$ proyectos potenciales. La rentabilidad latente de cada proyecto se distribuye de forma Normal:
+$$V_i \sim \mathcal{N}(\mu = 100, \, \sigma = 15)$$
+
+El análisis técnico y financiero de cada proyecto requiere horas de trabajo de analistas senior, con un costo unitario constante de $c$ unidades monetarias por proyecto evaluado.
+
+El fondo compara dos políticas de decisión:
+- **Estrategia A (Optimizador Neoclásico Exhaustivo):** Audita los $250$ proyectos y financia el mejor:
+  $$U_{\text{opt}}(c) = V_{\text{max}} - 250 \cdot c$$
+  donde $E[V_{\text{max}}] \approx 100 + 15 \times 2.83 \approx 142.45$.
+- **Estrategia B (Satisfacedor de Simon):** Fija un nivel de aspiración en el percentil 95 de la distribución ($\alpha = 100 + 1.645 \times 15 \approx 124.68$). Evalúa proyectos secuencialmente y aprueba el primero que cumpla $V_k \ge \alpha$.
+  Bajo esta regla, $p = 0.05$, el número medio de evaluaciones es $E[K] \approx 1 / p = 20$ proyectos, y la rentabilidad esperada del proyecto seleccionado es $E[V_{\text{sat}}] \approx 100 + 15 \times 2.06 \approx 130.90$.
+
+### Preguntas:
+
+1. **Expresión de Utilidad Neta:**
+   - Escribe las funciones de utilidad neta esperada $E[U_{\text{opt}}(c)]$ y $E[U_{\text{sat}}(c)]$ en función del costo unitario de auditoría $c$.
+2. **El Umbral Crítico de Fricción ($c^*$):**
+   - Halla el valor analítico del costo de auditoría $c^*$ a partir del cual la regla satisfactora de Simon domina estrictamente al optimizador global ($E[U_{\text{sat}}(c^*)] > E[U_{\text{opt}}(c^*)]$).
+   - Interpreta económicamente este resultado: ¿es necesario un costo cognitivo alto para que la racionalidad limitada sea superior al optimizador global?
+3. **Punto de Colapso del Optimizador:**
+   - ¿Para qué valor de $c$ la utilidad neta esperada del optimizador exhaustivo se vuelve negativa ($E[U_{\text{opt}}] < 0$)?
+   - ¿Cuál es la utilidad neta del satisfacedor en ese mismo valor de $c$? Explica las implicaciones prácticas para la gestión corporativa en contextos de sobrecarga de información (*information overload*).
+
+---
+
+# Ejercicio 3: Dinámica de Niveles de Aspiración Adaptativos en R (Nivel Avanzado / Reto)
+
+En el mundo real, los entornos de mercado son dinámicos y están sujetos a choques exógenos. En este reto programarás en R una simulación de la regla adaptativa propuesta por March & Simon (1958) y Cyert & March (1963):
+$$\alpha_{t+1} = (1 - \lambda)\alpha_t + \lambda V_t$$
+
+### Instrucciones y Datos:
+1. Simula $T = 120$ periodos trimestrales de decisión para una empresa manufacturera.
+2. La calidad de los proyectos disponibles en cada trimestre depende de tres regímenes macroeconómicos:
+   - Trimestres $1$ al $40$ (Estabilidad): $V \sim \mathcal{N}(60, 10)$.
+   - Trimestres $41$ al $80$ (Shock de Oferta / Recesión Severa): $V \sim \mathcal{N}(35, 8)$.
+   - Trimestres $81$ al $120$ (Innovación / Auge de Productividad): $V \sim \mathcal{N}(85, 12)$.
+3. En cada trimestre, la empresa dispone de un grupo de $50$ proyectos y evalúa secuencialmente hasta encontrar el primero que cumpla $V_{k} \ge \alpha_t$. Si tras evaluar los $50$ proyectos ninguno cumple el umbral, toma el mejor disponible.
+4. El nivel de aspiración inicial es $\alpha_1 = 62$. Compara dos velocidades de adaptación:
+   - Empresa Rígida / Burocrática: $\lambda = 0.05$.
+   - Empresa Adaptativa / Simoniana: $\lambda = 0.25$.
+
+### Preguntas a Resolver con Código en R:
+1. Grafica la trayectoria temporal del nivel de aspiración $\alpha_t$ para ambas empresas superpuesta con la media del entorno macroeconómico.
+2. ¿Qué ocurre con la empresa rígida ($\lambda = 0.05$) durante el shock de recesión (trimestres 41 a 80)? ¿Cuántos proyectos debe evaluar en promedio frente a la empresa adaptativa?
+3. Explica el concepto de **homeostasis organizacional** de Herbert Simon y por qué una adaptación ágil del nivel de aspiración previene tanto la frustración operativa como la complacencia corporativa.

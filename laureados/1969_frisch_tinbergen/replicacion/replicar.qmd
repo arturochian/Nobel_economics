@@ -1,0 +1,128 @@
+---
+title: "Impulsos, propagación y modelos econométricos dinámicos"
+subtitle: "Premio Nobel de Economía 1969: Ragnar Frisch y Jan Tinbergen"
+lang: es
+format:
+  html:
+    toc: true
+    code-fold: false
+    theme: cosmo
+bibliography: "../referencias/referencias.bib"
+execute:
+  echo: true
+  warning: false
+---
+
+## ¿Qué vas a aprender?
+
+Al terminar podrás distinguir un **impulso** externo de su **propagación** dentro de un sistema económico, simular una ecuación dinámica con rezagos, leer una función impulso-respuesta y estimar sus coeficientes con mínimos cuadrados. El ejercicio es **ilustrativo**: traduce una idea central de Frisch y el programa empírico de Tinbergen, pero no reproduce sus datos ni una tabla histórica [@frisch1933propagation; @tinbergen1939testing].
+
+## Objetivo y modelo
+
+La motivación oficial reconoció a ambos economistas “for having developed and applied dynamic models for the analysis of economic processes” [@nobel1969summary]. Usamos desviaciones de la actividad respecto de su equilibrio:
+
+$$y_t=(c+v)y_{t-1}-v y_{t-2}+u_t,$$
+
+donde $c$ representa persistencia del gasto, $v$ un mecanismo acelerador y $u_t$ el impulso externo. Esta ecuación compacta no es el sistema exacto de Frisch: conserva únicamente la intuición de que la estructura interna transforma un golpe puntual en oscilaciones que duran varios periodos.
+
+```{r}
+#| label: setup
+#| message: false
+source("R/modelo_dinamico.R")
+dir.create("salidas", showWarnings = FALSE, recursive = TRUE)
+```
+
+## Respuesta a un impulso único
+
+```{r}
+#| label: respuesta-determinista
+#| fig-cap: "Respuesta de la actividad a un impulso transitorio."
+base <- simular_impulso(
+  periodos = 40,
+  propension = 0.6,
+  acelerador = 0.7,
+  persistencia = 0,
+  amplitud = 10
+)
+
+png("salidas/fig_impulso_propagacion_1969.png", 1200, 720, res = 144)
+plot(base$periodo, base$actividad,
+  type = "o", pch = 16, col = "#b7791f", lwd = 2,
+  xlab = "Periodo", ylab = "Actividad (desviación del equilibrio)",
+  main = "Un impulso breve puede producir un ciclo persistente"
+)
+abline(h = 0, col = "#52606d", lty = 2)
+dev.off()
+
+plot(base$periodo, base$actividad,
+  type = "o", pch = 16, col = "#b7791f", lwd = 2,
+  xlab = "Periodo", ylab = "Actividad (desviación del equilibrio)"
+)
+abline(h = 0, col = "#52606d", lty = 2)
+```
+
+El choque desaparece inmediatamente, pero la actividad no: los rezagos la hacen alternar alrededor del equilibrio y su amplitud cae gradualmente. Eso separa la causa externa del ciclo —el impulso— de la forma y duración que le da el sistema —la propagación—.
+
+## Choques recurrentes y estimación
+
+```{r}
+#| label: estimacion
+serie <- simular_impulso(
+  periodos = 250,
+  propension = 0.6,
+  acelerador = 0.7,
+  amplitud = 0,
+  estocastico = TRUE,
+  desviacion = 1,
+  semilla = 1969
+)
+
+serie$rezago_1 <- c(NA, head(serie$actividad, -1))
+serie$rezago_2 <- c(NA, NA, head(serie$actividad, -2))
+estimacion <- lm(actividad ~ rezago_1 + rezago_2, data = serie)
+coef(estimacion)
+```
+
+Los valores teóricos de los dos rezagos son $c+v=1.3$ y $-v=-0.7$. En una muestra finita, la estimación se aproxima a ellos pero no coincide exactamente: esa distancia es parte del problema empírico que Tinbergen convirtió en trabajo sistemático. Su conferencia Nobel describe un modelo mediante variables, ecuaciones y contraste con observaciones [@tinbergen1969lecture].
+
+## Comparar mecanismos de propagación
+
+```{r}
+#| label: comparacion
+escenarios <- rbind(
+  transform(simular_impulso(acelerador = 0.2), escenario = "Acelerador 0.2"),
+  transform(simular_impulso(acelerador = 0.7), escenario = "Acelerador 0.7")
+)
+
+png("salidas/fig_comparacion_acelerador_1969.png", 1200, 720, res = 144)
+matplot(
+  x = 1:40,
+  y = cbind(
+    escenarios$actividad[escenarios$escenario == "Acelerador 0.2"],
+    escenarios$actividad[escenarios$escenario == "Acelerador 0.7"]
+  ),
+  type = "l", lty = 1, lwd = 2, col = c("#277da1", "#b7791f"),
+  xlab = "Periodo", ylab = "Actividad"
+)
+abline(h = 0, col = "#52606d", lty = 2)
+legend("topright", c("v = 0.2", "v = 0.7"), col = c("#277da1", "#b7791f"), lty = 1, lwd = 2)
+dev.off()
+```
+
+## Comparación con el resultado publicado y limitaciones
+
+El resultado cualitativo coincide con la distinción de Frisch entre impulsos y propagación: perturbaciones irregulares pueden activar fluctuaciones cuya trayectoria depende de la estructura dinámica [@frisch1933propagation]. No comparamos coeficientes, predicciones ni bondad de ajuste con Frisch o Tinbergen porque no usamos sus ecuaciones completas ni sus datos. Tampoco identificamos causalidad. El modelo es lineal, agregado y deliberadamente pequeño; sirve para aprender el mecanismo, no para pronosticar una economía real.
+
+## Ejercicios para el estudiante
+
+1. **Básico:** cambia la amplitud de 10 a 5. ¿Qué ocurre con el pico y por qué?
+2. **Intermedio:** usa la app y compara $v=0.2$ con $v=0.8$. Describe duración, oscilación y estabilidad.
+3. **Reto:** introduce persistencia del choque de 0.6 y separa qué parte de la duración proviene del impulso y cuál de la propagación.
+
+## Preguntas de discusión
+
+- ¿Un buen ajuste estadístico basta para afirmar que un modelo explica el mecanismo económico?
+- ¿Qué variables omitidas impedirían usar este modelo para tomar decisiones públicas?
+- ¿Por qué un modelo más grande no es automáticamente un modelo mejor?
+
+## Referencias {.unnumbered}

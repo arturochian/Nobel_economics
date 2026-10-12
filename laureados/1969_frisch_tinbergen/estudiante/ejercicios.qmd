@@ -1,0 +1,27 @@
+---
+title: "Ejercicios: impulsos y propagación"
+lang: es
+format: html
+---
+
+## Antes de empezar
+
+Lee la replicación y abre la app con `shiny::runApp("laureados/1969_frisch_tinbergen/shiny")`. Entrega tus gráficos, el código que hayas modificado y respuestas breves; no necesitas buscar datos externos.
+
+## Básico
+
+Fija `propensión = 0.6`, `acelerador = 0.7` y `persistencia = 0`. Compara amplitudes 5 y 10. Anota el máximo de la actividad y explica si la respuesta es proporcional.
+
+## Intermedio: usa la app
+
+Mantén los demás controles en sus valores iniciales y mueve **Acelerador** de 0.2 a 0.8. ¿Qué pasa con la frecuencia, la duración y la amplitud de las oscilaciones? Incluye una captura o una tabla de cinco periodos.
+
+## Reto
+
+Compara dos escenarios que produzcan una respuesta duradera: (A) acelerador alto con choque transitorio y (B) acelerador bajo con choque persistente. Explica por qué observar solo la serie de actividad puede no revelar cuál mecanismo la generó.
+
+## Preguntas de discusión
+
+1. ¿Qué significa “dinámico” en este ejercicio?
+2. ¿Qué necesitarías observar para estimar el modelo con datos reales?
+3. ¿Qué diferencia hay entre ilustrar un mecanismo y replicar un resultado publicado?

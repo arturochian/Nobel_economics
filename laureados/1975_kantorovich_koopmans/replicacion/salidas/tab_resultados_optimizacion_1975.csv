@@ -1,0 +1,7 @@
+escenario,b_Trabajo,b_Capital,b_Energia,x1_opt_Maquinaria,x2_opt_Consumo,Z_opt_ValorTotal,holgura_Trabajo,holgura_Capital,holgura_Energia,precio_sombra_Trabajo,precio_sombra_Capital,precio_sombra_Energia
+Caso Base (Calibracion 1975),1000,800,700,400,200,22000,0,0,100,16.6667,6.6667,0
+Escasez Severa de Capital,1000,500,700,500,0,20000,0,0,200,16.6667,6.6667,0
+Abundancia de Capital,1000,1100,700,300,400,24000,0,0,0,16.6667,6.6667,0
+Restriccion Energetica Vinculante,1000,800,550,450,100,21000,0,150,0,10,0,20
+Expansion de Fuerza Laboral (+20%),1200,800,700,533.33,133.33,25333.33,0,0,33.33,16.6667,6.6667,0
+Economia Deprimida (Shock Generalizado),800,600,500,333.33,133.33,17333.33,0,0,33.33,16.6667,6.6667,0

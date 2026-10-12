@@ -1,0 +1,105 @@
+---
+title: "Guía de Ejercicios Prácticos: Asignación Óptima de Recursos, Dualidad y Precios Sombra"
+subtitle: "Premio Nobel de Economía 1975: Leonid V. Kantorovich y Tjalling C. Koopmans"
+author: "Nobel_economics Docencia"
+date: "1975-10-14"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta guía pedagógica aplicarás las herramientas analíticas desarrolladas por Leonid V. Kantorovich y Tjalling C. Koopmans que fundaron la teoría matemática de la asignación óptima de recursos:
+1. **El Teorema de Dualidad Lineal y Holguras Complementarias:** Resolverás analíticamente los problemas primal y dual de asignación de factores productivos y deducirás los precios sombra marginales.
+2. **El Análisis de Actividades de Koopmans (1951):** Evaluarás la rentabilidad económica marginal de nuevas tecnologías o procesos productivos mediante el cálculo de costos de oportunidad contables (*reduced costs*).
+3. **Límites de la Descentralización por Precios en Presencia de No Convexidades:** Examinarás cómo la introducción de costos fijos o indivisibilidades genera una brecha de dualidad (*duality gap*) que invalida los precios lineales como coordinadores perfectos del óptimo social.
+
+---
+
+# Ejercicio 1: Formulación Primal-Dual y Holgura Complementaria (Nivel Básico)
+
+Considere una planta industrial multiproductiva que planifica la producción de dos bienes:
+- $x_1$: Maquinaria pesada (precio unitario o valor social $c_1 = 40$).
+- $x_2$: Bienes de consumo manufacturados (precio unitario o valor social $c_2 = 30$).
+
+La planta requiere tres insumos limitados por período:
+- **Trabajo especializado ($L$):** $2 x_1 + 1 x_2 \le 1000$ horas disponibles.
+- **Capacidad de maquinaria ($K$):** $1 x_1 + 2 x_2 \le 800$ horas-máquina disponibles.
+- **Energía eléctrica ($E$):** $1 x_1 + 1 x_2 \le 700$ MWh disponibles.
+- Restricciones de no negatividad: $x_1 \ge 0, x_2 \ge 0$.
+
+## Preguntas:
+
+1. **Resolución Gráfica y Analítica del Primal:**
+   - Dibuje en el plano $(x_1, x_2)$ la región de posibilidades de producción (poliedro factible).
+   - Identifique las coordenadas de todos los vértices del poliedro.
+   - Evalúe la función objetivo $Z(x_1, x_2) = 40 x_1 + 30 x_2$ en cada vértice y determine la canasta de producción óptima $(x_1^*, x_2^*)$ y el valor máximo $Z^*$.
+   - Calcule el uso efectivo de cada uno de los tres insumos e identifique cuáles restricciones están activas (cuellos de botella) y cuál presenta holgura positiva.
+
+2. **Formulación y Resolución del Problema Dual:**
+   - Escriba formalmente el problema dual de minimización de costos de valoración contable, definiendo las variables duales $(\lambda_L, \lambda_K, \lambda_E)$.
+   - Aplique el **Teorema de Holguras Complementarias** (*Complementary Slackness*):
+     - Deduzca de inmediato el valor de $\lambda_E^*$ a partir de la holgura de la restricción de energía.
+     - Formule el sistema de ecuaciones $2 \times 2$ para $\lambda_L^*$ y $\lambda_K^*$ y calcule sus valores exactos.
+   - Demuestre analíticamente que se cumple el **Teorema Fuerte de Dualidad**: $Z^* = W^*$.
+
+3. **Interpretación Económica y Análisis Marginal:**
+   - Explique por qué el precio sombra de la energía es $\lambda_E^* = 0$ a pesar de que la energía es un insumo indispensable en la producción de ambos bienes.
+   - Si la empresa tuviera la opción de contratar 100 horas adicionales de trabajo especializado a un salario de 12 u.m./hora, ¿debería aceptarlo? ¿Cuál sería el incremento neto en el valor de la producción?
+
+---
+
+# Ejercicio 2: Análisis de Actividades de Koopmans y Nuevas Tecnologías (Nivel Intermedio)
+
+Partiendo del equilibrio óptimo obtenido en el Ejercicio 1, la dirección de ingeniería propone incorporar una tercera actividad productiva:
+- $x_3$: **Equipos Electrónicos Avanzados**, con un valor en el mercado de $c_3 = 65$ u.m. por unidad.
+- Requerimientos tecnológicos por unidad de $x_3$:
+  - $a_{L3} = 3$ horas de trabajo especializado.
+  - $a_{K3} = 2$ horas-máquina de capital.
+  - $a_{E3} = 1.5$ MWh de energía eléctrica.
+
+## Preguntas:
+
+1. **Evaluación de Rentabilidad Contable según Koopmans (1951):**
+   - Utilizando los precios sombra de equilibrio del caso base ($\lambda_L^* = 16.6667$, $\lambda_K^* = 6.6667$, $\lambda_E^* = 0$), calcule el **costo contable imputado** (*imputed accounting cost*) de producir una unidad de $x_3$:
+     $$C_3^{\text{imputado}} = 3 \lambda_L^* + 2 \lambda_K^* + 1.5 \lambda_E^*$$
+   - Calcule el **costo reducido** (*reduced cost*) o beneficio económico extraordinario marginal:
+     $$\Delta \pi_3 = c_3 - C_3^{\text{imputado}}$$
+   - Según el principio de optimalidad y el criterio del método simplex de Dantzig y Koopmans, ¿debe la economía activar la producción del bien 3 ($x_3 > 0$)? Justifique su respuesta económica rigurosamente.
+
+2. **Resolución del Nuevo Óptimo Multi-Actividad:**
+   - Plantee la nueva matriz tecnológica $A \in \mathbb{R}^{3 \times 3}$ e incorpore $x_3$ al modelo de programación lineal en R.
+   - Obtenga el nuevo vector de producción óptimo $(x_1^{**}, x_2^{**}, x_3^{**})$ y el nuevo valor objetivo $Z^{**}$.
+   - Indique qué actividad previa fue desplazada o reducida y explique la reasignación de factores a la luz del principio de ventaja comparativa técnica.
+   - Calcule los nuevos precios sombra $(\lambda_L^{**}, \lambda_K^{**}, \lambda_E^{**})$ y verifique si la energía continúa teniendo precio sombra cero o si se convirtió en un factor escaso limitante.
+
+---
+
+# Ejercicio 3: Indivisibilidades, Costos Fijos y la Falla de Precios Sombra (Nivel Reto)
+
+Considere ahora que la producción de maquinaria pesada ($x_1$) no puede realizarse de manera continua y divisible sin incurrir primero en la habilitación de una fundición de acero especializada. Esto genera una estructura de costo fijo de activación:
+- Si $x_1 > 0$, la economía debe pagar un costo fijo social de $F = 4,000$ unidades de valor. Si $x_1 = 0$, el costo fijo es cero.
+- La función objetivo neta pasa a ser:
+  $$\max Z = 40 x_1 + 30 x_2 - 4000 \cdot y_1$$
+  sujeto a las mismas restricciones de recursos del Ejercicio 1, añadiendo la restricción de acoplamiento de capacidad:
+  $$x_1 \le M \cdot y_1, \quad y_1 \in \{0, 1\}$$
+  donde $M = 500$ representa una cota superior natural de la producción máxima de $x_1$.
+
+## Preguntas:
+
+1. **Pérdida de Convexidad del Conjunto Factible:**
+   - Demuestre gráfica o analíticamente por qué la presencia de la variable binaria $y_1$ y el costo fijo $F$ destruye la convexidad del conjunto de producción factible.
+   - Recuerde el Teorema del Hiperplano Separador (Hahn-Banach / Minkowski). ¿Por qué la convexidad es una condición necesaria para asegurar que a todo punto óptimo de la frontera le corresponda un hiperplano soporte (vector de precios sombra)?
+
+2. **Resolución de la Programación Lineal Entera Mixta (MIP):**
+   - Compare los dos estados posibles:
+     - Estado A ($y_1 = 1$, fundición activa): resuelva el modelo lineal con costo $Z_A = 22,000 - 4,000 = 18,000$.
+     - Estado B ($y_1 = 0$, fundición inactiva, $x_1 = 0$): maximice $30 x_2$ sujeto a $x_2 \le 400$.
+   - Determine la solución óptima global $(x_1^{\text{MIP}}, x_2^{\text{MIP}}, y_1^{\text{MIP}})$.
+   - Explique por qué en el Estado A, a pesar de que el valor bruto era $22,000$, la existencia de la indivisibilidad hace que la solución $x_1 = 0, x_2 = 400$ ($Z_B = 12,000$) sea inferior o superior.
+
+3. **La Brecha de Dualidad (*Duality Gap*) y el Debate del Cálculo Económico:**
+   - Explique por qué, en presencia de economías de escala o indivisibilidades, un sistema de precios sombra marginales descentralizados no puede guiar a las empresas a la asignación globalmente óptima.
+   - Relacione este resultado con las dificultades que enfrentó Leonid Kantorovich al intentar aplicar la programación lineal en la industria pesada soviética durante las décadas de 1950 y 1960.

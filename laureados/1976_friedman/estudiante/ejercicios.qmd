@@ -1,0 +1,122 @@
+---
+title: "Guía de Ejercicios Prácticos: Ingreso Permanente, Monetarismo y Curva de Phillips"
+subtitle: "Premio Nobel de Economía 1976: Milton Friedman"
+author: "Nobel_economics Docencia"
+date: "1976-10-14"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta guía pedagógica aplicarás los tres pilares macroeconómicos desarrollados por Milton Friedman:
+1. **La Hipótesis del Ingreso Permanente (PIH):** Cuantificarás la respuesta del consumo ante choques transitorios versus permanentes, evaluarás la eficacia de las devoluciones fiscales extraordinarias y desentrañarás el sesgo de atenuación que genera la paradoja empírica de Kuznets.
+2. **La Teoría Cuantitativa y la Regla Monetaria del $k\%$:** Calcularás la tasa de expansión monetaria óptima para garantizar la estabilidad de precios y analizarás por qué los rezagos largos y variables (*long and variable lags*) vuelven desestabilizador el ajuste fino discrecional (*fine-tuning*).
+3. **La Curva de Phillips con Expectativas y la NAIRU:** Modelarás la espiral aceleracionista desatada por intentos de mantener el desempleo por debajo de su tasa natural y calcularás el ratio de sacrificio requerido para restaurar la estabilidad de precios.
+
+---
+
+# Ejercicio 1: Hipótesis del Ingreso Permanente vs. Keynesianismo Simple (Nivel Básico)
+
+Considera un consumidor representativo que planifica sus decisiones a lo largo de un horizonte de $T = 25$ años remanentes. La tasa de interés real del mercado es $r = 0.04$ ($4\%$ anual) y coincide con su tasa subjetiva de descuento intertemporal ($\rho = r$).
+
+En la situación base, el individuo percibe un flujo salarial anual estable de:
+
+$$Y_0 = 50.000 \text{ dólares al año}$$
+
+No posee riqueza financiera inicial acumulada ($A_0 = 0$).
+
+El gobierno está evaluando dos alternativas de estímulo fiscal para el hogar:
+- **Programa A (Bono extraordinario transitorio):** Un pago único en efectivo por transferencia directa de $10.000$ dólares en el año $t = 1$. A partir del año $t = 2$, el ingreso vuelve a sus $50.000$ dólares anuales habituales.
+- **Programa B (Reforma impositiva permanente):** Una reducción permanente de impuestos laborales que incrementa el ingreso disponible neto del hogar en $2.000$ dólares anuales a lo largo de todos y cada uno de los 25 años del horizonte vital.
+
+## Preguntas:
+
+1. **Predicción del Modelo Keynesiano Ingenuo:**
+   - Supón que el consumo sigue la función keynesiana tradicional:
+     $$C_t = a + c Y_t$$
+     donde la propensión marginal a consumir del ingreso corriente es $c = 0.80$ y el consumo autónomo es $a = 5.000$.
+   - Calcula el incremento en el consumo corriente del año 1 ($\Delta C_1^{\text{Keynes}}$) bajo el Programa A y bajo el Programa B.
+   - ¿Qué porcentaje del bono transitorio de $10.000$ dólares predice Keynes que se gastará inmediatamente en el año 1?
+2. **Predicción de la Hipótesis del Ingreso Permanente (Friedman, 1957):**
+   - Recuerda que bajo la PIH con suavizamiento perfecto, el consumo permanente óptimo es:
+     $$C_t = k \cdot Y_t^p$$
+     donde $k = 1.0$ (el hogar consume la totalidad de la anualidad de sus recursos vitales) y el ingreso permanente $Y_t^p$ es el valor de la anualidad equivalente de la riqueza total:
+     $$Y_1^p = \left( \frac{r}{1 - (1+r)^{-T}} \right) \cdot PV_1(\text{Recursos})$$
+   - Nota que para $r = 0.04$ y $T = 25$, el factor de anualidad es:
+     $$\phi = \frac{0.04}{1 - (1.04)^{-25}} \approx 0.06401$$
+   - Calcula el incremento en el ingreso permanente ($\Delta Y_1^p$) y el aumento en el consumo corriente ($\Delta C_1^{\text{Friedman}}$) provocado por el **Programa A** (bono transitorio de $10.000$).
+   - ¿Cuánto se ahorra del bono transitorio en el año 1 según Friedman?
+   - Calcula el incremento en el consumo corriente ($\Delta C_1^{\text{Friedman}}$) provocado por el **Programa B** (aumento permanente de $2.000$ al año).
+3. **Comparación e Implicancias de Política Pública:**
+   - Compara las predicciones de ambos modelos en una tabla sintética.
+   - Si el objetivo del Ministerio de Hacienda es estimular de inmediato la demanda agregada durante una recesión transitoria, ¿por qué los hallazgos de Friedman advierten que los cheques de estímulo fiscal extraordinarios suelen tener un multiplicador sustancialmente menor al proyectado por los modelos keynesianos tradicionales?
+
+---
+
+# Ejercicio 2: Teoría Cuantitativa del Dinero, Rezagos y la Regla del $k\%$ (Nivel Intermedio)
+
+En una economía abierta pequeña que utiliza moneda propia, las autoridades monetarias analizan la formulación de la política monetaria a mediano plazo basándose en la identidad cuantitativa del dinero:
+
+$$M \cdot V = P \cdot Y$$
+
+donde $M$ es el acervo de dinero en circulación, $V$ es la velocidad-ingreso de circulación, $P$ es el nivel general de precios e $Y$ es el producto interno bruto real. En tasas de variación porcentual continua, la identidad se expresa como:
+
+$$\frac{\dot{M}}{M} + \frac{\dot{V}}{V} = \pi + g_y$$
+
+donde $\pi = \dot{P}/P$ es la tasa de inflación y $g_y = \dot{Y}/Y$ es el crecimiento del PIB real.
+
+Se dispone de la siguiente información macroeconómica estructural:
+- Crecimiento tendencial de la productividad y el PIB potencial: $g_y = 3.2\%$ anual.
+- Tendencia secular de la velocidad de circulación del dinero debida a la modernización del sistema de pagos financieros: $\dot{V}/V = -0.7\%$ anual.
+- Meta de estabilidad de precios del banco central: $\pi^* = 2.0\%$ anual.
+
+## Preguntas:
+
+1. **Determinación de la Regla de Crecimiento Monetario ($k\%$ de Friedman):**
+   - Utilizando la reformulación de la Teoría Cuantitativa de Friedman, determina la tasa fija anual de crecimiento de la oferta monetaria $k = \dot{M}/M$ que el banco central debería fijar para alcanzar exactamente la meta de inflación del $2.0\%$.
+   - Supón que el banco central pierde el control de la emisión y la masa monetaria se expande al $11.5\%$ anual durante un lustro, mientras el producto real y la velocidad se mantienen en sus tendencias estructurales. ¿Cuál será la tasa de inflación resultante a mediano plazo?
+2. **Rezagos Largos y Variables (*Long and Variable Lags*):**
+   - Supón que el impacto de la política monetaria discrecional sobre la brecha del PIB opera con un rezago medio de 9 meses, mientras que el impacto de la política fiscal tarda 15 meses en implementarse.
+   - La economía sufre una caída transitoria de la demanda privada que dura exactamente 6 meses y luego se autorregula. Si las autoridades monetarias deciden aplicar un estímulo monetario discrecional masivo al mes 4 de la recesión:
+     a) ¿En qué momento del ciclo económico surtirá su efecto máximo la expansión de liquidez?
+     b) Explica por qué Friedman argumentaba que el activismo discrecional contracíclico (*fine-tuning*) suele terminar actuando como una fuerza **procíclica**, agravando la volatilidad del ciclo en lugar de amortiguarla.
+
+---
+
+# Ejercicio 3: Curva de Phillips con Expectativas Adaptativas y Espiral Aceleracionista (Nivel Reto)
+
+Considera la estructura macroeconómica del mercado laboral de un país modelada según la Curva de Phillips aumentada por expectativas de Friedman (1968):
+
+$$\pi_t = \pi_t^e - \alpha (u_t - u_n)$$
+
+con los siguientes parámetros calibrados:
+- Tasa Natural de Desempleo: $u_n = 5.0\%$ ($0.05$).
+- Sensibilidad salarial a la brecha de desempleo: $\alpha = 0.8$.
+- Mecanismo de expectativas adaptativas:
+  $$\pi_t^e = \pi_{t-1}^e + \lambda (\pi_{t-1} - \pi_{t-1}^e)$$
+  donde $\lambda = 0.70$ mide la velocidad a la que los agentes revisan sus previsiones.
+
+En el período inicial $t = 0$, la economía se encuentra en equilibrio estático de largo plazo:
+$$u_0 = 5.0\%, \quad \pi_0 = 2.0\%, \quad \pi_0^e = 2.0\%$$
+
+El gobierno asume el poder y considera inaceptable una tasa de desempleo del $5.0\%$. Mediante una agresiva expansión monetaria y crediticia, se propone el objetivo de mantener permanentemente la tasa de desempleo en:
+
+$$u^* = 3.5\% \quad \text{para los períodos } t = 1, 2, 3, 4, 5$$
+
+## Preguntas:
+
+1. **Cálculo de la Trayectoria Dinámica y Espiral Inflacionaria:**
+   - Calcula paso a paso los valores numéricos exactos de la inflación esperada ($\pi_t^e$) y de la inflación efectiva realizada ($\pi_t$) para cada período desde $t = 1$ hasta $t = 5$.
+   - Presenta los resultados en una tabla cronológica clara.
+   - Demuestra formalmente por qué la tasa de inflación debe acelerarse período tras período ($\Delta \pi_t > 0$) para impedir que el desempleo regrese a su nivel natural.
+2. **El Caso Extremo de Expectativas Miopes / Aceleracionistas ($\lambda = 1.0$):**
+   - Si los agentes económicos forman expectativas según $\pi_t^e = \pi_{t-1}$, demuestra algebraicamente que la ecuación se reduce a la hipótesis aceleracionista pura:
+     $$\Delta \pi_t = \pi_t - \pi_{t-1} = -\alpha (u_t - u_n)$$
+   - ¿Qué tasa de inflación anual se alcanzaría al cabo de 5 períodos con $\lambda = 1.0$ si el gobierno persiste en mantener $u = 3.5\%$?
+3. **El Costo de la Desinflación y el Ratio de Sacrificio:**
+   - Al llegar al período $t = 6$, la inflación ha alcanzado niveles alarmantes y el nuevo presidente del banco central decide implementar un plan de estabilización radical para devolver la inflación a la meta del $2.0\%$ en un plazo de 3 períodos ($t = 6, 7, 8$).
+   - Utilizando la relación de la Curva de Phillips, deduce qué debe ocurrir necesariamente con la tasa de desempleo ($u_t$) durante el proceso de desinflación.
+   - Define formalmente el concepto de **Ratio de Sacrificio** (*Sacrifice Ratio*) y explica la discrepancia teórica entre las expectativas adaptativas de Friedman y la crítica de credibilidad bajo expectativas racionales de Lucas y Sargent.

@@ -1,0 +1,132 @@
+---
+title: "Guía de Ejercicios Prácticos: Teoría del Equilibrio General, Dualidad del Consumo y Asignación del Riesgo"
+subtitle: "Premio Nobel de Economía 1972: Sir John R. Hicks y Kenneth J. Arrow"
+author: "Nobel_economics Docencia"
+date: "1972-10-25"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta guía pedagógica aplicarás los aportes seminales de los laureados del Premio Nobel de 1972:
+1. **Sir John R. Hicks (*Value and Capital*, 1939):**
+   - Dominarás la técnica analítica de la **dualidad del consumo** (minimización del gasto vs. maximización de utilidad).
+   - Aplicarás la descomposición de la **ecuación de Slutsky-Hicks** para separar el efecto sustitución del efecto ingreso ante variaciones de precios.
+   - Cuantificarás el bienestar del consumidor calculando con exactitud la **Variación Compensatoria ($CV$)** y la **Variación Equivalente ($EV$)**.
+2. **Kenneth J. Arrow (*Social Choice and Individual Values*, 1951; Arrow-Debreu, 1954; *Arrow Securities*, 1964):**
+   - Demostrarás cómo los **activos contingentes de Arrow** permiten alcanzar la asignación Pareto-eficiente de riesgo en una Caja de Edgeworth con incertidumbre.
+   - Analizarás las consecuencias del **Teorema de Imposibilidad de Arrow** sobre los sistemas de votación democráticos y la imposibilidad de construir funciones de bienestar social libres de paradojas.
+
+---
+
+# Ejercicio 1: Descomposición de Hicks, Dualidad y Métricas de Bienestar ($CV$ y $EV$) (Nivel Básico)
+
+Considere un consumidor representativo con ingreso monetario $I = 120$ y preferencias representadas por la función de utilidad Cobb-Douglas:
+$$U(x_1, x_2) = x_1^{1/3} x_2^{2/3}$$
+
+Inicialmente, los precios de los bienes son $p_1^0 = 4$ y $p_2^0 = 2$. Suponga que una política de desgravación arancelaria reduce a la mitad el precio del bien 1, situándolo en $p_1^1 = 2$, mientras que $p_2$ permanece inalterado en $2$.
+
+## Preguntas:
+
+1. **Problema Primal y Cestas Marshallianas:**
+   - Plantee el problema de maximización de utilidad y halle las demandas marshallianas $x_1^m(p_1, p_2, I)$ y $x_2^m(p_1, p_2, I)$.
+   - Calcule la cesta de consumo inicial $A = (x_1^A, x_2^A)$ y el nivel de utilidad inicial $U_0$.
+   - Calcule la cesta de consumo final $C = (x_1^C, x_2^C)$ tras la caída del precio a $p_1^1 = 2$ y el nivel de utilidad final $U_1$.
+   - Determine el **Efecto Total ($ET$)** sobre la cantidad demandada del bien 1.
+
+2. **Problema Dual y Cesta Compensada de Hicks:**
+   - Plantee el problema de minimización del gasto y halle la función de gasto $e(p_1, p_2, u)$ y las demandas compensadas de Hicks $h_1(p_1, p_2, u)$ y $h_2(p_1, p_2, u)$.
+   - Encuentre la cesta compensada de Hicks $B = (x_1^B, x_2^B)$ que minimiza el gasto al nuevo vector de precios $(p_1^1 = 2, p_2 = 2)$ garantizando la utilidad original $U_0$.
+   - Calcule el gasto compensado necesario $E^c = e(p_1^1, p_2, U_0)$.
+
+3. **Descomposición del Efecto Precio en Sustitución e Ingreso:**
+   - Calcule el **Efecto Sustitución de Hicks ($ES$)**: $x_1^B - x_1^A$.
+   - Calcule el **Efecto Ingreso de Hicks ($EI$)**: $x_1^C - x_1^B$.
+   - Verifique numéricamente la identidad de Slutsky-Hicks: $ET = ES + EI$.
+   - Compare brevemente este resultado con la descomposición de Slutsky (que compensa al poder adquisitivo inicial de la cesta $A$).
+
+4. **Variación Compensatoria ($CV$) y Variación Equivalente ($EV$):**
+   - Calcule la Variación Compensatoria: $CV = I - e(p^1, U_0)$. Explique su significado económico en términos de impuestos de suma fija.
+   - Calcule la Variación Equivalente: $EV = e(p^0, U_1) - I$. Explique su significado económico en términos de transferencias monetarias.
+   - Demuestre formalmente por qué para una reducción de precio se cumple la relación ordinal $CV < \Delta EC_{Marshall} < EV$.
+
+---
+
+# Ejercicio 2: Activos Contingentes de Arrow y Equilibrio General con Riesgo (Nivel Intermedio)
+
+Considere una economía de intercambio puro con dos agentes ($i \in \{A, B\}$) y dos estados de la naturaleza mutuamente excluyentes en el periodo futuro ($s = 1$ "Expansión económica", $s = 2$ "Recesión económica").
+Las probabilidades de ocurrencia son objetivas y conocidas: $\pi_1 = 0.6$ y $\pi_2 = 0.4$.
+
+Ambos agentes tienen aversión estricta al riesgo con utilidad esperada von Neumann-Morgenstern logarítmica:
+$$U_i(c_{i1}, c_{i2}) = \pi_1 \ln(c_{i1}) + \pi_2 \ln(c_{i2}) = 0.6 \ln(c_{i1}) + 0.4 \ln(c_{i2})$$
+
+Las dotaciones contingentes de los agentes son asimétricas:
+- Agente $A$: $\omega_A = (\omega_{A1}, \omega_{A2}) = (120, 30)$ (altamente dependiente del ciclo expansivo).
+- Agente $B$: $\omega_B = (\omega_{B1}, \omega_{B2}) = (30, 70)$ (sector contracíclico o defensivo).
+
+Se introducen dos **activos contingentes de Arrow** elementales: el activo 1 paga 1 unidad de bien si ocurre el estado 1 (precio $q_1$), y el activo 2 paga 1 unidad de bien si ocurre el estado 2 (precio $q_2$). Se normaliza $q_2 = 1$.
+
+## Preguntas:
+
+1. **Autarquía y Costo de la Falta de Cobertura:**
+   - Calcule la utilidad esperada de cada agente en autarquía ($U_A(\omega_A)$ y $U_B(\omega_B)$).
+   - Obtenga el **Equivalente Cierto ($CE$)** para cada agente en autarquía: $CE_i = \exp(U_i(\omega_i))$.
+
+2. **Equilibrio Competitivo Walrasiano con Mercados Completos de Arrow:**
+   - Exprese la riqueza de cada agente $W_A$ y $W_B$ en función de sus dotaciones y los precios de los activos $(q_1, q_2)$.
+   - Obtenga las funciones de demanda óptima de consumo contingente $c_{i1}^*(q_1)$ y $c_{i2}^*(q_1)$ para $i \in \{A, B\}$.
+   - Plantee la condición de vaciado del mercado para el activo contingente del estado 1.
+   - Demuestre que el precio de equilibrio relativo de Arrow es:
+     $$q_1^* = \frac{\pi_1}{\pi_2} \times \frac{\Omega_2}{\Omega_1}$$
+     donde $\Omega_s$ es la dotación agregada del estado $s$. Calcule el valor numérico exacto de $q_1^*$.
+
+3. **Asignación Óptima y Transferencias Financieras:**
+   - Halle las cantidades de consumo de equilibrio $(c_{A1}^*, c_{A2}^*)$ y $(c_{B1}^*, c_{B2}^*)$.
+   - Determine la posición neta en la cartera de activos de Arrow para cada agente ($\theta_{is} = c_{is}^* - \omega_{is}$). ¿Quién compra y quién vende cada contrato de seguro contingente?
+   - Calcule el nuevo Equivalente Cierto de equilibrio para cada agente y cuantifique la ganancia neta de bienestar derivada de la apertura de mercados financieros de Arrow.
+
+4. **Curva de Contrato y Teorema de la Mutua Cobertura:**
+   - Deduzca la ecuación analítica de la Curva de Contrato en la Caja de Edgeworth igualando las Relaciones Marginales de Sustitución entre estados.
+   - ¿Qué condición sobre la dotación social agregada $(\Omega_1, \Omega_2)$ determina si la curva de contrato es la diagonal de la caja?
+
+---
+
+# Ejercicio 3: El Teorema de Imposibilidad de Arrow y la Regla de la Mayoría (Nivel Avanzado / Reto)
+
+En *Social Choice and Individual Values* (1951), Kenneth Arrow demostró que es matemáticamente imposible construir una regla democrática de decisión colectiva que satisfaga simultáneamente un conjunto elemental de criterios de racionalidad y justicia procedimental.
+
+Considere una sociedad con tres votantes ($N = \{1, 2, 3\}$) que deben ordenar tres políticas económicas alternativas: $A$ (apertura total de mercados), $B$ (economía mixta regulada) y $C$ (planificación estatal centralizada).
+
+Los votantes presentan el siguiente perfil de ordenamientos estrictos (la clásica Paradoja del Voto de Condorcet):
+- Votante 1: $A \succ_1 B \succ_1 C$
+- Votante 2: $B \succ_2 C \succ_2 A$
+- Votante 3: $C \succ_3 A \succ_3 B$
+
+## Preguntas:
+
+1. **Paradoja de Condorcet e Intransitividad:**
+   - Aplique la **Regla de la Mayoría simple por pares** (*pairwise majority voting*) para evaluar:
+     - $A$ frente a $B$.
+     - $B$ frente a $C$.
+     - $C$ frente a $A$.
+   - Demuestre que las preferencias colectivas resultantes generan un ciclo intransitivo: $A \succ_{soc} B \succ_{soc} C \succ_{soc} A$.
+   - Explique por qué esta intransitividad impide seleccionar un ganador de Condorcet estable y hace que la decisión final dependa arbitrariamente de quién fija la agenda de votación (*agenda manipulation*).
+
+2. **Los Axiomas de Kenneth Arrow:**
+   - Defina con precisión formal los cuatro axiomas planteados por Arrow para una Función de Bienestar Social $F$:
+     a) **Dominio No Restringido ($U$):** La regla debe funcionar para cualquier perfil concebible de preferencias individuales transitivas.
+     b) **Principio de Pareto Débil ($P$):** Si todos los individuos prefieren estrictamente $x$ a $y$, la sociedad debe preferir estrictamente $x$ a $y$.
+     c) **Independencia de Alternativas Irrelevantes ($I$):** El ordenamiento social entre $x$ e $y$ debe depender exclusivamente de las preferencias individuales entre $x$ e $y$, y no de cómo se ordenen respecto a una tercera alternativa $z$.
+     d) **No Dictadura ($D$):** No existe ningún individuo $i$ tal que, para cualquier par $(x, y)$, si $i$ prefiere $x \succ_i y$, entonces la sociedad siempre ordene $x \succ_{soc} y$.
+
+3. **Demostración Analítica del Teorema de Imposibilidad:**
+   - Defina el concepto de **coalición decisiva** y **conjunto decisivo mínimo**.
+   - Siguiendo la técnica de prueba simplificada de Geanakoplos (2005) o Sen (1970), demuestre que si una regla satisface $U$, $P$ e $I$, cualquier coalición que sea decisiva para un par de alternativas debe ser decisiva para todos los pares.
+   - Demuestre que reducir el tamaño de la coalición decisiva hasta un único individuo conduce inevitablemente a la existencia de un **Dictador**, violando $D$.
+
+4. **Implicaciones para el Diseño Institucional:**
+   - ¿Qué escape matemático ofreció Duncan Black (1948) mediante el supuesto de **preferencias unimodales** (*single-peaked preferences*) y el Teorema del Votante Mediano?
+   - ¿Por qué el Teorema de Arrow obligó a abandonar la idea del "Planificador Benevolente" en la economía del bienestar tradicional?

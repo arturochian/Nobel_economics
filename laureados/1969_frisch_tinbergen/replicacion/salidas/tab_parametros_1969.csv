@@ -1,0 +1,7 @@
+parametro,valor,interpretacion
+propension,0.6,persistencia del gasto inducido
+acelerador,0.7,respuesta de la inversion al cambio de actividad
+persistencia_choque,0.0,choque transitorio en escenario base
+amplitud_choque,10.0,impulso inicial en unidades de desviacion
+periodos,40,horizonte de simulacion
+nivel_replicacion,ilustrativa,no usa datos ni reproduce cifras publicadas

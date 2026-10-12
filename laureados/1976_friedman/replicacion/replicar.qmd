@@ -1,0 +1,443 @@
+---
+title: "Replicación Cuantitativa: Ingreso Permanente, Monetarismo y Curva de Phillips con Expectativas"
+subtitle: "Premio Nobel de Economía 1976: Milton Friedman"
+author: "Nobel_economics Project"
+date: "1976-10-14"
+format:
+  html:
+    toc: true
+    number-sections: true
+    embed-resources: true
+    theme: cosmo
+    code-fold: show
+    code-tools: true
+---
+
+# Introducción y Contexto Histórico
+
+En octubre de 1976, la Real Academia Sueca de Ciencias confirió el Premio del Banco de Suecia en Ciencias Económicas en Memoria de Alfred Nobel en solitario a **Milton Friedman**:
+
+> *"for his achievements in the fields of consumption analysis, monetary history and theory and for his demonstration of the complexity of stabilization policy"* (Por sus logros en los campos del análisis del consumo, la historia y teoría monetarias y por su demostración de la complejidad de la política de estabilización).
+
+Milton Friedman (1912–2006), figura señera de la Universidad de Chicago y líder de la Escuela Monetarista, transformó la macroeconomía moderna al desafiar los consensos keynesianos imperantes en la posguerra a través de tres pilares fundamentales:
+
+1. **La Hipótesis del Ingreso Permanente (Permanent Income Hypothesis, PIH, 1957):**  
+   Frente al dogma keynesiano de que el consumo corriente depende casi exclusivamente del ingreso disponible corriente del período ($C = a + c Y$), Friedman demostró que los agentes económicos fundamentan sus decisiones de consumo en sus expectativas de recursos a largo plazo (su *ingreso permanente*). Por ello, los choques de ingreso transitorio son absorbidos casi en su totalidad por el ahorro, desvaneciendo el multiplicador keynesiano del gasto corriente.
+2. **Historia Monetaria y Teoría Cuantitativa del Dinero (1956, 1963):**  
+   Junto con Anna Jacobson Schwartz, en su monumental obra *A Monetary History of the United States, 1867–1960*, probó que las grandes contracciones económicas (en particular la Gran Depresión de 1929–1933) no fueron fallas intrínsecas del libre mercado, sino el resultado directo de la colosal contracción de la oferta monetaria inducida por la Reserva Federal. Estableció la célebre proposición de que *"la inflación es siempre y en todo lugar un fenómeno monetario"*, advirtiendo sobre los rezagos largos y variables (*long and variable lags*) que convierten el activismo de política discrecional en una fuente de inestabilidad cíclica.
+3. **La Tasa Natural de Desempleo y la Curva de Phillips Aumentada por Expectativas (1968, 1977):**  
+   Anticipó con asombrosa precisión el colapso del trade-off keynesiano tradicional entre desempleo e inflación años antes de que la estanflación de la década de 1970 sacudiera al mundo. Postuló que en el largo plazo la Curva de Phillips es estrictamente vertical en la Tasa Natural de Desempleo ($u_n$ / NAIRU), y que los intentos de las autoridades por mantener el desempleo artificialmente bajo desatan una espiral aceleracionista de inflación una vez que los trabajadores adaptan sus expectativas.
+
+## ¿Qué vas a aprender?
+
+1. **La Microeconomía del Ingreso Permanente:** Formulación matemática del consumo óptimo bajo incertidumbre y descomposición entre componentes transitorios y permanentes.
+2. **La Resolución de la Paradoja de Kuznets:** Por qué en datos de corte transversal la propensión marginal a consumir aparente es menor a la unidad con un intercepto positivo, mientras que en series de tiempo históricas la propensión media a consumir se mantiene estrictamente constante.
+3. **La Dinámica Aceleracionista de Friedman-Phelps:** Cómo las expectativas adaptativas anulan el arbitraje entre inflación y desempleo, haciendo que cualquier intento de fijar $u < u_n$ termine en una aceleración explosiva de los precios.
+4. **La Complejidad de la Política de Estabilización:** Por qué los rezagos temporales y la incertidumbre del ciclo aconsejan reglas monetarias automáticas (como la regla de crecimiento monetario $k\%$) frente al ajuste fino discrecional (*fine-tuning*).
+5. **Implementación Computacional en R:** Simulación dinámica de choques de política, ajuste de curvas empíricas y generación de gráficos listos para publicación.
+
+## Nivel de Replicación
+
+- **Nivel:** **Completa e Ilustrativa Rigurosa**
+- **Alcance:** Modelización microeconómica de la respuesta del consumo ante choques transitorios vs permanentes, reconciliación estadística del rompecabezas de corte transversal de Kuznets, y simulación de la trayectoria dinámica de la Curva de Phillips con expectativas adaptativas y desinflación monetaria.
+
+---
+
+# Fundamentos Teóricos y Derivaciones Matemáticas
+
+## 1. La Hipótesis del Ingreso Permanente (Friedman, 1957)
+
+En su obra seminal *A Theory of the Consumption Function* (1957), Friedman descompuso analíticamente tanto el ingreso observado corriente ($Y$) como el consumo observado ($C$) en dos partes no correlacionadas: un componente permanente ($p$) y un componente transitorio ($tr$):
+
+$$Y_t = Y_t^p + Y_t^{tr}$$
+$$C_t = C_t^p + C_t^{tr}$$
+
+### Supuestos Clave del Modelo
+1. El consumo permanente es una proporción fija del ingreso permanente:
+   $$C_t^p = k(r, w, u) \cdot Y_t^p$$
+   donde la propensión $k$ depende de la tasa de interés real ($r$), la razón entre riqueza no humana y riqueza humana ($w$), y las preferencias subjetivas de los hogares ($u$), pero es **independiente del nivel absoluto del ingreso permanente**.
+2. El ingreso transitorio y el consumo transitorio son ortogonales:
+   $$\text{Cov}(Y_t^{tr}, C_t^{tr}) = 0$$
+3. El ingreso permanente no está correlacionado con el ingreso transitorio:
+   $$\text{Cov}(Y_t^p, Y_t^{tr}) = 0$$
+4. El consumo permanente no está correlacionado con el consumo transitorio:
+   $$\text{Cov}(C_t^p, C_t^{tr}) = 0$$
+
+### Definición y Dinámica del Ingreso Permanente
+El ingreso permanente se define como el flujo regular de recursos que una familia puede consumir a lo largo de su horizonte vital manteniendo inalterada su riqueza global. Matemáticamente, corresponde al valor de la anualidad de la riqueza intertemporal total:
+
+$$Y_t^p = r \left[ A_t + \sum_{s=0}^\infty \frac{\mathbb{E}_t[Y_{t+s}^{lab}]}{(1+r)^s} \right]$$
+
+Friedman propuso originalmente estimar el ingreso permanente a partir de los ingresos pasados observados mediante un esquema de expectativas adaptativas o rezagos geométricos decrecientes:
+
+$$Y_t^p = \beta Y_t + (1 - \beta)(1 + g) Y_{t-1}^p$$
+
+donde $\beta \in (0, 1)$ representa la velocidad de actualización y $g$ es la tasa tendencial de crecimiento secular.
+
+### Reconciliación de la Paradoja de Kuznets
+A principios de la década de 1940, Simon Kuznets descubrió que en series de tiempo agregadas de Estados Unidos que abarcaban décadas, la propensión media a consumir ($APC = C/Y$) era notablemente estable cerca de $0.90$. Sin embargo, las encuestas de corte transversal en un año determinado mostraban que las familias ricas exhibían una relación $C/Y$ significativamente menor que las familias pobres (con un modelo estimado $C = a + c Y$ con $a > 0$ y $c < 0.80$).
+
+Friedman resolvió elegantemente este dilema:
+En un estudio de corte transversal, una familia con un ingreso observado inusualmente alto ($Y_i > \bar{Y}$) tiene una probabilidad muy elevada de estar experimentando un **choque transitorio positivo** ($Y_i^{tr} > 0$). Dado que $\text{Cov}(Y^{tr}, C^{tr}) = 0$, la familia no gasta ese ingreso transitorio en consumo corriente, sino que lo ahorra. 
+
+Por lo tanto, la regresión estimada de $C$ sobre $Y$ en corte transversal resulta en:
+
+$$\hat{c} = \frac{\text{Cov}(C, Y)}{\text{Var}(Y)} = \frac{\text{Cov}(k Y^p + C^{tr}, Y^p + Y^{tr})}{\text{Var}(Y^p) + \text{Var}(Y^{tr})} = k \cdot \frac{\text{Var}(Y^p)}{\text{Var}(Y^p) + \text{Var}(Y^{tr})} < k$$
+
+La propensión marginal a consumir estimada mediante MCO está **sesgada hacia abajo por error de medida / atenuación**. En contraste, a nivel agregado de largo plazo, los choques transitorios se promedian y cancelan entre sí ($\sum Y^{tr} \to 0$), de modo que la relación secular agregada es puramente $C/Y = k$, constante en el tiempo.
+
+---
+
+## 2. Monetarismo, Teoría Cuantitativa y Rezagos de Transmisión
+
+### La Reformulación de la Teoría Cuantitativa (Friedman, 1956)
+A diferencia de la interpretación mecanicista de Irving Fisher, Friedman presentó la Teoría Cuantitativa como una **teoría de la demanda de dinero**. Para los hogares y empresas, el dinero es un activo financiero alternativo a bonos, acciones y bienes físicos. La función de demanda por saldos monetarios reales se expresa como:
+
+$$\frac{M^d}{P} = f\left(Y_p, w, r_b, r_e, \pi^e, u\right)$$
+
+donde $Y_p$ es el ingreso permanente (medida de la riqueza total), $r_b$ es el rendimiento de los bonos, $r_e$ el de las acciones, $\pi^e$ la tasa esperada de inflación (el costo de oportunidad de mantener dinero frente a bienes reales) y $u$ preferencias.
+
+Friedman demostró empíricamente que la demanda de dinero es una función **extraordinariamente estable** de pocas variables clave. En consecuencia, si la velocidad del dinero $V(Y_p, r, \pi^e)$ es predecible y estable:
+
+$$M \cdot V = P \cdot Y$$
+
+Las variaciones en la tasa de crecimiento de la oferta monetaria ($\dot{M}/M$) determinan de forma dominante la tasa de inflación en el mediano y largo plazo. De ahí su célebre formulación:
+
+> *"La inflación es siempre y en todo lugar un fenómeno monetario, en el sentido de que solo es y puede ser producida por un aumento más rápido de la cantidad de dinero que de la producción."*
+
+### Rezagos Largos y Variables (*Long and Variable Lags*)
+Friedman demostró que la transmisión de la política monetaria no es instantánea ni uniforme:
+- **Rezago interno (*inside lag*):** El tiempo que tardan las autoridades en reconocer una perturbación y modificar los instrumentos.
+- **Rezago externo (*outside lag*):** El tiempo que transcurre entre el cambio de política monetaria y su impacto sobre el producto real (típicamente de 6 a 12 meses) y sobre el nivel de precios (de 18 a 24 meses o más).
+
+Debido a que estos rezagos son largos y de duración sumamente impredecible, los intentos de las autoridades por practicar un "ajuste fino" (*fine-tuning*) contracíclico con frecuencia terminan alimentando el ciclo en vez de amortiguarlo: el estímulo monetario inyectado durante una recesión suele impactar con fuerza justo cuando la economía ya está en pleno auge, sobrecalentando los precios. Por ello, Friedman propuso sustituir la discrecionalidad por una **regla de crecimiento monetario constante del $k\%$ anual**, alineada con el crecimiento potencial de la economía y la estabilidad de precios.
+
+---
+
+## 3. La Tasa Natural de Desempleo y la Curva de Phillips Vertical (Friedman, 1968)
+
+En su histórico discurso presidencial ante la *American Economic Association* en diciembre de 1967 (publicado en 1968), Friedman desmanteló el dogma del trade-off permanente entre inflación y desempleo postulado por Samuelson y Solow.
+
+### La Curva de Phillips Aumentada por Expectativas
+La relación de corto plazo viene dada por:
+
+$$\pi_t = \pi_t^e - \alpha (u_t - u_n) + \epsilon_t$$
+
+donde:
+- $\pi_t$ es la tasa efectiva de inflación observada.
+- $\pi_t^e$ es la tasa de inflación esperada por los trabajadores y empresarios para el período $t$.
+- $u_t$ es la tasa de desempleo observada.
+- $u_n$ es la **Tasa Natural de Desempleo** (el nivel estructural de equilibrio determinado por fricciones del mercado laboral, movilidad geográfica y costos de búsqueda).
+- $\alpha > 0$ es la sensibilidad de la brecha de empleo.
+
+### El Mecanismo de Expectativas Adaptativas y Aceleracionismo
+Si las expectativas se forman de manera adaptativa:
+
+$$\pi_t^e = \pi_{t-1}^e + \lambda (\pi_{t-1} - \pi_{t-1}^e), \quad \lambda \in (0, 1]$$
+
+Supongamos que el banco central intenta mantener artificialmente el desempleo por debajo de su tasa natural: $u_t = u^* < u_n$.
+1. **Período 1:** La expansión monetaria reduce el desempleo a $u^*$, pero eleva la inflación a $\pi_1 = \pi_0^e + \alpha(u_n - u^*) > \pi_0$. Los trabajadores sufren una ilusión monetaria transitoria: observan aumentos en sus salarios nominales y ofrecen más horas de trabajo creyendo que sus salarios reales han aumentado, mientras que los empresarios perciben un alza en el precio de venta relativo de sus productos.
+2. **Período 2:** Los trabajadores descubren que el costo de vida general subió tanto como su salario. Actualizan al alza su expectativa de inflación ($\pi_2^e > \pi_1^e$) y exigen incrementos salariales compensatorios. Para retener el desempleo en $u^*$, la autoridad monetaria debe inyectar una inflación aún mayor: $\pi_2 = \pi_2^e + \alpha(u_n - u^*) > \pi_1$.
+3. **El Resultado Aceleracionista:** Sostener $u < u_n$ de forma indefinida requiere no una inflación fija, sino una **inflación en continua aceleración**: $\Delta \pi_t > 0$.
+4. **El Largo Plazo:** En el equilibrio estacionario de largo plazo, las expectativas deben ajustarse por completo a la realidad: $\pi_t^e = \pi_t$. Reemplazando en la ecuación:
+   $$\pi_t = \pi_t - \alpha (u_{LP} - u_n) \implies \alpha (u_{LP} - u_n) = 0 \implies u_{LP} = u_n$$
+
+> **Conclusión Cardinal:** La Curva de Phillips de Largo Plazo (LRPC) es **estrictamente vertical** en $u_n$. La política monetaria carece de poder para fijar el nivel de desempleo real o el producto en el largo plazo; solo determina la tasa de inflación.
+
+---
+
+# Simulación Computacional en R
+
+A continuación se presenta la implementación modular que reproduce ambos resultados fundamentales:
+1. La dinámica del consumo bajo la PIH ante choques transitorios vs permanentes y la resolución de la paradoja de Kuznets.
+2. La espiral aceleracionista de la Curva de Phillips y la verticalidad en la tasa natural.
+
+```{r}
+#| label: setup
+#| message: false
+#| warning: false
+
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(tidyr)
+  library(ggplot2)
+  library(readr)
+  library(patchwork)
+})
+
+set.seed(1976)
+```
+
+## Simulación del Ingreso Permanente y Choques
+
+```{r}
+#| label: sim-pih
+# Parametros
+T_periodos <- 30
+tiempo <- 1:T_periodos
+y_base <- 100
+
+# Parametros de comportamiento
+c_keynes <- 0.80
+a_keynes <- 10.0
+k_friedman <- 0.90
+r_interes <- 0.05
+
+# 1. Choque transitorio (+50 en t=10)
+y_trans <- rep(y_base, T_periodos)
+y_trans[10] <- y_base + 50
+
+# Consumo Keynesiano
+c_k_trans <- a_keynes + c_keynes * y_trans
+
+# Consumo Friedman: se distribuye en la anualidad de largo plazo
+y_p_trans <- rep(y_base, T_periodos)
+y_p_trans[10:T_periodos] <- y_base + (r_interes * 50)
+c_f_trans <- k_friedman * y_p_trans
+
+# 2. Choque permanente (+50 a partir de t=10)
+y_perm <- rep(y_base, T_periodos)
+y_perm[10:T_periodos] <- y_base + 50
+
+c_k_perm <- a_keynes + c_keynes * y_perm
+y_p_perm <- rep(y_base, T_periodos)
+y_p_perm[10:T_periodos] <- y_base + 50
+c_f_perm <- k_friedman * y_p_perm
+
+# Consolidacion de datos
+df_dinamico <- data.frame(
+  t = rep(tiempo, 4),
+  Escenario = rep(c("Choque Transitorio (t=10)", "Choque Permanente (desde t=10)"), each = T_periodos * 2),
+  Modelo = rep(rep(c("Keynesiano (Ingreso Corriente)", "Friedman (Ingreso Permanente)"), each = T_periodos), 2),
+  Ingreso = c(rep(y_trans, 2), rep(y_perm, 2)),
+  Consumo = c(c_k_trans, c_f_trans, c_k_perm, c_f_perm)
+)
+```
+
+## Simulación de Corte Transversal y Paradoja de Kuznets
+
+```{r}
+#| label: sim-kuznets
+N_hogares <- 1000
+log_yp <- rnorm(N_hogares, mean = 4.6, sd = 0.35)
+y_p_cross <- exp(log_yp)
+y_tr_cross <- rnorm(N_hogares, mean = 0, sd = 15)
+y_obs_cross <- y_p_cross + y_tr_cross
+
+c_obs_cross <- k_friedman * y_p_cross + rnorm(N_hogares, mean = 0, sd = 3)
+apc_cross <- c_obs_cross / y_obs_cross
+
+df_cross <- data.frame(
+  Y_obs = y_obs_cross,
+  C_obs = c_obs_cross,
+  APC   = apc_cross,
+  Y_perm = y_p_cross
+) %>% filter(Y_obs > 20, APC > 0.4, APC < 1.4)
+
+reg_cross <- lm(C_obs ~ Y_obs, data = df_cross)
+summary(reg_cross)
+```
+
+## Gráfico 1: Hipótesis del Ingreso Permanente
+
+```{r}
+#| label: plot-pih
+#| fig-width: 10
+#| fig-height: 8.5
+p1_dinamico <- ggplot(df_dinamico %>% filter(Escenario == "Choque Transitorio (t=10)"), 
+                      aes(x = t)) +
+  geom_line(aes(y = Ingreso, color = "Ingreso Corriente"), linetype = "dotted", linewidth = 1.1) +
+  geom_line(aes(y = Consumo, color = Modelo), linewidth = 1.2) +
+  scale_color_manual(values = c(
+    "Ingreso Corriente" = "gray40",
+    "Keynesiano (Ingreso Corriente)" = "#D95F02",
+    "Friedman (Ingreso Permanente)" = "#1B9E77"
+  )) +
+  labs(
+    title = "A. Respuesta ante un Choque Transitorio (+50 en t=10)",
+    subtitle = "Friedman: El consumo apenas varia; el ingreso transitorio se absorbe casi por completo como ahorro.",
+    x = "Periodo (t)",
+    y = "Nivel (Unidades)",
+    color = "Variable / Enfoque"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "bottom")
+
+p2_cross <- ggplot(df_cross, aes(x = Y_obs, y = C_obs)) +
+  geom_point(alpha = 0.25, color = "#2C3E50", size = 1.4) +
+  geom_smooth(method = "lm", formula = y ~ x, color = "#D95F02", linewidth = 1.3, se = FALSE,
+              aes(linetype = "Regresion transversal aparente (Keynesiana)")) +
+  geom_abline(aes(intercept = 0, slope = k_friedman, linetype = "Relacion permanente secular (Friedman)"), 
+              color = "#1B9E77", linewidth = 1.3) +
+  scale_linetype_manual(name = "Estructura", values = c(
+    "Regresion transversal aparente (Keynesiana)" = "solid",
+    "Relacion permanente secular (Friedman)" = "dashed"
+  )) +
+  labs(
+    title = "B. Resolucion de la Paradoja de Kuznets (Corte Transversal)",
+    subtitle = sprintf("Pendiente aparente = %.2f (con intercepto > 0) vs. Relacion de largo plazo k = %.2f",
+                       coef(reg_cross)[2], k_friedman),
+    x = "Ingreso Observado Corriente (Y)",
+    y = "Consumo Observado (C)"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "bottom")
+
+p1_dinamico / p2_cross
+```
+
+---
+
+## Simulación de la Curva de Phillips con Expectativas Adaptativas
+
+```{r}
+#| label: sim-phillips
+u_natural <- 0.05      # 5% de desempleo natural
+alpha_phillips <- 0.8  # Pendiente de la curva de corto plazo
+lambda_adap <- 0.65     # Coeficiente de adaptacion de expectativas
+
+T_sim <- 16
+periodos_sim <- 1:T_sim
+
+u_trayectoria <- numeric(T_sim)
+pi_trayectoria <- numeric(T_sim)
+pi_e_trayectoria <- numeric(T_sim)
+
+# t = 1: Estado estacionario inicial
+u_trayectoria[1] <- u_natural
+pi_trayectoria[1] <- 0.02
+pi_e_trayectoria[1] <- 0.02
+
+# Fases del experimento de politica
+for (t in 2:T_sim) {
+  pi_e_trayectoria[t] <- pi_e_trayectoria[t-1] + lambda_adap * (pi_trayectoria[t-1] - pi_e_trayectoria[t-1])
+  
+  if (t >= 2 && t <= 8) {
+    u_trayectoria[t] <- 0.035 # Intento de sobreestimulacion (u < u_n)
+  } else if (t >= 9 && t <= 12) {
+    u_trayectoria[t] <- 0.065 # Desinflacion de Volcker
+  } else {
+    u_trayectoria[t] <- u_natural # Retorno al equilibrio
+  }
+  
+  pi_trayectoria[t] <- pi_e_trayectoria[t] - alpha_phillips * (u_trayectoria[t] - u_natural)
+}
+
+df_phillips_dinamica <- data.frame(
+  Periodo = periodos_sim,
+  Tasa_Desempleo = u_trayectoria * 100,
+  Inflacion = pi_trayectoria * 100,
+  Inflacion_Esperada = pi_e_trayectoria * 100,
+  Brecha_Desempleo = (u_trayectoria - u_natural) * 100
+)
+
+head(df_phillips_dinamica)
+```
+
+## Gráfico 2: Espiral Dinámica y Curva de Phillips Vertical
+
+```{r}
+#| label: plot-phillips
+#| fig-width: 10
+#| fig-height: 9
+grid_u <- seq(0.025, 0.075, length.out = 100)
+srpc_1 <- (0.02 - alpha_phillips * (grid_u - u_natural)) * 100
+srpc_2 <- (0.04 - alpha_phillips * (grid_u - u_natural)) * 100
+srpc_3 <- (0.065 - alpha_phillips * (grid_u - u_natural)) * 100
+
+df_srpc <- data.frame(
+  u = rep(grid_u * 100, 3),
+  pi = c(srpc_1, srpc_2, srpc_3),
+  Nivel_Expectativa = rep(c("SRPC 1: pi^e = 2.0%", "SRPC 2: pi^e = 4.0%", "SRPC 3: pi^e = 6.5%"), each = 100)
+)
+
+p_espacio <- ggplot() +
+  geom_line(data = df_srpc, aes(x = u, y = pi, color = Nivel_Expectativa), 
+            linewidth = 1.0, linetype = "dashed") +
+  geom_vline(xintercept = u_natural * 100, color = "#2C3E50", linewidth = 1.4, linetype = "solid") +
+  geom_path(data = df_phillips_dinamica, aes(x = Tasa_Desempleo, y = Inflacion), 
+            arrow = arrow(length = unit(0.25, "cm"), type = "closed"), 
+            color = "#E7298A", linewidth = 1.1) +
+  geom_point(data = df_phillips_dinamica, aes(x = Tasa_Desempleo, y = Inflacion), 
+             color = "#E7298A", size = 2.5) +
+  geom_text(data = df_phillips_dinamica[c(1, 4, 8, 10, 16), ],
+            aes(x = Tasa_Desempleo, y = Inflacion, label = paste0("t=", Periodo)),
+            vjust = -0.8, fontface = "bold", size = 3.3) +
+  annotate("text", x = 5.08, y = 8.5, label = "Curva de Phillips de Largo Plazo (LRPC Vertical en u_n)", 
+           angle = 90, fontface = "bold", color = "#2C3E50", hjust = 1) +
+  scale_color_manual(name = "Curvas de Corto Plazo (SRPC)", values = c(
+    "SRPC 1: pi^e = 2.0%" = "#7570B3",
+    "SRPC 2: pi^e = 4.0%" = "#E6AB02",
+    "SRPC 3: pi^e = 6.5%" = "#E7298A"
+  )) +
+  labs(
+    title = "A. Espiral Dinamica en el Plano Desempleo - Inflacion",
+    subtitle = "Intentar mantener u < u_n traslada la SRPC hacia arriba sin reduccion permanente del desempleo.",
+    x = "Tasa de Desempleo u (%)",
+    y = "Tasa de Inflacion pi (%)"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "bottom")
+
+p_tiempo <- ggplot(df_phillips_dinamica, aes(x = Periodo)) +
+  geom_line(aes(y = Inflacion, color = "Inflacion Observada (pi)"), linewidth = 1.2) +
+  geom_line(aes(y = Inflacion_Esperada, color = "Inflacion Esperada (pi^e)"), linewidth = 1.1, linetype = "dashed") +
+  geom_line(aes(y = Tasa_Desempleo, color = "Tasa de Desempleo (u)"), linewidth = 1.1) +
+  geom_hline(yintercept = u_natural * 100, linetype = "dotted", color = "gray30", linewidth = 0.9) +
+  annotate("text", x = 14, y = 5.2, label = "Tasa Natural u_n = 5.0%", size = 3.2, color = "gray30") +
+  scale_color_manual(name = "Serie Macroeconomica", values = c(
+    "Inflacion Observada (pi)" = "#D95F02",
+    "Inflacion Esperada (pi^e)" = "#7570B3",
+    "Tasa de Desempleo (u)" = "#1B9E77"
+  )) +
+  labs(
+    title = "B. Evolucion Temporal: Aceleracionismo y Estanflacion",
+    subtitle = "Expansion (t=2..8) desata aceleracion; estabilizacion (t=9..12) exige costo de desempleo transitorio.",
+    x = "Periodo Temporal (t)",
+    y = "Porcentaje Anual (%)"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "bottom")
+
+p_espacio / p_tiempo
+```
+
+---
+
+# Discusión de Resultados y Comparación con la Literatura Empírica
+
+1. **La Validez de la Hipótesis del Ingreso Permanente:**
+   - La simulación numérica confirma que ante un choque transitorio (un bono único o una devolución fiscal puntual), el consumidor que optimiza bajo la PIH ahorra casi el $95\%$ del ingreso adicional, consumiendo únicamente el rendimiento de anualidad del activo. En cambio, el modelo keynesiano ingenuo pronostica un aumento masivo e inmediato del gasto en consumo.
+   - En la literatura empírica contemporánea, los estudios sobre cheques de estímulo fiscal en Estados Unidos (como los de Johnson, Parker y Souleles en 2006, y Shapiro y Slemrod en 2009) han demostrado que los hogares sin restricciones de liquidez se comportan estrictamente de acuerdo con la predicción de Friedman: ahorran o amortizan deuda con la mayor parte del subsidio transitorio. Solo aquellos hogares con severas restricciones crediticias muestran propensiones marginales a consumir elevadas.
+
+2. **La Espiral Aceleracionista y la Estanflación Histórica:**
+   - Durante la década de 1960, los asesores económicos del gobierno de Estados Unidos diseñaron políticas expansivas basándose en la creencia de que un $4\%$ de inflación garantizaría un desempleo perpetuamente bajo del $3.5\%$.
+   - Como predijo Friedman en 1968, cuando los agentes incorporaron la inflación a sus contratos y negociaciones salariales, las curvas de Phillips de corto plazo se desplazaron hacia arriba, generando en la década de 1970 el fenómeno de la **estanflación** (alta inflación coexistiendo con alto desempleo).
+   - La eventual derrota de la inflación requirió la dura política de contracción monetaria liderada por Paul Volcker entre 1979 y 1982, forzando un período de desempleo por encima de la tasa natural para quebrar las expectativas arraigadas de inflación.
+
+3. **La Evolución del Monetarismo:**
+   - Si bien la prescripción de una regla rígida de crecimiento del agregado monetario $M1$ o $M2$ perdió eficacia práctica en los años 1980 debido a la desregulación financiera y la inestabilidad en la velocidad de circulación del dinero, los principios fundamentales de Friedman triunfaron:
+     - Los bancos centrales modernos adoptaron mandatos de estabilidad de precios como objetivo prioritario e innegociable.
+     - La Tasa Natural de Desempleo (NAIRU) se convirtió en una herramienta estándar de modelado macroeconómico en la Reserva Federal, el Banco Central Europeo y los bancos centrales del mundo entero.
+     - Las expectativas de inflación son hoy el núcleo de cualquier regla de política monetaria contemporánea (incluida la regla de Taylor).
+
+---
+
+# Conclusiones
+
+El Premio Nobel otorgado a Milton Friedman en 1976 reconoció una de las revoluciones analíticas más profundas y duraderas de la ciencia económica:
+1. Reemplazó la visión mecánica del consumidor keynesiano por un agente racional que planifica a lo largo de su horizonte vital, reconciliando la teoría con la evidencia empírica de corte transversal y series de tiempo.
+2. Demostró empíricamente la trascendencia de la cantidad de dinero en la determinación del nivel de precios a largo plazo y alertó contra el activismo discrecional mal calibrado.
+3. Estableció la verticalidad de la Curva de Phillips en el largo plazo, blindando a la profesión económica contra la peligrosa ilusión de que la inflación puede comprar prosperidad o pleno empleo permanente.
+
+---
+
+# Referencias
+
+- Friedman, Milton. (1953). *Essays in Positive Economics*. University of Chicago Press.
+- Friedman, Milton. (1956). "The Quantity Theory of Money: A Restatement". In *Studies in the Quantity Theory of Money*, pp. 3–21. University of Chicago Press.
+- Friedman, Milton. (1957). *A Theory of the Consumption Function*. National Bureau of Economic Research / Princeton University Press.
+- Friedman, Milton, & Anna J. Schwartz. (1963). *A Monetary History of the United States, 1867–1960*. National Bureau of Economic Research / Princeton University Press.
+- Friedman, Milton. (1968). "The Role of Monetary Policy". *The American Economic Review*, 58(1), 1–17.
+- Friedman, Milton. (1977). "Nobel Lecture: Inflation and Unemployment". *Journal of Political Economy*, 85(3), 451–472.
+- The Royal Swedish Academy of Sciences. (1976). "The Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel 1976: Milton Friedman". Press Release, October 14, 1976.

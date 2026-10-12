@@ -1,0 +1,5 @@
+Sector,Produccion_Bruta,Valor_Agregado,Multiplicador_Produccion,Backward_Linkage,Forward_Linkage,Tipologia,Capital_Stock_USD,Empleo_Personas_Millones,Coef_Capital_Directo,Coef_Trabajo_Directo,Coef_Capital_Total,Coef_Trabajo_Total,KL_Directo,KL_Total,Exportaciones_Canasta,Importaciones_Canasta
+Agricultura,250,160,1.689,0.881,0.909,Sector Independiente,180,12.5,0.72,0.05,1.2405,0.0754,14.4,16.45,10,15
+Manufactura,500,180,2.276,1.187,1.217,Sector Clave,360,16,0.72,0.032,1.6817,0.0781,22.5,21.538,65,45
+Servicios,520,300,1.823,0.951,1.015,Sector Estrategico (Hacia adelante),340,22,0.6538,0.0423,1.2661,0.0718,15.455,17.625,20,10
+Energia,205,115,1.878,0.98,0.859,Sector Independiente,210,3.5,1.0244,0.0171,1.7033,0.0468,60,36.396,5,30

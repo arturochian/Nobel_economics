@@ -1,0 +1,118 @@
+---
+title: "Guía de Ejercicios Prácticos: Precios, Información y Causación Acumulativa"
+subtitle: "Premio Nobel de Economía 1974: Gunnar Myrdal y Friedrich August von Hayek"
+author: "Nobel_economics Docencia"
+date: "1974-10-09"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta guía pedagógica aplicarás cuantitativa y conceptualmente las contribuciones que otorgaron el Premio Nobel de 1974 a Friedrich August von Hayek y Gunnar Myrdal:
+
+1. **El Sistema de Precios como Coordinador de Información Dispersa (Hayek, 1945):**  
+   Modelarás cómo las señales de precios resumen y transmiten el conocimiento tácito local en tiempo real, comparando analíticamente la velocidad de ajuste y la pérdida de bienestar de un mercado descentralizado frente a una oficina de planificación centralizada sujeta a rezagos burocráticos.
+2. **La Causación Circular Acumulativa y la Desigualdad Espacial (Myrdal, 1957):**  
+   Simularás algebraicamente la dinámica Centro-Periferia bajo rendimientos crecientes, cuantificando cómo los efectos de retroceso (*backwash*) y derrame (*spread*) determinan si dos regiones divergen o convergen, y calcularás el "Gran Impulso" de inversión pública regional necesario para quebrar una trampa de pobreza.
+3. **Equilibrio Monetario, Malas Inversiones y Desequilibrio Ex-Ante vs. Ex-Post (Hayek 1931 / Myrdal 1939):**  
+   Integrarás la teoría del ciclo económico austríaco (distorsión de la estructura temporal de producción por tasas de interés artificialmente bajas) con el análisis de discrepancia ex-ante entre ahorro e inversión de la Escuela de Estocolmo.
+
+---
+
+# Ejercicio 1: El Sistema de Precios como Transmisor de Información Dispersa (Nivel Básico — Hayek)
+
+Imagina una economía con una materia prima crítica para la transición tecnológica (por ejemplo, el litio o el estaño). La demanda de mercado en el sector está dada por:
+
+$$Q_d(p) = 120 - 2p$$
+
+y la oferta de mercado original es:
+
+$$Q_s(p) = 2p$$
+
+donde $p$ es el precio unitario y $Q$ es la cantidad intercambiada.
+
+## Escenario: Choque Local de Oferta Imprevisto
+
+En el período $t = 1$, ocurre un colapso geológico imprevisto en una importante provincia minera local. Los mineros y operadores locales conocen de inmediato el daño, lo que contrae la curva de oferta real a:
+
+$$Q_s'(p) = 2p - 20$$
+
+## Preguntas:
+
+1. **Equilibrio de Mercado Descentralizado (Hayek, 1945):**
+   - Calcula el precio de equilibrio competitivo original ($p_0^*$) y la cantidad original ($Q_0^*$).
+   - Calcula el nuevo precio de equilibrio ($p_1^*$) y la nueva cantidad ($Q_1^*$) tras el choque.
+   - Explica conceptualmente por qué, según Hayek, un fabricante de baterías situado a miles de kilómetros de la mina no necesita saber qué mina colapsó ni por qué; ¿qué información esencial le transmite el aumento de $p_0^* \to p_1^*$ y cómo ajusta su conducta?
+2. **El Régimen de Planificación Central con Rezago Burocrático:**
+   - Supón que la asignación del insumo está controlada por una Junta Nacional de Planificación de Recursos. Debido a los trámites burocráticos de recolección estadística y aprobación de decretos, la Junta tarda un período completo en registrar el colapso ($L = 1$). Por lo tanto, en el período $t = 1$, la Junta mantiene la cuota oficial obligatoria de producción en $Q_{\text{plan}} = Q_0^* = 60$ al precio regulado $p_{\text{plan}} = p_0^* = 30$.
+   - Con la verdadera curva de oferta $Q_s'(p) = 2p - 20$, ¿cuántas unidades están realmente dispuestos a extraer y entregar los mineros al precio regulado de $p = 30$?
+   - ¿De qué magnitud es la escasez física o desabastecimiento no planificado ($\text{Déficit} = Q_d(30) - Q_s'(30)$) generado por la rigidez central?
+3. **Pérdida Social de Bienestar (Deadweight Loss):**
+   - Calcula la Pérdida Irrecuperable de Eficiencia ($DWL$) generada en el período 1 por el congelamiento del precio y la asignación central frente a la adaptación flexible del sistema de precios.
+   - Conecta este resultado cuantitativo con la célebre tesis de Hayek sobre el "conocimiento de las circunstancias particulares de tiempo y lugar".
+
+---
+
+# Ejercicio 2: Dinámica de Causación Acumulativa Centro-Periferia (Nivel Intermedio — Myrdal)
+
+Una economía nacional se compone de dos regiones: la Región Capital (Centro, $C$) y la Región Norte (Periferia, $P$). En el año inicial ($t = 0$), el producto por habitante en el Centro es $Y_{C,0} = 100$ y en la Periferia es $Y_{P,0} = 70$ (una brecha inicial de $Y_{C,0}/Y_{P,0} \approx 1.43$).
+
+La evolución anual del producto per cápita en cada región sigue el sistema dinámico de causación acumulativa de Myrdal (1957):
+
+$$Y_{C,t} = Y_{C,t-1} \cdot \left( 1 + g_0 + \gamma_{\text{agg}} + \frac{1}{2}(\delta_{\text{bw}} - \delta_{\text{sp}}) \right)$$
+
+$$Y_{P,t} = Y_{P,t-1} \cdot \left( 1 + g_0 - \delta_{\text{bw}} + \delta_{\text{sp}} + I^{\text{pol}} \right)$$
+
+donde:
+- Tasa base de crecimiento: $g_0 = 0.02$ ($2\%$ anual).
+- Economías de aglomeracion dinámicas en el Centro: $\gamma_{\text{agg}} = 0.015$ ($1.5\%$ adicional por rendimientos crecientes y efecto Kaldor-Verdoorn).
+- Parámetro de efecto de retroceso (*backwash*): $\delta_{\text{bw}} = 0.035$ ($3.5\%$ anual drenado por migración de capital financiero y mano de obra calificada hacia el Centro).
+- Parámetro de efecto de derrame (*spread*): $\delta_{\text{sp}} = 0.015$ ($1.5\%$ anual por demanda del Centro hacia la Periferia).
+- Impulso de política pública regional: $I^{\text{pol}}$.
+
+## Preguntas:
+
+1. **Régimen 1: Libre Mercado sin Intervención ($I^{\text{pol}} = 0$):**
+   - Calcula las tasas de crecimiento anuales del Centro ($g_C$) y de la Periferia ($g_P$).
+   - ¿Qué región crece más rápido y qué signo tiene la diferencia $(g_C - g_P)$?
+   - Proyecta los niveles de producto per cápita al cabo de $t = 15$ años ($Y_{C,15}$ e $Y_{P,15}$) y calcula la brecha de disparidad regional final ($Y_{C,15} / Y_{P,15}$).
+   - ¿Se cumple la predicción neoclásica de convergencia regional automática o la hipótesis de causación acumulativa divergente de Myrdal?
+2. **Régimen 2: El Gran Impulso de Desarrollo de Myrdal:**
+   - Determina el valor exacto del impulso deliberado de política de desarrollo regional ($I^{\text{pol}*}$) que el Estado debe implementar en la Periferia para:
+     a) Lograr un crecimiento paralelo que mantenga constante la brecha relativa ($g_P = g_C$).
+     b) Inducir una convergencia activa con una tasa de cierre de brecha del $2\%$ anual ($g_P = g_C + 0.02$).
+3. **Mecanismos Cualitativos Institucionales:**
+   - Detalla tres instrumentos específicos de política económica mediante los cuales un gobierno puede operacionalizar $I^{\text{pol}}$ en la práctica (ej. inversión en infraestructura logística, descentralización fiscal, parques tecnológicos y universidades regionales).
+
+---
+
+# Ejercicio 3: Síntesis Hayek-Myrdal: Ciclo Austríaco vs Desequilibrio Ex-Ante/Ex-Post (Reto / Avanzado)
+
+## Contexto Analítico:
+El debate entre Hayek y la Escuela de Estocolmo (liderada por Myrdal) en los años 1930 giró en torno a la naturaleza del ahorro, la inversión y el papel de la tasa de interés en el ciclo económico.
+
+Supón una economía donde la tasa natural de interés de Wicksell es $r_n = 0.06$ ($6\%$ anual). A esta tasa, el ahorro voluntario planeado (*ex-ante*) de las familias es igual a la inversión planeada (*ex-ante*) de las empresas:
+
+$$S_{\text{ex-ante}}(r_n) = I_{\text{ex-ante}}(r_n) = 1.000 \text{ millones de dólares}$$
+
+El banco central, con el objetivo de reactivar la economía, fija una tasa de interés de política artificialmente baja en el mercado monetario:
+
+$$r_m = 0.03 \text{ (3% anual)}$$
+
+A esta tasa subsidiada, las funciones de comportamiento son:
+- Demanda de inversión de las empresas: $I_{\text{ex-ante}}(r_m) = 1.600 \text{ millones}$
+- Oferta de ahorro voluntario de los hogares: $S_{\text{ex-ante}}(r_m) = 700 \text{ millones}$
+
+## Preguntas:
+
+1. **La Perspectiva de Gunnar Myrdal (1939): Desequilibrio Ex-Ante vs Identidad Ex-Post:**
+   - Calcula la brecha de desequilibrio *ex-ante* generada en el mercado financiero ($\Delta = I_{\text{ex-ante}} - S_{\text{ex-ante}}$).
+   - Explica el mecanismo macroeconómico mediante el cual la economía genera el ahorro contable *ex-post* indispensable para satisfacer la identidad $S_{\text{ex-post}} \equiv I_{\text{ex-post}} = 1.600$. ¿Qué papel juegan el aumento imprevisto de los precios y las ganancias caídas del cielo (*windfall profits*) de los empresarios?
+2. **La Perspectiva de Friedrich A. von Hayek (1931): Malas Inversiones y Crisis:**
+   - Analiza cómo la brecha de $900$ millones financiada con expansión crediticia fiduciaria distorsiona la estructura productiva intertemporal (el triángulo de Hayek). ¿Por qué los proyectos en etapas tempranas (alta intensidad de capital a largo plazo) parecen rentables a $r_m = 0.03$ pero resultan insostenibles?
+   - ¿Qué ocurre cuando los consumidores intentan gastar sus ingresos en bienes de consumo corriente y no existe suficiente capacidad productiva en las etapas finales? ¿Por qué Hayek denomina a este colapso una crisis de "ahorro forzoso insuficiente"?
+3. **Reflexión Crítica y Síntesis Institucional:**
+   - Compara las visiones de Hayek y Myrdal sobre el rol del Estado: ¿Cómo concilia un diseñador de política económica moderno la advertencia de Hayek contra la fatal arrogancia de planificar mercados con la advertencia de Myrdal de que el libre mercado desregulado abandona a las periferias en trampas de desigualdad acumulativa?

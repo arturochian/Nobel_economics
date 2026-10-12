@@ -1,0 +1,7 @@
+"Dimension","Valor","Interpretacion_Economica"
+"Hayek: Error Cuadratico Medio (Precios Descentralizados)",0.619,"Precios procesan informacion local dispersa en tiempo real con minima perdida"
+"Hayek: Error Cuadratico Medio (Planificador Central L=2)",3.348,"Agregacion y rezago administrativo de 2 periodos generan desajustes cronicos"
+"Hayek: Ventaja de Eficiencia Asignativa (Ratio MSE Central / Precios)",5.41,"El mecanismo de precios reduce las perdidas sociales en multiples veces"
+"Myrdal: Brecha Centro/Periferia final (Libre Mercado / Backwash Dominante)",29.27,"Fuga acumulativa de recursos crea divergencia creciente sin autorregulacion"
+"Myrdal: Brecha Centro/Periferia final (Fuerzas Equilibradas / Spread Neutral)",2.69,"Los derrames compensan exactamente el drenaje de factores manteniendo disparidad"
+"Myrdal: Brecha Centro/Periferia final (Estado Desarrollista / Politica Activa)",2.32,"Inversion deliberada en capital humano e infraestructura quiebra la trampa y converge"

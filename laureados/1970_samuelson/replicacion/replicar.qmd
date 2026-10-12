@@ -1,0 +1,108 @@
+---
+title: "Samuelson (1970): estática comparativa y dinámica económica"
+subtitle: "Preferencia revelada y estabilidad del multiplicador-acelerador"
+lang: es
+format:
+  html:
+    toc: true
+    code-fold: false
+execute:
+  warning: false
+  message: false
+---
+
+## ¿Qué vas a aprender?
+
+Al terminar podrás distinguir una **ilustración teórica** de una reproducción empírica, comprobar el axioma débil de preferencia revelada (WARP) y analizar cuándo una ecuación dinámica converge o genera ciclos. El informe usa datos simulados deterministas y no reproduce una tabla publicada.
+
+## Objetivo y alcance
+
+El premio reconoció el desarrollo de teoría económica estática y dinámica y la elevación del nivel analítico de la disciplina ([NobelPrize.org](https://www.nobelprize.org/prizes/economic-sciences/1970/summary/)). Esta práctica conecta dos herramientas expuestas por Samuelson: decisiones observables del consumidor y estabilidad dinámica. **Nivel: ilustrativa.**
+
+```{r}
+#| label: configuracion
+# Ejecuta el documento desde la raíz del repositorio.
+source("laureados/1970_samuelson/replicacion/R/modelos_samuelson.R")
+dir_salidas <- "laureados/1970_samuelson/replicacion/salidas"
+dir.create(dir_salidas, recursive = TRUE, showWarnings = FALSE)
+```
+
+## 1. Preferencia revelada
+
+En vez de preguntar por una utilidad invisible, observamos qué cesta se elige bajo distintos precios e ingresos. Simulamos cuatro presupuestos y un consumidor Cobb–Douglas solo para generar elecciones coherentes; después el test WARP usa únicamente precios y cestas.
+
+```{r}
+#| label: preferencia-revelada
+precios <- data.frame(p1 = c(1, 2, 1, 3), p2 = c(2, 1, 3, 2))
+ingresos <- c(60, 60, 72, 90)
+elecciones <- do.call(rbind, lapply(seq_len(nrow(precios)), function(i) {
+  elegir_cobb_douglas(precios$p1[i], precios$p2[i], ingresos[i])
+}))
+datos_eleccion <- cbind(escenario = seq_len(4), precios, ingreso = ingresos, elecciones)
+violaciones <- comprobar_warp(precios, elecciones)
+datos_eleccion
+violaciones
+write.csv(datos_eleccion, file.path(dir_salidas, "tab_preferencia_revelada.csv"), row.names = FALSE)
+```
+
+```{r}
+#| label: fig-preferencia
+#| fig-alt: "Cuatro elecciones sobre sus respectivas rectas presupuestarias"
+#| fig-cap: "Elecciones simuladas coherentes con maximización Cobb-Douglas."
+colores <- c("#007f73", "#d49b36", "#5f6caf", "#b5523b")
+png(file.path(dir_salidas, "fig_preferencia_revelada.png"), 1200, 800, res = 150)
+plot(NA, xlim = c(0, 95), ylim = c(0, 75), xlab = "Bien 1", ylab = "Bien 2",
+     main = "Preferencia revelada: presupuestos y cestas elegidas")
+for (i in seq_len(4)) {
+  abline(a = ingresos[i] / precios$p2[i], b = -precios$p1[i] / precios$p2[i],
+         col = colores[i], lwd = 2)
+  points(elecciones$x1[i], elecciones$x2[i], pch = 19, cex = 1.4, col = colores[i])
+  text(elecciones$x1[i], elecciones$x2[i], paste0(" E", i), pos = 4)
+}
+legend("topright", legend = paste("Escenario", 1:4), col = colores, lwd = 2, bty = "n")
+dev.off()
+```
+
+## 2. Dinámica y principio de correspondencia
+
+El ingreso sigue $Y_t=A+cY_{t-1}+v(Y_{t-1}-Y_{t-2})+u_t$. La propensión a consumir es $c$ y el acelerador de inversión es $v$. No es una estimación histórica: permite ver cómo los parámetros cambian la estabilidad.
+
+```{r}
+#| label: dinamica
+base <- simular_multiplicador_acelerador(
+  propension_consumir = 0.75, acelerador = 0.4, shock = 20
+)
+estado <- clasificar_estabilidad(0.75, 0.4)
+estado
+write.csv(base, file.path(dir_salidas, "tab_dinamica_samuelson.csv"), row.names = FALSE)
+
+png(file.path(dir_salidas, "fig_dinamica_samuelson.png"), 1200, 800, res = 150)
+plot(base$periodo, base$ingreso, type = "o", pch = 19, col = "#007f73", lwd = 2,
+     xlab = "Periodo", ylab = "Ingreso", main = "Respuesta a un impulso autónomo")
+abline(h = base$equilibrio[1], lty = 2, col = "#7a7468")
+legend("topright", c("Ingreso", "Equilibrio"), col = c("#007f73", "#7a7468"),
+       lty = c(1, 2), lwd = 2, bty = "n")
+dev.off()
+```
+
+Con los parámetros base, las raíces tienen módulo menor que uno: el impulso produce oscilaciones amortiguadas alrededor del equilibrio. Esto ilustra el método de analizar estabilidad desarrollado en *Foundations of Economic Analysis*; no debe interpretarse como una predicción calibrada.
+
+## Comparación y limitaciones
+
+El ejercicio reproduce relaciones matemáticas, no resultados cuantitativos de un paper. Las elecciones son artificiales, Cobb–Douglas impone racionalidad por construcción y el modelo dinámico omite expectativas, precios y política. Su ventaja docente es que cada supuesto queda visible y puede modificarse en segundos.
+
+## Ejercicios para el estudiante
+
+1. **Básico:** cambia el shock de 20 a 40 y compara la amplitud; ¿cambia la estabilidad?
+2. **Intermedio:** introduce manualmente una quinta elección que viole WARP y explica el par conflictivo.
+3. **Reto:** usa la app, fija $c=0.8$ y busca el menor $v$ que produce inestabilidad. Relaciona el resultado con el módulo de las raíces.
+
+## Preguntas de discusión
+
+- ¿Qué se gana y qué se pierde al inferir preferencias solo desde decisiones observadas?
+- ¿Por qué una condición de estabilidad local no garantiza que un modelo represente bien una economía real?
+- ¿Qué evidencia adicional exigirías antes de usar este modelo para política económica?
+
+## Referencias
+
+Véanse `samuelson1938revealed`, `samuelson1939multiplier`, `samuelson1947foundations` y `samuelson1970lecture` en `referencias/referencias.bib`.

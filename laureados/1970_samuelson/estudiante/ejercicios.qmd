@@ -1,0 +1,28 @@
+---
+title: "Ejercicios: Paul A. Samuelson (1970)"
+lang: es
+format: html
+---
+
+## Antes de comenzar
+
+Renderiza primero `../replicacion/replicar.qmd` y abre la app con `shiny::runApp("laureados/1970_samuelson/shiny")`. No necesitas datos externos ni claves de API.
+
+## Básico: tamaño del impulso
+
+En la app, conserva $c=0.75$ y $v=0.40$. Compara shocks de 10 y 40. Anota el ingreso máximo, el tiempo aproximado de retorno al equilibrio y explica por qué la etiqueta de estabilidad no cambia.
+
+## Intermedio: una violación de WARP
+
+Parte de las elecciones del informe. Propón dos presupuestos y dos cestas tales que, cuando se eligió A, B era asequible, pero cuando se eligió B, A era estrictamente más barata. Comprueba el resultado con `comprobar_warp()` y explica la contradicción económica.
+
+## Reto: frontera de estabilidad con la app
+
+Fija $c=0.80$, mueve el acelerador $v$ en pasos de 0.05 y localiza el primer valor que la app clasifica como inestable. Adjunta una captura o tabla breve y explica el criterio basado en $\max |\lambda|$.
+
+## Preguntas de discusión
+
+1. ¿Una elección que pasa WARP demuestra que el consumidor es racional?
+2. ¿Puede un modelo estable producir ciclos visibles?
+3. ¿Qué datos reales necesitarías para convertir la ilustración dinámica en una estimación empírica?
+

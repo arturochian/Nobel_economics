@@ -1,0 +1,26 @@
+---
+title: "Ejercicios: crecimiento y desigualdad en Kuznets"
+format: html
+---
+
+## Antes de empezar
+
+Renderiza `../replicacion/replicar.qmd` o abre la app con `shiny::runApp("laureados/1971_kuznets/shiny")`. Distingue siempre una simulación didáctica de una estimación histórica.
+
+## 1. Básico: tamaño de la brecha
+
+Ejecuta la simulación con `brecha_maxima = 2`, `3` y `4`. Registra el Gini máximo y el periodo en que ocurre. Explica en no más de 100 palabras el patrón.
+
+## 2. Intermedio: usa la app
+
+En la app, compara una participación agrícola final de 10% con otra de 30%, manteniendo los demás controles. ¿Qué pasa con la desigualdad al final de la transición? Incluye una captura o una tabla breve y justifica el resultado mediante la composición sectorial.
+
+## 3. Reto: someter el mecanismo a prueba
+
+Edita una copia de la función para que la prima urbana sea constante. Compara la trayectoria con el escenario original. Decide si la U invertida proviene de los datos o de los supuestos del modelo y propón una estrategia empírica con datos reales.
+
+## Preguntas de discusión
+
+1. ¿Puede aumentar el ingreso medio mientras empeora la distribución?
+2. ¿Qué sesgos aparecen al comparar el Gini de países con encuestas distintas?
+3. ¿Qué políticas podrían alterar la brecha entre sectores sin frenar la productividad?

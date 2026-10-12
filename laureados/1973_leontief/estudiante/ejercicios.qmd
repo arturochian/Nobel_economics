@@ -1,0 +1,118 @@
+---
+title: "Guía de Ejercicios Prácticos: Análisis Insumo-Producto, Multiplicadores y la Paradoja de Leontief"
+subtitle: "Premio Nobel de Economía 1973: Wassily Leontief"
+author: "Nobel_economics Docencia"
+date: "1973-10-18"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta guía pedagógica aplicarás los métodos cuantitativos fundamentales desarrollados por Wassily Leontief:
+1. **La Estructura Insumo-Producto y la Inversa de Leontief:** Construirás matrices de coeficientes técnicos, invertirás el sistema de Leontief $(I - A)^{-1}$ y cuantificarás la propagación de impulsos de demanda en una economía interdependiente.
+2. **Encadenamientos de Rasmussen y la Serie de Neumann:** Calcularás multiplicadores de producción hacia atrás y hacia adelante, clasificarás industrias según su tipología estructural y descompondrás los efectos de transmisión a través de rondas infinitas de suministros.
+3. **El Contenido Factorial del Comercio y la Paradoja de Leontief:** Estimarás los requerimientos totales de capital y trabajo en canastas comerciales, comprobarás la paradoja empírica frente al teorema Heckscher-Ohlin y evaluarás el papel crítico del capital humano y los recursos naturales.
+
+---
+
+# Ejercicio 1: Fundamentos de la Matriz Insumo-Producto en un Modelo $2 \times 2$ (Nivel Básico)
+
+Considera una economía simplificada compuesta por dos sectores productivos interconectados: **Industria ($I$)** y **Agricultura ($A$)**. 
+
+La matriz de flujos intermedios $Z$ (donde las filas representan ventas del sector proveedor y las columnas compras del sector usuario) y el vector de demanda final $y$ (en millones de dólares) vienen dados por:
+
+$$Z = \begin{pmatrix} z_{II} & z_{IA} \\ z_{AI} & z_{AA} \end{pmatrix} = \begin{pmatrix} 40 & 60 \\ 20 & 30 \end{pmatrix}, \quad y = \begin{pmatrix} y_I \\ y_A \end{pmatrix} = \begin{pmatrix} 100 \\ 50 \end{pmatrix}$$
+
+## Preguntas:
+
+1. **Producción Bruta y Valor Agregado:**
+   - Calcula el vector de producción bruta total $x = (x_I, x_A)'$ utilizando la identidad de balance contable por fila ($x_i = \sum_j z_{ij} + y_i$).
+   - Determina el valor agregado de cada sector $v = (v_I, v_A)'$ mediante el balance por columna ($v_j = x_j - \sum_i z_{ij}$).
+   - Verifica que el PIB total por el lado de la demanda final ($\sum y_i$) coincide exactamente con el PIB por el lado del ingreso factorial ($\sum v_j$).
+2. **Matriz de Coeficientes Técnicos ($A$):**
+   - Deriva analíticamente los coeficientes técnicos directos $a_{ij} = z_{ij} / x_j$ y escribe explícitamente la matriz $A$.
+   - Interpreta económicamente el significado puntual del coeficiente $a_{IA}$.
+3. **Cálculo de la Matriz Inversa de Leontief ($L = (I - A)^{-1}$):**
+   - Escribe la matriz $(I - A)$.
+   - Calcula el determinante $\det(I - A)$ y verifica que satisface la condición de viabilidad de Hawkins-Simon.
+   - Invierte analíticamente la matriz $(I - A)$ utilizando la fórmula de la matriz adjunta:
+     $$(I - A)^{-1} = \frac{1}{\det(I - A)} \begin{pmatrix} 1 - a_{AA} & a_{IA} \\ a_{AI} & 1 - a_{II} \end{pmatrix}$$
+4. **Simulación de un Shock de Demanda Final:**
+   - Supón que el gobierno aprueba un plan de inversión en infraestructura que eleva la demanda final de la Industria en $\Delta y_I = 20$ millones de dólares ($\Delta y = (20, 0)'$).
+   - Utilizando la inversa de Leontief, calcula el incremento total en la producción bruta de ambos sectores ($\Delta x_I$ y $\Delta x_A$).
+   - ¿Cuánto de la expansión de la Industria corresponde al impacto directo inicial y cuánto es consecuencia del arrastre indirecto generado por el sistema?
+
+---
+
+# Ejercicio 2: Multiplicadores, Encadenamientos de Rasmussen y Serie de Neumann (Nivel Intermedio)
+
+Supón ahora una economía de tres sectores: **Manufactura ($M$)**, **Servicios ($S$)** y **Energía ($E$)**.
+
+La matriz de coeficientes técnicos directos $A$ ha sido estimada estadísticamente como:
+
+$$A = \begin{pmatrix} 0.20 & 0.15 & 0.10 \\ 0.10 & 0.25 & 0.05 \\ 0.15 & 0.10 & 0.10 \end{pmatrix}$$
+
+Tras invertir el sistema, la Matriz Inversa de Leontief $L = (I - A)^{-1}$ resulta ser:
+
+$$L = \begin{pmatrix} 1.348 & 0.285 & 0.165 \\ 0.191 & 1.385 & 0.098 \\ 0.246 & 0.202 & 1.150 \end{pmatrix}$$
+
+## Preguntas:
+
+1. **Multiplicadores de Producción hacia Atrás:**
+   - Calcula el multiplicador de producción total para cada uno de los tres sectores ($M_j = \sum_i L_{ij}$).
+   - Explica detalladamente por qué los elementos de la diagonal principal ($L_{jj}$) son estrictamente mayores a 1.0.
+2. **Encadenamientos de Rasmussen (Poder y Sensibilidad de Dispersión):**
+   - Calcula el promedio general de los multiplicadores del sistema ($\bar{M}$).
+   - Deriva los índices normalizados de arrastre hacia atrás ($BL_j$) y de sensibilidad hacia adelante ($FL_i$).
+   - A partir de los resultados, clasifica cada sector dentro de la tipología de Chenery-Watanabe / Rasmussen: ¿cuál es el Sector Clave, el Sector Estratégico o el Sector Impulsor?
+3. **Aproximación por Serie de Neumann:**
+   - Para un shock unitario en la demanda final de Manufactura ($\Delta y = (1, 0, 0)'$), calcula:
+     - El impacto directo de Ronda 0: $\Delta x^{(0)} = \Delta y$.
+     - El impacto indirecto de Primera Ronda: $\Delta x^{(1)} = A \Delta y$.
+     - El impacto indirecto de Segunda Ronda: $\Delta x^{(2)} = A^2 \Delta y = A \Delta x^{(1)}$.
+   - Suma los impactos acumulados de las rondas 0, 1 y 2 ($\Delta x^{(0)} + \Delta x^{(1)} + \Delta x^{(2)}$) y compáralos con el valor exacto de largo plazo dado por la primera columna de la matriz inversa de Leontief. ¿Qué porcentaje del impacto total se transmite en las dos primeras rondas?
+
+---
+
+# Ejercicio 3: Requerimientos Factoriales y la Paradoja de Leontief (Nivel Reto)
+
+En su célebre artículo de 1953, Wassily Leontief contrastó empíricamente el Teorema de Heckscher-Ohlin (H-O) analizando el contenido factorial de las exportaciones y de las importaciones competitivas de los Estados Unidos.
+
+Considera una economía con dos sectores interconectados representativos de la estructura del estudio de Leontief: **Manufactura Avanzada y Maquinaria ($M$)** e **Industrias Básicas y Recursos Procesados ($R$)**.
+
+La matriz de coeficientes técnicos es:
+$$A = \begin{pmatrix} 0.30 & 0.20 \\ 0.10 & 0.20 \end{pmatrix}$$
+
+La matriz inversa de Leontief asociada es:
+$$L = (I - A)^{-1} = \begin{pmatrix} 1.4815 & 0.3704 \\ 0.1852 & 1.2963 \end{pmatrix}$$
+
+Los coeficientes de utilización directa de factores primarios por unidad monetaria de producción bruta son:
+- **Sector Manufactura ($M$):** 
+  - Capital directo: $k_M = 0.50$ dólares de capital por dólar de producto bruto.
+  - Trabajo directo: $l_M = 0.05$ personas-año por dólar de producto bruto.
+- **Sector Recursos e Insumos Básicos ($R$):** 
+  - Capital directo: $k_R = 1.00$ dólares de capital por dólar de producto bruto.
+  - Trabajo directo: $l_R = 0.04$ personas-año por dólar de producto bruto.
+
+El país cuenta con una canasta de exportaciones ($y^{\text{exp}}$) y una canasta de sustitutos domésticos de importaciones competitivas ($y^{\text{imp}}$), normalizadas a 100 dólares de valor de demanda final:
+$$y^{\text{exp}} = \begin{pmatrix} 80 \\ 20 \end{pmatrix}, \quad y^{\text{imp}} = \begin{pmatrix} 30 \\ 70 \end{pmatrix}$$
+
+## Preguntas:
+
+1. **Requerimientos Factoriales Directos:**
+   - Calcula el capital directo ($K_{\text{dir}}$) y el trabajo directo ($L_{\text{dir}}$) incorporados en la canasta de exportaciones y en la de importaciones.
+   - Calcula los ratios directos de capital-trabajo: $(K/L)_{\text{dir}}^{\text{exp}}$ y $(K/L)_{\text{dir}}^{\text{imp}}$.
+   - Calcula el ratio de intensidad factorial directa: $\Theta_{\text{dir}} = \frac{(K/L)_{\text{dir}}^{\text{exp}}}{(K/L)_{\text{dir}}^{\text{imp}}}$.
+2. **Requerimientos Factoriales Totales (Leontief 1953):**
+   - Deriva los vectores de requerimientos factoriales totales:
+     $$k_{\text{total}}' = k' (I - A)^{-1}, \quad l_{\text{total}}' = l' (I - A)^{-1}$$
+   - Calcula el capital total ($K_{\text{tot}}$) y el trabajo total ($L_{\text{tot}}$) incorporados en la canasta de exportaciones y en la de importaciones.
+   - Calcula los ratios totales de capital-trabajo: $(K/L)_{\text{tot}}^{\text{exp}}$ y $(K/L)_{\text{tot}}^{\text{imp}}$.
+   - Calcula el ratio de intensidad factorial de Leontief: $\Theta_{\text{tot}} = \frac{(K/L)_{\text{tot}}^{\text{exp}}}{(K/L)_{\text{tot}}^{\text{imp}}}$.
+3. **Análisis Conceptual y Debate Económico:**
+   - ¿Por qué el ratio calculado mediante requerimientos totales difiere significativamente del calculado considerando únicamente la fase final directa?
+   - Si esta economía corresponde a una nación altamente dotada de capital en términos relativos mundiales, ¿se verifica la Paradoja de Leontief?
+   - Si se descubriera que los trabajadores del Sector Transables poseen un nivel educativo que duplica al del promedio foráneo (incorporando capital humano), ¿cómo afectaría esto la interpretación de la aparente paradoja?

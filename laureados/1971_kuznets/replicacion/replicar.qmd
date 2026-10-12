@@ -1,0 +1,82 @@
+---
+title: "Crecimiento, transformación estructural y desigualdad"
+subtitle: "Una ilustración computacional del Nobel 1971 a Simon Kuznets"
+author: "Proyecto Nobel de Economía"
+format:
+  html:
+    toc: true
+    code-fold: false
+bibliography: "../referencias/referencias.bib"
+execute:
+  warning: false
+  message: false
+---
+
+## ¿Qué vas a aprender?
+
+Aprenderás a distinguir crecimiento agregado de transformación estructural, calcular el coeficiente de Gini a partir de microdatos y reconocer por qué una curva en U invertida simulada **no prueba** una ley universal. El nivel es **ilustrativo**: no se emplean los datos históricos ni el código de Kuznets.
+
+## Pregunta y vínculo con el aporte
+
+El premio reconoció la interpretación empíricamente fundada de Kuznets sobre el crecimiento y sus cambios económicos y sociales [@nobel1971summary]. Su conferencia identifica, entre los rasgos del crecimiento moderno, el aumento de productividad y el desplazamiento desde la agricultura hacia industria y servicios [@kuznets1971lecture]. El artículo de 1955 planteó —con cautelas explícitas por la escasez de datos— que la desigualdad podía ampliarse al inicio de la industrialización y reducirse después [@kuznets1955inequality].
+
+Aquí construimos una economía artificial de dos sectores. La población agrícola cae gradualmente; la productividad aumenta; y la brecha de ingreso urbano-rural primero se abre y luego converge. Observamos el Gini resultante, no una relación causal estimada.
+
+```{r}
+#| label: setup
+#| include: true
+source("R/modelo_kuznets.R")
+
+fast <- identical(toupper(Sys.getenv("FAST", "FALSE")), "TRUE")
+hogares <- if (fast) 300 else 2000
+resultados <- simular_transformacion(hogares = hogares, semilla = 1971)
+guardar_salidas_kuznets(resultados, "salidas")
+```
+
+## El mecanismo, paso a paso
+
+En cada periodo, el ingreso agrícola medio es $y_A(t)$. El ingreso urbano medio es $y_U(t)=r(t)y_A(t)$, donde la prima $r(t)$ aumenta durante la primera parte de la transición y luego vuelve hacia uno. La proporción agrícola $s_A(t)$ disminuye. Añadimos dispersión individual moderada con la misma semilla para que el ejercicio sea reproducible.
+
+El coeficiente de Gini calculado por el script es:
+
+$$G=\frac{\sum_i\sum_j |y_i-y_j|}{2n^2\bar y}.$$
+
+```{r}
+#| label: resumen
+pico <- resultados[which.max(resultados$gini), ]
+data.frame(
+  indicador = c("Gini inicial", "Gini maximo", "Gini final", "Periodo del maximo"),
+  valor = round(c(resultados$gini[1], pico$gini, tail(resultados$gini, 1), pico$periodo), 3)
+)
+```
+
+```{r}
+#| label: figura
+#| fig-cap: "Transformación estructural y desigualdad en la simulación."
+img <- "salidas/fig_kuznets_transformacion.png"
+knitr::include_graphics(img)
+```
+
+## Qué reproduce y qué no
+
+La simulación reproduce únicamente un **mecanismo pedagógico compatible** con la conjetura de 1955: la composición sectorial y las brechas entre sectores pueden generar una desigualdad no monótona durante el desarrollo. No reproduce las tablas originales, no contrasta países y no demuestra que el crecimiento cause automáticamente menor desigualdad. El propio artículo describió sus conclusiones como conjeturas que requerían más evidencia [@kuznets1955inequality].
+
+Las salidas se guardan como `salidas/fig_kuznets_transformacion.png` y `salidas/tab_kuznets_simulacion.csv`. Solo requiere R base para el cálculo; Quarto y `knitr` son necesarios para renderizar este documento.
+
+## Ejercicios para el estudiante
+
+1. **Básico:** cambia `brecha_maxima` de 3 a 2. ¿Cómo cambia el máximo del Gini?
+2. **Intermedio:** usa la app y compara una transición agrícola rápida y una lenta. Explica por qué cambia la ubicación del pico.
+3. **Reto:** reemplaza la prima en U invertida por una prima constante. ¿Puede la composición sectorial producir por sí sola una curva no monótona?
+
+Consulta la guía sin respuestas en `../estudiante/ejercicios.qmd`. Las soluciones están separadas en `../docente/`.
+
+## Preguntas de discusión
+
+- ¿Por qué una regularidad descriptiva no identifica causalidad?
+- ¿Qué dimensiones del bienestar quedan fuera del ingreso monetario?
+- ¿Qué datos de hogares y sectores necesitarías para evaluar esta hipótesis hoy?
+
+## Referencias
+
+Las referencias verificadas están en `../referencias/referencias.bib`. La conferencia Nobel y el artículo de 1955 deben leerse junto con sus advertencias metodológicas.

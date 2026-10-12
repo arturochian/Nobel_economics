@@ -1,0 +1,17 @@
+modulo,concepto,valor_numerico,unidad_o_detalle
+Hicks_Descomposicion_Demanda,Cesta_Inicial_A_x1_x2,25,"Cesta (25.00, 25.00) a precios (2.0, 2.0)"
+Hicks_Descomposicion_Demanda,Cesta_Final_C_x1_x2,50,"Cesta (50.00, 25.00) a precios (1.0, 2.0)"
+Hicks_Descomposicion_Demanda,Cesta_Compensada_Hicks_B_x1_x2,35.35533905932737,"Cesta (35.36, 17.68) manteniendo U0=25.00"
+Hicks_Descomposicion_Demanda,Efecto_Sustitucion_Hicks_x1,10.35533905932737,Unidades adicionales de bien 1 por cambio en precio relativo
+Hicks_Descomposicion_Demanda,Efecto_Ingreso_Hicks_x1,14.64466094067263,Unidades adicionales de bien 1 por aumento de poder adquisitivo
+Hicks_Descomposicion_Demanda,Efecto_Total_x1,25,Cambio total observado en la cantidad demandada de bien 1
+Hicks_Descomposicion_Demanda,Variacion_Compensatoria_CV,29.28932188134526,Monto en USD que compensa exactamente el cambio de precios ($)
+Hicks_Descomposicion_Demanda,Variacion_Equivalente_EV,41.42135623730948,Monto en USD equivalente a precios originales ($)
+Arrow_Equilibrio_General_Riesgo,Dotacion_Inicial_Agente_A,80,"Dotacion estados (s1=80, s2=20)"
+Arrow_Equilibrio_General_Riesgo,Dotacion_Inicial_Agente_B,20,"Dotacion estados (s1=20, s2=80)"
+Arrow_Equilibrio_General_Riesgo,Precio_Relativo_Arrow_q1_q2,1,Ratio de precios de activos contingentes de Arrow q1*/q2*
+Arrow_Equilibrio_General_Riesgo,Asignacion_Equilibrio_Agente_A,50,"Consumo suavizado en estados s1 y s2 (50.0, 50.0)"
+Arrow_Equilibrio_General_Riesgo,Asignacion_Equilibrio_Agente_B,50,"Consumo suavizado en estados s1 y s2 (50.0, 50.0)"
+Arrow_Equilibrio_General_Riesgo,Equivalente_Cierto_Autarquia_A,39.99999999999998,Nivel de consumo cierto que rinde igual utilidad en autarquia
+Arrow_Equilibrio_General_Riesgo,Equivalente_Cierto_Equilibrio_A,49.99999999999999,Nivel de consumo cierto alcanzado con mercados completos de Arrow
+Arrow_Equilibrio_General_Riesgo,Ganancia_Bienestar_Equivalente_Cierto_A,10.000000000000014,Aumento en el consumo equivalente cierto gracias al mercado de seguros (+25.0%)

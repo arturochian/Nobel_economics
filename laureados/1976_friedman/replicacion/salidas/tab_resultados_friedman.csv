@@ -1,0 +1,17 @@
+Periodo,Tasa_Desempleo,Inflacion,Inflacion_Esperada,Brecha_Desempleo,Fase_Politica
+1,5,2,2,0,Equilibrio Inicial
+2,3.5,3.2,2,-1.5,Expansion Artificial (u < u_n)
+3,3.5,3.98,2.78,-1.5,Expansion Artificial (u < u_n)
+4,3.5,4.76,3.56,-1.5,Expansion Artificial (u < u_n)
+5,3.5,5.54,4.34,-1.5,Expansion Artificial (u < u_n)
+6,3.5,6.32,5.12,-1.5,Expansion Artificial (u < u_n)
+7,3.5,7.1,5.9,-1.5,Expansion Artificial (u < u_n)
+8,3.5,7.88,6.68,-1.5,Expansion Artificial (u < u_n)
+9,6.5,6.26,7.46,1.5,Desinflacion Estricta
+10,6.5,5.48,6.68,1.5,Desinflacion Estricta
+11,6.5,4.7,5.9,1.5,Desinflacion Estricta
+12,6.5,3.92,5.12,1.5,Desinflacion Estricta
+13,5,4.34,4.34,0,Nuevo Equilibrio Natural
+14,5,4.34,4.34,0,Nuevo Equilibrio Natural
+15,5,4.34,4.34,0,Nuevo Equilibrio Natural
+16,5,4.34,4.34,0,Nuevo Equilibrio Natural

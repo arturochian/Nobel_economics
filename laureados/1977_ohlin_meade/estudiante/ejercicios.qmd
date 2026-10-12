@@ -1,0 +1,105 @@
+---
+title: "Guía de Ejercicios Prácticos: Modelo Heckscher-Ohlin, Equilibrio de Meade y Segundo Mejor"
+subtitle: "Premio Nobel de Economía 1977: Bertil Ohlin y James E. Meade"
+author: "Nobel_economics Docencia"
+date: "1977-10-14"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta guía pedagógica aplicarás las herramientas analíticas formuladas por Bertil Ohlin y James E. Meade:
+1. **El Modelo Heckscher-Ohlin (H-O):** Analizarás cómo las dotaciones factoriales relativas de capital y trabajo determinan los patrones de ventaja comparativa, las consecuencias sobre los precios de los factores (Teorema de Stolper-Samuelson) y las respuestas a la acumulación de factores (Teorema de Rybczynski).
+2. **El Diagrama de Políticas de Meade (1951):** Diagnosticarás las zonas de desequilibrio macroeconómico simultáneo en economías abiertas (inflación/desempleo y superávit/déficit en balanza de pagos) y diseñarás la combinación óptima de políticas de variación y reorientación del gasto.
+3. **La Teoría del Segundo Mejor y Uniones Aduaneras (Meade 1955):** Cuantificarás algebraicamente los efectos de creación y desviación de comercio bajo acuerdos arancelarios preferenciales, demostrando por qué la eliminación parcial de distorsiones no garantiza una ganancia de bienestar paretiano.
+
+---
+
+# Ejercicio 1: Dotaciones Factoriales, Teorema de Heckscher-Ohlin y Rybczynski (Nivel Básico)
+
+Considera dos economías cerradas, **País Alfa ($\alpha$)** y **País Beta ($\beta$)**, que producen dos bienes finales: **Alimentos ($A$)** y **Semiconductores ($S$)**, utilizando dos insumos productivos: **Trabajo ($L$)** y **Capital ($K$)**.
+
+Las tecnologías de producción vienen dadas por requerimientos unitarios fijos de insumos por unidad de producto:
+- Para producir $1$ unidad de Alimentos: se requieren $a_{LA} = 4$ horas de trabajo y $a_{KA} = 1$ unidad de capital.
+- Para producir $1$ unidad de Semiconductores: se requieren $a_{LS} = 2$ horas de trabajo y $a_{KS} = 3$ unidades de capital.
+
+Las dotaciones totales de factores de cada país son las siguientes:
+- **País Alfa:** $\bar{L}_\alpha = 400$ horas de trabajo y $\bar{K}_\alpha = 150$ unidades de capital.
+- **País Beta:** $\bar{L}_\beta = 200$ horas de trabajo y $\bar{K}_\beta = 200$ unidades de capital.
+
+## Preguntas:
+
+1. **Intensidad y Abundancia Factorial Relativa:**
+   - Calcula el ratio capital-trabajo en cada sector ($a_{KA}/a_{LA}$ y $a_{KS}/a_{LS}$) y determina cuál bien es intensivo en capital y cuál es intensivo en trabajo.
+   - Calcula la ratio de dotación agregada $(\bar{K}/\bar{L})$ para ambos países y determina qué país es abundante en capital y qué país es abundante en trabajo.
+2. **Patrón de Comercio según el Teorema Heckscher-Ohlin:**
+   - De acuerdo con el Teorema de Heckscher-Ohlin, ¿qué bien exportará e importará el País Alfa al abrirse al libre comercio internacional? ¿Y el País Beta? Explica la intuición económica.
+3. **El Teorema de Stolper-Samuelson:**
+   - Si la apertura comercial eleva el precio relativo internacional de los Semiconductores ($p_S/p_A$), ¿qué ocurrirá con el salario real de los trabajadores ($w/P$) y con la tasa de rendimiento del capital ($r/P$) en el País Beta?
+4. **El Teorema de Rybczynski:**
+   - Supón que el País Alfa experimenta una oleada migratoria que incrementa su dotación de trabajo en un $+20\%$ ($\bar{L}_\alpha$ pasa de $400$ a $480$), mientras que su stock de capital se mantiene fijo ($\bar{K}_\alpha = 150$).
+   - A precios constantes de los bienes, calcula matemáticamente los nuevos niveles de producción de pleno empleo ($Q_A$ y $Q_S$) y verifica si se cumple el Teorema de Rybczynski.
+
+---
+
+# Ejercicio 2: El Diagrama de Meade y el Conflicto de Metas Macroeconómicas (Nivel Intermedio)
+
+El banco central y el ministerio de economía de la república de **Meridia** monitorean el desempeño macroeconómico del país. La economía responde al marco estructural de James Meade (1951):
+
+- Demanda agregada: $Y = A + NX(A, R)$
+- Gasto interno / Absorción: $A = C + I + G$
+- Exportaciones netas en cuenta corriente: $NX = CA(A, R) = \bar{X} + \eta_R (R - 100) - m (A - 100)$
+- Tipo de cambio real: $R = 100 \cdot \frac{e P^*}{P}$ (un aumento de $R$ representa una ganancia de competitividad o depreciación real).
+- Parámetros estructurales:
+  - Nivel de producción potencial de pleno empleo: $Y^* = 100$.
+  - Meta de saldo en balanza de pagos (cuenta corriente): $CA^* = 0$.
+  - Propensión marginal a importar: $m = 0.20$.
+  - Propensión marginal al gasto interno: $c = 0.80$.
+  - Sensibilidad de balanza comercial al tipo de cambio real: $\eta_R = 0.50$.
+
+## Preguntas:
+
+1. **Derivación de las Curvas de Política de Meade:**
+   - Demuestra formalmente que la pendiente de la curva de **Equilibrio Interno ($IB$)** en el espacio $(A, R)$ viene dada por:
+     $$\left. \frac{dR}{dA} \right|_{IB} = -\frac{1 - m}{\eta_R}$$
+     y calcula su valor numérico.
+   - Demuestra que la pendiente de la curva de **Equilibrio Externo ($EB$)** viene dada por:
+     $$\left. \frac{dR}{dA} \right|_{EB} = \frac{m}{\eta_R}$$
+     y calcula su valor numérico.
+   - Determina el punto de política óptimo simultáneo $(A^*, R^*)$.
+2. **Diagnóstico del Desequilibrio (El Dilema de la Zona III de Meade):**
+   - Actualmente, Meridia exhibe una absorción deprimida de $A = 85$ y una moneda sobrevaluada con $R = 88$.
+   - Calcula el nivel de producto actual $Y$ (determina si hay brecha recesiva o inflacionaria) y el saldo de la balanza por cuenta corriente $CA$.
+   - ¿En cuál de las cuatro zonas de Meade se ubica la economía?
+   - Si el gobierno decide utilizar exclusivamente política fiscal expansiva para devolver el producto a $Y^* = 100$, ¿qué ocurrirá con el saldo de la balanza de pagos? ¿Por qué Meade denominó a esta situación un dilema de política?
+3. **Regla de Asignación de Instrumentos (Tinbergen-Meade):**
+   - Diseña el paquete integral coordinado de política económica (variación del gasto $\Delta A$ y reorientación del gasto $\Delta R$) necesario para alcanzar el equilibrio macroeconómico simultáneo.
+
+---
+
+# Ejercicio 3: La Teoría del Segundo Mejor de Meade en Acuerdos Regionales (Nivel Reto)
+
+Una pequeña economía insular, **Arcadia**, consume $Q$ unidades de trigo al año. Su demanda interna viene descrita por la función lineal:
+$$Q_d(P) = 120 - P$$
+
+Arcadia no produce trigo doméstico de forma competitiva y debe abastecerse en el mercado internacional, donde operan dos oferentes con oferta perfectamente elástica a costos marginales constantes:
+- **País B (Socio Regional en el continente vecino):** Precio mundial $P_B = 30$ dólares por tonelada.
+- **País C (Resto del Mundo, granero global de alta eficiencia):** Precio mundial $P_C = 20$ dólares por tonelada.
+
+## Preguntas:
+
+1. **Régimen Inicial: Arancel Uniforme Multilateral (MFN):**
+   - Inicialmente, Arcadia aplica un arancel no discriminatorio de $t = 15$ dólares por tonelada a todas las importaciones provenientes de $B$ y de $C$.
+   - ¿A qué país comprará el trigo Arcadia? ¿Cuál será el precio pagado por los consumidores domésticos?
+   - Calcula la cantidad consumida, el excedente del consumidor ($CS$), los ingresos arancelarios recaudados por el gobierno ($T$) y el bienestar nacional total ($W_0 = CS + T$).
+2. **Creación de una Unión Aduanera Preferencial con el País B:**
+   - Arcadia negocia un tratado de integración regional con el País B: elimina íntegramente el arancel a las importaciones de $B$ ($t_B = 0$), pero mantiene el arancel de $15$ dólares a las importaciones de $C$ ($t_C = 15$).
+   - ¿Cuál será el nuevo precio del trigo en Arcadia? ¿A qué país comprará ahora todo el trigo?
+   - Calcula la nueva cantidad demandada, el nuevo excedente del consumidor, la nueva recaudación arancelaria del gobierno y el nuevo bienestar total ($W_1$).
+3. **Evaluación según la Teoría del Segundo Mejor:**
+   - Descompón cuantitativamente la variación del bienestar social ($\Delta W = W_1 - W_0$) en el efecto de **Creación de Comercio** y el efecto de **Desviación de Comercio**.
+   - A pesar de que los consumidores disfrutan de un trigo más barato y el mercado regional está "libre de aranceles", ¿aumentó o disminuyó el bienestar social agregado de Arcadia?
+   - Conecta este resultado numérico con el Teorema General del Segundo Mejor de Meade (1955) y Lipsey-Lancaster (1956). ¿Por qué una liberalización comercial parcial y discriminatoria puede ser subóptima frente a mantener un arancel no discriminatorio?

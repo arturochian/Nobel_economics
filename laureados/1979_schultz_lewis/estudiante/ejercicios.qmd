@@ -1,0 +1,121 @@
+---
+title: "Guía de Ejercicios Prácticos: Modelos de Desarrollo Dual, Punto de Inflexión de Lewis y Capital Humano de Schultz"
+subtitle: "Premio Nobel de Economía 1979: Theodore W. Schultz y Sir Arthur Lewis"
+author: "Nobel_economics Docencia"
+date: "1979-10-16"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta guía pedagógica aplicarás los modelos teóricos y cuantitativos desarrollados por Sir W. Arthur Lewis y Theodore W. Schultz (Premio Nobel 1979):
+
+1. **La Dinámica del Excedente Laboral de Lewis:** Aprenderás a modelar formalmente la interacción entre un sector tradicional de subsistencia y un sector moderno industrial, deduciendo las condiciones algebraicas que determinan el salario urbano y el despegue económico.
+2. **El Punto de Inflexión de Lewis (*Lewis Turning Point*):** Calcularás con precisión el momento en que se agota el excedente de mano de obra rural y analizarás los impactos distributivos del encarecimiento del trabajo sobre los beneficios empresariales.
+3. **La Hipótesis "Pobres pero Eficientes" y el Capital Humano de Schultz:** Formalizarás por qué los incentivos microeconómicos operan plenamente entre pequeños campesinos tradicionales y demostrarás analíticamente el valor de la educación formal para afrontar desequilibrios tecnológicos (*dealing with disequilibria*).
+
+---
+
+# Ejercicio 1: La Asignación Intersectorial y el Punto de Inflexión de Lewis (Nivel Básico)
+
+Considere una economía en desarrollo con una fuerza laboral total normalizada de $L = 1000$ trabajadores, dividida entre el sector tradicional/agrícola ($L_A$) y el sector moderno/industrial ($L_M$), de modo que $L_A + L_M = 1000$.
+
+La tecnología de producción del sector tradicional viene dada por:
+
+$$Y_A = 20 L_A^{0.5}$$
+
+El salario de reserva de los campesinos está anclado en una norma institucional de subsistencia $\bar{w}_{sub} = 1.0$. Por tanto, el salario rural es:
+
+$$w_A = \max(\bar{w}_{sub}, MPL_A)$$
+
+El sector moderno opera con una función de producción Cobb-Douglas:
+
+$$Y_M = 2 K^{0.4} L_M^{0.6}$$
+
+donde las empresas maximizan beneficios contratando trabajo hasta igualar su productividad marginal al salario urbano $w_M$. El salario urbano ofrece una prima institucional sobre el salario rural del $35\%$ ($\mu = 0.35$):
+
+$$w_M = (1 + \mu) w_A = 1.35 \, w_A$$
+
+## Preguntas:
+
+1. **Productividad Marginal Agrícola y Salario Institucional:**
+   - Deduzca la expresión analítica del producto marginal del trabajo en el sector tradicional ($MPL_A$).
+   - Determine el número máximo de trabajadores agrícolas ($L_A^*$) para el cual $MPL_A \ge \bar{w}_{sub} = 1.0$. ¿Qué ocurre con el salario rural $w_A$ si $L_A > L_A^*$?
+2. **Cálculo del Punto de Inflexión de Lewis (LTP):**
+   - Calcule el nivel exacto de empleo industrial ($L_M^*$) necesario para que la economía alcance el Punto de Inflexión de Lewis.
+   - En ese punto crítico, ¿cuál es el valor del salario rural ($w_A^*$) y del salario urbano moderno ($w_M^*$)?
+3. **Demanda de Trabajo Industrial y Stock Crítico de Capital:**
+   - Deduzca la función de demanda de trabajo de las empresas modernas $L_M^d(w_M, K)$ como función del stock de capital $K$ y del salario urbano $w_M$.
+   - Calcule el stock de capital acumulado $K^*$ requerido por la industria para alcanzar el Punto de Inflexión de Lewis si el salario urbano se mantiene en su nivel de subsistencia ($w_M = 1.35$).
+
+---
+
+# Ejercicio 2: Acumulación de Capital, Excedente y Dinámica de Transición (Nivel Intermedio)
+
+Suponga que la economía se encuentra en la **Fase I de Lewis** (con oferta ilimitada de mano de obra al salario urbano constante $w_M = 1.35$).
+
+Los trabajadores consumen la totalidad de sus salarios. Los empresarios industriales perciben la totalidad de los beneficios del sector moderno:
+
+$$\Pi_t = Y_{M,t} - w_M L_{M,t}$$
+
+Los capitalistas ahorran y reinvierten una fracción $s_\Pi = 0.30$ de sus beneficios en nuevo capital productivo. La tasa de depreciación física del capital es $\delta = 0.05$. La ecuación de acumulación de capital es:
+
+$$K_{t+1} = (1 - \delta) K_t + s_\Pi \Pi_t$$
+
+## Preguntas:
+
+1. **Participación de los Beneficios en la Industria:**
+   - Demuestre que con una función de producción Cobb-Douglas competitiva $Y_M = A_M K^\beta L_M^{1 - \beta}$, la masa total de beneficios es exactamente igual a $\Pi_t = \beta Y_{M,t}$.
+   - ¿Qué porcentaje del producto industrial corresponde a beneficios y qué porcentaje a masa salarial para el parámetro $\beta = 0.40$?
+2. **Ecuación en Diferencias del Crecimiento del Capital:**
+   - Sustituyendo la demanda óptima de trabajo $L_M^d$ en la función de producción, demuestre que el producto industrial se puede expresar linealmente respecto a $K_t$:
+     $$Y_{M,t} = \Phi \cdot K_t$$
+     donde $\Phi = A_M^{1/\beta} \left( \frac{1 - \beta}{w_M} \right)^{(1 - \beta)/\beta}$.
+   - Calcule el valor numérico de la constante $\Phi$ usando los parámetros del Ejercicio 1 ($A_M = 2$, $\beta = 0.4$, $w_M = 1.35$).
+   - Exprese la ley de acumulación de capital como una ecuación en diferencias lineal de primer orden: $K_{t+1} = (1 + g_K) K_t$. ¿Cuál es la tasa de crecimiento del capital $g_K$?
+3. **Tiempo de Transición hacia el Punto de Inflexión:**
+   - Si la economía arranca en el período $t = 0$ con un stock inicial de capital $K_0 = 150$, calcule analíticamente el número de períodos $T^*$ necesarios para alcanzar el stock crítico $K^*$ hallado en el Ejercicio 1.
+   - ¿Qué sucedería con el tiempo de transición si la élite capitalista decide fugar capitales o consumir de forma suntuaria, reduciendo $s_\Pi$ a $0.15$? Interprete a la luz de las tesis de Arthur Lewis.
+
+---
+
+# Ejercicio 3: La Hipótesis de Schultz y la Habilidad para Afrontar Desequilibrios (Nivel Reto)
+
+Theodore Schultz postuló en *Transforming Traditional Agriculture* (1964) que los campesinos tradicionales son eficientes en la asignación de sus recursos, pero enfrentan rendimientos marginales decrecientes casi planos al utilizar factores productivos tradicionales. En 1975 formalizó que el valor primordial de la escolaridad emerge cuando el sistema experimenta un choque tecnológico dinámico.
+
+Considere dos aldeas campesinas idénticas, cada una con una dotación fija de tierra $T = 100$ hectáreas:
+
+- **Aldea A (Régimen Tradicional Estático):** Utiliza semillas nativas y fertilizante orgánico. La función de producción de una finca con escolaridad del jefe de hogar $S$ (en años) es:
+  $$Y_{A} = A_{trad} \cdot (1 + \lambda_{est} S) \cdot K_{trad}^{0.15}$$
+  donde $A_{trad} = 10$, $\lambda_{est} = 0.015$ (el retorno a la educación es de $1.5\%$ por año en tareas rutinarias) y $K_{trad}$ es el gasto en insumos tradicionales.
+
+- **Aldea B (Régimen de Revolución Verde / Desequilibrio Dinámico):** Se introducen nuevas semillas híbridas de alto rendimiento (*HYV*) y fertilizantes químicos. La tecnología es:
+  $$Y_{B} = A_{mod} \cdot \Omega(S) \cdot K_{mod}^{0.40}$$
+  donde $A_{mod} = 15$, $K_{mod}$ es el gasto en insumos modernos, y $\Omega(S)$ representa la eficiencia en la adopción y manejo de la nueva tecnología:
+  $$\Omega(S) = 1 + \theta \left( \frac{S}{S + 4} \right), \quad \text{con } \theta = 1.20$$
+
+El costo unitario de los insumos es $P_K = 1$ en ambas aldeas, y el precio del producto agrícola es $P_Y = 1$.
+
+## Preguntas:
+
+1. **La Condición de "Pobres pero Eficientes":**
+   - Para un agricultor tradicional en la Aldea A con $S = 2$ años de escolaridad, calcule el producto marginal del insumo tradicional $MPK_{trad} = \frac{\partial Y_A}{\partial K_{trad}}$.
+   - Si el costo del insumo es $P_K = 1$, encuentre el nivel óptimo de insumo $K_{trad}^*$ que maximiza el beneficio neto $\pi = Y_A - K_{trad}$. Demuestre que el ingreso neto resultante es muy bajo y que intentar duplicar $K_{trad}$ más allá del óptimo genera pérdidas económicas.
+2. **Retorno a la Escolaridad ante el Choque Tecnológico (Schultz 1975):**
+   - En la Aldea B, calcule la tasa marginal de retorno a la educación sobre la eficiencia asignativa: $\frac{d \ln \Omega(S)}{dS}$.
+   - Compare el beneficio adicional de incrementar la escolaridad de un campesino de $S = 0$ a $S = 6$ años en la Aldea A (tradicional) frente a la Aldea B (moderna).
+   - Explique por qué este resultado valida la tesis schultziana: *"El valor de la educación no radica en ejecutar labores agrícolas rutinarias, sino en la capacidad de decodificar información, aprender y adaptarse a situaciones de desequilibrio provocadas por el progreso técnico"*.
+3. **Implicancia para las Políticas de Desarrollo:**
+   - A partir de este modelo formal, evalúe críticamente las dos siguientes prescripciones de política económica de la década de 1960:
+     a) *"Para modernizar el campo, basta con entregar subsidios directos a las semillas tradicionales y fijar precios de garantía"* (Enfoque pre-schultziano).
+     b) *"La clave del despegue agrícola reside en una estrategia dual: financiar estaciones experimentales de investigación biológica combinadas con escuelas rurales universales y servicios de extensión técnica"* (Enfoque Schultz-Rockefeller).
+
+---
+
+# Preguntas de Discusión Conceptual
+
+1. **Lewis vs. Schultz sobre el Sector Agrícola:** Arthur Lewis consideraba que el sector agrícola era primariamente una fuente de mano de obra barata y ahorro para nutrir la industrialización urbana. Schultz argumentó con vehemencia que estrangular al sector agrícola destruye los cimientos del desarrollo. ¿Cómo reconcilian los modelos modernos de crecimiento endógeno esta aparente contradicción?
+2. **El Punto de Inflexión de Lewis en Asia Oriental:** Economistas como Minami (1968) y Cai Fang (2010) han identificado empíricamente el Punto de Inflexión de Lewis en Japón (hacia 1960) y en China continental (hacia 2004–2010). ¿Cuáles fueron las señales en el mercado laboral chino que confirmaron la llegada al LTP?
