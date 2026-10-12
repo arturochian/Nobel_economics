@@ -1,0 +1,5 @@
+"Mecanismo","Codigo","Ingreso_Teorico","Ingreso_Medio_Simulado","Error_Estandar","Desviacion_Estandar","Diferencia_vs_Teorico","Eficiencia_Asignacion_Pct"
+"Subasta Primer Precio (FPA)","FPA",60,59.9502526590371,0.038617590185507,12.2119542733166,-0.0497473409628739,100
+"Subasta Segundo Precio (SPA / Vickrey)","SPA",60,60.0207356636263,0.0631520214807452,19.9704226723034,0.0207356636263398,100
+"Subasta Inglesa Ascendente","Inglesa",60,60.0207356636263,0.0631520214807452,19.9704226723034,0.0207356636263398,100
+"Subasta de Todos Pagan (All-Pay)","AllPay",60,59.8451216212381,0.126535138709351,40.0139242366889,-0.154878378761907,100

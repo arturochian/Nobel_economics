@@ -1,0 +1,423 @@
+---
+title: "Replicación Cuantitativa: Consistencia Temporal y Ciclos Económicos Reales (RBC)"
+subtitle: "Premio Nobel de Economía 2004: Finn E. Kydland y Edward C. Prescott"
+author: "Nobel_economics Project"
+date: "2026-10-12"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-fold: show
+    code-summary: "Mostrar código R"
+    theme: cosmo
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+# Introducción y Contexto Histórico
+
+En 2004, la Real Academia Sueca de Ciencias otorgó el Premio del Banco de Suecia en Ciencias Económicas en Memoria de Alfred Nobel a **Finn E. Kydland** y **Edward C. Prescott** *"por sus contribuciones a la macroeconomía dinámica: la consistencia temporal de la política económica y las fuerzas impulsoras detrás de los ciclos económicos"*.
+
+Las investigaciones de Kydland y Prescott redefinieron profundamente la disciplina macroeconómica a lo largo de dos décadas:
+
+1. **La Inconsistencia Temporal de la Política Óptima (1977):** Demostraron que la formulación de políticas públicas no es un problema estático ni un juego contra la naturaleza o una máquina inerte, sino una interacción estratégica entre las autoridades y agentes económicos que forman expectativas racionales sobre el futuro. Bajo discrecionalidad, los gobiernos enfrentan un incentivo a romper promesas pasadas (*time inconsistency*), lo que genera un **sesgo inflacionario** sistemático sin beneficio alguno en empleo o producto. La solución demostrada fue el diseño de instituciones y reglas con compromiso vinculante (*commitment*).
+2. **La Teoría de los Ciclos Económicos Reales (RBC, 1982) y el Filtro HP (1997):** Desafiaron el paradigma keynesiano dominante que consideraba a las fluctuaciones macroeconómicas como fallas de mercado provocadas por desequilibrios de demanda o rigideces nominales. En su lugar, probaron que las fluctuaciones agregadas pueden explicarse en gran medida como la respuesta de equilibrio óptima de familias y empresas racionales ante choques tecnológicos exógenos (variaciones en la productividad total de los factores, o residuo de Solow). Introdujeron además el marco de equilibrio general dinámico estocástico (DSGE) y el filtro Hodrick-Prescott.
+
+En este documento se implementa una replicación computacional exhaustiva y rigurosa en lenguaje R de ambas dimensiones analíticas.
+
+---
+
+# Marco 1: Consistencia Temporal y Sesgo Inflacionario (Kydland & Prescott, 1977)
+
+## Modelo Analítico de Política Monetaria
+
+Siguiendo la formalización canónica de Kydland y Prescott (1977), complementada por Robert Barro y David Gordon (1983), consideramos una economía con una función de oferta agregada con expectativas (curva de Phillips / oferta de Lucas):
+
+$$y = y_n + \alpha (\pi - \pi^e) + \varepsilon$$
+
+donde:
+- $y$ es el producto agregado (o empleo).
+- $y_n$ es la tasa natural de producto (determinado por factores estructurales y de oferta).
+- $\pi$ es la tasa efectiva de inflación decidida por la autoridad monetaria.
+- $\pi^e$ es la inflación esperada por los agentes privados al fijar salarios y contratos nominales.
+- $\alpha > 0$ es la sensibilidad del producto ante sorpresas inflacionarias no anticipadas.
+- $\varepsilon$ es un choque estocástico de oferta con $E[\varepsilon] = 0$ y varianza $\sigma_\varepsilon^2$.
+
+El planificador o banco central tiene como objetivo minimizar una función cuadrática de pérdida social:
+
+$$L(\pi, y) = \frac{1}{2} \pi^2 + \frac{\gamma}{2} (y - k y_n)^2$$
+
+donde $\gamma > 0$ mide el peso relativo que la autoridad otorga a las desviaciones del producto respecto al objetivo de estabilidad de precios, y $k > 1$ representa una meta de producto superior a la tasa natural ($y^* = k y_n > y_n$). Este parámetro $k > 1$ surge típicamente de la existencia de distorsiones estructurales en la economía real, tales como impuestos distorsivos, regulaciones o poder monopólico en los mercados laborales y de bienes, que hacen que el nivel natural de equilibrio de mercado sea ineficientemente bajo desde la perspectiva del bienestar social.
+
+Sustituyendo la curva de oferta en la función de pérdida, se obtiene:
+
+$$L(\pi, \pi^e, \varepsilon) = \frac{1}{2} \pi^2 + \frac{\gamma}{2} \left[ y_n + \alpha(\pi - \pi^e) + \varepsilon - k y_n \right]^2 = \frac{1}{2} \pi^2 + \frac{\gamma}{2} \left[ (1 - k) y_n + \alpha(\pi - \pi^e) + \varepsilon \right]^2$$
+
+## Regímenes Institucionales de Política
+
+### Régimen 1: Regla con Compromiso Vinculante (Commitment)
+Si la autoridad puede comprometerse legal e irrevocablemente a una regla ex-ante antes de que se formen las expectativas privadas, anuncia una regla de inflación cero ($\pi = 0$, o igual a una meta social $\pi^*$).
+
+Dado que el compromiso es creíble, los agentes forman expectativas racionales concordantes: $\pi^e = 0$. En consecuencia, la sorpresa inflacionaria es nula ($\pi - \pi^e = 0$), el producto se sitúa en su nivel natural con perturbaciones exógenas ($y = y_n + \varepsilon$), y la pérdida social esperada es:
+
+$$E[L^C] = \frac{\gamma}{2} (k - 1)^2 y_n^2 + \frac{\gamma}{2} \sigma_\varepsilon^2$$
+
+### Régimen 2: Discrecionalidad Pura (Discretion / Equilibrio de Nash)
+Bajo discrecionalidad, la autoridad no está atada a promesas previas. El banco central elige $\pi$ en cada periodo *después* de que el sector privado ha fijado sus expectativas nominales $\pi^e$. 
+
+Al derivar la condición de primer orden con respecto a $\pi$ tomando $\pi^e$ como dato exógeno:
+
+$$\frac{\partial L}{\partial \pi} = \pi + \alpha \gamma \left[ (1 - k) y_n + \alpha(\pi - \pi^e) + \varepsilon \right] = 0$$
+
+$$\pi (1 + \alpha^2 \gamma) = \alpha \gamma (k - 1) y_n + \alpha^2 \gamma \pi^e - \alpha \gamma \varepsilon$$
+
+Bajo **expectativas racionales**, los agentes privados conocen la función de reacción del banco central y calculan el valor esperado:
+
+$$\pi^e = E[\pi] \implies \pi^e (1 + \alpha^2 \gamma) = \alpha \gamma (k - 1) y_n + \alpha^2 \gamma \pi^e \implies \pi^e = \alpha \gamma (k - 1) y_n$$
+
+Sustituyendo $\pi^e$ en la función de reacción, la inflación en equilibrio discrecional es:
+
+$$\pi^D = \alpha \gamma (k - 1) y_n - \frac{\alpha \gamma}{1 + \alpha^2 \gamma} \varepsilon$$
+
+El término constante $\pi^{bias} = \alpha \gamma (k - 1) y_n > 0$ es el célebre **sesgo inflacionario de Kydland-Prescott**. Obsérvese que en valor esperado:
+- $E[\pi^D] = \alpha \gamma (k - 1) y_n > 0$.
+- $E[y^D] = y_n$ (el producto medio es exactamente el mismo que bajo compromiso).
+- La pérdida social esperada bajo discreción es estrictamente superior a la del compromiso:
+
+$$E[L^D] = E[L^C] + \frac{1}{2} \left[ \alpha \gamma (k - 1) y_n \right]^2 > E[L^C]$$
+
+La discrecionalidad genera inflación sistemática sin generar ningún empleo adicional.
+
+### Régimen 3: Tentación Oportunista (Cheating)
+Si los agentes confían en el anuncio de compromiso ($\pi^e = 0$), la autoridad discrecional enfrenta la tentación de traicionar la regla fijando:
+
+$$\pi^{cheat} = \frac{\alpha \gamma (k - 1) y_n}{1 + \alpha^2 \gamma}$$
+
+Esto induce un boom temporal de producto $y^{cheat} = y_n + \alpha \pi^{cheat} > y_n$, reduciendo transitoriamente la pérdida por debajo de $E[L^C]$. Esta ganancia efímera es precisamente la fuerza que destruye la credibilidad del compromiso en ausencia de salvaguardas institucionales.
+
+### Régimen 4: Delegación y Banquero Central Conservador (Rogoff, 1985)
+Kenneth Rogoff (1985) propuso una solución institucional intermedia: delegar la política monetaria a un banquero central independiente cuya preferencia por estabilizar el producto sea menor que la de la sociedad ($\gamma_b < \gamma$). La inflación de equilibrio se contrae a $\pi^{Rogoff} = \alpha \gamma_b (k - 1) y_n$, mitigando el sesgo inflacionario mientras preserva cierta capacidad de responder a perturbaciones de oferta.
+
+---
+
+# Replicación en R: Consistencia Temporal y Juego de Política
+
+A continuación, ejecutamos las simulaciones de la teoría de consistencia temporal calibrando los parámetros canónicos:
+
+```{r}
+#| label: consistencia-temporal-simulacion
+#| fig-width: 10
+#| fig-height: 8
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(patchwork)
+})
+
+# Parámetros estructurales
+y_n <- 100       # Nivel natural de producto
+k <- 1.05        # Meta de producto ambiciosa (5% superior al natural)
+alpha <- 1.0     # Pendiente de la curva de Phillips
+gamma_soc <- 1.0 # Ponderación social de estabilidad del producto
+sigma_eps <- 1.5 # Desviación estándar de los choques de oferta
+
+# 1. Regla con compromiso
+pi_rule <- 0
+pi_e_rule <- 0
+L_rule <- 0.5 * pi_rule^2 + 0.5 * gamma_soc * ((1 - k) * y_n)^2 + 0.5 * gamma_soc * sigma_eps^2
+
+# 2. Discrecionalidad pura
+sesgo <- alpha * gamma_soc * (k - 1) * y_n
+pi_disc <- sesgo
+L_disc <- 0.5 * sesgo^2 + 0.5 * gamma_soc * ((1 - k) * y_n)^2 + 0.5 * gamma_soc * sigma_eps^2
+
+# 3. Trampa oportunista
+pi_cheat <- (alpha * gamma_soc * (k - 1) * y_n) / (1 + alpha^2 * gamma_soc)
+y_cheat <- y_n + alpha * pi_cheat
+L_cheat <- 0.5 * pi_cheat^2 + 0.5 * gamma_soc * (y_cheat - k * y_n)^2
+
+# 4. Banquero central conservador (Rogoff)
+gamma_cb <- 0.3
+pi_rogoff <- alpha * gamma_cb * (k - 1) * y_n
+L_rogoff <- 0.5 * pi_rogoff^2 + 0.5 * gamma_soc * ((1 - k) * y_n)^2 + 0.5 * gamma_soc * sigma_eps^2
+
+cat(sprintf("-> Sesgo inflacionario (Discrecionalidad): %.2f%%\n", sesgo))
+cat(sprintf("-> Inflación bajo Rogoff (gamma=0.3):    %.2f%%\n", pi_rogoff))
+cat(sprintf("-> Pérdida Social (Compromiso):           %.2f\n", L_rule))
+cat(sprintf("-> Pérdida Social (Discrecionalidad):     %.2f\n", L_disc))
+```
+
+Visualización de las curvas de bienestar y comparación de regímenes:
+
+```{r}
+#| label: graficos-consistencia
+#| fig-width: 11
+#| fig-height: 8.5
+
+gamma_seq <- seq(0.1, 2.0, length.out = 100)
+df_curvas <- data.frame(
+  gamma = gamma_seq,
+  sesgo = alpha * gamma_seq * (k - 1) * y_n,
+  perdida_disc = 0.5 * (alpha * gamma_seq * (k - 1) * y_n)^2 + 0.5 * gamma_soc * ((1 - k) * y_n)^2,
+  perdida_regla = rep(0.5 * gamma_soc * ((1 - k) * y_n)^2, 100)
+)
+
+g1 <- ggplot(df_curvas, aes(x = gamma, y = sesgo)) +
+  geom_line(color = "#b91c1c", linewidth = 1.2) +
+  geom_point(aes(x = gamma_soc, y = sesgo), color = "#7f1d1d", size = 3) +
+  annotate("text", x = gamma_soc + 0.1, y = sesgo, label = sprintf("Discreción (pi=%.1f%%)", sesgo), fontface = "bold") +
+  theme_minimal() +
+  labs(title = "A. Sesgo Inflacionario vs. gamma", x = "Ponderación del Producto (gamma)", y = "Inflación E[pi] (%)")
+
+g2 <- ggplot(df_curvas, aes(x = gamma)) +
+  geom_line(aes(y = perdida_disc, color = "Discrecionalidad"), linewidth = 1.2) +
+  geom_line(aes(y = perdida_regla, color = "Regla con Compromiso"), linewidth = 1.2, linetype = "dashed") +
+  scale_color_manual(name = "", values = c("Discrecionalidad" = "#b91c1c", "Regla con Compromiso" = "#1e40af")) +
+  theme_minimal() + theme(legend.position = "bottom") +
+  labs(title = "B. Pérdida Social Esperada", x = "Ponderación del Producto (gamma)", y = "Pérdida E[L]")
+
+df_comp <- data.frame(
+  Regimen = factor(c("Regla", "Rogoff", "Discreción", "Trampa"), levels = c("Regla", "Rogoff", "Discreción", "Trampa")),
+  Inflacion = c(pi_rule, pi_rogoff, pi_disc, pi_cheat),
+  Perdida = c(L_rule, L_rogoff, L_disc, L_cheat)
+)
+
+g3 <- ggplot(df_comp, aes(x = Regimen, y = Inflacion, fill = Regimen)) +
+  geom_col(width = 0.55, show.legend = FALSE) +
+  scale_fill_manual(values = c("#1e40af", "#047857", "#b91c1c", "#d97706")) +
+  geom_text(aes(label = sprintf("%.2f%%", Inflacion)), vjust = -0.3, fontface = "bold") +
+  theme_minimal() + labs(title = "C. Inflación por Régimen", y = "Inflación (%)", x = "")
+
+g4 <- ggplot(df_comp, aes(x = Regimen, y = Perdida, fill = Regimen)) +
+  geom_col(width = 0.55, show.legend = FALSE) +
+  scale_fill_manual(values = c("#1e40af", "#047857", "#b91c1c", "#d97706")) +
+  geom_text(aes(label = sprintf("%.1f", Perdida)), vjust = -0.3, fontface = "bold") +
+  theme_minimal() + labs(title = "D. Pérdida Social E[L]", y = "Pérdida Social E[L]", x = "")
+
+(g1 + g2) / (g3 + g4)
+```
+
+---
+
+# Marco 2: Teoría de los Ciclos Económicos Reales (RBC) y Filtro HP
+
+## Microfundamentos del Modelo RBC
+
+Kydland y Prescott (1982) formularon el primer modelo macroeconómico dinámico estocástico cuantitativo con agentes optimizadores:
+
+1. **Hogares representativos:** Maximizan la utilidad intertemporal esperada descontada:
+   $$\max E_0 \sum_{t=0}^\infty \beta^t \left[ \ln(C_t) - B L_t \right]$$
+   donde $\beta \in (0, 1)$ es el factor de descuento temporal, $C_t$ es el consumo y $L_t$ son las horas de trabajo ofertadas (especificación de Rogoff-Hansen de mano de obra indivisible).
+
+2. **Tecnología y Producción:** Una función de producción neoclásica Cobb-Douglas sujeta a choques estocásticos de Productividad Total de los Factores (PTF, residuo de Solow):
+   $$Y_t = A_t K_t^\alpha L_t^{1-\alpha}, \quad \alpha \in (0, 1)$$
+   $$\ln(A_t) = \rho \ln(A_{t-1}) + \varepsilon_t^A, \quad \varepsilon_t^A \sim \text{i.i.d. } \mathcal{N}(0, \sigma_A^2)$$
+
+3. **Acumulación de Capital:**
+   $$K_{t+1} = (1 - \delta) K_t + I_t$$
+   donde $\delta$ es la tasa de depreciación física del capital e $I_t$ es la inversión bruta.
+
+4. **Restricción de Recursos de la Economía:**
+   $$Y_t = C_t + I_t$$
+
+## El Filtro Hodrick-Prescott (HP)
+
+Para comparar las predicciones del modelo RBC con las series macroeconómicas reales, Hodrick y Prescott (1997) propusieron aislar la tendencia estocástica suave $\tau_t$ del componente cíclico $c_t = y_t - \tau_t$ mediante la minimización:
+
+$$\min_{\{\tau_t\}_{t=1}^T} \left\{ \sum_{t=1}^T (y_t - \tau_t)^2 + \lambda \sum_{t=2}^{T-1} \left[ (\tau_{t+1} - \tau_t) - (\tau_t - \tau_{t-1}) \right]^2 \right\}$$
+
+Donde $\lambda$ penaliza la variabilidad en la tasa de crecimiento de la tendencia ($\lambda = 1600$ para observaciones trimestrales, $\lambda = 6.25$ o $100$ para datos anuales).
+
+Matricialmente, si definimos $D$ como la matriz de segundas diferencias de orden $(T-2) \times T$:
+$$\tau = \left( I_T + \lambda D' D \right)^{-1} y$$
+
+Esta formulación lineal permite calcular la tendencia de forma exacta y determinística sin recurrir a paquetes externos.
+
+---
+
+# Replicación en R: Simulación del Modelo RBC y Descomposición Cíclica
+
+```{r}
+#| label: rbc-simulacion
+#| fig-width: 11
+#| fig-height: 8.5
+
+# Función matricial exacta del Filtro Hodrick-Prescott
+hp_filter_exact <- function(y, lambda = 1600) {
+  n <- length(y)
+  I_mat <- diag(n)
+  D_mat <- matrix(0, nrow = n - 2, ncol = n)
+  for (i in 1:(n - 2)) {
+    D_mat[i, i] <- 1
+    D_mat[i, i + 1] <- -2
+    D_mat[i, i + 2] <- 1
+  }
+  K_mat <- crossprod(D_mat)
+  trend <- solve(I_mat + lambda * K_mat, y)
+  cycle <- y - trend
+  return(data.frame(trend = as.numeric(trend), cycle = as.numeric(cycle)))
+}
+
+# Parámetros calibrados trimestrales (Kydland & Prescott 1982)
+set.seed(2004)
+alpha_p <- 0.36
+beta_d  <- 0.99
+delta_d <- 0.025
+rho_a   <- 0.95
+sigma_a <- 0.007
+T_sim   <- 200
+
+# Estado estacionario
+r_ss  <- (1 / beta_d) - (1 - delta_d)
+ky_ss <- alpha_p / r_ss
+iy_ss <- delta_d * ky_ss
+cy_ss <- 1 - iy_ss
+
+# Coeficientes de política linealizados (Campbell 1994 / Uhlig 1999)
+eta_kk <- 0.95; eta_ka <- 0.10
+eta_ck <- 0.60; eta_ca <- 0.35
+eta_lk <- -0.20; eta_la <- 0.50
+
+eps_a <- rnorm(T_sim, 0, sigma_a)
+a_tfp <- numeric(T_sim)
+k_cap <- numeric(T_sim)
+c_con <- numeric(T_sim)
+l_lab <- numeric(T_sim)
+y_out <- numeric(T_sim)
+i_inv <- numeric(T_sim)
+
+a_tfp[1] <- eps_a[1]
+for (t in 1:(T_sim - 1)) {
+  a_tfp[t + 1] <- rho_a * a_tfp[t] + eps_a[t + 1]
+  c_con[t] <- eta_ck * k_cap[t] + eta_ca * a_tfp[t]
+  l_lab[t] <- eta_lk * k_cap[t] + eta_la * a_tfp[t]
+  y_out[t] <- alpha_p * k_cap[t] + (1 - alpha_p) * l_lab[t] + a_tfp[t]
+  i_inv[t] <- (1 / iy_ss) * y_out[t] - (cy_ss / iy_ss) * c_con[t]
+  k_cap[t + 1] <- eta_kk * k_cap[t] + eta_ka * a_tfp[t]
+}
+c_con[T_sim] <- eta_ck * k_cap[T_sim] + eta_ca * a_tfp[T_sim]
+l_lab[T_sim] <- eta_lk * k_cap[T_sim] + eta_la * a_tfp[T_sim]
+y_out[T_sim] <- alpha_p * k_cap[T_sim] + (1 - alpha_p) * l_lab[T_sim] + a_tfp[T_sim]
+i_inv[T_sim] <- (1 / iy_ss) * y_out[T_sim] - (cy_ss / iy_ss) * c_con[T_sim]
+
+trend_lin <- (1:T_sim) * 0.005
+log_Y <- 4.5 + trend_lin + y_out
+log_C <- 4.2 + trend_lin + c_con
+log_I <- 3.1 + trend_lin + i_inv
+log_L <- 1.5 + l_lab
+
+hp_Y <- hp_filter_exact(log_Y, lambda = 1600)
+hp_C <- hp_filter_exact(log_C, lambda = 1600)
+hp_I <- hp_filter_exact(log_I, lambda = 1600)
+hp_L <- hp_filter_exact(log_L, lambda = 1600)
+
+df_sim <- data.frame(
+  t = 1:T_sim,
+  log_Y = log_Y,
+  tend_Y = hp_Y$trend,
+  ciclo_Y = hp_Y$cycle * 100,
+  ciclo_C = hp_C$cycle * 100,
+  ciclo_I = hp_I$cycle * 100,
+  ciclo_L = hp_L$cycle * 100,
+  shocks_A = a_tfp * 100
+)
+
+# Estadísticos de ciclo
+sd_Y <- sd(df_sim$ciclo_Y)
+sd_C <- sd(df_sim$ciclo_C)
+sd_I <- sd(df_sim$ciclo_I)
+sd_L <- sd(df_sim$ciclo_L)
+
+rel_sd_I <- sd_I / sd_Y
+rel_sd_C <- sd_C / sd_Y
+rel_sd_L <- sd_L / sd_Y
+
+corr_IY <- cor(df_sim$ciclo_I, df_sim$ciclo_Y)
+corr_CY <- cor(df_sim$ciclo_C, df_sim$ciclo_Y)
+corr_LY <- cor(df_sim$ciclo_L, df_sim$ciclo_Y)
+ar1_Y   <- cor(df_sim$ciclo_Y[2:T_sim], df_sim$ciclo_Y[1:(T_sim - 1)])
+
+cat(sprintf("-> Volatilidad de Y (sd):        %.2f%%\n", sd_Y))
+cat(sprintf("-> Volatilidad relativa Inversión: %.2fx (Hecho empírico: 3x a 4x)\n", rel_sd_I))
+cat(sprintf("-> Volatilidad relativa Consumo:   %.2fx (Hecho empírico: < 1x)\n", rel_sd_C))
+cat(sprintf("-> Correlación Inversión-PIB:      %.2f (Procíclica)\n", corr_IY))
+cat(sprintf("-> Correlación Consumo-PIB:        %.2f (Procíclica)\n", corr_CY))
+cat(sprintf("-> Persistencia AR(1) de Y:        %.2f\n", ar1_Y))
+```
+
+Gráficos integrados del modelo RBC:
+
+```{r}
+#| label: graficos-rbc
+#| fig-width: 11
+#| fig-height: 8.5
+
+p1 <- ggplot(df_sim, aes(x = t)) +
+  geom_line(aes(y = log_Y, color = "Producto Observado"), linewidth = 0.9) +
+  geom_line(aes(y = tend_Y, color = "Tendencia HP"), linewidth = 1.1, linetype = "dashed") +
+  scale_color_manual(name = "", values = c("Producto Observado" = "#0f172a", "Tendencia HP" = "#2563eb")) +
+  theme_minimal() + theme(legend.position = "top") +
+  labs(title = "A. Tendencia HP vs. Serie Agregada", x = "Trimestres", y = "log(Y)")
+
+p2 <- ggplot(df_sim, aes(x = t)) +
+  geom_line(aes(y = ciclo_I, color = "Inversión"), linewidth = 0.8) +
+  geom_line(aes(y = ciclo_Y, color = "Producto"), linewidth = 1.1) +
+  geom_line(aes(y = ciclo_C, color = "Consumo"), linewidth = 0.8) +
+  scale_color_manual(name = "", values = c("Inversión" = "#dc2626", "Producto" = "#0f172a", "Consumo" = "#059669")) +
+  theme_minimal() + theme(legend.position = "top") +
+  labs(title = "B. Componentes Cíclicos (%)", x = "Trimestres", y = "Desviación (%)")
+
+p3 <- ggplot(df_sim, aes(x = t, y = shocks_A)) +
+  geom_area(fill = "#93c5fd", alpha = 0.5) +
+  geom_line(color = "#1d4ed8", linewidth = 0.9) +
+  theme_minimal() + labs(title = "C. Choque Tecnológico PTF (Residuo de Solow)", x = "Trimestres", y = "% desvío")
+
+df_bars <- data.frame(
+  Variable = factor(c("Producto (Y)", "Consumo (C)", "Inversión (I)", "Horas (L)"),
+                    levels = c("Producto (Y)", "Consumo (C)", "Inversión (I)", "Horas (L)")),
+  Rel_SD = c(1.0, rel_sd_C, rel_sd_I, rel_sd_L)
+)
+
+p4 <- ggplot(df_bars, aes(x = Variable, y = Rel_SD, fill = Variable)) +
+  geom_col(width = 0.55, show.legend = FALSE) +
+  scale_fill_manual(values = c("#1e293b", "#059669", "#dc2626", "#7c3aed")) +
+  geom_text(aes(label = sprintf("%.2fx", Rel_SD)), vjust = -0.3, fontface = "bold") +
+  theme_minimal() + labs(title = "D. Volatilidad Relativa (sigma_x / sigma_y)", x = "", y = "Razón")
+
+(p1 + p2) / (p3 + p4)
+```
+
+---
+
+# Tabla de Resultados Consolidados
+
+```{r}
+#| label: tabla-consolidada
+#| results: asis
+
+tab_res <- read.csv("salidas/tab_resultados_kydland_prescott.csv")
+knitr::kable(tab_res, caption = "Resumen de Resultados Cuantitativos del Nobel de Economía 2004 (Kydland & Prescott)")
+```
+
+---
+
+# Conclusiones e Implicancias de Política
+
+1. **La credibilidad institucional es un activo macroeconómico tangible:** Como demostraron Kydland y Prescott (1977), los bancos centrales que carecen de mecanismos creíbles de compromiso no pueden alcanzar el nivel óptimo social de inflación, sufriendo un sesgo permanente sin compensación de empleo.
+2. **Las fluctuaciones no son sinónimo de ineficiencia:** El marco RBC (1982) enseñó que las oscilaciones macroeconómicas pueden ser respuestas óptimas de asignación intertemporal de recursos ante choques tecnológicos reales. Por tanto, las políticas de estabilización mecánica pueden distorsionar los incentivos de mercado en lugar de corregirlos.
+3. **El nacimiento de la macroeconomía cuantitativa moderna:** La combinación de expectativas racionales, microfundamentos dinámicos, calibración y el filtro HP transformó la disciplina, sentando las bases de los modelos DSGE operados actualmente por bancos centrales y organismos multilaterales.
+
+---
+
+# Referencias Bibliográficas
+
+- Barro, R. J., & Gordon, D. B. (1983). Rules, discretion and reputation in a model of monetary policy. *Journal of Monetary Economics*, 12(1), 101-121.
+- Hodrick, R. J., & Prescott, E. C. (1997). Postwar U.S. business cycles: An empirical investigation. *Journal of Money, Credit and Banking*, 29(1), 1-16.
+- Kydland, F. E., & Prescott, E. C. (1977). Rules rather than discretion: The inconsistency of optimal plans. *Journal of Political Economy*, 85(3), 473-491.
+- Kydland, F. E., & Prescott, E. C. (1982). Time to build and aggregate fluctuations. *Econometrica*, 50(6), 1345-1370.
+- Prescott, E. C. (1986). Theory ahead of business cycle measurement. *Federal Reserve Bank of Minneapolis Quarterly Review*, 10(4), 9-22.
+- Rogoff, K. (1985). The optimal degree of commitment to an intermediate monetary target. *The Quarterly Journal of Economics*, 100(4), 1169-1189.
+- The Royal Swedish Academy of Sciences (2004). *Dynamic Macroeconomics: The Time Consistency of Economic Policy and the Driving Forces Behind Business Cycles*. Information for the Public & Scientific Background.

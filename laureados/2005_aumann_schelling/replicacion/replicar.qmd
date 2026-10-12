@@ -1,0 +1,191 @@
+---
+title: "Replicación y Simulación: Conflicto, Cooperación y Teoría de Juegos"
+subtitle: "Premio Nobel de Economía 2005: Robert J. Aumann y Thomas C. Schelling"
+author: "Nobel_economics Project"
+date: "2005-10-10"
+format:
+  html:
+    toc: true
+    number-sections: true
+    embed-resources: true
+    theme: cosmo
+---
+
+# Introducción y Objetivo
+
+En 2005, la Real Academia Sueca de Ciencias concedió el Premio del Banco de Suecia en Ciencias Económicas en Memoria de Alfred Nobel conjuntamente a **Robert J. Aumann** (Universidad Hebrea de Jerusalén) y **Thomas C. Schelling** (Universidad de Maryland) *"por haber mejorado nuestra comprensión del conflicto y la cooperación a través del análisis de la teoría de juegos"* (*for having enhanced our understanding of conflict and cooperation through game-theory analysis*).
+
+Antes de las investigaciones de Aumann y Schelling, la teoría de juegos desarrollada por John von Neumann, Oskar Morgenstern y John Nash se percibía como una disciplina matemática abstracta, concentrada en equilibrios estáticos simultáneos de una sola etapa (*one-shot games*) o en juegos de suma cero de confrontación total. En tales marcos teóricos, dilemas sociales ubicuos como el Dilema del Prisionero desembocaban de manera inevitable en el fracaso de la cooperación y la deserción mutua.
+
+Aumann y Schelling ampliaron para siempre este horizonte:
+- **Thomas C. Schelling** demostró que los conflictos reales en el mundo militar, diplomático y social no son juegos de suma cero, sino **juegos de motivos mixtos** (*mixed-motive games*), donde la capacidad de coordinarse tácitamente mediante **puntos focales** (*focal points*) y la paradoja de autolimitarse mediante **compromisos creíbles** (*credible commitments*) definen el éxito negociador. Asimismo, Schelling probó en sus modelos dinámicos espaciales cómo pequeños **micromotivos** individuales dan lugar a **macrocomportamientos** agregados extremos e indeseados, como la segregación residencial urbana.
+- **Robert J. Aumann** erigió la estructura matemática que sustenta las relaciones de largo plazo mediante la **teoría de juegos repetidos** (*repeated games*), formalizando el **Teorema Popular** (*Folk Theorem*): cuando los agentes interactúan repetidamente bajo un horizonte indefinido, la amenaza creíble de represalias futuras sostiene la cooperación voluntaria de primer mejor. Aumann introdujo además los conceptos revolucionarios de **equilibrio correlacionado** (1974) y **conocimiento común** (1976).
+
+## Nivel de Replicación
+- **Nivel:** **Ilustrativa** (simulación computacional de la dinámica de segregación espacial de Schelling en cuadrículas toroidales y derivación analítico-simulada del Teorema Popular de Aumann en el Dilema del Prisionero con perturbaciones estocásticas).
+
+---
+
+# Fundamentos Teóricos
+
+## 1. Thomas C. Schelling: La Estrategia del Conflicto y Puntos Focales (1960)
+
+En *The Strategy of Conflict* (1960), Schelling demostró que en negociaciones y conflictos estratégicos, los jugadores comparten tanto intereses contrapuestos (cómo repartirse un pastel) como intereses comunes (evitar la destrucción del pastel):
+
+### Compromisos Creíbles (*Credible Commitments*)
+Un jugador puede mejorar su pago final **restringiendo deliberadamente su propia libertad de elección**. Si una amenaza o promesa no es creíble en subjuegos posteriores, el rival la descartará. Sin embargo, al "quemar las naves" (*burning bridges*), eliminar vías de escape o atar sus propias manos de forma pública e irreversible, un negociador obliga a la contraparte a ceder.
+
+### Tácticas al Borde del Abismo (*Brinkmanship*)
+Cuando una amenaza directa de destrucción mutua carece de credibilidad por ser irracional ex-post, Schelling demostró que los jugadores emplean "la amenaza que deja algo al azar" (*the threat that leaves something to chance*). Al dar pasos calculados hacia un riesgo incontrolable de escalada involuntaria, un actor transfiere la responsabilidad de evitar la catástrofe al adversario.
+
+### Puntos Focales (*Schelling Points*)
+En situaciones donde la comunicación explícita es imposible, costosa o prohibida, los jugadores consiguen coordinarse con éxito convergiendo en soluciones que gozan de prominencia psicológica, cultural, histórica o geométrica compartida (*focal points*).
+
+---
+
+## 2. Micromotivos y Macrocomportamiento: El Modelo de Segregación Espacial (Schelling, 1971)
+
+En *Dynamic Models of Segregation* (1971) y *Micromotives and Macrobehavior* (1978), Schelling diseñó uno de los primeros modelos computacionales basados en agentes (*agent-based models*).
+
+Consideremos un espacio residencial discretizado en una cuadrícula $M \times N$ habitada por dos grupos de agentes, $A$ y $B$, con una proporción de celdas vacías $v \in (0, 1)$. Cada agente examina su **vecindario de Moore** (las 8 celdas adyacentes).
+
+Sea $n_i$ el número total de vecinos ocupados de un agente $i$, y sea $s_i$ el número de vecinos que pertenecen a su mismo grupo social. La fracción local de vecinos similares es:
+$$\rho_i = \frac{s_i}{n_i}$$
+
+Cada agente posee una regla de preferencia caracterizada por un **umbral de tolerancia** $\tau \in [0, 1]$:
+- El agente $i$ está **satisfecho** con su ubicación si $\rho_i \ge \tau$.
+- Si $\rho_i < \tau$, el agente está **insatisfecho** y buscará mudarse a una celda vacía donde su condición de tolerancia se cumpla o mejore.
+
+### La Paradoja de Schelling
+Si los agentes tienen un umbral tolerante, por ejemplo $\tau = 0.35$ (lo que implica que aceptan plenamente vivir en una minoría local donde el 65% de sus vecinos son del otro grupo), la intuición ingenua sugeriría que el vecindario integrado se mantendrá armónico.
+
+Sin embargo, el equilibrio estocástico descentralizado exhibe una bifurcación no lineal: cada mudanza individual altera las proporciones relativas en el barrio de origen y en el de destino, desatando una reacción en cadena (*tipping effect*) que converge inevitablemente en un índice macroscópico de segregación superior al $75\%-80\%$.
+
+---
+
+## 3. Robert J. Aumann: Teoría de Juegos Repetidos y Teorema Popular (1959, 1981)
+
+En un juego simultáneo de etapa $G = \langle I, (A_i)_{i \in I}, (u_i)_{i \in I} \rangle$, el Dilema del Prisionero se define mediante la siguiente matriz de pagos simétrica:
+
+| Jugador 1 \ Jugador 2 | Cooperar ($C$) | Defeccionar ($D$) |
+| :--- | :---: | :---: |
+| **Cooperar ($C$)** | $(R, R)$ | $(S, T)$ |
+| **Defeccionar ($D$)** | $(T, S)$ | $(P, P)$ |
+
+donde rige la condición canónica del dilema:
+$$T > R > P > S \quad \text{y} \quad 2R > T + S$$
+- $T$: Tentación de traicionar (*Temptation*).
+- $R$: Recompensa por cooperación mutua (*Reward*).
+- $P$: Castigo por deserción mutua (*Punishment*).
+- $S$: Pago del incauto traicionado (*Sucker's payoff*).
+
+En el juego estático de una etapa, defeccionar ($D$) es una **estrategia estrictamente dominante** para ambos jugadores, conduciendo al equilibrio de Nash ineficiente $(P, P)$.
+
+### El Superjuego Infinitamente Repetido $G(\infty, \delta)$
+Robert Aumann formalizó la interacción indefinida donde en cada periodo $t \in \{1, 2, \dots\}$ el juego se repite con un factor de descuento intertemporal $\delta \in (0, 1)$, que combina la preferencia temporal por liquidez y la probabilidad de que el juego continúe en la siguiente etapa ($\delta = \frac{p}{1 + r}$).
+
+El valor presente neto descontado para un jugador es:
+$$V_i = \sum_{t=0}^{\infty} \delta^t u_i(a_t)$$
+y su pago promedio descontado normalizado por periodo es:
+$$\bar{v}_i = (1 - \delta) V_i = (1 - \delta) \sum_{t=0}^{\infty} \delta^t u_i(a_t)$$
+
+### Derivación de la Estrategia Gatillo (*Grim Trigger*)
+La estrategia Gatillo estipula:
+- Jugar $C$ en la etapa $t = 1$.
+- En la etapa $t > 1$, jugar $C$ si ambos jugadores han jugado siempre $C$ en todas las etapas pasadas; de lo contrario, jugar $D$ permanentemente por el resto de la eternidad.
+
+Evaluemos si un jugador tiene incentivos para desviarse unilateralmente en el periodo $t$:
+1. **Trayectoria de cooperación sostenida:**
+   $$V_{\text{cooperar}} = \sum_{t=0}^{\infty} \delta^t R = \frac{R}{1 - \delta}$$
+2. **Trayectoria de desviación óptima (defeccionar en $t=0$ y recibir el castigo minimax $P$ desde $t=1$ en adelante):**
+   $$V_{\text{desviación}} = T + \sum_{t=1}^{\infty} \delta^t P = T + \frac{\delta P}{1 - \delta}$$
+
+Para que cooperar sea un **Equilibrio Perfecto en Subjuegos** (SPE), se requiere que $V_{\text{cooperar}} \ge V_{\text{desviación}}$:
+$$\frac{R}{1 - \delta} \ge T + \frac{\delta P}{1 - \delta}$$
+Multiplicando por $(1 - \delta)$:
+$$R \ge (1 - \delta)T + \delta P \iff R \ge T - \delta(T - P)$$
+Despejando el factor de descuento crítico:
+$$\delta(T - P) \ge T - R \iff \delta \ge \delta^* = \frac{T - R}{T - P}$$
+
+Para los valores estándar $R = 3$, $T = 5$, $P = 1$, $S = 0$:
+$$\delta^*_{\text{Grim}} = \frac{5 - 3}{5 - 1} = \frac{2}{4} = 0.50$$
+
+Si los participantes son lo suficientemente pacientes ($\delta \ge 0.50$), la cooperación social perpetua es un equilibrio perfecto en subjuegos plenamente racional.
+
+---
+
+## 4. Equilibrio Correlacionado y Conocimiento Común de Aumann
+
+### Equilibrio Correlacionado (Aumann, 1974)
+Aumann demostró que si existe una fuente de información común o un mediador que emite recomendaciones confidenciales $s = (s_1, \dots, s_n) \sim p(s)$ a los jugadores antes de actuar, el perfil de distribución de probabilidad conjunta $p(s)$ es un **equilibrio correlacionado** si ningún jugador $i$, al observar su recomendación $s_i$, tiene incentivo a elegir una acción alternativa $a_i'$:
+$$\sum_{s_{-i}} p(s_i, s_{-i}) \left[ u_i(s_i, s_{-i}) - u_i(a_i', s_{-i}) \right] \ge 0 \quad \forall a_i' \in A_i$$
+Este concepto contiene a todos los equilibrios de Nash como caso particular y permite coordinar semáforos, contratos y normativas que evitan equilibrios desastrosos.
+
+### Teorema "Agreeing to Disagree" (Aumann, 1976)
+Aumann definió formalmente el **conocimiento común** (*common knowledge*): un hecho $E$ es conocimiento común entre los agentes si todos conocen $E$, todos conocen que todos conocen $E$, y así sucesivamente de forma infinita.
+Bajo la hipótesis de un *prior* común, si dos agentes actualizan sus probabilidades posteriores de forma bayesiana tras observar información privada, y sus posteriores son de conocimiento común, **dichas probabilidades deben coincidir exactamente**. El desacuerdo racional sistemático es matemáticamente imposible.
+
+---
+
+# Implementación Computacional en R
+
+El script autónomo [`juegos_conflicto_y_segregacion.R`](R/juegos_conflicto_y_segregacion.R) ejecuta dos experimentos cuantitativos:
+1. Una simulación Monte Carlo de Schelling en un toroide de $40 \times 40$ celdas con $1\,600$ posiciones, dos grupos de 45% y 10% de vacantes, y un umbral de tolerancia individual moderado de $\tau = 0.35$.
+2. La evaluación del factor de descuento crítico de Aumann y un torneo estocástico de 150 rondas comparando cuatro estrategias bajo condiciones ideales ($\epsilon = 0$) y en presencia de perturbaciones involuntarias (*trembles* con $\epsilon = 0.05$).
+
+```r
+# Fragmento central: Simulación de Schelling y cálculo del Teorema Popular
+# (Código completo disponible en R/juegos_conflicto_y_segregacion.R)
+
+library(tidyverse)
+library(patchwork)
+
+# Parámetros del Dilema del Prisionero
+R_pay <- 3; T_pay <- 5; P_pay <- 1; S_pay <- 0
+delta_critico_grim <- (T_pay - R_pay) / (T_pay - P_pay) # 0.50
+delta_critico_tft  <- max((T_pay - R_pay) / (R_pay - S_pay), (T_pay - R_pay) / (T_pay - P_pay)) # 0.6667
+```
+
+---
+
+# Resultados y Análisis Cuantitativo
+
+## Tabla Consolidada de Resultados
+
+A continuación se presentan los resultados numéricos exactos generados por la simulación:
+
+| Modelo | Métrica | Valor Numérico | Unidad / Escala | Interpretación Económica |
+| :--- | :--- | :---: | :---: | :--- |
+| **Schelling** | Segregación media inicial | **0.5057** | Proporción [0, 1] | Mezcla residencial aleatoria con agentes tolerantes ($\tau = 35\%$) |
+| **Schelling** | Segregación media final | **0.7549** | Proporción [0, 1] | Extrema polarización macroscópica no deseada individualmente |
+| **Schelling** | Tasa de satisfacción final | **1.0000** | Tasa [0, 1] | Equilibrio espacial estable donde el 100% cumple su cuota mínima |
+| **Aumann** | Umbral crítico Grim Trigger ($\delta^*$) | **0.5000** | Factor $\delta \in [0, 1]$ | Umbral exacto para que el castigo creíble disuada la deserción |
+| **Aumann** | Umbral crítico Tit-for-Tat ($\delta^*$) | **0.6667** | Factor $\delta \in [0, 1]$ | Paciencia mínima para sostener cooperación con represalia recíproca |
+| **Aumann** | Pago Grim Trigger ($\delta=0.9, \epsilon=0$) | **3.0000** | Pago medio [0, 5] | Cooperación de primer mejor bajo la sombra del futuro |
+| **Aumann** | Pago Grim Trigger ($\delta=0.9, \epsilon=0.05$) | **2.6318** | Pago medio [0, 5] | Colapso severo del bienestar por castigo implacable ante errores |
+
+---
+
+## Análisis Gráfico
+
+### 1. La Dinámica Espacial de Schelling
+En la figura [`fig_schelling_segregacion_espacial.png`](salidas/fig_schelling_segregacion_espacial.png), se aprecia la transición de la fase inicial (retículo aleatorio con un índice de vecinos similares de $50.57\%$) al estado final. A pesar de que los agentes solo exigen un $35\%$ de vecinos similares, el proceso de relocalización eleva el índice de agrupamiento hasta el **$75.49\%$**, formando grandes guetos homogéneos consolidados.
+
+![Segregación Espacial de Schelling](salidas/fig_schelling_segregacion_espacial.png)
+
+### 2. El Teorema Popular de Aumann y la Fragilidad del Castigo
+En la figura [`fig_aumann_folk_theorem_cooperacion.png`](salidas/fig_aumann_folk_theorem_cooperacion.png), el panel superior ilustra la condición de Aumann: para todo $\delta \ge 0.50$, la ganancia inmediata de traicionar ($5(1-\delta) + \delta$) queda estrictamente por debajo del flujo cooperativo perpetuo ($3.0$).
+El panel inferior expone la debilidad de las estrategias draconianas: cuando existe una pequeña probabilidad de error involuntario ($\epsilon = 0.05$), la estrategia *Grim Trigger* entra en un ciclo destructivo irreversible de defección mutua, reduciendo drásticamente sus pagos. Por el contrario, estrategias con perdón como *Tit-for-Tat* y *Pavlov (Win-Stay-Lose-Shift)* amortiguan el error y restablecen la cooperación.
+
+![Teorema Popular y Juegos Repetidos de Aumann](salidas/fig_aumann_folk_theorem_cooperacion.png)
+
+---
+
+# Conclusiones e Implicaciones
+
+1. **La cooperación duradera depende de la 'sombra del futuro':**
+   La teoría de Aumann demuestra que no es necesaria la benevolencia moral para cooperar: basta con que la relación se perciba como indefinida en el tiempo y que las amenazas de sanción sean creíbles y proporcionales.
+2. **Los micromotivos no se traducen linealmente en macrocomportamientos:**
+   El modelo de Schelling prueba que la observación de segregación macroscópica no implica necesariamente la existencia de prejuicios extremos o conspiraciones institucionales; dinámicas descentralizadas con preferencias moderadas pueden desencadenar fallas colectivas imprevistas.
+3. **El diseño institucional moderno combina a ambos autores:**
+   Desde los tratados de desarme nuclear y los acuerdos climáticos de París hasta los protocolos de consenso en cadenas de bloques (*Proof-of-Stake*), la ingeniería económica contemporánea recurre simultáneamente a los compromisos creíbles de Schelling y a las estructuras de castigo repetido de Aumann.

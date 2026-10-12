@@ -1,0 +1,124 @@
+---
+title: "Ejercicios Prácticos: Gobernanza Económica, Bienes Comunes y Costos de Transacción"
+subtitle: "Elinor Ostrom y Oliver E. Williamson (Premio Nobel de Economía 2009)"
+author: "Nobel Economics Project"
+date: "2009-10-12"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# Introducción y Objetivos de Aprendizaje
+
+Esta guía pedagógica contiene tres ejercicios prácticos de dificultad gradual basados en las investigaciones de Elinor Ostrom y Oliver E. Williamson. A través de ellos, desarrollarás habilidades analíticas para:
+1. Formalizar matemáticamente el conflicto entre el interés individual y la eficiencia colectiva en recursos de uso común (*Common-Pool Resources* - CPR).
+2. Comprender cómo las reglas institucionales comunitarias de Ostrom alteran los incentivos de los agentes para evitar la sobreexplotación.
+3. Modelar el problema del chantaje contractual (*hold-up*) resultante de la especificidad de activos y la incompletitud contractual según Williamson.
+4. Diseñar arquitecturas de gobernanza eficientes para recursos naturales complejos y cadenas globales de suministro de alta tecnología.
+
+---
+
+# Ejercicio 1 (Básico): Sobrepastoreo Comunal, Equilibrio de Nash y los Principios de Ostrom
+
+Considera una meseta de pastizales comunales compartida por $N = 10$ ganaderos independientes. Cada ganadero $i \in \{1, \dots, 10\}$ decide de forma autónoma el número de cabezas de ganado bovino $x_i \ge 0$ que pastarán durante la temporada. El número total de cabezas en el pastizal es:
+$$X = \sum_{j=1}^{10} x_j$$
+
+El valor de mercado de cada animal depende de su ganancia de peso, la cual disminuye a medida que el pastizal se satura de ganado:
+$$P(X) = 200 - 2X \quad \text{(en dólares por animal)}$$
+
+El costo unitario de adquirir, alimentar y cuidar a cada animal en actividades alternativas fuera del pastizal comunal es $c = 40$ dólares constantes. Por tanto, el beneficio económico neto del ganadero $i$ es:
+$$\pi_i(x_i, X_{-i}) = x_i \cdot P(X) - c \cdot x_i = x_i (200 - 2X) - 40 x_i$$
+
+### Preguntas a Resolver:
+
+1. **Equilibrio de Acceso Abierto (Tragedia de los Comunes / Nash):**
+   - Plantea el problema de optimización individual del ganadero $i$ asumiendo que toma la decisión ajena $X_{-i} = \sum_{j \neq i} x_j$ como dada.
+   - Deriva la condición de primer orden (FOC) y la función de mejor respuesta $x_i(X_{-i})$.
+   - Calcula el número de cabezas de ganado por ganadero en el equilibrio de Nash simétrico ($x^{NE}$), el ganado total en el pastizal ($X^{NE}$) y el precio por animal $P(X^{NE})$.
+   - Calcula el beneficio individual $\pi_i^{NE}$ y la renta económica agregada del pastizal $\Pi^{NE}$.
+
+2. **Asignación Socialmente Óptima (Planificador Comunitario):**
+   - Plantea el problema de maximización de la renta agregada del pastizal $\Pi(X) = X (200 - 2X) - 40 X$.
+   - Deriva el nivel agregado óptimo de cabezas de ganado ($X^*$), la cuota equitativa por ganadero ($x^* = X^*/10$) y el beneficio individual correspondiente ($\pi_i^*$).
+   - Compara la renta agregada óptima $\Pi^*$ con la renta del equilibrio de Nash $\Pi^{NE}$. ¿Qué porcentaje de la renta económica potencial se disipa bajo acceso abierto no cooperativo?
+
+3. **Diagnóstico Institucional de Ostrom:**
+   - La teoría convencional de Hardin (1968) proponía dos únicas alternativas: privatizar el pastizal en 10 parcelas cercadas o imponer un inspector estatal con multas.
+   - Analiza cómo los siguientes **principios de diseño de Ostrom** permiten sostener el nivel óptimo $X^*$ sin necesidad de dividir físicamente la meseta ni contratar inspectores estatales externos:
+     a) *Límites claramente definidos* (quién tiene derecho a entrar y límites físicos).
+     b) *Monitoreo mutuo entre pares* (vigilancia recíproca).
+     c) *Sanciones graduadas* (castigos leves para infractores primerizos que escalan si hay reincidencia).
+     d) *Mecanismos locales de resolución de conflictos*.
+
+---
+
+# Ejercicio 2 (Intermedio): Especificidad de Activos, Incompletitud Contractual y el Problema del Hold-up (Williamson)
+
+Un fabricante de vehículos eléctricos (**Comprador**, $B$) requiere un componente de software de gestión de baterías altamente avanzado. Para fabricar este componente a bajo costo y alta precisión, un proveedor tecnológico (**Vendedor**, $S$) debe realizar una inversión ex-ante no recuperable en maquinaria y software especializado por un monto $I \ge 0$.
+
+El costo de la inversión para el vendedor es:
+$$C(I) = \frac{1}{2} I^2$$
+
+Si la inversión $I$ se realiza y las partes colaboran, el valor generado para el comprador es:
+$$V(I) = 24 I$$
+
+### Fricción Institucional: Contratos Incompletos y Renegociación
+Debido a la incertidumbre tecnológica y a la imposibilidad de redactar un contrato que prevea todas las especificaciones futuras ante los tribunales, las partes **no pueden firmar un contrato vinculante ex-ante** sobre el precio ni sobre el nivel de inversión $I$. 
+Una vez que el proveedor ha incurrido en el costo no recuperable $C(I)$, el comprador y el vendedor renegocian el precio del componente ex-post mediante negociación de Nash bilateral con reparto equitativo del excedente (50% y 50%).
+
+- Si la negociación fracasa (ruptura):
+  - El valor que el componente especializado tiene para otros fabricantes en el mercado abierto es únicamente $\bar{V}(I) = 4 I$ (el activo tiene alta **especificidad de uso**, por lo que pierde la mayor parte de su valor fuera de la relación).
+  - La opción alternativa del comprador en el mercado genérico le rinde un valor de reserva de $0$.
+
+### Preguntas a Resolver:
+
+1. **Primer Mejor (Inversión Socialmente Eficiente):**
+   - Determina el nivel de inversión $I^*$ que maximizaría el excedente social total conjunto:
+     $$\max_I W(I) = V(I) - C(I) = 24 I - \frac{1}{2} I^2$$
+   - Calcula el valor generado $V(I^*)$, el costo de inversión $C(I^*)$ y el excedente social máximo $W^*$.
+
+2. **Segundo Mejor con Contratación de Mercado y Chantaje Contractual (*Hold-up*):**
+   - Determina el excedente cuasi-renta a repartir en la renegociación ex-post una vez hundida la inversión:
+     $$S(I) = V(I) - \bar{V}(I) = 24 I - 4 I = 20 I$$
+   - En la solución de negociación de Nash (50/50), ¿cuánto recibe el vendedor ex-post además de su valor de reserva $\bar{V}(I)$?
+   - Expresa el beneficio neto esperado del vendedor ex-ante: $\pi_S(I) = \text{Pago ex-post} - C(I)$.
+   - Calcula el nivel de inversión elegido por el proveedor en el mercado libre ($I^{mercado}$).
+   - Compara $I^{mercado}$ con $I^*$. ¿Por qué se produce subinversión sistemática y cuál es la pérdida de bienestar social?
+
+3. **La Solución de Williamson: Integración Vertical (Jerarquía):**
+   - Supón que el fabricante de vehículos compra al proveedor e integra la división de software dentro de su propia estructura corporativa (absorción jerárquica).
+   - Explica cómo la propiedad unificada de los activos físicos y patentes neutraliza el problema del *hold-up*.
+   - Si la integración jerárquica conlleva un costo burocrático administrativo interno fijo de $G_H = 35$, ¿es preferible recurrir a la integración vertical o permanecer bajo contratación de mercado? Justifica cuantitativamente comparando los excedentes netos.
+
+---
+
+# Ejercicio 3 (Avanzado / Reto): Gobernanza Policéntrica de Cuencas Hídricas y Cadenas Globales de Semiconductores
+
+Este reto integra de forma cruzada los paradigmas de Elinor Ostrom y Oliver Williamson en dos dilemas contemporáneos de alta complejidad.
+
+## Parte A: Arquitectura Policéntrica para una Cuenca Hídrica en Crisis (Ostrom)
+En una cuenca hidrográfica estratégica conviven tres tipos de usuarios con intereses contrapuestos y asimetría de poder:
+- 1,200 agricultores familiares agrupados en cooperativas tradicionales de regadío aguas arriba.
+- 4 complejos termoeléctricos e hidroeléctricos que requieren enfriamiento y turbinado continuo.
+- 2 áreas metropolitanas aguas abajo con 3.5 millones de habitantes que sufren estrés hídrico.
+
+El gobierno nacional intenta resolver la crisis mediante un decreto centralizado que impone medidores satelitales obligatorios y una tasa fija por metro cúbico. La medida provoca protestas masivas, manipulación clandestina de compuertas y litigios interminables.
+
+**Consigna:**
+Diseña una propuesta de **Gobernanza Policéntrica** fundamentada en la teoría de Ostrom (1990, 2009) que reemplace el esquema vertical del gobierno:
+1. Define las estructuras anidadas (*nested enterprises*) en tres niveles (local, subcuenca y cuenca global).
+2. Propón un mecanismo de monitoreo y sanción que resulte legítimo y de bajo costo para los agricultores aguas arriba.
+3. Explica cómo la resolución local de conflictos (tribunal tradicional de aguas / arbitraje comunitario) evita la parálisis judicial.
+
+## Parte B: Outsourcing, Alianza Estratégica o Integración Vertical en Semiconductores (Williamson)
+Una corporación global de inteligencia artificial diseña microprocesadores de vanguardia de 2 nanómetros. Para llevar el chip al mercado debe gestionar tres procesos sucesivos en su cadena de valor:
+- **Proceso 1 (Obleas estándar de silicio):** Insumo estandarizado producido por múltiples proveedores globales con tecnología madura.
+- **Proceso 2 (Empaquetado avanzado 3D y chiplets):** Proceso altamente sofisticado con interfaces propietarias en rápida evolución, que exige co-diseño continuo entre ingenieros durante 3 años pero maquinaria reutilizable en un 60%.
+- **Proceso 3 (Fotolitografía ultravioleta extrema - EUV de última generación):** Equipos con inversión de 350 millones de dólares por máquina, fabricados por un único monopolista global (ASML) con diseño hiperespecífico no reconvertible.
+
+**Consigna:**
+Utilizando el modelo comparativo de estructuras discretas de gobernanza de Williamson (1985, 1991):
+1. Clasifica el nivel de especificidad de activos ($k_1, k_2, k_3 \in [0, 1]$) y la incertidumbre asociada a cada uno de los tres procesos.
+2. Determina la estructura de gobernanza óptima para cada fase: ¿Mercado ($M$), Contrato Híbrido / Alianza Relacional ($X$) o Jerarquía / Integración Vertical ($H$)?
+3. Justifica por qué un intento de integrar verticalmente el Proceso 1 destruiría valor, y por qué operar el Proceso 2 o 3 bajo contratos de mercado simples causaría un colapso por chantaje o riesgo de expropiación tecnológica.

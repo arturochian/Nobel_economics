@@ -1,0 +1,123 @@
+---
+title: "Guía de Ejercicios Prácticos: Mercados con Información Asimétrica"
+subtitle: "Premio Nobel de Economía 2001: George Akerlof, Michael Spence y Joseph Stiglitz"
+author: "Nobel_economics Docencia"
+date: "2001-10-10"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta guía aplicarás los modelos seminales galardonados con el Premio Nobel de Economía 2001:
+1. **Selección adversa y colapso de mercado (George Akerlof, 1970):** Cómo la incertidumbre sobre la calidad expulsa del mercado a los mejores productos y cómo el mecanismo de precios fracasa en coordinar a compradores y vendedores.
+2. **Señalización laboral y condición de Single-Crossing (Michael Spence, 1973):** Cómo las credenciales educativas costosas permiten separar a trabajadores productivos de los improductivos, analizando la diferencia entre equilibrios separadores y agrupadores (*pooling*).
+3. **Screening y racionamiento de crédito (Joseph Stiglitz y Andrew Weiss, 1981):** Por qué los bancos comerciales prefieren rechazar solicitudes de crédito antes que elevar la tasa de interés, demostrando la no monotonicidad del retorno bancario ante selección adversa y riesgo moral.
+
+---
+
+# Ejercicio 1: Selección Adversa y el Colapso del Mercado de Automóviles Usados (Nivel Básico)
+
+Considera un mercado de vehículos de segunda mano en una ciudad intermedia. La calidad de los vehículos, denotada por $q$, se distribuye de manera uniforme en el intervalo $q \in [0, 120]$.
+- Cada propietario conoce la calidad exacta de su propio vehículo. Su precio de reserva para vender el auto es igual a su calidad: $V_S(q) = q$.
+- Los compradores potenciales no pueden verificar la calidad individual de ningún vehículo antes de adquirirlo. Saben únicamente que $q \sim \mathcal{U}[0, 120]$ y observan el precio de mercado $P$.
+- Todos los compradores valoran un vehículo de calidad $q$ en $V_B(q) = \alpha q$, donde $\alpha = 1.40$ representa la ganancia del comercio (los compradores valoran cualquier auto un $40\%$ más que los propietarios actuales).
+
+### Preguntas:
+
+1. **Información Simétrica (Primer Mejor):**
+   - Si la calidad de cada automóvil pudiera ser verificada objetivamente por ambas partes antes de la firma del contrato:
+     a) ¿Qué proporción del parque automotor se comercializaría?
+     b) Calcula el excedente social total generado en el mercado ($W^{FB}$).
+
+2. **Información Asimétrica y Calidad en Oferta:**
+   - Si rige un precio de mercado único $P$:
+     a) ¿Qué vehículos decidirán ofertar los vendedores? Expresa el conjunto de calidades ofertadas en función de $P$.
+     b) Calcula la calidad promedio ofertada $\bar{q}(P) = \mathbb{E}[q \mid \text{ofertado}]$ para cualquier $P \le 120$.
+
+3. **Disposición a Pagar y Condición de Equilibrio:**
+   - Los compradores neutrales al riesgo ofrecen un precio igual a su valoración esperada: $P = \mathbb{E}[V_B \mid P] = \alpha \bar{q}(P)$.
+     a) Sustituye la calidad promedio calculada y plantea la ecuación de equilibrio para el precio $P$.
+     b) Resuelve para el precio de equilibrio $P^*$. ¿Cuántos automóviles se logran vender en este mercado?
+     c) Explica intuitivamente por qué se produce el colapso del mercado (*market unraveling*) aun cuando para cada auto el comprador lo valora más que el vendedor ($\alpha = 1.40 > 1$).
+
+4. **Solución Institucional (Garantías o Certificación Técnica):**
+   - Supón que una red de talleres mecánicos ofrece una inspección técnica certificada e infalible que revela la calidad exacta $q$ a un costo de certificación de $c = 6$ unidades monetarias por vehículo.
+     a) ¿Para qué niveles de calidad $q$ los vendedores tendrán incentivos económicos para certificar su auto y venderlo a su valor completo $V_B(q)$?
+     b) Calcula el nuevo excedente social neto en el mercado con certificación.
+
+---
+
+# Ejercicio 2: Señalización en el Mercado Laboral y Condición de Spence-Mirrlees (Nivel Intermedio)
+
+Una empresa tecnológica contrata ingenieros de software en un mercado competitivo. La fuerza laboral está compuesta por dos tipos de graduados con productividades marginales diferenciadas:
+- **Tipo L (Baja productividad):** $\theta_L = 12$, que representan el $70\%$ de la población ($\lambda_L = 0.70$).
+- **Tipo H (Alta productividad):** $\theta_H = 24$, que representan el $30\%$ de la población ($\lambda_H = 0.30$).
+
+Los empleadores no pueden observar directamente la productividad del postulante al momento de la entrevista. Sin embargo, observan los años de educación avanzada o certificaciones técnicas complejas adquiridas, denotadas por $e \ge 0$. La educación no incrementa intrínsecamente la productividad (es un filtro puramente señalizador).
+
+El costo monetario y de esfuerzo psíquico de adquirir $e$ niveles educativos es:
+- Para el Tipo L: $C_L(e) = 1.2 \cdot e$
+- Para el Tipo H: $C_H(e) = 0.6 \cdot e$
+
+Las preferencias de los trabajadores son lineales: $U_i(w, e) = w - C_i(e)$.
+
+### Preguntas:
+
+1. **La Condición de Cruce Único (*Single-Crossing Property*):**
+   - Calcula la tasa marginal de sustitución entre salario y educación ($\left. \frac{dw}{de} \right|_{U}$) para ambos tipos de trabajadores.
+   - Grafica conceptualmente las curvas de indiferencia en el plano $(e, w)$ y explica por qué la condición de Spence-Mirrlees es indispensable para que exista señalización creíble.
+
+2. **Equilibrio Agrupador (*Pooling Equilibrium*):**
+   - Si los trabajadores no adquieren ninguna educación ($e = 0$ para todos):
+     a) ¿Qué salario competitivo $w_{pool}$ pagarán las empresas?
+     b) Calcula la utilidad neta de cada tipo de trabajador en este escenario.
+
+3. **Equilibrios Separadores (*Separating Equilibria*):**
+   - La empresa ofrece un salario escalonado: $w(e) = \theta_H = 24$ si $e \ge e^*$, y $w(e) = \theta_L = 12$ si $e < e^*$.
+     a) Escribe la restricción de compatibilidad de incentivos para el Tipo L ($IC_L$) que asegura que no le convenga imitar al Tipo H adquiriendo $e^*$. Determina el valor mínimo de educación $e^*_{\min}$.
+     b) Escribe la restricción de compatibilidad de incentivos para el Tipo H ($IC_H$) que asegura que prefiera educarse a percibir el salario bajo con $e=0$. Determina el valor máximo de educación $e^*_{\max}$.
+     c) Identifica el rango completo de equilibrios separadores viables $[e^*_{\min}, e^*_{\max}]$.
+
+4. **El Equilibrio de Riley y la Pérdida Social de Bienestar:**
+   - ¿Cuál es el umbral educativo en el **Equilibrio de Riley** (el equilibrio separador de menor costo)?
+   - Calcula la utilidad de ambos tipos en el equilibrio de Riley.
+   - Compara el bienestar agregado bajo información perfecta, bajo el equilibrio agrupador y bajo el equilibrio separador de Riley. ¿Constituye la educación como señal un desperdicio social de recursos en este modelo?
+
+---
+
+# Ejercicio 3: Screening y Racionamiento de Crédito Bancario (Nivel Avanzado / Reto)
+
+En el modelo de Joseph Stiglitz y Andrew Weiss (1981), los bancos no pueden utilizar la tasa de interés libremente para equilibrar la oferta y demanda de fondos prestables.
+
+Considera un banco que dispone de fondos a costo de captación cero y evalúa a un grupo de emprendedores que solicitan un crédito por un monto unitario de $1$.
+- Cada emprendedor tiene un proyecto de inversión cuyo retorno bruto es una variable aleatoria $R$.
+- Existen dos tipos de proyectos en la economía, ambos con el mismo retorno esperado $\mathbb{E}[R] = 2.0$, pero con distinta varianza:
+  - **Proyecto Seguro (S):** El retorno es determinístico: $R_S = 2.0$ con probabilidad $1$.
+  - **Proyecto Arriesgado (A):** El retorno es binario: rinde $R_A = 3.6$ con probabilidad $p = 0.5$, y $R_A = 0.4$ con probabilidad $1 - p = 0.5$. (Nótese que $\mathbb{E}[R_A] = 0.5(3.6) + 0.5(0.4) = 2.0$).
+- El emprendedor tiene responsabilidad limitada: si el retorno del proyecto $R$ es menor que el repago comprometido $(1 + r)$, el emprendedor declara quiebra y el banco se apropia del retorno realizado $R$.
+- La ganancia neta del emprendedor si toma el crédito a tasa de interés $r$ es:
+  $$\Pi_{\text{emp}}(R, r) = \max\{R - (1 + r), 0\}$$
+
+### Preguntas:
+
+1. **Beneficio del Emprendedor y Selección Adversa:**
+   - La opción de rechazar el préstamo (rendimiento alternativo) genera un beneficio de reserva de cero.
+   - a) Expresa la ganancia esperada del emprendedor Seguro $\mathbb{E}[\Pi_S(r)]$ en función de la tasa de interés $r$. ¿Hasta qué tasa máxima $r_S^{\max}$ estará dispuesto a solicitar el crédito?
+   - b) Expresa la ganancia esperada del emprendedor Arriesgado $\mathbb{E}[\Pi_A(r)]$ en función de $r$ (para $1 + r \in [0.4, 3.6]$). ¿Hasta qué tasa máxima $r_A^{\max}$ solicitará el crédito?
+   - c) ¿Qué sucede con la composición de solicitantes si el banco eleva la tasa de interés por encima de $r_S^{\max}$? Explica por qué este es un ejemplo de **selección adversa inducida por precios**.
+
+2. **Retorno Esperado del Banco y la Curva Invertida:**
+   - El retorno del banco por cada dólar prestado a un proyecto con retorno $R$ y tasa pactada $r$ es:
+     $$\rho(R, r) = \min\{1 + r, R\}$$
+   - Supón que inicialmente la mitad de los solicitantes son Seguros y la otra mitad son Arriesgados.
+     a) Calcula el retorno esperado del banco $\mathbb{E}[\rho(r)]$ cuando $r \le r_S^{\max}$ (donde ambos tipos participan).
+     b) Calcula el retorno esperado del banco $\mathbb{E}[\rho(r)]$ cuando $r > r_S^{\max}$ (donde solo quedan los emprendedores arriesgados).
+     c) Muestra que el retorno esperado del banco alcanza un máximo local y luego cae abruptamente.
+
+3. **Mecanismo de Racionamiento de Crédito:**
+   - Si a la tasa de interés óptima para el banco ($r^*$) la demanda total de crédito excede la oferta de depósitos disponibles:
+     - ¿Por qué el banco se negará terminantemente a elevar la tasa de interés para vaciar el mercado walrasiano?
+     - ¿Cómo se relaciona esta predicción teórica con las crisis financieras y el colapso del crédito a PYMEs en recesiones económicas?

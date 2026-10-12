@@ -1,0 +1,8 @@
+id,titulo,doi,url,estado_descarga,licencia
+krugman1979increasing,"Increasing Returns, Monopolistic Competition, and International Trade",10.1016/0022-1996(79)90017-5,https://doi.org/10.1016/0022-1996(79)90017-5,solo_enlace,copyright_editorial
+krugman1980scale,"Scale Economies, Product Differentiation, and the Pattern of Trade",NA,https://www.jstor.org/stable/1805774,solo_enlace,copyright_editorial
+krugman1991increasing,"Increasing Returns and Economic Geography",10.1086/261763,https://doi.org/10.1086/261763,solo_enlace,copyright_editorial
+helpman1985market,"Market Structure and Foreign Trade: Increasing Returns, Imperfect Competition, and the International Economy",NA,https://mitpress.mit.edu/9780262580878/market-structure-and-foreign-trade/,solo_enlace,copyright_editorial
+fujita1999spatial,"The Spatial Economy: Cities, Regions, and International Trade",NA,https://mitpress.mit.edu/9780262561471/the-spatial-economy/,solo_enlace,copyright_editorial
+nobel2008scientific,"Scientific Background: Trade Patterns and Location of Economic Activity",NA,https://www.nobelprize.org/prizes/economic-sciences/2008/advanced-information/,solo_enlace,public_domain_nobel
+nobel2008popular,"Popular Science Background: Trade and Geography",NA,https://www.nobelprize.org/prizes/economic-sciences/2008/popular-information/,solo_enlace,public_domain_nobel

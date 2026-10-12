@@ -1,0 +1,93 @@
+---
+title: "Guía de Ejercicios Prácticos: Teoría de Juegos, Conflicto y Cooperación"
+subtitle: "Premio Nobel de Economía 2005: Robert J. Aumann y Thomas C. Schelling"
+author: "Nobel_economics Project"
+format:
+  html:
+    toc: true
+    number-sections: true
+    theme: cosmo
+---
+
+# Introducción
+
+Esta guía contiene tres ejercicios diseñados para aplicar los conceptos fundamentales galardonados con el Premio Nobel de Economía 2005 a Robert J. Aumann y Thomas C. Schelling. Los ejercicios cubren:
+1. **Nivel Básico:** El Teorema Popular de Aumann, la sombra del futuro y la estabilidad de cárteles oligopólicos.
+2. **Nivel Intermedio:** El concepto de Equilibrio Correlacionado de Aumann y la superación de la ineficiencia de Nash en el juego de la gallina (*Game of Chicken*).
+3. **Nivel Avanzado / Reto:** Micromotivos y puntos de inflexión (*tipping points*) en el modelo de segregación de Schelling y compromisos creíbles (*burning bridges*).
+
+---
+
+# Ejercicio 1 (Nivel Básico): La Sombra del Futuro y la Colusión Oligopólica (Aumann)
+
+Dos empresas de telecomunicaciones idénticas, Alfa y Beta, compiten en un mercado repetido indefinidamente con un factor de descuento intertemporal común $\delta \in (0, 1)$, donde $\delta = \frac{1}{1 + r}$ y $r$ es la tasa de interés de mercado.
+
+En cada periodo, las empresas deciden simultáneamente si cobrar el precio de monopolio (*Coludir*, $C$) o fijar un precio predatorio con descuento agresivo (*Guerra de precios*, $D$). La matriz de beneficios por periodo (en millones de dólares) es:
+
+| Empresa Alfa \ Empresa Beta | Coludir ($C$) | Guerra ($D$) |
+| :--- | :---: | :---: |
+| **Coludir ($C$)** | $(10, 10)$ | $(0, 15)$ |
+| **Guerra ($D$)** | $(15, 0)$ | $(3, 3)$ |
+
+### Preguntas:
+
+1. **Equilibrio Estático:** Determine los equilibrios de Nash en estrategias puras y dominantes si el juego se juega una sola vez ($T = 1$). ¿Es este resultado socialmente eficiente en el sentido de Pareto para las empresas?
+2. **Estrategia Gatillo (*Grim Trigger*):** Suponga que ambas empresas adoptan la estrategia gatillo de Aumann: comenzar coludiendo en $t=1$ y seguir coludiendo en cada etapa subsiguiente siempre que ninguna haya hecho trampa en el pasado; si alguna empresa fija el precio predatorio, ambas competirán ferozmente con Guerra ($D$) por el resto de la eternidad.
+   - Deduzca algebraicamente el valor presente neto esperado del flujo de beneficios bajo colusión perpetua ($V_C$).
+   - Deduzca el valor presente de desviarse de forma óptima en el primer periodo ($V_D$).
+   - Halle el factor de descuento crítico $\delta^*$ a partir del cual la colusión es un Equilibrio Perfecto en Subjuegos (SPE).
+3. **Interpretación Económica:** Si la tasa de interés anual de la economía es $r = 15\%$, ¿es sostenible el cártel? ¿Cuál es la tasa de interés máxima admisible $r_{\max}$ antes de que el acuerdo colusivo colapse?
+
+---
+
+# Ejercicio 2 (Nivel Intermedio): El Equilibrio Correlacionado de Aumann y el Semáforo Social
+
+Considere el clásico **Juego de la Gallina** (*Game of Chicken* o *Hawk-Dove*), que modela dos conductores que se aproximan simultáneamente a una intersección estrecha, o dos potencias nucleares disputando un estrecho marítimo. Las opciones para cada jugador son *Ceder / Desviar* ($S$, *Swerve*) o *Avanzar / Recto* ($D$, *Drive straight*).
+
+La matriz de pagos de etapa es:
+
+| Jugador 1 \ Jugador 2 | Ceder ($S$) | Avanzar ($D$) |
+| :--- | :---: | :---: |
+| **Ceder ($S$)** | $(4, 4)$ | $(1, 5)$ |
+| **Avanzar ($D$)** | $(5, 1)$ | $(0, 0)$ |
+
+### Preguntas:
+
+1. **Equilibrios de Nash Tradicionales:**
+   - Identifique los dos equilibrios de Nash en estrategias puras.
+   - Calcule el equilibrio de Nash en estrategias mixtas simétricas ($\sigma_1(D) = \sigma_2(D) = q$).
+   - Determine la probabilidad de colisión catastrófica $(D, D)$ y el pago esperado para cada jugador bajo el equilibrio mixto de Nash.
+2. **El Mediador Correlacionado de Aumann (1974):**
+   Suponga que se instala un dispositivo de mediación o semáforo que genera una señal aleatoria $s \in \{(S, S), (S, D), (D, S)\}$ con la siguiente distribución de probabilidad conjunta:
+   $$p(S, S) = \frac{1}{3}, \quad p(S, D) = \frac{1}{3}, \quad p(D, S) = \frac{1}{3}, \quad p(D, D) = 0$$
+   El dispositivo envía una recomendación privada a cada jugador sin revelar la recomendación del otro.
+   - Verifique formalmente que este mecanismo cumple las condiciones de compatibilidad de incentivos de Aumann, demostrando que ningún jugador tiene incentivos para desobedecer cuando se le recomienda $S$, ni cuando se le recomienda $D$.
+   - Calcule el pago esperado de cada jugador bajo este equilibrio correlacionado. ¿Cómo se compara con el pago del equilibrio de Nash en estrategias mixtas?
+   - ¿Por qué el equilibrio correlacionado resuelve la falla de coordinación sin necesidad de un gobierno coercitivo?
+
+---
+
+# Ejercicio 3 (Nivel Avanzado / Reto): Micromotivos de Schelling y Compromisos Estratégicos
+
+### Parte A: El Modelo de Tipping Point de Schelling (1971)
+Considere un vecindario compuesto por 100 viviendas. Inicialmente residen 50 familias del grupo $A$ y 50 familias del grupo $B$.
+Las familias del grupo $A$ tienen una distribución heterogénea de tolerancia hacia la proporción de vecinos del grupo $B$ ($f_B = B / 100$):
+- La familia $i$-ésima del grupo $A$ abandonará el vecindario si la proporción de vecinos del grupo $B$ supera su umbral crítico individual:
+  $$\tau_i = 0.20 + 0.01 \cdot i, \quad \text{para } i \in \{1, 2, \dots, 50\}$$
+(es decir, la familia más sensible se marcha si $f_B > 0.21$, mientras que la más tolerante resiste hasta $f_B > 0.70$). Cada familia del grupo $A$ que se marcha es reemplazada de inmediato por una familia del grupo $B$.
+
+1. Calcule la condición de equilibrio inicial cuando $f_B = 0.50$. ¿Cuántas familias del grupo $A$ están insatisfechas?
+2. Suponga que ingresan inicialmente 5 familias adicionales del grupo $B$ de forma exógena (haciendo que $B = 55, A = 45$, por lo que $f_B = 0.55$).
+   - Demuestre paso a paso la dinámica de cascada (*tipping effect* o avalancha de Schelling).
+   - ¿Cuál es la composición final del vecindario en el nuevo equilibrio estacionario?
+
+### Parte B: El Compromiso Creíble y "Quemar las Naves" (Schelling, 1960)
+Considere un juego secuencial entre una potencia imperial defensora ($D$) y un ejército invasor ($I$):
+1. En la etapa 1, el invasor $I$ decide si *Invadir* o *Mantenerse en Paz*. Si se mantiene en paz, los pagos son $(0, 5)$ (0 para $I$, 5 para $D$).
+2. Si $I$ invade, el defensor $D$ observa la invasión y decide si *Luchar* o *Capitular*.
+   - Si $D$ lucha, se desata una guerra sangrienta con pagos $(-10, -10)$.
+   - Si $D$ capitula, los pagos son $(3, -2)$.
+
+1. Dibuje el árbol del juego y determine el Equilibrio Perfecto en Subjuegos (SPE) mediante inducción hacia atrás. ¿Qué decisión toma el invasor?
+2. Suponga ahora que, antes de la invasión, el defensor $D$ puede "quemar las naves" (*burn bridges*), destruyendo sus vías de retirada con un costo de demolición de $c = 1$. Al quemar las naves, la opción de capitular se vuelve físicamente imposible o conlleva un costo de humillación tan alto que su pago al capitular pasa a ser $-15$.
+   - Demuestre formalmente cómo la autolimitación deliberada de opciones transforma la amenaza de luchar en creíble y altera radicalmente el resultado del juego. ¿Cuál es el pago final obtenido por el defensor?

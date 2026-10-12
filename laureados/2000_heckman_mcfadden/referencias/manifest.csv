@@ -1,0 +1,9 @@
+id,titulo,doi,url,estado_descarga,licencia
+nobel2000scientific,Microeconometrics: Advanced Information on the Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel 2000,,https://www.nobelprize.org/prizes/economic-sciences/2000/advanced-information/,descargado,Open Access (Nobel Foundation)
+nobel2000popular,The Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel 2000 - Popular Information,,https://www.nobelprize.org/prizes/economic-sciences/2000/popular-information/,solo_enlace,Open Access (Nobel Foundation)
+heckman1979sample,Sample Selection Bias as a Specification Error,10.2307/1912352,https://doi.org/10.2307/1912352,solo_enlace,Copyright Econometric Society
+heckman1974shadow,Shadow Prices Market Wages and Labor Supply,10.2307/1913937,https://doi.org/10.2307/1913937,solo_enlace,Copyright Econometric Society
+heckman1976common,The Common Structure of Statistical Models of Truncation Sample Selection and Limited Dependent Variables and a Simple Estimator for Such Models,,https://www.nber.org/system/files/chapters/c10491/c10491.pdf,solo_enlace,Open Access (NBER)
+mcfadden1974conditional,Conditional Logit Analysis of Qualitative Choice Behavior,,https://eml.berkeley.edu/~mcfadden/travel.html,solo_enlace,Copyright Academic Press
+mcfadden1974travel,The Measurement of Urban Travel Demand,10.1016/0047-2727(74)90003-6,https://doi.org/10.1016/0047-2727(74)90003-6,solo_enlace,Copyright Elsevier
+mcfadden1978residential,Modelling the Choice of Residential Location,,https://trid.trb.org/view/83577,solo_enlace,Copyright Transportation Research Board

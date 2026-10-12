@@ -1,0 +1,81 @@
+---
+title: "Guía de Ejercicios Prácticos: Selección Muestral y Modelos de Elección Discreta"
+subtitle: "Premio Nobel de Economía 2000: James J. Heckman y Daniel L. McFadden"
+author: "Nobel_economics Docencia"
+date: "2000-10-11"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta actividad práctica aplicarás los dos grandes pilares metodológicos de la microeconometría reconocidos con el Premio Nobel del año 2000:
+1. **El Procedimiento de Selección de Heckman (Heckit):** Por qué surge el sesgo de selección en muestras truncadas o censuradas, cómo se calcula matemáticamente la Razón Inversa de Mills ($\lambda$) y qué papel juega como variable de control omitida.
+2. **Restricciones de Exclusión e Identificación:** Por qué estimar Heckit sin variables de exclusión legítimas conduce a estimadores frágiles y multicolinealidad severa.
+3. **El Modelo de Utilidad Aleatoria (RUM) de McFadden:** Cómo se deducen las probabilidades de elección en el Logit Condicional y por qué la propiedad de Independencia de Alternativas Irrelevantes (IIA) da lugar a la célebre "Paradoja del Autobús Rojo / Autobús Azul".
+
+---
+
+# Ejercicio 1: Intuición del Sesgo de Selección y Cálculo de Mills (Nivel Básico)
+
+Imagina un estudio sobre retornos salariales a la educación universitaria para mujeres en edad activa. Solo observamos el salario por hora de aquellas que están empleadas ($d_i = 1$). Aquellas dedicadas al cuidado del hogar o desempleadas ($d_i = 0$) tienen un salario potencial de mercado que no se observa en los registros administrativos.
+
+Supón que la decisión de trabajar depende de un índice de reserva latente $z_i^* = W_i' \gamma + u_i$, de modo que una mujer trabaja si $z_i^* > 0$.
+
+## Preguntas:
+1. **Comportamiento de la Razón Inversa de Mills:**
+   La razón inversa de Mills se define como:
+   $$\lambda(z) = \frac{\phi(z)}{\Phi(z)}$$
+   donde $\phi(z) = \frac{1}{\sqrt{2\pi}} e^{-z^2/2}$ es la densidad normal estándar y $\Phi(z)$ es la probabilidad acumulada.
+   - Utilizando una tabla normal estándar o calculadora estadística, evalúa $\lambda(z)$ para los siguientes valores del índice lineal:
+     a) $z = -1.645$ (baja propensión a participar: $\Phi(z) \approx 0.05$).
+     b) $z = 0.000$ (propensión media: $\Phi(z) = 0.50$).
+     c) $z = +1.645$ (alta propensión a participar: $\Phi(z) \approx 0.95$).
+   - ¿Qué observas respecto a la monotonicidad de $\lambda(z)$ a medida que $z$ aumenta? ¿Quiénes tienen un valor de $\lambda$ más elevado: quienes tenían pocas probabilidades de trabajar pero igual lo hacen, o quienes era casi seguro que trabajarían?
+
+2. **Dirección del Sesgo de MCO:**
+   Supón que las características no observadas que elevan la probabilidad de trabajar (motivación, persistencia, contactos) también aumentan el salario potencial de mercado, de modo que $\text{Corr}(u_i, \epsilon_i) = \rho > 0$.
+   - Si la educación aumenta la probabilidad de inserción laboral ($\gamma_{\text{educ}} > 0$), ¿quiénes dentro del grupo de bajo nivel educativo logran conseguir empleo?
+   - Explica por qué una regresión simple de MCO de salarios sobre educación sobre la muestra de mujeres empleadas tiende a **subestimar** o a **sobreestimar** el verdadero retorno a la educación si no se controla por $\lambda_i$.
+
+---
+
+# Ejercicio 2: Restricciones de Exclusión y Multicolinealidad en Heckit (Nivel Intermedio)
+
+El modelo de Heckman en dos etapas se formula como:
+- **Etapa 1:** Probit: $\Pr(d_i = 1 \mid W_i) = \Phi(W_i' \gamma) \implies \hat{\lambda}_i = \frac{\phi(W_i' \hat{\gamma})}{\Phi(W_i' \hat{\gamma})}$.
+- **Etapa 2:** MCO: $y_i = X_i' \beta + \theta \hat{\lambda}_i + \nu_i$.
+
+## Preguntas:
+1. **Identificación por Forma Funcional vs. Restricción de Exclusión:**
+   - En teoría matemática pura, ¿es posible estimar el modelo si $W_i = X_i$ (es decir, si la ecuación de selección incluye exactamente las mismas variables que la ecuación de salarios)?
+   - En la práctica empírica, ¿qué problema surge si graficamos $\lambda(z)$ en el rango central de la distribución normal ($z \in [-1, +1]$)? ¿Cómo se relaciona esto con la matriz de correlaciones de los regresores en la Etapa 2?
+2. **Evaluación de Instrumentos Clásicos:**
+   Para lograr una restricción de exclusión creíble, el econometrista necesita al menos una variable en $W_i$ que afecte la decisión de participar ($d_i$) pero que no determine directamente la productividad potencial o el salario de mercado ($y_i^*$).
+   Evalúa la validez teórica y empírica de las siguientes variables candidatas a exclusión:
+   - *Candidata A:* Número de hijos menores de 6 años en el hogar.
+   - *Candidata B:* Ingresos no laborales del cónyuge o rentas de capital del hogar.
+   - *Candidata C:* Años de experiencia laboral previa.
+   ¿Cuáles de estas variables satisfacen razonablemente la restricción de exclusión y cuál violaría claramente el supuesto al influir directamente en la productividad del individuo?
+
+---
+
+# Ejercicio 3: Reto Teórico — McFadden RUM y la Paradoja IIA (Nivel Avanzado)
+
+En la teoría de elección discreta de McFadden (1974), un viajero debe elegir entre medios de transporte para desplazarse a su trabajo. La utilidad de la opción $j$ es $U_j = V_j + \epsilon_j$, donde los $\epsilon_j$ son i.i.d. Gumbel.
+
+La probabilidad de elegir la alternativa $j$ en el conjunto $\mathcal{C}$ es:
+$$P_j = \frac{e^{V_j}}{\sum_{k \in \mathcal{C}} e^{V_k}}$$
+
+## Preguntas:
+1. **Deducción de la Razón de Probabilidades (Odds Ratio):**
+   - Demuestra formalmente que el cociente $\frac{P_j}{P_k}$ depende únicamente de $V_j$ y $V_k$, y es totalmente independiente de cualquier otra alternativa $m \notin \{j, k\}$.
+2. **La Paradoja del Autobús Rojo / Azul (*Red Bus / Blue Bus Paradox*):**
+   Supón un escenario inicial donde los viajeros disponen de dos medios de transporte con idéntica utilidad sistemática ($V_{\text{auto}} = V_{\text{bus azul}} = 0$):
+   - Calcula las probabilidades iniciales $P_{\text{auto}}$ y $P_{\text{bus azul}}$.
+   - Supón ahora que el municipio introduce un **autobús rojo**, idéntico en costo, velocidad y confort al autobús azul, de modo que $V_{\text{bus rojo}} = V_{\text{bus azul}} = 0$.
+   - Si aplicamos directamente la fórmula del Logit Multinomial con las tres alternativas, ¿cuáles son las nuevas probabilidades predichas ($P_{\text{auto}}$, $P_{\text{bus azul}}$, $P_{\text{bus rojo}}$)?
+   - Desde el punto de vista del comportamiento del consumidor real, ¿cuáles deberían haber sido las verdaderas probabilidades tras introducir un simple cambio de color en el autobús?
+   - Explica brevemente cómo el modelo de **Logit Anidado** (*Nested Logit*) de McFadden soluciona este dilema permitiendo que los errores de las opciones de autobús compartan un nido común correlacionado.

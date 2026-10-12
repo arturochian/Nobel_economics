@@ -1,0 +1,10 @@
+id,titulo,doi,url,estado_descarga,licencia
+engle1982autoregressive,"Autoregressive Conditional Heteroscedasticity with Estimates of the Variance of United Kingdom Inflation",10.2307/1912773,https://doi.org/10.2307/1912773,solo_enlace,copyright_editorial
+granger_newbold1974spurious,"Spurious Regressions in Econometrics",10.1016/0304-4076(74)90034-7,https://doi.org/10.1016/0304-4076(74)90034-7,solo_enlace,copyright_editorial
+granger1981some,"Some Properties of Time Series Data and Their Use in Econometric Model Specification",10.1016/0304-4076(81)90079-8,https://doi.org/10.1016/0304-4076(81)90079-8,solo_enlace,copyright_editorial
+engle_granger1987cointegration,"Co-Integration and Error Correction: Representation, Estimation, and Testing",10.2307/1913236,https://doi.org/10.2307/1913236,solo_enlace,copyright_editorial
+bollerslev1986generalized,"Generalized Autoregressive Conditional Heteroskedasticity",10.1016/0304-4076(86)90063-1,https://doi.org/10.1016/0304-4076(86)90063-1,solo_enlace,copyright_editorial
+engle2001garch,"GARCH 101: The Use of ARCH/GARCH Models in Applied Econometrics",10.1257/jep.15.4.157,https://doi.org/10.1257/jep.15.4.157,solo_enlace,copyright_editorial
+granger1969investigating,"Investigating Causal Relations by Econometric Models and Cross-spectral Methods",10.2307/1909571,https://doi.org/10.2307/1909571,solo_enlace,copyright_editorial
+nobel2003scientific,"Time-Series Econometrics: Cointegration and Autoregressive Conditional Heteroskedasticity (Scientific Background)",NA,https://www.nobelprize.org/prizes/economic-sciences/2003/advanced-information/,descargado,public_domain_nobel
+nobel2003popular,"Statistical Methods for Economic Time Series (Popular Information)",NA,https://www.nobelprize.org/prizes/economic-sciences/2003/popular-information/,descargado,public_domain_nobel

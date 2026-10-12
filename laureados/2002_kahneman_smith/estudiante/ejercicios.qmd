@@ -1,0 +1,108 @@
+---
+title: "Guía de Ejercicios: Economía Conductual y Mercados Experimentales"
+subtitle: "Premio Nobel de Economía 2002: Daniel Kahneman y Vernon L. Smith"
+author: "Nobel_economics Project"
+date: "2026-10-12"
+format:
+  html:
+    toc: true
+    number-sections: true
+    embed-resources: true
+---
+
+# Presentación y Objetivos de Aprendizaje
+
+Esta guía pedagógica contiene tres niveles progresivos de ejercicios diseñados para profundizar en los aportes fundamentales de **Daniel Kahneman** y **Vernon L. Smith** (Premio Nobel de Economía 2002):
+
+1. **Nivel Básico:** Comprensión de la función de valor con aversión a las pérdidas de la Teoría Prospectiva frente a la Utilidad Esperada clásica, y la lógica de incentivos bajo la Teoría del Valor Inducido en subastas experimentales.
+2. **Nivel Intermedio:** Cálculo analítico de valor prospectivo acumulativo con ponderación no lineal de probabilidades, equivalentes de certeza y deducción matemática del equilibrio competitivo y excedente social de Smith.
+3. **Nivel Avanzado / Reto:** Falla del Teorema de Coase por efecto dotación ($WTA > WTP$), dinámica de burbujas especulativas en mercados de activos finitos (Smith, Suchanek & Williams, 1988) y diseño institucional de mecanismos de mercado.
+
+---
+
+# Ejercicio 1 (Nivel Básico): Aversión a Pérdidas vs. Utilidad Esperada Neoclásica
+
+Considere a un individuo que enfrenta una propuesta de inversión de riesgo con las siguientes dos opciones:
+
+- **Lotería $L_1$:** $50\%$ de probabilidad de ganar $\$200$ y $50\%$ de probabilidad de perder $\$100$.
+- **Alternativa segura $S_1$:** Mantener el *status quo* actual (recibir $\$0$).
+
+Considere además una segunda situación de elección:
+- **Lotería $L_2$:** $50\%$ de probabilidad de perder $\$500$ y $50\%$ de probabilidad de no perder nada ($\$0$).
+- **Alternativa segura $S_2$:** Sufrir una pérdida cierta e ineludible de $-\$250$.
+
+### Preguntas:
+
+1. **Valor Esperado:** Calcule el valor esperado $E[L_1]$ y $E[L_2]$. ¿Qué predeciría un agente neutral al riesgo en ambas situaciones?
+2. **Modelo Neoclásico:** Suponga que el individuo posee una función de utilidad von Neumann-Morgenstern estándar $u(w) = \ln(w)$ sobre la riqueza total con una riqueza base inicial de $w_0 = \$10,000$.
+   - Calcule la utilidad esperada de aceptar la lotería $L_1$ frente a rechazarla ($S_1$). ¿Acepta la inversión?
+   - Calcule la utilidad esperada de $L_2$ frente a $S_2$. ¿Qué opción prefiere?
+3. **Teoría Prospectiva de Kahneman y Tversky:** Suponga ahora que el individuo evalúa las opciones con la función de valor canónica de Tversky y Kahneman (1992):
+   $$v(x) = \begin{cases} x^\alpha & \text{si } x \ge 0 \\ -\lambda \, (-x)^\beta & \text{si } x < 0 \end{cases}$$
+   con parámetros empíricos $\alpha = \beta = 0.88$ y $\lambda = 2.25$. Asuma para este ejercicio que las probabilidades del $50\%$ no sufren distorsión ($w(0.5) = 0.5$).
+   - Calcule el valor subjetivo prospectivo $V(L_1) = 0.5 \, v(200) + 0.5 \, v(-100)$. ¿Acepta el individuo la lotería $L_1$? Explique la discrepancia cualitativa con el resultado neoclásico.
+   - Calcule el valor subjetivo de la lotería $L_2$ frente a la pérdida segura $S_2$: $V(L_2) = 0.5 \, v(-500) + 0.5 \, v(0)$ vs. $V(S_2) = v(-250)$. ¿Qué opción elige ahora el individuo? ¿Muestra aversión o búsqueda de riesgo (*risk-seeking*)?
+
+---
+
+# Ejercicio 2 (Nivel Intermedio): Ponderación No Lineal de Probabilidades y Equilibrio Experimental de Smith
+
+### Parte A: Loterías y Ponderación de Probabilidades (Kahneman & Tversky)
+
+Considere la función de ponderación no lineal de probabilidades de Tversky & Kahneman (1992):
+$$w(p) = \frac{p^\gamma}{\left( p^\gamma + (1-p)^\gamma \right)^{1/\gamma}}$$
+con $\gamma = 0.61$ para el dominio de ganancias.
+
+1. Calcule los valores ponderados $w(p)$ para:
+   - $p = 0.001$ (probabilidad muy baja: billete de lotería de premio mayor).
+   - $p = 0.01$ (probabilidad baja).
+   - $p = 0.10$ (probabilidad moderada baja).
+   - $p = 0.50$ (moneda al aire).
+   - $p = 0.90$ (alta probabilidad).
+   - $p = 0.99$ (evento casi seguro).
+2. Compare la relación $\frac{w(p)}{p}$ en cada caso. ¿Para qué rango de probabilidades se observa **sobreponderación** ($w(p) > p$) y para qué rango **subponderación** ($w(p) < p$)?
+3. Suponga una lotería médica o seguro que ofrece una ganancia de $\$1,000,000$ con probabilidad $p = 0.001$. Usando la función de valor $v(x) = x^{0.88}$ y la ponderación $w(p)$, determine el valor prospectivo $V = w(0.001) \cdot v(1,000,000)$ y encuentre el **equivalente de certeza** $CE$ tal que $v(CE) = V$. ¿Es el equivalente de certeza mayor o menor que el valor esperado actuarial objetivo ($E = \$1,000$)? ¿Qué implicancia tiene esto para la comercialización de seguros y loterías?
+
+### Parte B: El Mercado Experimental de Smith (1962)
+
+En un experimento de laboratorio de Vernon Smith, participan 6 compradores y 6 vendedores. Cada agente puede comprar o vender a lo sumo una unidad de un bien ficticio. Los valores de redención inducidos a los compradores y los costos asignados a los vendedores son:
+
+| Agente | Comprador ($V_i$) | Vendedor ($C_j$) |
+| :---: | :---: | :---: |
+| 1 | $\$18.00$ | $\$6.00$ |
+| 2 | $\$16.00$ | $\$8.00$ |
+| 3 | $\$14.00$ | $\$10.00$ |
+| 4 | $\$12.00$ | $\$12.00$ |
+| 5 | $\$10.00$ | $\$14.00$ |
+| 6 | $\$8.00$ | $\$16.00$ |
+
+1. Construya la curva de demanda escalonada y la curva de oferta escalonada.
+2. Determine el rango de precios competitivos de equilibrio $P^*$ y la cantidad de equilibrio $Q^*$.
+3. Calcule el excedente total del consumidor ($CS^*$), el excedente total del productor ($PS^*$) y el excedente social máximo teórico ($TS^*$).
+4. Suponga que en la Ronda 1 del experimento se producen transacciones a los siguientes precios: unidad 1 a $\$11.00$ (entre C1 y V3), unidad 2 a $\$15.00$ (entre C2 y V1), y unidad 3 a $\$13.00$ (entre C4 y V5). Calcule el excedente social realizado en esa ronda y la **eficiencia asignativa** del mercado.
+
+---
+
+# Ejercicio 3 (Nivel Avanzado / Reto): Efecto Dotación, Falla del Teorema de Coase y Burbujas en Mercados de Activos
+
+### Parte A: Efecto Dotación y el Experimento de las Tazas (Kahneman, Knetsch & Thaler, 1990)
+
+El Teorema de Coase (1960) establece que cuando los derechos de propiedad están bien definidos y los costos de transacción son nulos, la asignación final de recursos será invariablemente eficiente e independiente de la asignación inicial de titularidades.
+
+En el célebre experimento de Kahneman, Knetsch y Thaler (1990), se reúne a una cohorte de $N = 40$ estudiantes universitarios. A 20 de ellos elegidos aleatoriamente se les regala una taza oficial de la universidad valorada en la tienda del campus en $\$6.00$, convirtiéndolos en propietarios potenciales vendedores. Los otros 20 estudiantes son asignados como compradores.
+
+1. **Predicción Coaseana Neoclásica:** Si las preferencias individuales por las tazas están distribuidas de manera continua y uniforme e idéntica e independiente entre los dos grupos aleatorios, ¿cuántas tazas deberían cambiar de manos en el equilibrio de mercado competitivo? ¿Cuál debería ser la relación entre la mediana de la disposición a aceptar (WTA, *willingness to accept*) de los vendedores y la disposición a pagar (WTP, *willingness to pay*) de los compradores?
+2. **Resultado Conductual:** En las sesiones experimentales reales, el número de transacciones observadas fue de solo 4 tazas (en lugar de las 10 predichas), la mediana de $WTA$ fue de $\$5.25$ y la mediana de $WTP$ fue de entre $\$2.25$ y $\$2.75$ (ratio $WTA/WTP \approx 2.1$). Demuestre analíticamente cómo la aversión a las pérdidas ($\lambda \approx 2.25$) de la Teoría Prospectiva explica formalmente que:
+   $$\text{WTA} = \lambda \cdot \text{WTP}$$
+3. ¿Cuáles son las consecuencias de este hallazgo para el diseño de licitaciones públicas, la compensación por expropiaciones estatales y la creación de mercados de permisos de emisión transferibles (bonos de carbono)?
+
+### Parte B: Burbujas Especulativas en Mercados Experimentales (Smith, Suchanek & Williams, 1988)
+
+Vernon Smith y sus coautores (1988) diseñaron experimentos de mercados financieros spot donde un activo tiene una vida útil finita de $T = 15$ periodos. Al final de cada periodo $t \in \{1, 2, \dots, 15\}$, el activo paga un dividendo aleatorio $d_t$ extraído de la distribución uniforme discreta $\{0.00, 0.08, 0.28, 0.60\}$, con valor esperado $E[d] = \$0.24$. Al término del periodo 15, el activo se extingue y no tiene valor residual.
+
+1. Calcule el **valor fundamental teórico** $f_t$ del activo al inicio del periodo $t$:
+   $$f_t = (16 - t) \cdot E[d]$$
+   para $t = 1, 5, 10, 15$.
+2. De acuerdo con la Hipótesis de Mercados Eficientes neoclásica (Fama, 1970) y la inducción hacia atrás de teoría de juegos, ¿a qué precio debería transarse el activo en cada periodo $t$?
+3. Describa el fenómeno empírico sistemático descubierto por Smith, Suchanek y Williams (1988) cuando sujetos inexpertos operan en este mercado. ¿Qué sucede con los precios en los periodos 3 al 10 y qué ocurre en los periodos 12 al 15?
+4. ¿Qué tratamiento experimental demostró Vernon Smith que elimina o mitiga sustancialmente la formación de estas burbujas especulativas en el laboratorio? ¿Qué lección aporta esto sobre la regulación macroprudencial de los mercados financieros reales?

@@ -1,0 +1,10 @@
+"modelo","parametro_caso","metrica_1_nombre","metrica_1_valor","metrica_2_nombre","metrica_2_valor","metrica_3_nombre","metrica_3_valor"
+"Curva de Phillips Aumentada","1. Política Neutral (u = 5.0%)","Desempleo Promedio (%)",5,"Inflacion Maxima (%)",2.02,"Aceleracion Inflacionaria (%)",-0.29
+"Curva de Phillips Aumentada","2. Estímulo Continuo (u = 3.5%)","Desempleo Promedio (%)",3.67,"Inflacion Maxima (%)",24.29,"Aceleracion Inflacionaria (%)",22.29
+"Curva de Phillips Aumentada","3. Ciclo Phelps: Boom y Desinflación","Desempleo Promedio (%)",5,"Inflacion Maxima (%)",9.32,"Aceleracion Inflacionaria (%)",0.09
+"Regla de Oro de Acumulacion","Tasa de Ahorro s = 0.1 (Subacumulacion (Dinam. Eficiente))","Capital por trabajador k*",1.41,"Consumo por trabajador c*",1.015,"Brecha r - (n + g)",0.2
+"Regla de Oro de Acumulacion","Tasa de Ahorro s = 0.18 (Subacumulacion (Dinam. Eficiente))","Capital por trabajador k*",3.482,"Consumo por trabajador c*",1.269,"Brecha r - (n + g)",0.0756
+"Regla de Oro de Acumulacion","Tasa de Ahorro s = 0.25 (Subacumulacion (Dinam. Eficiente))","Capital por trabajador k*",5.772,"Consumo por trabajador c*",1.385,"Brecha r - (n + g)",0.032
+"Regla de Oro de Acumulacion","Tasa de Ahorro s = 0.35 (Regla de Oro (Optimo))","Capital por trabajador k*",9.685,"Consumo por trabajador c*",1.439,"Brecha r - (n + g)",0
+"Regla de Oro de Acumulacion","Tasa de Ahorro s = 0.45 (Sobreacumulacion (Inefic. Dinamica))","Capital por trabajador k*",14.257,"Consumo por trabajador c*",1.394,"Brecha r - (n + g)",-0.0178
+"Regla de Oro de Acumulacion","Tasa de Ahorro s = 0.55 (Sobreacumulacion (Inefic. Dinamica))","Capital por trabajador k*",19.414,"Consumo por trabajador c*",1.271,"Brecha r - (n + g)",-0.0291

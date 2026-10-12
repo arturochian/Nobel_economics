@@ -1,0 +1,109 @@
+---
+title: "Guía de Ejercicios Prácticos: Nueva Teoría del Comercio y Nueva Geografía Económica"
+subtitle: "Premio Nobel de Economía 2008: Paul Krugman"
+author: "Nobel_economics Docencia"
+date: "2008-10-13"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta actividad práctica aplicarás los conceptos fundamentales de la **Nueva Teoría del Comercio** (*New Trade Theory*) y la **Nueva Geografía Económica** (*New Economic Geography*) desarrollados por **Paul Krugman**:
+1. Cómo cuantificar y distinguir empíricamente el comercio interindustrial del comercio intraindustrial mediante el **Índice de Grubel-Lloyd**.
+2. Cómo operan los rendimientos crecientes a escala y la preferencia por variedad de **Dixit-Stiglitz** para generar ganancias de bienestar mutuas entre naciones idénticas.
+3. Cómo la interacción entre **fuerzas centrípetas** (encadenamientos y efecto mercado local) y **fuerzas centrífugas** explica la concentración de la producción en megaciudades y clusters industriales cuando los costos de transporte descienden.
+
+---
+
+# Ejercicio 1: Medición del Comercio Intraindustrial con el Índice de Grubel-Lloyd (Nivel Básico)
+
+Considera el intercambio comercial bilateral entre dos economías altamente integradas: **Canadá** y **Estados Unidos**. Analizaremos el flujo comercial en dos industrias manufactureras distintas registradas en millones de dólares anuales:
+
+| Sector | Exportaciones de EE. UU. a Canadá ($X_i$) | Importaciones de EE. UU. desde Canadá ($M_i$) |
+| :--- | :---: | :---: |
+| **Industria A: Vehículos y Autopartes** | 28,000 | 26,000 |
+| **Industria B: Madera y Papel en Bruto** | 1,500 | 18,500 |
+
+El **Índice de Grubel-Lloyd ($GL_i$)** para un sector industrial $i$ mide la proporción del comercio total que corresponde a comercio intraindustrial (intercambio simultáneo de bienes sustitutos diferenciados):
+$$GL_i = 1 - \frac{|X_i - M_i|}{X_i + M_i} = \frac{(X_i + M_i) - |X_i - M_i|}{X_i + M_i}$$
+donde $GL_i \in [0, 1]$ (o expresado en porcentaje de 0% a 100%).
+
+## Preguntas
+
+1. **Cálculo por Industria:**
+   - Calcula el índice de Grubel-Lloyd para la **Industria A** ($GL_A$) y para la **Industria B** ($GL_B$).
+   - Expresa ambos resultados en porcentaje e interpreta económicamente qué porcentaje del volumen comercial total en cada sector corresponde a comercio cruzado intraindustrial y cuánto a comercio unidireccional neto.
+
+2. **Índice Agregado Ponderado:**
+   - Calcula el índice de Grubel-Lloyd promedio ponderado para el conjunto de ambos sectores:
+   $$GL_{agregado} = \frac{\sum_i (X_i + M_i) - \sum_i |X_i - M_i|}{\sum_i (X_i + M_i)}$$
+
+3. **Contraste Teórico:**
+   - ¿Qué teoría clásica del comercio internacional (David Ricardo o Heckscher-Ohlin) explica de forma natural los flujos observados en la **Industria B**? Justifica tu respuesta.
+   - ¿Por qué el modelo de ventajas comparativas tradicional fracasa al intentar explicar el patrón comercial de la **Industria A**, y de qué manera el modelo de Krugman (1979) resuelve esta paradoja?
+
+---
+
+# Ejercicio 2: Amor por la Variedad y Ganancias de Integración de Dixit-Stiglitz (Nivel Intermedio)
+
+En una economía cerrada, los consumidores comparten una función de utilidad con preferencias de elasticidad de sustitución constante (CES) sobre $n$ variedades de un bien manufacturado:
+$$U = \left( \sum_{i=1}^n c_i^{\frac{\sigma - 1}{\sigma}} \right)^{\frac{\sigma}{\sigma - 1}}$$
+donde $\sigma = 3$ es la elasticidad de sustitución entre cualquier par de variedades. El gasto total de cada individuo es su ingreso laboral $w$, el cual gastan equitativamente entre todas las variedades disponibles ($c_i = c$ para todo $i$).
+
+Cada variedad es fabricada por una empresa que opera con costos de producción en unidades de trabajo dados por:
+$$l_i = \alpha + \beta q_i$$
+donde el costo fijo es $\alpha = 8$ horas de trabajo y el requerimiento marginal es $\beta = 2$ horas de trabajo por unidad producida. El salario competitivo está normalizado a $w = 1$.
+
+La fuerza laboral de la economía nacional es $L = 240$ trabajadores.
+
+## Preguntas
+
+1. **Equilibrio de la Firma Individual:**
+   - Demuestra que el precio monopolístico que maximiza beneficios bajo competencia monopolística es $p = \frac{\sigma}{\sigma - 1} \beta w$. Calcula el valor numérico de $p^*$.
+   - Aplicando la condición de libre entrada con beneficios nulos ($\pi_i = 0$), determina la producción de equilibrio por firma $q^*$ y el empleo total por firma $l^*$.
+
+2. **Equilibrio en Autarquía:**
+   - ¿Cuántas firmas y variedades $n_{aut}$ pueden coexistir en la economía cerrada con $L = 240$?
+   - ¿Cuánto consume cada trabajador de cada variedad ($c = q^* / L$)?
+   - Calcula el nivel de utilidad real per cápita del consumidor en autarquía $U_{aut}$.
+
+3. **Integración Comercial en Libre Comercio:**
+   - Supón que la economía nacional se integra comercialmente con un país vecino perfectamente idéntico (misma tecnología, mismos gustos y dotación laboral $L^* = 240$). No existen costos de transporte ni aranceles.
+   - ¿Cuál es el nuevo número total de variedades disponibles para los consumidores en el mercado integrado ($N$)?
+   - ¿Cambia el tamaño óptimo de producción por empresa ($q^*$) o el precio ($p^*$)?
+   - Calcula el nuevo nivel de utilidad de los consumidores $U_{trade}$ y demuestra formalmente que la ganancia porcentual de bienestar viene dada exactamente por:
+   $$\frac{U_{trade}}{U_{aut}} = 2^{\frac{1}{\sigma - 1}}$$
+   - Evalúa numéricamente dicha ganancia para $\sigma = 3$. ¿A qué factor específico de la economía se debe esta ganancia de bienestar?
+
+---
+
+# Ejercicio 3: Fuerzas Centrípetas vs. Centrífugas y Aglomeración Espacial (Nivel Avanzado / Reto)
+
+El modelo Núcleo-Periferia de Krugman (1991) analiza cómo dos regiones idénticas (Región 1 y Región 2) pueden diferenciarse endógenamente en una metrópoli industrial ("el Núcleo") y una zona rural despoblada ("la Periferia").
+
+El modelo cuenta con dos fuerzas opuestas:
+- **Fuerzas Centrípetas (concentración):**
+  1. *Encadenamiento hacia atrás / Efecto Mercado Local:* Las empresas buscan ubicarse donde hay mayor demanda de consumidores para ahorrar costos de flete.
+  2. *Encadenamiento hacia adelante:* Los trabajadores buscan residir donde hay más empresas manufactureras porque el costo de la vida es menor (menor índice de precios de bienes industriales).
+- **Fuerza Centrífuga (dispersión):**
+  - La presencia de agricultores inmóviles en ambas regiones incentiva a algunas empresas a quedarse en la periferia para abastecer a los agricultores locales sin competencia directa.
+
+Los bienes manufacturados se transportan con un costo tipo iceberg de Samuelson: para que 1 unidad de manufactura llegue intacta a la otra región, deben enviarse $T > 1$ unidades.
+
+## Preguntas
+
+1. **Dinámica ante Costos de Transporte Prohibitivos ($T \to \infty$):**
+   - Si los costos de transporte son sumamente elevados, ¿qué distribución espacial de la manufactura ($\lambda$, proporción en la Región 1) es el único equilibrio estable? Explica analíticamente por qué las fuerzas centrípetas colapsan en este escenario.
+
+2. **La Paradoja de la Reducción de Costos de Transporte:**
+   - Históricamente, las mejoras en el transporte (el barco de vapor en el siglo XIX, el ferrocarril, la contenedorización marítima y las autopistas interestatales en el siglo XX) redujeron sustancialmente $T$.
+   - Explica el mecanismo acumulativo (*circular causation*) mediante el cual una reducción de $T$ por debajo del umbral crítico $T_{break}$ desestabiliza el equilibrio simétrico ($\lambda = 0.5$) y conduce a una bifurcación hacia la aglomeración total ($\lambda = 1$ o $\lambda = 0$).
+   - ¿Por qué este fenómeno se describe como una "bifurcación catastrófica" o efecto de discontinuidad?
+
+3. **Aplicación al Mundo Real: De Detroit al Bajío Mexicano o Silicon Valley:**
+   - Analiza un cluster industrial real (por ejemplo, el cluster tecnológico de **Silicon Valley** en California o el cluster automotriz del **Bajío** en México):
+     - Identifica qué elementos de la vida económica real actúan como fuerzas centrípetas contemporáneas (economías externas marshallianas, derrames de conocimiento, mercado laboral especializado).
+     - Identifica qué fuerzas centrífugas contemporáneas (costo prohibitivo de la vivienda, tráfico, congestión de infraestructuras) impiden que el 100% de la actividad nacional se concentre en ese único punto.

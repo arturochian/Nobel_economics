@@ -1,0 +1,118 @@
+---
+title: "Guía de Ejercicios Prácticos: Diseño de Mecanismos y Subastas"
+subtitle: "Premio Nobel de Economía 2007: Leonid Hurwicz, Eric S. Maskin y Roger B. Myerson"
+author: "Nobel_economics Docencia"
+date: "2007-10-15"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# ¿Qué vas a aprender?
+
+En esta actividad práctica aplicarás los conceptos seminales del diseño de mecanismos formulados por **Leonid Hurwicz**, **Eric S. Maskin** y **Roger B. Myerson**:
+1. Cómo calcular los pagos y la regla de pivote de Clarke en un **mecanismo Vickrey-Clarke-Groves (VCG)** para la provisión de un bien público, identificando a los agentes pivotales y probando formalmente por qué la revelación veraz es una estrategia débilmente dominante.
+2. Cómo aplicar el **Principio de Revelación** y el **Teorema de Equivalencia del Ingreso de Myerson (1981)** para caracterizar la estrategia de puja óptima en subastas de primer precio y calcular el ingreso esperado del licitador.
+3. Cómo analizar el **Teorema de Imposibilidad de Myerson-Satterthwaite (1983)** en la negociación bilateral con información asimétrica, cuantificando por qué ningún mecanismo de mercado descentralizado sin subsidio externo puede alcanzar la eficiencia de primer mejor al 100%.
+
+---
+
+# Ejercicio 1: Provisión de un Bien Público y Pagos VCG de Clarke (Nivel Básico)
+
+El ayuntamiento de una comunidad costera evalúa la construcción de un rompeolas de protección contra inundaciones. El costo total de la obra es $C = 150$ mil euros.
+
+Existen tres vecindarios adyacentes ($N = 3$), cada uno representado por una valoración privada $v_i \ge 0$ sobre el beneficio social que el rompeolas reporta a sus residentes:
+- $v_1 = 70$ mil euros.
+- $v_2 = 50$ mil euros.
+- $v_3 = 45$ mil euros.
+
+El ayuntamiento implementa el **mecanismo Vickrey-Clarke-Groves (VCG)** bajo la regla pivote de Clarke (*Clarke Pivot Rule*) para decidir si construye la obra y asignar las contribuciones financieras.
+
+Cada vecindario envía un reporte declarado $\hat{v}_i$. La regla de decisión es construir el rompeolas si $\sum_{i=1}^3 \hat{v}_i \ge C$.
+
+### Preguntas:
+
+1. **Eficiencia Social y Decisión del Proyecto:**
+   - Si los tres vecindarios reportan la verdad ($\hat{v}_i = v_i$), calcula el excedente social total y determina si es eficiente ejecutar la obra.
+   - ¿Se construiría el rompeolas en ausencia de alguno de los tres vecindarios? Es decir, calcula $\sum_{j \ne i} v_j$ para cada $i \in \{1, 2, 3\}$.
+
+2. **Cálculo de Pagos e Impuestos de Clarke:**
+   - Define formalmente la fórmula del pago de Clarke $p_i$ para cada vecindario cuando el proyecto se aprueba:
+     $$p_i = \max\left(0, C - \sum_{j \ne i} \hat{v}_j\right)$$
+   - Calcula el pago numérico exacto $p_1, p_2$ y $p_3$.
+   - Determina la utilidad neta $u_i = v_i - p_i$ para cada uno de los tres vecindarios.
+   - Identifica cuáles vecindarios son **pivotales** y explica qué significa económicamente ser pivotal.
+   - Calcula la recaudación total del ayuntamiento $\sum_{i=1}^3 p_i$. ¿Cubre esta suma el costo total $C = 150$? ¿Qué fenómeno presupuestario se manifiesta?
+
+3. **Incentivos a la Manipulación Estratégica (DSIC):**
+   - Supón que el Vecindario 2 decide mentir reportando $\hat{v}_2 = 10$ para reducir su contribución al mínimo. ¿Se aprueba el proyecto? ¿Cuál es la nueva utilidad neta de 2? Compara con su utilidad bajo la verdad.
+   - Supón que el Vecindario 3 tiene una valoración real $v_3 = 20$ en lugar de 45 (mientras $v_1=70$ y $v_2=50$). Si dice la verdad $\hat{v}_3 = 20$, ¿se hace el proyecto? Si miente reportando $\hat{v}_3 = 35$ para forzar la aprobación, ¿cuál sería su pago y su utilidad neta?
+   - Concluye por qué la revelación veraz es una estrategia débilmente dominante en VCG.
+
+---
+
+# Ejercicio 2: El Teorema de Equivalencia del Ingreso de Myerson (Nivel Intermedio)
+
+Una entidad financiera subasta un paquete de activos inmobiliarios. Participan $N = 3$ postores neutrales al riesgo. Cada postor $i$ posee una valoración privada $v_i$ extraída de manera independiente de una distribución uniforme en el intervalo $[0, 120]$ mil euros:
+$$v_i \overset{iid}{\sim} \mathcal{U}[0, 120], \quad F(v) = \frac{v}{120}, \quad f(v) = \frac{1}{120}$$
+
+El vendedor no tiene costo de reserva ($r = 0$) y busca una asignación eficiente.
+
+### Preguntas:
+
+1. **Subasta de Segundo Precio (SPA / Vickrey):**
+   - Explica por qué en una subasta de segundo precio la estrategia dominante es pujar la verdadera valoración: $b_i^{\text{SPA}}(v_i) = v_i$.
+   - Demuestra que el precio esperado pagado por el ganador es el valor esperado de la segunda estadística de orden $\mathbb{E}[v_{(2)}]$.
+   - Sabiendo que para una uniforme en $[0, \bar{v}]$, el valor esperado de la $k$-ésima estadística de orden descendente (donde $k=1$ es el máximo) es $\mathbb{E}[v_{(k)}] = \frac{N + 1 - k}{N + 1} \bar{v}$, calcula el ingreso esperado del vendedor $\mathbb{E}[R^{\text{SPA}}]$.
+
+2. **Deducción de la Puja en Subasta de Primer Precio (FPA):**
+   - En una subasta de primer precio, los postores sombrean su postura (*bid shading*). Por el Teorema de Equivalencia del Ingreso de Myerson (1981), el pago esperado de un postor con tipo $v$ debe ser idéntico en ambos formatos:
+     $$b^{\text{FPA}}(v) \cdot \operatorname{Pr}(\text{ganar} \mid v) = \mathbb{E}\left[\max_{j \ne i} v_j \cdot \mathbf{1}_{\{\max v_j < v\}}\right]$$
+   - Demuestra formalmente que la función simétrica y estrictamente creciente de puja es:
+     $$b^{\text{FPA}}(v) = \frac{N - 1}{N} v$$
+   - Calcula la puja explícita para este mercado particular y evalúa la postura de un agente con $v = 90$ mil euros.
+   - Demuestra algebraicamente que el ingreso esperado del vendedor $\mathbb{E}[R^{\text{FPA}}] = \mathbb{E}[b(v_{(1)})]$ es exactamente igual al obtenido en la subasta de segundo precio.
+
+3. **Subasta de "Todos Pagan" (*All-Pay Auction*):**
+   - En concursos de patentes o cabildeo político (*lobbying*), todos los participantes incurren en costos irrevocables independientemente de quién obtenga el premio.
+   - Utilizando la condición de equivalencia del ingreso de Myerson, deduce la función de puja en equilibrio $b^{\text{AllPay}}(v)$.
+   - Verifica que el ingreso esperado agregado del recaudador $\sum_{i=1}^N \mathbb{E}[b^{\text{AllPay}}(v_i)]$ coincide con $\mathbb{E}[R^{\text{SPA}}]$.
+
+---
+
+# Ejercicio 3: El Teorema de Imposibilidad de Myerson-Satterthwaite (Nivel Avanzado / Reto)
+
+Considera una negociación bilateral (*bilateral trade*) entre un propietario único (Vendedor, $S$) y un potencial adquirente (Comprador, $B$) sobre una licencia de patente tecnológica.
+- El costo de oportunidad del vendedor es $c \sim \mathcal{U}[0, 1]$.
+- La valoración del comprador es $v \sim \mathcal{U}[0, 1]$.
+- Ambas partes son neutrales al riesgo e independientes.
+- El comercio es socialmente eficiente si y solo si $v \ge c$.
+
+El célebre teorema de **Myerson y Satterthwaite (1983)** establece que en cualquier problema de intercambio bilateral con tipos continuos solapados, **es imposible diseñar un mecanismo que sea simultáneamente:**
+1. **Eficiente ex-post** (el intercambio ocurre siempre que $v > c$).
+2. **Compatible con incentivos en equilibrio bayesiano** (BIC).
+3. **Individualmente racional en la etapa interina** (IIR, ninguna parte espera una pérdida neta al participar).
+4. **Presupuestariamente equilibrado** (sin subsidios externos permanentes, $p_B \le p_S$).
+
+### Preguntas:
+
+1. **El Fracaso del Mecanismo VCG en Comercio Bilateral:**
+   - Plantea el mecanismo VCG para este entorno donde el comercio eficiente ocurre si $v \ge c$.
+   - Muestra que bajo la regla VCG que garantiza racionalidad individual, el comprador paga el valor mínimo admisible para comerciar ($p_B = c$) y el vendedor recibe el valor máximo ($p_S = v$).
+   - Demuestra que el mecanismo VCG incurre en un déficit presupuestario sistemático:
+     $$\text{Déficit} = \mathbb{E}[p_S - p_B \mid v \ge c] > 0$$
+   - Calcula el valor esperado de este subsidio estatal necesario para que VCG funcione.
+
+2. **El Mecanismo de Ofertas Selladas Divididas de Chatterjee y Samuelson (1983):**
+   - Supón un mecanismo directo sin subsidio externo donde $B$ ofrece un precio $p_B$ y $S$ pide $p_S$. Si $p_B \ge p_S$, comercian al precio intermedio $P = \frac{1}{2}(p_B + p_S)$. Si no, no hay comercio.
+   - En el equilibrio lineal de Nash-Bayes:
+     $$p_B(v) = \frac{2}{3} v + \frac{1}{12}, \qquad p_S(c) = \frac{2}{3} c + \frac{1}{4}$$
+   - Demuestra la condición bajo la cual ocurre el intercambio: prueba que $p_B(v) \ge p_S(c)$ equivale a:
+     $$v - c \ge \frac{1}{4}$$
+   - Representa gráficamente en el espacio $(c, v) \in [0, 1]^2$ el área de comercio eficiente ($v \ge c$) frente al área de comercio efectivo bajo este mecanismo ($v \ge c + 1/4$).
+   - Demuestra que la probabilidad de comercio cae de $1/2$ (eficiente) a $9/32$.
+
+3. **Pérdida de Eficiencia y la Cota de Myerson:**
+   - Calcula la pérdida de excedente social esperada generada por la incapacidad de comerciar cuando $0 \le v - c < 1/4$.
+   - Explica por qué Myerson y Satterthwaite concluyeron que el "regateo" y las fricciones contractuales en el mundo real no son fallas de irracionalidad psicológica, sino una consecuencia matemática inevitable de la asimetría de información y los incentivos.

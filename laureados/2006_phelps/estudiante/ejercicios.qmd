@@ -1,0 +1,101 @@
+---
+title: "Guía de Ejercicios Prácticos: Dinámica Intertemporal, Curva de Phillips y Regla de Oro"
+subtitle: "Premio Nobel de Economía 2006: Edmund S. Phelps"
+author: "Nobel_economics Docencia"
+date: "2026-10-12"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# Introducción
+
+El Premio Nobel de Economía de 2006 otorgado a **Edmund S. Phelps** reconoció sus aportes pioneros para desentrañar las compensaciones intertemporales en la macroeconomía:
+- En política monetaria y empleo, Phelps demostró que las decisiones sobre salarios y precios incorporan expectativas de inflación, lo que invalida cualquier intento sistemático de explotar una relación estable a largo plazo entre inflación y desempleo.
+- En política de acumulación y crecimiento, formuló la **Regla de Oro de la Acumulación de Capital**, definiendo con precisión el nivel de ahorro e inversión que maximiza el bienestar de consumo de todas las generaciones a lo largo del tiempo.
+
+Esta guía presenta tres ejercicios progresivos para consolidar el dominio analítico, conceptual y cuantitativo de estos dos pilares de la macroeconomía moderna.
+
+---
+
+# Ejercicio 1: Derivación de la Tasa Natural de Desempleo y la Hipótesis Aceleracionista (Nivel Básico)
+
+Considera una economía donde la dinámica de la inflación efectiva ($\pi_t$) sigue la especificación de la Curva de Phillips Aumentada por Expectativas de Phelps (1967, 1968):
+
+$$\pi_t = \pi_t^e - \beta (u_t - u_n) + \varepsilon_t$$
+
+donde $u_t$ es la tasa de desempleo observada, $u_n = 5.5\%$ es la tasa natural de desempleo, $\beta = 0.50$, y $\varepsilon_t$ es una perturbación aleatoria de oferta no autocorrelacionada con media cero ($\mathbb{E}[\varepsilon_t] = 0$).
+
+1. **Equilibrio de Largo Plazo y Verticalidad:**
+   - Define qué se entiende formalmente por equilibrio macroeconómico de largo plazo o estado estacionario en términos de las expectativas de inflación de los agentes económicos ($\pi_t^e$).
+   - Demuestra algebraicamente por qué a largo plazo la tasa de desempleo de la economía debe ser exactamente igual a $u_n$, con independencia de si la inflación anual es del $2\%$, del $10\%$ o del $50\%$. ¿Qué implicancia tiene esto para la pendiente de la Curva de Phillips de largo plazo en el plano $(u, \pi)$?
+
+2. **La Espiral Aceleracionista bajo Expectativas Adaptativas:**
+   - Supón que los agentes forman sus expectativas de acuerdo a una regla adaptativa estática con rezago perfecto:
+     $$\pi_t^e = \pi_{t-1}$$
+   - Si el gobierno o el banco central adopta un programa de estímulo monetario permanente con el objetivo de fijar y mantener el desempleo en $u_t = 3.5\%$ para todo $t \ge 1$ (partiendo de $\pi_0 = 2\%$ en $t=0$), calcula analíticamente la tasa de inflación $\pi_t$ para los períodos $t = 1, 2, 3, 4, 5$ asumiendo $\varepsilon_t = 0$.
+   - ¿Qué le ocurre a la variación de la inflación ($\Delta \pi_t = \pi_t - \pi_{t-1}$)? Explica por qué este modelo predice una espiral inflacionaria aceleracionista en lugar de un aumento de precios de una sola vez.
+
+3. **Compensación Intertemporal (*Intertemporal Tradeoff*):**
+   - A la luz de los resultados anteriores, explica con tus propias palabras por qué la decisión de reducir el desempleo hoy por debajo de la tasa natural constituye un problema de compensación intertemporal y no una ganancia gratuita de empleo.
+
+---
+
+# Ejercicio 2: La Regla de Oro de Acumulación y el Dilema Intergeneracional (Nivel Intermedio)
+
+Considera el modelo de crecimiento neoclásico de Solow-Swan en tiempo continuo. La función de producción agregada en términos por trabajador efectivo $k = K / (A L)$ es Cobb-Douglas:
+
+$$y = f(k) = k^\alpha, \quad \text{con } \alpha = 0.30$$
+
+Los parámetros demográficos y tecnológicos de la economía son:
+- Tasa de crecimiento poblacional: $n = 0.01$ ($1.0\%$ anual).
+- Tasa de progreso técnico exógeno: $g = 0.02$ ($2.0\%$ anual).
+- Tasa de depreciación del capital físico: $\delta = 0.05$ ($5.0\%$ anual).
+- Tasa de inversión y ahorro agregada: $s \in (0, 1)$.
+
+1. **Estado Estacionario:**
+   - Escribe la ecuación fundamental de acumulación de capital para $\dot{k}$.
+   - Encuentra la expresión analítica para el stock de capital de estado estacionario $k^*(s)$, el producto por trabajador efectivo $y^*(s)$, y el consumo por trabajador efectivo $c^*(s)$ en función de la tasa de ahorro $s$ y los parámetros del modelo.
+
+2. **Condición de la Regla de Oro:**
+   - Plantea el problema de optimización intergeneracional formulado por Phelps (1961): maximizar el consumo per cápita de estado estacionario $c^*$ eligiendo la tasa de ahorro $s$.
+   - Demuestra formalmente que la condición de primer orden exige que:
+     $$f'(k_{GR}^*) - \delta = n + g$$
+     Interpreta económicamente esta igualdad en términos de la tasa real de rendimiento neto del capital ($r^*$) y la tasa de crecimiento del PIB ($n + g$).
+   - Demuestra que para la función Cobb-Douglas, la tasa de ahorro óptima que alcanza la Regla de Oro es exactamente igual a la elasticidad del producto respecto al capital:
+     $$s_{GR} = \alpha$$
+   - Calcula los valores numéricos exactos de $k_{GR}^*$, $y_{GR}^*$, $c_{GR}^*$ y la tasa de rendimiento neto $r_{GR}^*$.
+
+3. **Eficiencia Dinámica y Transición Intertemporal:**
+   - Supón que la economía se encuentra inicialmente en un estado estacionario con una tasa de ahorro baja $s_0 = 0.15 < s_{GR}$.
+   - Si el gobierno implementa una reforma estructural que eleva permanentemente la tasa de ahorro a la Regla de Oro ($s = 0.30$), describe qué ocurre con el consumo per cápita $c(t)$ en el instante exacto en que entra en vigor la reforma ($t = t_0$).
+   - ¿Qué generación soporta el costo de la reforma y qué generaciones disfrutan de los beneficios? Contrasta esta situación con el caso hipotético en que la economía hubiese comenzado con una tasa de ahorro excesiva $s_0 = 0.50 > s_{GR}$ (ineficiencia dinámica).
+
+---
+
+# Ejercicio 3: Formación de Expectativas, Credibilidad y el Ratio de Sacrificio en la Desinflación (Nivel Avanzado / Reto)
+
+Uno de los debates centrales derivados de las obras de Phelps (1967, 1972) se refiere a los costos económicos de estabilizar una economía tras un período inflacionario.
+
+Supón que una economía ha acumulado una tasa de inflación inicial de $\pi_0 = 10.0\%$, y el banco central decide reducir permanentemente la inflación al objetivo de $\pi^* = 2.0\%$ mediante un programa de contracción monetaria. La relación macroeconómica viene dada por:
+
+$$\pi_t = \pi_t^e - \beta (u_t - u_n), \quad \text{con } \beta = 0.75 \text{ y } u_n = 5.0\%$$
+
+Se define el **Ratio de Sacrificio** ($SR$, *Sacrifice Ratio*) como el desempleo acumulado por encima de la tasa natural necesario para reducir la inflación en un punto porcentual:
+
+$$SR = \frac{\sum_{t=1}^T (u_t - u_n)}{\pi_0 - \pi_T}$$
+
+1. **Desinflación bajo Expectativas Adaptativas (Gradualismo vs. Shock Frío):**
+   - Asume expectativas adaptativas puras con $\pi_t^e = \pi_{t-1}$.
+   - **Estrategia A (Shock Frío / *Cold Turkey*):** El banco central decide alcanzar la meta del $2.0\%$ en un solo año ($T = 1$, con $\pi_1 = 2.0\%$). ¿Qué tasa de desempleo $u_1$ debe inducir la autoridad en ese período? ¿Cuál es el Ratio de Sacrificio de esta estrategia?
+   - **Estrategia B (Gradualismo a 4 años):** La autoridad decide reducir la inflación a razón de $2.0$ puntos por año ($\pi_1 = 8\%$, $\pi_2 = 6\%$, $\pi_3 = 4\%$, $\pi_4 = 2\%$). Calcula la tasa de desempleo requerida en cada uno de los períodos $t = 1, 2, 3, 4$ y el Ratio de Sacrificio total. ¿Depende el ratio de sacrificio de la velocidad de desinflación bajo expectativas adaptativas?
+
+2. **Expectativas Racionales y la Crítica de Credibilidad:**
+   - Supón ahora que los agentes económicos forman expectativas racionales en el sentido de Lucas y Sargent, basadas en toda la información disponible sobre las políticas del banco central:
+     $$\pi_t^e = \mathbb{E}_t[\pi_t \mid \Omega_t]$$
+   - Si el banco central anuncia que la inflación del próximo período será del $2.0\%$, y dicho anuncio goza de **credibilidad perfecta** por parte de hogares, empresas y sindicatos:
+     - ¿Cuánto valdrá $\pi_1^e$?
+     - ¿Qué tasa de desempleo $u_1$ se observará durante el proceso de desinflación?
+     - ¿Cuál es el Ratio de Sacrificio en este escenario?
+   - Explica por qué, de acuerdo a Phelps (1972) y los modelos con microfundamentos de contratos laborales escalonados (Fischer 1977, Taylor 1980), la desinflación rara vez tiene un costo nulo en el mundo real, incluso ante un banco central con reputación intachable.

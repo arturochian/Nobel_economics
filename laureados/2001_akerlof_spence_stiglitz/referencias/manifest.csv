@@ -1,0 +1,9 @@
+id,titulo,doi,url,estado_descarga,licencia
+akerlof1970lemons,"The Market for ""Lemons"": Quality Uncertainty and the Market Mechanism",10.2307/1879431,https://doi.org/10.2307/1879431,solo_enlace,copyright_editorial
+spence1973signaling,"Job Market Signaling",10.2307/1882010,https://doi.org/10.2307/1882010,solo_enlace,copyright_editorial
+spence1974market,"Market Signaling: Informational Transfer in Hiring and Related Screening Processes",10.4159/harvard.9780674598287,https://doi.org/10.4159/harvard.9780674598287,solo_enlace,copyright_editorial
+rothschild1976equilibrium,"Equilibrium in Competitive Insurance Markets: An Essay on the Economics of Imperfect Information",10.2307/1885326,https://doi.org/10.2307/1885326,solo_enlace,copyright_editorial
+stiglitz1981credit,"Credit Rationing in Markets with Imperfect Information",NA,https://www.jstor.org/stable/1802787,solo_enlace,copyright_editorial
+shapiro1984equilibrium,"Equilibrium Unemployment as a Worker Discipline Device",NA,https://www.jstor.org/stable/1804018,solo_enlace,copyright_editorial
+nobel2001scientific,"Markets with Asymmetric Information: Scientific Background on the Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel 2001",NA,https://www.nobelprize.org/uploads/2018/06/advanced-economicsciences2001-1.pdf,descargado,public_domain_nobel
+nobel2001popular,"Information: The Key to Understanding Markets (Popular Science Background 2001)",NA,https://www.nobelprize.org/prizes/economic-sciences/2001/popular-information/,solo_enlace,public_domain_nobel

@@ -1,0 +1,91 @@
+---
+title: "Guía de Ejercicios Prácticos: Consistencia Temporal y Ciclos Económicos Reales"
+subtitle: "Premio Nobel de Economía 2004: Finn E. Kydland y Edward C. Prescott"
+author: "Nobel_economics Docencia"
+date: "2026-10-12"
+format:
+  html:
+    toc: true
+    number-sections: true
+    theme: cosmo
+---
+
+# Introducción
+
+El Premio Nobel de Economía de 2004 otorgado a Finn E. Kydland y Edward C. Prescott marcó un hito fundamental en la macroeconomía contemporánea al introducir dos paradigmas interconectados:
+1. **La consistencia temporal de la política económica (1977):** La interacción entre hacedores de política y agentes racionales que miran hacia adelante demuestra que la discrecionalidad engendra un sesgo inflacionario inevitable, justificando el compromiso institucional y la autonomía de los bancos centrales.
+2. **La teoría de los ciclos económicos reales (RBC, 1982) y el Filtro HP (1997):** La modelación de las fluctuaciones macroeconómicas como respuestas óptimas de equilibrio ante perturbaciones tecnológicas exógenas mediante equilibrio general dinámico estocástico (DSGE).
+
+Esta guía contiene ejercicios estructurados en tres niveles para consolidar tu dominio analítico, cuantitativo y conceptual.
+
+---
+
+# Ejercicio 1: Inconsistencia Temporal y Álgebra del Sesgo Inflacionario (Nivel Básico)
+
+Considera una economía donde el producto agregado $y$ se determina por una curva de oferta de Lucas / curva de Phillips con expectativas:
+$$y = y_n + \alpha (\pi - \pi^e) + \varepsilon$$
+donde $y_n$ es el producto natural, $\pi$ es la inflación efectiva, $\pi^e$ es la inflación esperada por el sector privado, $\alpha > 0$ es la sensibilidad ante sorpresas de precios, y $\varepsilon \sim \mathcal{N}(0, \sigma_\varepsilon^2)$ es una perturbación aleatoria de oferta.
+
+La función de pérdida social de la economía viene dada por:
+$$L(\pi, y) = \frac{1}{2} \pi^2 + \frac{\gamma}{2} (y - k y_n)^2$$
+donde $\gamma > 0$ pondera la preocupación por el empleo relativo a la inflación, y $k > 1$ refleja una meta socialmente ambiciosa provocada por distorsiones estructurales (impuestos sobre el trabajo, poder de mercado de monopolios).
+
+1. **Optimización bajo Discrecionalidad:**
+   - Supón que el banco central decide $\pi$ periodo a periodo una vez que las expectativas $\pi^e$ han sido fijadas por los agentes. Obtén analíticamente la condición de primer orden para $\pi$ tomando $\pi^e$ y $\varepsilon$ como fijos.
+2. **Equilibrio de Expectativas Racionales y Sesgo Inflacionario:**
+   - Asumiendo que los agentes privados forman expectativas racionales ($\pi^e = E[\pi]$) y conocen la regla de decisión del banco central, demuestra que la inflación esperada de equilibrio es:
+     $$\pi^e = \alpha \gamma (k - 1) y_n$$
+   - ¿Cuál es el producto esperado $E[y]$ bajo discrecionalidad? ¿Consigue la autoridad aumentar el empleo o producto medio por encima del nivel natural $y_n$?
+3. **Calibración Numérica y Comparación de Bienestar:**
+   - Considera los siguientes parámetros: $y_n = 100$, $k = 1.04$, $\alpha = 1.2$, $\gamma = 0.8$ y $\sigma_\varepsilon = 2.0$.
+   - Calcula el valor numérico del sesgo inflacionario $\pi^D$.
+   - Calcula la pérdida social esperada bajo una **Regla con Compromiso Creíble** ($\pi = 0$) y compárala con la pérdida social esperada bajo **Discrecionalidad Pura** ($E[L^D]$).
+4. **La Tentación de Defraudar (Cheating):**
+   - Si los agentes confían en que el gobierno cumplirá la regla ($\pi^e = 0$), ¿cuál sería la inflación óptima si el gobierno decide romper su promesa de forma sorpresiva?
+   - Demuestra numéricamente que la pérdida social de este periodo de engaño es inferior a la del compromiso, explicando por qué esta tentación es la raíz de la inconsistencia temporal.
+
+---
+
+# Ejercicio 2: Delegación Institucional y el Banquero Central Conservador de Rogoff (Nivel Intermedio)
+
+Para superar el dilema descubierto por Kydland y Prescott (1977), Kenneth Rogoff (1985) propuso delegar el manejo monetario a un banquero central independiente cuyas preferencias por la estabilidad del producto difieran de las de la sociedad en general.
+
+Supón que las preferencias de la sociedad tienen un peso $\gamma_s = 1.0$, pero el gobierno nombra a un banquero central con función de pérdida:
+$$L_b(\pi, y) = \frac{1}{2} \pi^2 + \frac{\gamma_b}{2} (y - k y_n)^2$$
+con $\gamma_b < \gamma_s$.
+
+1. **Reacción del Banquero Conservador:**
+   - Deduce la tasa de inflación $\pi(\varepsilon)$ elegida discrecionalmente por este banquero central una vez formadas las expectativas racionales $\pi^e$.
+2. **Evaluación de Pérdida bajo la Óptica Social:**
+   - La sociedad evalúa el bienestar final con sus propias preferencias ($\gamma_s$). Escribe la pérdida social esperada $E[L_s]$ en función de $\gamma_b$, $\gamma_s$, $k$, $y_n$, $\alpha$ y $\sigma_\varepsilon^2$.
+3. **El Dilema entre Credibilidad y Flexibilidad:**
+   - Analiza los dos componentes del bienestar social:
+     a) El costo del sesgo inflacionario promedio.
+     b) La variabilidad del producto frente a choques de oferta $\varepsilon$.
+   - ¿Qué le sucede al sesgo inflacionario cuando $\gamma_b \to 0$ (un halcón monetario ultra-conservador)? ¿Qué le sucede a la capacidad de absorber choques de oferta reales?
+   - Explica conceptualmente por qué la solución óptima de segundo mejor exige que $\gamma_b^* \in (0, \gamma_s)$, justificando el diseño institucional de los bancos centrales con mandatos de metas de inflación.
+
+---
+
+# Ejercicio 3: Descomposición Tendencia-Ciclo con Filtro HP y Hechos Estilizados RBC (Nivel Avanzado / Reto)
+
+El programa de investigación de Kydland y Prescott (1982, 1997) revolucionó la medición empírica al proponer el filtro Hodrick-Prescott y contrastar los momentos estadísticos de equilibrio general dinámico estocástico (DSGE).
+
+1. **Derivación Matricial del Filtro Hodrick-Prescott:**
+   - El filtro HP resuelve el problema de optimización:
+     $$\min_{\{\tau_t\}_{t=1}^T} \left\{ \sum_{t=1}^T (y_t - \tau_t)^2 + \lambda \sum_{t=2}^{T-1} \left[ (\tau_{t+1} - \tau_t) - (\tau_t - \tau_{t-1}) \right]^2 \right\}$$
+   - Define la matriz de segundas diferencias $D$ de dimensión $(T-2) \times T$.
+   - Demuestra que en notación matricial el problema se formula como:
+     $$\min_{\tau} \ (y - \tau)'(y - \tau) + \lambda \tau' D' D \tau$$
+   - Obtén las condiciones de primer orden y deduce la solución analítica cerrada:
+     $$\tau = \left( I_T + \lambda D' D \right)^{-1} y$$
+2. **Sensibilidad del Parámetro de Suavizamiento $\lambda$:**
+   - ¿Qué forma adopta la serie de tendencia estimada $\tau$ cuando $\lambda \to 0$?
+   - ¿Qué forma adopta $\tau$ cuando $\lambda \to \infty$?
+   - ¿Por qué Hodrick y Prescott fijaron $\lambda = 1600$ para datos trimestrales y cómo se relaciona esto con la duración habitual del ciclo de negocios (4 a 8 años)?
+3. **Hechos Estilizados del Modelo RBC:**
+   - En las simulaciones de Kydland y Prescott (1982), así como en los datos históricos observados:
+     a) La inversión es sustancialmente más volátil que el producto ($\sigma_I / \sigma_Y \approx 3.0 - 4.0$).
+     b) El consumo es significativamente más suave que el producto ($\sigma_C / \sigma_Y < 1.0$).
+     c) Las horas trabajadas y la productividad media son procíclicas.
+   - Explica desde los microfundamentos de la teoría RBC (sustitución intertemporal del consumo y del ocio, y el mecanismo de gestación del capital *time-to-build*) los mecanismos económicos que originan estos hechos empíricos.

@@ -1,0 +1,9 @@
+Modelo,Escenario,Parametro_Clave,Num_Variedades,Salario_Nominal_R1,Salario_Real_R1,Regimen_Espacial_Comercial
+Comercio (1979),Autarquía País Pequeño,L = 50,3.125,1,1.0965066518298248,Mercado cerrado
+Comercio (1979),Autarquía País Mediano,L = 100,6.25,1,1.3815118119901448,Mercado cerrado
+Comercio (1979),Integración 2 Países,L_global = 200,12.5,1,1.7405958126047918,Comercio intraindustrial pleno (+26% U)
+Comercio (1979),Integración 4 Países,L_global = 400,25,1,2.1930133036596495,Comercio intraindustrial pleno (+58% U)
+Geografía (1991),Transporte Alto (T=2.10),T = 2.10,NA,1,0.9377230221983879,Dispersión simétrica estable
+Geografía (1991),Transporte Crítico (T=1.65),T = 1.65,NA,1,0.944916388539885,Umbral de bifurcación catastrófica
+Geografía (1991),Transporte Bajo Simétrico (T=1.25),T = 1.25,NA,1,0.965620749772301,Simetría inestable (atractor centrípeto)
+Geografía (1991),Transporte Bajo Núcleo (T=1.25),"T = 1.25, lambda=0.99",NA,0.99996268899183,0.9993795757919122,Aglomeración completa Núcleo-Periferia

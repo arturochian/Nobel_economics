@@ -1,0 +1,80 @@
+---
+title: "Guía de Ejercicios Prácticos: Volatilidad ARCH y Cointegración de Series de Tiempo"
+subtitle: "Premio Nobel de Economía 2003: Robert F. Engle III y Clive W. J. Granger"
+author: "Nobel_economics Docencia"
+date: "2026-10-12"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# Introducción
+
+El Premio Nobel de Economía de 2003 galardonó a Robert F. Engle III y a Clive W. J. Granger por desarrollar las metodologías matemáticas que revolucionaron el tratamiento empírico de las series temporales económicas y financieras:
+- **Robert F. Engle:** Métodos para analizar series con volatilidad cambiante en el tiempo (modelos ARCH y GARCH).
+- **Clive W. J. Granger:** Métodos para analizar series con tendencias comunes (regresión espuria, cointegración y modelos de corrección de error).
+
+A través de esta guía resolverás ejercicios diseñados para poner a prueba tu comprensión teórica y cuantitativa de estas herramientas fundamentales.
+
+---
+
+# Ejercicio 1: Dinámica de Volatilidad ARCH/GARCH y Gestión de Riesgo Financiero (Nivel Básico)
+
+Considera un activo financiero cuyos retornos diarios $r_t$ siguen un proceso con media cero y perturbaciones con heterocedasticidad condicional regidas por un modelo **GARCH(1,1)**:
+$$r_t = \sigma_t z_t, \quad z_t \sim \text{i.i.d. } \mathcal{N}(0, 1)$$
+$$\sigma_t^2 = \omega + \alpha r_{t-1}^2 + \beta \sigma_{t-1}^2$$
+con parámetros calibrados: $\omega = 0.05$, $\alpha = 0.15$ y $\beta = 0.80$.
+
+1. **Varianza Incondicional y Condición de Estacionariedad:**
+   - Verifica analíticamente si el proceso cumple la condición de estacionariedad débil en varianza.
+   - Calcula el valor exacto de la varianza incondicional de largo plazo $\sigma^2 = E[\sigma_t^2]$ y la correspondiente desviación estándar incondicional anualizada (asumiendo 252 días hábiles de negociación).
+2. **Actualización Condicional de la Volatilidad:**
+   - Supón que en el día $t-1$ la varianza condicional fue igual a la varianza de largo plazo ($\sigma_{t-1}^2 = \sigma^2$), pero al cierre del mercado ocurre un colapso sorpresivo con un retorno extremo $r_{t-1} = -3.5\%$.
+   - Calcula la varianza condicional proyectada para el día siguiente $\sigma_t^2$ y su desviación estándar $\sigma_t$.
+3. **Cálculo de Valor en Riesgo (Value at Risk, VaR):**
+   - Una mesa de dinero posee un portafolio de 10 millones de dólares. Calcula el **VaR al 99% a 1 día** bajo dos supuestos alternativos:
+     a) Un modelo ingenuo que asume volatilidad constante fijada en la desviación estándar incondicional $\sigma$.
+     b) El modelo dinámico GARCH que incorpora la varianza condicional actualizada $\sigma_t$ calculada en el inciso anterior.
+   - Discute por qué el modelo de varianza fija deja a la institución financiera peligrosamente descapitalizada tras un shock de mercado.
+
+---
+
+# Ejercicio 2: De la Regresión Espuria a la Cointegración de Engle-Granger (Nivel Intermedio)
+
+Un analista júnior de inversiones presenta a su comité una regresión estimada por Mínimos Cuadrados Ordinarios entre el precio de una acción tecnológica $Y_t$ y el índice de ventas de una compañía de comercio exterior $X_t$ a lo largo de $T = 300$ periodos:
+$$Y_t = \hat{\beta}_0 + \hat{\beta}_1 X_t + \hat{e}_t$$
+El reporte exhibe los siguientes estadísticos de salida:
+- Coeficiente de determinación: $R^2 = 0.74$.
+- Estadístico $t$ de Student para $\hat{\beta}_1$: $t = 12.45$ ($p\text{-valor} < 0.0001$).
+- Estadístico de Durbin-Watson: $DW = 0.18$.
+
+1. **Detección de Espuriedad (Regla de Granger-Newbold 1974):**
+   - ¿Qué anomalía evidente revelan la comparación entre el $R^2$ y el estadístico $DW$? Explica conceptualmente por qué $DW \to 0$ es un síntoma inequívoco de que los residuos $\hat{e}_t$ contienen una raíz unitaria.
+2. **Procedimiento Bipaso de Engle-Granger (1987):**
+   - Describe con precisión los dos pasos que el analista debe ejecutar para demostrar de manera rigurosa si existe una auténtica relación económica de cointegración entre $Y_t$ y $X_t$.
+   - ¿Por qué no es válido emplear los valores críticos estándar de la tabla de Dickey-Fuller cuando se realiza la prueba de raíz unitaria sobre los residuos estimados $\hat{e}_t$?
+3. **Diferenciación vs. Cointegración:**
+   - Si el analista simplemente diferencia ambas variables ($\Delta Y_t$ sobre $\Delta X_t$), ¿qué problema de especificación económica surge si en realidad ambas series compartían una tendencia estocástica común?
+
+---
+
+# Ejercicio 3: Modelos de Corrección de Error (VECM) y Arbitraje Cuantitativo (Nivel Avanzado / Reto)
+
+Dos activos energéticos (por ejemplo, petróleo Brent $P_t^B$ y petróleo WTI $P_t^W$, medidos en logaritmos) exhiben una relación de cointegración con vector $(1, -1)'$, reflejando la paridad de arbitraje físico de largo plazo:
+$$z_t = \ln(P_t^B) - \ln(P_t^W)$$
+donde $z_t \sim I(0)$ representa el diferencial o *spread* de largo plazo con media normalizada a cero.
+
+La dinámica conjunta está descrita por el siguiente Vector de Corrección de Error (VECM bivariado):
+$$\Delta \ln(P_t^B) = c_B + \alpha_B z_{t-1} + \gamma_B \Delta \ln(P_{t-1}^B) + \delta_B \Delta \ln(P_{t-1}^W) + \varepsilon_t^B$$
+$$\Delta \ln(P_t^W) = c_W + \alpha_W z_{t-1} + \gamma_W \Delta \ln(P_{t-1}^B) + \delta_W \Delta \ln(P_{t-1}^W) + \varepsilon_t^W$$
+con coeficientes de ajuste estimados: $\alpha_B = -0.30$ y $\alpha_W = +0.20$.
+
+1. **Mecanismo Gravitatorio y Velocidad de Ajuste:**
+   - Supón que en el periodo $t-1$ una disrupción logística transitoria dispara el precio del Brent por encima del WTI, generando un desvío positivo en el spread: $z_{t-1} = +0.10$ (+10%).
+   - Interpreta los signos y magnitudes de $\alpha_B = -0.30$ y $\alpha_W = +0.20$. ¿Cómo ajusta cada precio en el periodo $t$ para restaurar el equilibrio de largo plazo?
+   - Demuestra que el diferencial agregado $z_t$ converge establemente a cero en ausencia de nuevos choques.
+2. **Exogeneidad Débil:**
+   - Si en una estimación alternativa se obtuviera $\alpha_W = 0$, ¿qué implicación económica tendría para el papel del mercado WTI como líder o formador de precios (*price discovery*)?
+3. **Estrategia Cuantitativa de Pairs Trading:**
+   - Diseña conceptualmente una regla de inversión cuantitativa sistemática para un fondo de cobertura (*hedge fund*) que tome posiciones largas y cortas aprovechando las propiedades estadísticas del término de corrección de error.

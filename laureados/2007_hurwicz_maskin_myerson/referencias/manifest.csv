@@ -1,0 +1,9 @@
+id,titulo,doi,url,estado_descarga,licencia
+hurwicz1972informationally,"On Informationally Decentralized Systems",NA,https://books.google.com/books?id=U3hFAQAAIAAJ,solo_enlace,copyright_editorial
+hurwicz1973design,"The Design of Mechanisms for Resource Allocation",NA,https://www.jstor.org/stable/1817047,solo_enlace,copyright_editorial
+myerson1979incentive,"Incentive Compatibility and the Bargaining Problem",10.2307/1912346,https://doi.org/10.2307/1912346,solo_enlace,copyright_editorial
+myerson1981optimal,"Optimal Auction Design",10.1287/moor.6.1.58,https://doi.org/10.1287/moor.6.1.58,solo_enlace,copyright_editorial
+maskin1999nash,"Nash Equilibrium and Welfare Optimality",10.1111/1467-937X.00076,https://doi.org/10.1111/1467-937X.00076,solo_enlace,copyright_editorial
+myerson1983efficient,"Efficient Mechanisms for Bilateral Trading",10.1016/0022-0531(83)90048-0,https://doi.org/10.1016/0022-0531(83)90048-0,solo_enlace,copyright_editorial
+nobel2007scientific,"Mechanism Design Theory: Scientific Background on the Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel 2007",NA,https://www.nobelprize.org/uploads/2018/06/advanced-economicsciences2007.pdf,descargado,public_domain_nobel
+nobel2007popular,"How Mechanisms Can Help Solve Economic Problems: Popular Science Background on the Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel 2007",NA,https://www.nobelprize.org/uploads/2018/06/popular-economicsciences2007.pdf,descargado,public_domain_nobel

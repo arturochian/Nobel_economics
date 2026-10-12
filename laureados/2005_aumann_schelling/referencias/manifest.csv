@@ -1,0 +1,11 @@
+id,titulo,doi,url,estado_descarga,licencia
+schelling1960strategy,"The Strategy of Conflict",NA,https://www.hup.harvard.edu/books/9780674840317,solo_enlace,copyright_editorial
+schelling1969models,"Models of Segregation",NA,https://www.jstor.org/stable/1823701,solo_enlace,copyright_editorial
+schelling1971dynamic,"Dynamic Models of Segregation",10.1080/0022250X.1971.9989794,https://doi.org/10.1080/0022250X.1971.9989794,solo_enlace,copyright_editorial
+schelling1978micromotives,"Micromotives and Macrobehavior",NA,https://wwnorton.com/books/9780393329469,solo_enlace,copyright_editorial
+aumann1959acceptable,"Acceptable Points in General Cooperative n-Person Games",NA,https://www.jstor.org/stable/j.ctt1b9x18d.18,solo_enlace,copyright_editorial
+aumann1974subjectivity,"Subjectivity and Correlation in Randomized Strategies",10.1016/0304-4068(74)90037-8,https://doi.org/10.1016/0304-4068(74)90037-8,solo_enlace,copyright_editorial
+aumann1976agreeing,"Agreeing to Disagree",10.1214/aos/1176343654,https://doi.org/10.1214/aos/1176343654,solo_enlace,copyright_editorial
+aumann1981survey,"Survey of Repeated Games",NA,https://books.google.com/books?id=f_HqAAAAMAAJ,solo_enlace,copyright_editorial
+nobel2005scientific,"Robert Aumann’s and Thomas Schelling’s Contributions to Game Theory: Analyses of Conflict and Co-operation",NA,https://www.nobelprize.org/uploads/2018/06/advanced-economicsciences2005.pdf,descargado,public_domain_nobel
+nobel2005popular,"Conflict and Cooperation: Game Theory in Real Life",NA,https://www.nobelprize.org/uploads/2018/06/popular-economicsciences2005.pdf,descargado,public_domain_nobel
