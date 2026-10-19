@@ -24,7 +24,7 @@ ui <- page_sidebar(
   ),
   card(
     card_header("Desigualdad y salida de la agricultura"),
-    plotOutput("grafico", alt = "Dos líneas muestran la participación agrícola descendente y el Gini simulado."),
+    plotOutput("grafico"),
     uiOutput("lectura")
   ),
   card(

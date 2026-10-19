@@ -28,7 +28,7 @@ ui <- fluidPage(
       helpText("Nivel: ilustrativa. Los parámetros no fueron estimados con datos reales.")
     ),
     mainPanel(
-      plotOutput("trayectoria", alt = "Trayectoria simulada del ingreso alrededor de su equilibrio"),
+      plotOutput("trayectoria"),
       uiOutput("diagnostico"),
       div(class = "explica",
           h4("¿Qué estoy viendo?"),

@@ -54,17 +54,15 @@
 | **1975** | **Leonid Vitaliyevich Kantorovich, Tjalling C. Koopmans** | **1** | **completo** | **completa** | [1975_kantorovich_koopmans](file:///laureados/1975_kantorovich_koopmans/) |
 | **1974** | **Gunnar Myrdal, Friedrich August von Hayek** | **1** | **completo** | **ilustrativa** | [1974_myrdal_hayek](file:///laureados/1974_myrdal_hayek/) |
 | **1972** | **Sir John R. Hicks, Kenneth J. Arrow** | **1** | **completo** | **completa** | [1972_hicks_arrow](file:///laureados/1972_hicks_arrow/) |
-| **1971** | **Simon Kuznets** | **2** | **web** | **ilustrativa** | [1971_kuznets](../laureados/1971_kuznets/) |
-| **1970** | **Paul A. Samuelson** | **2** | **web** | **ilustrativa** | [1970_samuelson](../laureados/1970_samuelson/) |
-| **1969** | **Ragnar Frisch, Jan Tinbergen** | **2** | **web** | **ilustrativa** | [1969_frisch_tinbergen](../laureados/1969_frisch_tinbergen/) |
+| **1971** | **Simon Kuznets** | **2** | **completo** | **ilustrativa** | [1971_kuznets](file:///laureados/1971_kuznets/) |
+| **1970** | **Paul A. Samuelson** | **2** | **completo** | **ilustrativa** | [1970_samuelson](file:///laureados/1970_samuelson/) |
+| **1969** | **Ragnar Frisch, Jan Tinbergen** | **2** | **completo** | **ilustrativa** | [1969_frisch_tinbergen](file:///laureados/1969_frisch_tinbergen/) |
 
 
 *Estados: `pendiente`, `referencias`, `replicado`, `web`, `completo`.*
 
-## Estado de la web
+## Estado de la web y Apps Interactivas (Shiny)
 
-- Primera versión estática construida desde el contenido disponible.
-- Incluye portada con línea de tiempo, búsqueda y filtros; páginas de ficha; Temas; Metodologías; Acerca; modo claro/oscuro; figuras de replicación; y despliegue automatizado en GitHub Pages.
-- Las fichas existentes fuera del catálogo se incorporan durante el build. Las entradas del catálogo sin ficha se muestran como contenido en preparación.
-- La app Shiny de 2026 se enlaza a sus instrucciones locales. Queda pendiente exportarla con `shinylive` para incrustarla en GitHub Pages.
-- La línea de tiempo ya dispone de ficha para todos los años 1969–2026. Las nuevas entregas de 1969–1971 permanecen en estado `web` hasta ejecutar R, renderizar Quarto y probar sus apps Shiny en un entorno con R instalado.
+- **Colección completa:** Los 58 años (1969–2026) cuentan con ficha, referencias, replicación en R y aplicación interactiva Shiny operativa en `laureados/<slug>/shiny/app.R`.
+- **Verificación en R:** Las 58 aplicaciones Shiny fueron validadas y certificadas con `scripts/verificar_shiny.R` utilizando R 4.6, garantizando ausencia de errores de sintaxis o incompatibilidades de paquetes (e.g. validación de objetos `shiny.appobj`).
+- **Sitio web:** Reconstruido y verificado (`node web/src/test.mjs`): 58 páginas, 58 fichas disponibles y 58 apps interactivas enlazadas en el portal educativo. Portada con línea de tiempo viva, buscador en tiempo real, filtros temáticos y modo claro/oscuro.

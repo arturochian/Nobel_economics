@@ -1,7 +1,15 @@
 library(shiny)
 library(bslib)
 
-source("R/cargar_modelo.R", local = TRUE)
+ruta_cargar <- c(
+  "R/cargar_modelo.R",
+  "laureados/1969_frisch_tinbergen/shiny/R/cargar_modelo.R",
+  "../replicacion/R/modelo_dinamico.R",
+  "laureados/1969_frisch_tinbergen/replicacion/R/modelo_dinamico.R"
+)
+ruta_cargar <- ruta_cargar[file.exists(ruta_cargar)][1]
+if (is.na(ruta_cargar)) stop("No se encontro modelo para 1969")
+source(ruta_cargar, local = TRUE)
 
 ui <- page_sidebar(
   title = "1969 · Impulsos y propagación",
@@ -16,7 +24,7 @@ ui <- page_sidebar(
   ),
   card(
     card_header("Respuesta de la actividad"),
-    plotOutput("irf", alt = "Línea temporal de la desviación de la actividad después de un impulso económico"),
+    plotOutput("irf"),
     uiOutput("lectura")
   ),
   card(

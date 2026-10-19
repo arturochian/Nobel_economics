@@ -25,3 +25,8 @@ Este documento registra las decisiones clave tomadas durante el desarrollo del p
 ## 2026-10-12: Despliegue estático en Netlify
 - **Decisión:** Preparar el sitio para despliegue continuo en Netlify con el dominio previsto `nobel.arturochian.com`. La configuración vive en `netlify.toml`: base `web`, comando `npm run build`, publicación desde `web/dist` y Node.js 22.
 - **Motivación:** El sitio es completamente estático; Netlify puede construirlo desde GitHub tras cada cambio en `main`, mientras que la VPS queda disponible para validar, automatizar el repositorio y alojar únicamente las aplicaciones Shiny que no puedan exportarse con Shinylive.
+
+## 2026-10-13: Estandarización y Cobertura Total de Aplicaciones Shiny (1969–2026)
+- **Decisión:** Implementar y certificar una aplicación interactiva Shiny (`laureados/<slug>/shiny/app.R`) para cada uno de los 58 laureados (1969 a 2026), verificando su ejecución sin errores (`shiny.appobj` válido) mediante `scripts/verificar_shiny.R`.
+- **Estandarización de Interfaz:** Se utiliza `bslib::page_sidebar()` con Bootswatch `flatly` o `minty`, controles deslizantes paramétricos específicos de la teoría del laureado, botón de restablecimiento a valores canónicos, visualizaciones en tiempo real e interpretación pedagógica del resultado en tarjeta dedicada.
+- **Robustez de Ejecución:** Se eliminó cualquier uso de argumentos no soportados en R base/Shiny (como `alt` en `plotOutput`) y se aseguró que cada app resuelva o simule los modelos económicos fielmente sin fallos de rutas ni dependencias rotas.
